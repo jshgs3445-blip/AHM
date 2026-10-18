@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AHM - AI Health Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #008085;
+            --secondary-color: #013833;
+            --accent-color: #09427e;
+            --bg-color: #f4f7f6;
+            --card-bg: #FFFFFF;
+            --text-color: #263748;
+            --safe-green: #2e7d32;
+            --caution-orange: #ef6c00;
+            --danger-red: #c62828;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .phone-frame {
+            width: 100%;
+            max-width: 480px;
+            height: 100vh;
+            max-height: 900px;
+            background: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .result-card {
+            background: #f9f9f9;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .result-card h3 {
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .result-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #4a5568;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+        }
+        .badge.good { background-color: var(--safe-green); }
+        .badge.caution { background-color: var(--caution-orange); }
+        .badge.bad { background-color: var(--danger-red); }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <header>
+            <i class="fa-solid fa-heart-pulse"></i> AHM - AI Health Manager
+        </header>
+        <div class="content">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="영양소 또는 조합을 입력하세요 (예: 비타민C, 오메가3)">
+                <button onclick="searchSupplement()">검색</button>
+            </div>
+            <div id="searchResult">
+                <div class="result-card">
+                    <h3>환영합니다!</h3>
+                    <p>궁금한 영양소나 조합을 검색하여 효능, 복용법, 궁합 정보를 확인해 보세요.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const supplementLocalDb = {
+            "비타민c": { 
+                name: "비타민 C (Ascorbic Acid)", 
+                type: "single",
+                info: "항산화 작용 및 면역력 강화에 도움을 줍니다. 철분 흡수를 촉진합니다.",
+                tip: "식후 복용 시 위장 장애를 줄일 수 있습니다."
+            },
+            "오메가3": { 
+                name: "오메가-3 (Omega-3)", 
+                type: "single",
+                info: "혈중 중성지질 개선 및 혈행 개선에 도움을 줍니다.",
+                tip: "지용성이므로 지방이 포함된 식사 후 복용이 흡수율을 높입니다."
+            },
+            "유산균": { 
+                name: "프로바이오틱스 (유산균)", 
+                type: "single",
+                info: "장 건강 및 유익균 증식, 배변 활동 원활에 도움을 줍니다.",
+                tip: "위산이 적은 아침 공복이나 식전 복용이 가장 효과적입니다."
+            },
+            "비타민c+철분": {
+                name: "비타민 C + 철분 조합",
+                type: "combination",
+                grade: "good",
+                gradeText: "최고의 궁합",
+                info: "비타민 C는 체내 철분 흡수율을 획기적으로 높여주므로 빈혈 예방에 매우 훌륭한 조합입니다."
+            },
+            "칼슘+마그네슘": {
+                name: "칼슘 + 마그네슘 (칼마디)",
+                type: "combination",
+                grade: "good",
+                gradeText: "안정적인 궁합",
+                info: "뼈 건강과 신경·근육 기능 유지를 위해 이상적인 비율(2:1 또는 1:1)로 함께 자주 배합되는 조합입니다."
+            }
+        };
+
+        function searchSupplement() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const resultDiv = document.getElementById('searchResult');
+            
+            if (!query) {
+                resultDiv.innerHTML = `<div class="result-card"><h3>알림</h3><p>검색어를 입력해 주세요.</p></div>`;
+                return;
+            }
+
+            // 키워드 정규화 및 검색 매칭
+            const cleanedQuery = query.replace(/\s+/g, '');
+            let found = supplementLocalDb[cleanedQuery] || supplementLocalDb[query];
+
+            // 조합 검색어 유연성 확보 (예: "철분 비타민c" 등 순서 무관 검색)
+            if (!found && (query.includes('+') || query.includes('과') || query.includes('그리고'))) {
+                const parts = query.split(/[\+\s과와그리고]+/).filter(Boolean);
+                if (parts.length === 2) {
+                    const revKey = `${parts[1]}+${parts[0]}`;
+                    const fwdKey = `${parts[0]}+${parts[1]}`;
+                    found = supplementLocalDb[fwdKey] || supplementLocalDb[revKey];
+                }
+            }
+
+            if (found) {
+                if (found.type === 'combination') {
+                    resultDiv.innerHTML = `
+                        <div class="result-card">
+                            <span class="badge ${found.grade}">${found.gradeText}</span>
+                            <h3>${found.name}</h3>
+                            <p>${found.info}</p>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="result-card">
+                            <span class="badge good">단일 영양소</span>
+                            <h3>${found.name}</h3>
+                            <p><strong>효능:</strong> ${found.info}</p>
+                            <p style="margin-top: 8px;"><strong>복용 팁:</strong> ${found.tip}</p>
+                        </div>
+                    `;
+                }
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="result-card" style="border-left-color: var(--caution-orange);">
+                        <h3>검색 결과</h3>
+                        <p>'${query}'에 대한 로컬 데이터베이스 검색 결과입니다. 기본 단일 성분 또는 등록된 주요 조합에 해당하지 않는 경우 상세 가이드를 준비 중입니다.</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
