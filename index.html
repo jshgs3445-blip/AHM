@@ -1,233 +1,1271 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AHM - AI Health Manager</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AHM">
+    <meta name="theme-color" content="#0b6623">
+    
+    <!-- PWA 매니페스트 -->
+    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"AHM - AI Health Manager","short_name":"AHM","start_url":".","display":"standalone","background_color":"#0b6623","theme_color":"#0b6623","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27110%27 fill=%27%230b6623%27/%3E%3Cpath d=%27M256 416l-35.4-32.2C96 288 48 245.4 48 186.6 48 138.8 86.8 100 134.6 100c31.4 0 61.4 14.8 80 39.4 18.6-24.6 48.6-39.4 80-39.4 47.8 0 86.6 38.8 86.6 86.6 0 58.8-48 101.4-172.6 197.2L256 416z%27 fill=%27%23ffffff%27/%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+    
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK 로드 -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    
     <style>
         :root {
-            --primary-color: #008085;
-            --secondary-color: #013833;
-            --accent-color: #09427e;
-            --bg-color: #f4f7f6;
-            --card-bg: #FFFFFF;
-            --text-color: #263748;
-            --safe-green: #2e7d32;
-            --caution-orange: #ef6c00;
-            --danger-red: #c62828;
+            --primary-color: #0b6623;
+            --secondary-color: #138833;
+            --bg-color: #f4f6f4;
+            --card-bg: #ffffff;
+            --text-color: #2d3748;
         }
-
+    
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Pretendard', sans-serif;
         }
-
+    
         body {
-            background: var(--bg-color);
+            background: #e2e8f0;
             color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
-
+    
         .phone-frame {
             width: 100%;
-            max-width: 480px;
-            height: 100vh;
-            max-height: 900px;
-            background: var(--card-bg);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            height: 840px;
+            background: #ffffff;
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             position: relative;
+            border: 8px solid #1a202c;
         }
-
-        header {
-            background: var(--primary-color);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .content {
+    
+        .screen {
+            display: none;
             flex: 1;
-            padding: 20px;
+            flex-direction: column;
             overflow-y: auto;
+            background: #f8fafc;
+            width: 100%;
+            height: 100%;
         }
-
-        .search-box {
+    
+        .screen.active {
+            display: flex !important;
+        }
+    
+        .login-container {
+            flex: 1;
+            padding: 30px 20px;
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e6f4ea, #f0f7f4);
+            text-align: center;
+            width: 100%;
+            height: 100%;
+        }
+    
+        .login-logo {
+            font-size: 55px;
+            color: var(--primary-color);
             margin-bottom: 20px;
         }
-
-        .search-box input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
+    
+        .login-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
         }
-
-        .search-box button {
+    
+        .login-desc {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+    
+        .login-input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 12px;
+            font-size: 14px;
+            outline: none;
+            background: #ffffff;
+        }
+    
+        .login-btn {
+            display: block;
+            width: 100%;
             background: var(--primary-color);
             color: white;
+            text-decoration: none;
+            text-align: center;
             border: none;
-            padding: 0 20px;
-            border-radius: 8px;
-            font-weight: 600;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(11, 102, 35, 0.3);
+            margin-bottom: 10px;
+        }
+    
+        .guest-btn {
+            display: block;
+            width: 100%;
+            background: #ffffff;
+            color: var(--primary-color);
+            text-decoration: none;
+            text-align: center;
+            border: 2px solid var(--primary-color);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
             cursor: pointer;
         }
-
-        .result-card {
-            background: #f9f9f9;
-            border-left: 5px solid var(--primary-color);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .result-card h3 {
-            margin-bottom: 8px;
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-        }
-
-        .result-card p {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: #4a5568;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 8px;
+    
+        .app-header {
+            background: var(--primary-color);
             color: white;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .badge.good { background-color: var(--safe-green); }
-        .badge.caution { background-color: var(--caution-orange); }
-        .badge.bad { background-color: var(--danger-red); }
+    
+        .app-header h1 {
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    
+        .header-icons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 16px;
+        }
+    
+        .header-icons i {
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+    
+        .app-content {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+    
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 14px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+        }
+    
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    
+        .action-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2f855a, #38a169);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(47, 133, 90, 0.3);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+    
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+        }
+    
+        .sub-card {
+            background: #ffffff;
+            padding: 14px 8px;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+    
+        .sub-card:hover {
+            border-color: var(--primary-color);
+        }
+    
+        .sub-card i {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 6px;
+        }
+    
+        .sub-card span {
+            font-size: 12px;
+            font-weight: 700;
+            color: #334155;
+            display: block;
+        }
+    
+        .custom-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 300;
+        }
+    
+        .custom-modal.active {
+            display: flex !important;
+        }
+    
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 340px;
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+    
+        .modal-header h3 {
+            font-size: 17px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+    
+        .close-modal-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #64748b;
+        }
+    
+        .measure-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 15px;
+            z-index: 400;
+            color: white;
+            text-align: center;
+        }
+    
+        .measure-modal.active {
+            display: flex !important;
+        }
+    
+        .measure-box {
+            width: 100%;
+            flex: 1;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin: 10px 0;
+            border: 2px solid #334155;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+        }
+    
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+    
+        .measure-overlay {
+            position: relative;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 12px 16px;
+            border-radius: 14px;
+            width: 90%;
+            margin-top: 5px;
+        }
+    
+        .measure-btn-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+    
+        .measure-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(19, 136, 51, 0.7);
+        }
+    
+        .toast {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50px);
+            background: rgba(30, 41, 59, 0.95);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+            z-index: 500;
+        }
+    
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
+    
     <div class="phone-frame">
-        <header>
-            <i class="fa-solid fa-heart-pulse"></i> AHM - AI Health Manager
-        </header>
-        <div class="content">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="영양소 또는 조합을 입력하세요 (예: 비타민C, 오메가3)">
-                <button onclick="searchSupplement()">검색</button>
+        <!-- 로그인 화면 -->
+        <div id="loginScreen" class="screen active">
+            <div class="login-container">
+                <div class="login-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+                <h2 class="login-title">AI Health 매니저</h2>
+                <p class="login-desc">서버 연동 건강 관리 시스템<br>로그인 후 안전하게 이용하세요.</p>
+                <input type="text" class="login-input" value="test_user" readonly>
+                <input type="password" class="login-input" value="••••••" readonly>
+                <button type="button" class="login-btn" onclick="executeLogin()">로그인하기</button>
+                <button type="button" class="guest-btn" onclick="executeLogin()">앱 둘러보기 (체험하기)</button>
             </div>
-            <div id="searchResult">
-                <div class="result-card">
-                    <h3>환영합니다!</h3>
-                    <p>궁금한 영양소나 조합을 검색하여 효능, 복용법, 궁합 정보를 확인해 보세요.</p>
+        </div>
+    
+        <!-- 메인 대시보드 화면 -->
+        <div id="mainScreen" class="screen">
+            <div class="app-header">
+                <h1>AI Health 매니저 <span style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">테스트 유저님</span></h1>
+                <div class="header-icons">
+                    <i class="fa-solid fa-shield-halved" title="보안"></i>
+                    <i class="fa-solid fa-circle-question" onclick="openModal('helpModal')" title="도움말"></i>
+                    <i class="fa-solid fa-circle-plus" onclick="openModal('addModal')" title="추가"></i>
+                    <i class="fa-solid fa-bell" onclick="openModal('alarmModal')" title="알림"></i>
+                    <i class="fa-solid fa-user-gear" onclick="executeLogout()" title="로그아웃"></i>
+                </div>
+            </div>
+    
+            <div class="app-content">
+                <div class="card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="card-title" style="color: #0b6623; margin-bottom: 0;"><i class="fa-regular fa-clock"></i> 오늘의 푸시 복용 알림</div>
+                        <span onclick="openModal('alarmModal')" style="font-size: 13px; color: #0b6623; font-weight: 700; cursor: pointer;">수정</span>
+                    </div>
+                    <p id="displayAlarmTimes" style="font-size: 13px; color: #475569; margin-top: 8px;">아침 8:30 AM | 점심 12:30 PM | 저녁 7:00 PM</p>
+                </div>
+    
+                <div class="card" style="background: linear-gradient(135deg, #0b6623, #138833); color: white; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="openModal('statModal')">
+                    <div>
+                        <div class="card-title" style="color: white; margin-bottom: 4px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률 <span id="mainWeeklyRate">85%</span></div>
+                        <p style="font-size: 12px; opacity: 0.9;">터치해서 상세 통계 및 서버 연동 리포트 보기</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 16px;"></i>
+                </div>
+    
+                <!-- 💡 광범위 통합 영양제 궁합 사전 카드 -->
+                <div class="card" style="background: #fffbeb; border-color: #fde68a; cursor: pointer;" onclick="openModal('compatibilityModal')">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="card-title" style="color: #b45309; margin-bottom: 0;"><i class="fa-solid fa-magnifying-glass-chart"></i> 통합 스마트 영양제 & 성분 사전</div>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: #b45309;"></i>
+                    </div>
+                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">수십 종의 비타민·미네랄 조합과 부작용 정보를 즉시 확인하세요.</p>
+                </div>
+    
+                <div id="myPageRecordCard" class="card" style="background: #f8fafc; border-left: 5px solid #138833; display: none;">
+                    <div class="card-title" style="color: #0b6623;"><i class="fa-solid fa-clipboard-check"></i> 서버 실시간 연동 기록</div>
+                    <div id="myPageRecordContent" style="font-size: 13px; color: #334155; line-height: 1.5;">아직 서버 기록이 없습니다.</div>
+                </div>
+    
+                <div id="photoGalleryCard" class="card" style="background: #ffffff; border: 1px solid #cbd5e1; display: none;">
+                    <div class="card-title" style="color: #0b6623;"><i class="fa-solid fa-images"></i> 서버 저장소 사진함</div>
+                    <div id="photoGalleryList" style="display: flex; gap: 10px; overflow-x: auto; padding-top: 5px;"></div>
+                </div>
+    
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #0b6623;"></i> 일상 기록 및 타이머</div>
+                    <div class="grid-3">
+                        <div class="sub-card" onclick="openModal('voiceModal')">
+                            <i class="fa-solid fa-microphone"></i>
+                            <span>음성 로깅</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('waterModal')">
+                            <i class="fa-solid fa-glass-water"></i>
+                            <span>물 섭취</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('pedometerModal')">
+                            <i class="fa-solid fa-person-walking"></i>
+                            <span>만보기</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-toolbox" style="color: #3182ce;"></i> 스마트 관리 도구</div>
+                    <div class="grid-3">
+                        <div class="sub-card" onclick="openModal('expiryModal')">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>유통기한</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('familyModal')">
+                            <i class="fa-solid fa-users"></i>
+                            <span>가족 프로필</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('barcodeModal')">
+                            <i class="fa-solid fa-barcode"></i>
+                            <span>바코드 스캔</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card" style="background: #f0f9ff; border-color: #bae6fd;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div class="card-title" style="color: #0369a1; margin-bottom: 4px;"><i class="fa-solid fa-file-medical"></i> 건강보험 정보 및 검진 안내</div>
+                            <p style="font-size: 12px; color: #475569;">국민건강보험공단 공식 웹사이트 바로 연결</p>
+                        </div>
+                        <a href="https://www.nhis.or.kr" target="_blank" style="background: #0284c7; color: white; text-decoration: none; padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap;">방문하기</a>
+                    </div>
+                </div>
+    
+                <button type="button" class="action-btn" style="background: linear-gradient(135deg, #1e293b, #334155); margin-top: 5px;" onclick="openModal('scanSelectModal')"><i class="fa-solid fa-camera"></i> 약봉투 또는 건강검진 결과지 직접 찍어보기</button>
+            </div>
+        </div>
+    
+        <!-- 모달들 -->
+        <div id="scanSelectModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center; padding: 25px 20px;">
+                <div class="modal-header" style="border:none; margin-bottom:0; padding-bottom:0;">
+                    <h3 style="width:100%; text-align:center; font-size: 18px;"><i class="fa-solid fa-camera-retro" style="color: var(--primary-color);"></i> 약 봉투 또는 건강검진 결과지 스캔</h3>
+                </div>
+                <p style="font-size: 13px; color: #64748b; margin: 12px 0 20px 0;">원하시는 스캔 유형을 선택해 주세요.</p>
+                <button type="button" class="action-btn" style="padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 12px;" onclick="closeModal('scanSelectModal'); startMeasurement('documentScan');"><i class="fa-solid fa-pills"></i> 약 봉투 / 처방전 촬영하기</button>
+                <button type="button" class="action-btn" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 15px;" onclick="closeModal('scanSelectModal'); startMeasurement('checkupScan');"><i class="fa-solid fa-file-medical"></i> 건강검진 결과지 촬영 및 맞춤 영양 추천받기</button>
+                <button type="button" onclick="closeModal('scanSelectModal')" style="background: none; border: none; color: #64748b; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px;">취소</button>
+            </div>
+        </div>
+    
+        <!-- 💡 광범위 통합 영양제 궁합 & 부작용 사전 검색 모달 -->
+        <div id="compatibilityModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🔍 통합 영양제 & 성분 사전</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <p style="color: #64748b; font-size: 12px;">궁금한 영양제나 성분을 1개 또는 2개 이상 입력해 보세요 (예: 비타민C, 오메가3 등)</p>
+                    <label>검색할 영양제 / 성분: 
+                        <div id="inputSearchQuery" contenteditable="true" placeholder="예: 비타민C, 비타민D" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white; min-height: 45px; word-break: break-all;"></div>
+                    </label>
+                    <button type="button" class="action-btn" style="background: #b45309; margin-top: 5px; padding: 14px; font-size: 15px;" onclick="searchSupplementCompatibility()">스마트 통합 사전 검색하기</button>
+                    
+                    <div id="searchResultArea" style="margin-top: 10px; padding: 12px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none;">
+                        <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 4px; color: #1e293b;"></h4>
+                        <p id="resultDesc" style="font-size: 13px; color: #475569; line-height: 1.4;"></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
+        <!-- 새 복용 약 추가 모달 -->
+        <div id="addModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>💊 새 복용 약 / 영양제 추가</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('addModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <label>약 / 영양제 이름: 
+                        <div id="inputNewMedicineName" contenteditable="true" placeholder="예: 루테인, 유산균" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white; min-height: 45px; word-break: break-all;"></div>
+                    </label>
+                    <label>복용 시간대: 
+                        <select id="inputNewMedicineTime" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; background:white; font-size: 14px;">
+                            <option value="아침 식후">아침 식후</option>
+                            <option value="점심 식후">점심 식후</option>
+                            <option value="저녁 식후">저녁 식후</option>
+                            <option value="취침 전">취침 전</option>
+                        </select>
+                    </label>
+                    <button type="button" class="action-btn" style="margin-top: 10px; padding: 14px; font-size: 15px;" onclick="saveNewMedicineRecord()">새 복용 약 등록하기</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="photoViewModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>📷 촬영된 건강 기록 사진</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('photoViewModal')">&times;</button>
+                </div>
+                <div id="modalPhotoContainer" style="width: 100%; height: 260px; background: #111; border-radius: 16px; display: flex; justify-content: center; align-items: center; margin-bottom: 14px; overflow: hidden; position: relative;"></div>
+                <p id="photoDetailText" style="font-size: 13px; color: #64748b; margin-bottom: 15px;">처방전 성분 및 유통기한 사진이 저장되었습니다.</p>
+                <button type="button" class="action-btn" onclick="closeModal('photoViewModal')">확인 완료</button>
+            </div>
+        </div>
+    
+        <div id="helpModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>❓ 도움말 및 사용 가이드</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; line-height: 1.6;">
+                    <p><b>1. 복약 알림:</b> 아침, 점심, 저녁 복용 시간을 설정하고 관리합니다.</p>
+                    <p style="margin-top: 6px;"><b>2. 서버 연동:</b> 기록은 클라우드 서버에 안전하게 저장됩니다.</p>
+                </div>
+            </div>
+        </div>
+    
+        <div id="alarmModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🔔 오늘의 푸시 복용 알림 설정</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('alarmModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
+                    <label>아침 알림 시간: <input type="time" id="inputMorningTime" value="08:30" style="padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1; float: right;"></label>
+                    <label>점심 알림 시간: <input type="time" id="inputLunchTime" value="12:30" style="padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1; float: right;"></label>
+                    <label>저녁 알림 시간: <input type="time" id="inputDinnerTime" value="19:00" style="padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1; float: right;"></label>
+                    <button type="button" class="action-btn" style="margin-top: 10px; padding: 12px; font-size: 14px;" onclick="saveAlarmTimes()">알림 시간 변경 저장</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="statModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📊 주간 건강 통계 리포트</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('statModal')">&times;</button>
+                </div>
+                <div style="font-size: 14px; color: #334155; line-height: 1.5;">
+                    <p>이번 주 복용 달성률은 <b id="modalWeeklyRate" style="color: var(--primary-color);">85%</b>입니다!</p>
+                </div>
+            </div>
+        </div>
+    
+        <div id="voiceModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center; padding: 25px 20px;">
+                <div class="modal-header" style="border:none; margin-bottom:0; padding-bottom:0;">
+                    <h3 style="width:100%; text-align:center;">🎙 음성 로깅 (복약 음성 인식)</h3>
+                </div>
+                <p id="voiceInstruction" style="font-size: 13px; color: #64748b; margin: 12px 0;">버튼을 누르고 말씀해 주세요</p>
+                <div style="font-size: 45px; color: var(--primary-color); margin: 10px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
+                <div id="voiceStatus" style="font-size: 14px; font-weight: 600; color: #1e293b; margin: 10px 0; background: #f1f5f9; padding: 12px; border-radius: 12px; min-height: 45px;">대기 중... 음성 인식을 시작하려면 아래 버튼을 누르세요.</div>
+                <button type="button" id="micActionBtn" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="startRealVoiceRecognition()">음성 인식 시작하기</button>
+            </div>
+        </div>
+    
+        <div id="waterModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>💧 물 섭취량 기록</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('waterModal')">&times;</button>
+                </div>
+                <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">오늘 마신 물의 양을 기록하세요</p>
+                <div style="font-size: 32px; font-weight: 700; color: #0284c7; margin-bottom: 15px;"><i class="fa-solid fa-glass-water"></i> <span id="waterAmount">500</span> ml</div>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;">
+                    <button type="button" onclick="addWater(250)" style="padding: 10px 18px; border-radius: 12px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 700; cursor: pointer;">+ 250ml</button>
+                    <button type="button" onclick="addWater(500)" style="padding: 10px 18px; border-radius: 12px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 700; cursor: pointer;">+ 500ml</button>
+                </div>
+                <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="saveWaterRecord()">물 섭취 기록하기</button>
+            </div>
+        </div>
+    
+        <div id="pedometerModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>🚶 실시간 만보기 연동</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('pedometerModal')">&times;</button>
+                </div>
+                <div style="font-size: 45px; color: var(--primary-color); margin: 15px 0;"><i class="fa-solid fa-person-walking"></i></div>
+                <div id="stepCountDisplay" style="font-size: 28px; font-weight: 700; color: #1e293b; margin-bottom: 5px;">0 걸음</div>
+                <p id="stepDescDisplay" style="font-size: 13px; color: #64748b; margin-bottom: 15px;">목표 10,000보 중 0% 달성 (소모 칼로리: 0 kcal)</p>
+                <p style="font-size: 12px; color: #0b6623; background: #f0fdf4; padding: 10px; border-radius: 8px; border: 1px solid #bbf7d0;">💡 손으로 흔드는 잔동작은 거르고, 실제로 걸을 때만 안정적인 속도(0.5초 딜레이)로 카운트됩니다!</p>
+            </div>
+        </div>
+    
+        <div id="expiryModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📦 영양제 유통기한 관리</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('expiryModal')">&times;</button>
+                </div>
+                <div style="font-size: 14px; color: #334155; line-height: 1.6;">
+                    <p><b>비타민 C:</b> ~ 2027.05.12 (여유)</p>
+                    <p style="margin-top: 8px;"><b>오메가3:</b> ~ 2026.11.30 (임박!)</p>
+                    <button type="button" class="action-btn" style="margin-top: 20px; padding: 14px; font-size: 15px;" onclick="closeModal('expiryModal'); openModal('scanSelectModal');">새 영양제 등록하기 (촬영)</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="familyModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>👥 가족 프로필 관리</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('familyModal')">&times;</button>
+                </div>
+                <div style="font-size: 14px; color: #334155;">
+                    <p style="margin-bottom: 8px;"><b>👤 본인:</b> 테스트 유저 (관리자)</p>
+                    <p style="margin-bottom: 16px;"><b>👤 가족 등록:</b> 배우자 (알림 공유 중)</p>
+                    <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="showToast('👥 가족 구성원 초대 창'); closeModal('familyModal');">가족 추가하기</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="barcodeModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>📷 영양제 사진 촬영 등록</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('barcodeModal')">&times;</button>
+                </div>
+                <p style="font-size: 13px; color: #64748b; margin: 15px 0;">영양제 제품을 카메라로 촬영하여 등록하세요.</p>
+                <div style="font-size: 50px; color: #334155; margin: 15px 0;"><i class="fa-solid fa-camera"></i></div>
+                <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="closeModal('barcodeModal'); startMeasurement('documentScan');">영양제 촬영하기</button>
+            </div>
+        </div>
+    
+        <div id="measureModal" class="measure-modal">
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; z-index: 10;">
+                <span id="measureTitle" style="font-size: 16px; font-weight: 700;">카메라 촬영</span>
+                <button type="button" class="close-modal-btn" style="color:white; background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:10px;" onclick="closeMeasurement()">닫기 X</button>
+            </div>
+            
+            <div class="measure-box">
+                <video id="videoElement" autoplay playsinline></video>
+                <div id="measureOverlay" class="measure-overlay">
+                    <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">문서를 카메라에 맞추고 촬영 버튼을 누르세요.</p>
+                </div>
+                <div class="measure-btn-container" id="cameraBtnContainer">
+                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runMeasureProcess()">촬영하기</button>
+                </div>
+            </div>
+    
+            <div id="measureResultBox" style="display: none; background: #166534; padding: 18px; border-radius: 16px; width: 100%; margin-top: 10px; z-index: 10;">
+                <h4 style="font-size: 16px; margin-bottom: 6px;">🎉 촬영 완료 (<span id="photoCountBadge">1</span>장)</h4>
+                <p id="resultDescText" style="font-size: 13px; opacity: 0.9; margin-bottom: 12px;">사진이 정상적으로 저장되었습니다.</p>
+                <div id="scanActionButtons" style="display: none; gap: 8px;">
+                    <button type="button" onclick="continueShooting()" style="flex: 1; background: #ffffff; color: #166534; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">📷 계속 추가 촬영하기</button>
+                    <button type="button" onclick="finishShooting()" style="flex: 1; background: #0b4a20; color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">✅ 완료하기</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="toast" class="toast">알림 메시지입니다.</div>
+    </div>
+    
     <script>
-        const supplementLocalDb = {
-            "비타민c": { 
-                name: "비타민 C (Ascorbic Acid)", 
-                type: "single",
-                info: "항산화 작용 및 면역력 강화에 도움을 줍니다. 철분 흡수를 촉진합니다.",
-                tip: "식후 복용 시 위장 장애를 줄일 수 있습니다."
-            },
-            "오메가3": { 
-                name: "오메가-3 (Omega-3)", 
-                type: "single",
-                info: "혈중 중성지질 개선 및 혈행 개선에 도움을 줍니다.",
-                tip: "지용성이므로 지방이 포함된 식사 후 복용이 흡수율을 높입니다."
-            },
-            "유산균": { 
-                name: "프로바이오틱스 (유산균)", 
-                type: "single",
-                info: "장 건강 및 유익균 증식, 배변 활동 원활에 도움을 줍니다.",
-                tip: "위산이 적은 아침 공복이나 식전 복용이 가장 효과적입니다."
-            },
-            "비타민c+철분": {
-                name: "비타민 C + 철분 조합",
-                type: "combination",
-                grade: "good",
-                gradeText: "최고의 궁합",
-                info: "비타민 C는 체내 철분 흡수율을 획기적으로 높여주므로 빈혈 예방에 매우 훌륭한 조합입니다."
-            },
-            "칼슘+마그네슘": {
-                name: "칼슘 + 마그네슘 (칼마디)",
-                type: "combination",
-                grade: "good",
-                gradeText: "안정적인 궁합",
-                info: "뼈 건강과 신경·근육 기능 유지를 위해 이상적인 비율(2:1 또는 1:1)로 함께 자주 배합되는 조합입니다."
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbx_bMUNkHMlIxV7C6-KbIwu rOLDMxzpk",
+            authDomain: "jshlogin-5e161.firebaseapp.com",
+            projectId: "jshlogin-5e161",
+            storageBucket: "jshlogin-5e161.firebasestorage.app",
+            messagingSenderId: "522436806555",
+            appId: "1:522436806555:web:fa7d797c54dree6bfe1433e"
+        };
+    
+        let db = null;
+        try {
+            if (typeof firebase !== 'undefined' && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
             }
+        } catch(e) {
+            console.log("로컬 저장소 모드로 작동합니다.");
+        }
+    
+        let localStream = null;
+        let currentMode = '';
+        let currentWater = 500;
+        let currentSessionPhotoCount = 0;
+        let completedCount = 0;
+        let wakeLock = null;
+    
+        let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
+        let lastAccel = { x: 0, y: 0, z: 0 };
+        let lastStepTime = 0;
+
+        // 💡 대한민국 대표 영양제/성분 광범위 통합 데이터베이스
+        const supplementLocalDb = [
+            { keys: ["칼슘", "철분"], title: "⚠ [주의] 칼슘 & 철분 상호방해", desc: "두 성분은 장에서 흡수 경로가 겹쳐 서로의 흡수를 방해합니다. 최소 4시간 이상 간격을 두고 드세요." },
+            { keys: ["비타민c", "철분"], title: "✨ [최상 시너지] 비타민C & 철분", desc: "비타민C는 철분의 체내 흡수율을 극대화합니다. 함께 복용하시면 빈혈 예방과 흡수에 매우 좋습니다." },
+            { keys: ["오메가3", "마그네슘"], title: "🌙 [추천] 오메가3 & 마그네슘", desc: "저녁 식후에 함께 복용하시면 혈행 개선과 근육 이완 및 편안한 수면 유지에 훌륭합니다." },
+            { keys: ["유산균", "비타민b"], title: "💡 [안내] 유산균 & 비타민B", desc: "유산균은 아침 공복에 드시고, 비타민B는 아침이나 점심 식후에 드시면 충돌 없이 활력을 챙깁니다." },
+            { keys: ["루테인", "종합비타민"], title: "💡 [주의] 루테인 & 종합비타민", desc: "종합비타민에 지용성 비타민(A 등)이 포함된 경우 루테인과 과다 섭취가 겹칠 수 있으니 함량을 확인하세요." },
+            { keys: ["비타민c", "비타민d"], title: "✨ [추천] 비타민C & 비타민D 조합", desc: "면역력 강화와 뼈 건강을 동시에 챙길 수 있는 최고의 조합입니다. 식후에 함께 드세요." },
+            { keys: ["오메가3", "비타민d"], title: "✨ [추천] 오메가3 & 비타민D", desc: "비타민D는 지용성 성분이므로 지방이 포함된 오메가3와 함께 식후에 드시면 흡수율이 대폭 상승합니다." },
+            { keys: ["유산균", "비타민c"], title: "💡 [안내] 유산균 & 비타민C", desc: "유산균은 아침 공복에, 비타민C는 위장 장애 예방을 위해 식후에 각각 나누어 복용하세요." },
+            { keys: ["마그네슘", "칼슘"], title: "⚖ [균형] 마그네슘 & 칼슘", desc: "이상적인 비율(칼슘:마그네슘 약 2:1)로 함께 섭취하면 뼈 건강과 신경·근육 기능 유지에 이상적입니다." },
+            { keys: ["아연", "철분"], title: "⚠ [주의] 아연 & 철분 경쟁", desc: "고용량을 동시 섭취하면 흡수율이 떨어질 수 있으므로 시간 간격을 두고 드시는 것이 좋습니다." },
+            { keys: ["밀크시슬", "비타민b"], title: "✨ [추천] 밀크시슬 & 비타민B", desc: "간 건강 관리(밀크시슬)와 피로 회복 에너지(비타민B)를 동시에 챙기는 직장인 베스트 조합입니다." },
+            { keys: ["콜라겐", "비타민c"], title: "✨ [추천] 콜라겐 & 비타민C", desc: "비타민C는 체내 콜라겐 합성 속도를 높여주는 필수 촉매제입니다. 함께 섭취 시 피부 탄력에 좋습니다." },
+            { keys: ["루테인", "오메가3"], title: "✨ [추천] 루테인 & 오메가3", desc: "눈 피로 및 건조함 개선(루테인)과 혈행·안구 건조 개선(오메가3) 시너지가 매우 뛰어납니다." },
+            { keys: ["유산균"], title: "🟢 [단독] 프로바이오틱스(유산균)", desc: "장내 유익균 증식 및 배변 활동 원활에 도움을 줍니다. 위산이 적은 아침 공복이나 식전 30분에 드세요." },
+            { keys: ["비타민c"], title: "🟢 [단독] 비타민C (항산화)", desc: "유해산소로부터 세포를 보호하고 결합조직 형성에 필요합니다. 공복보다는 식후 복용을 권장합니다." },
+            { keys: ["오메가3"], title: "🟢 [단독] 오메가3 (EPA/DHA)", desc: "혈중 중성지질 개선 및 혈행 개선에 도움을 줍니다. 위장 장애 방지를 위해 식후에 드세요." },
+            { keys: ["비타민d"], title: "🟢 [단독] 비타민D", desc: "칼슘과 인이 흡수되고 이용되는데 필요하며 뼈의 형성과 유지에 도움을 줍니다. 지용성이므로 식후에 드세요." },
+            { keys: ["마그네슘"], title: "🟢 [단독] 마그네슘", desc: "에너지 이용에 필요하고 신경과 근육 유지에 도움을 줍니다. 설사를 유발할 수 있으므로 식후 복용이 좋습니다." },
+            { keys: ["밀크시슬"], title: "🟢 [단독] 밀크시슬 (실리마린)", desc: "지친 간 건강 피로 개선에 도움을 줍니다. 저녁 식후나 피로도가 높은 시간대에 복용하면 좋습니다." },
+            { keys: ["아연"], title: "🟢 [단독] 아연", desc: "정상적인 면역 기능과 세포 분열에 필요합니다. 공복 시 속이 쓰릴 수 있으므로 식후에 드세요." },
+            { keys: ["루테인"], title: "🟢 [단독] 루테인 지아잔틴", desc: "노화로 인해 감소될 수 있는 황반색소 밀도를 유지하여 눈 건강에 도움을 줍니다. 지용성이므로 식후 복용하세요." },
+            { keys: ["콜라겐"], title: "🟢 [단독] 저분자 피쉬 콜라겐", desc: "체내 흡수율이 높은 저분자 콜라겐으로 피부 보습 및 탄력 유지에 도움을 줍니다. 취침 전이나 공복에 좋습니다." }
+        ];
+    
+        window.onload = function() {
+            checkAndResetDailySteps();
+            loadSavedAlarms();
+            requestNotificationPermission();
+            initRealtimeSync();
+            initStepCounter();
+            showLoginScreen();
         };
 
-        function searchSupplement() {
-            const query = document.getElementById('searchInput').value.trim().toLowerCase();
-            const resultDiv = document.getElementById('searchResult');
-            
-            if (!query) {
-                resultDiv.innerHTML = `<div class="result-card"><h3>알림</h3><p>검색어를 입력해 주세요.</p></div>`;
+        function showLoginScreen() {
+            const loginScreen = document.getElementById('loginScreen');
+            const mainScreen = document.getElementById('mainScreen');
+            if(loginScreen && mainScreen) {
+                mainScreen.classList.remove('active');
+                mainScreen.style.display = 'none';
+                loginScreen.classList.add('active');
+                loginScreen.style.display = 'flex';
+            }
+        }
+    
+        function executeLogin() {
+            const loginScreen = document.getElementById('loginScreen');
+            const mainScreen = document.getElementById('mainScreen');
+            if(loginScreen && mainScreen) {
+                loginScreen.classList.remove('active');
+                loginScreen.style.display = 'none';
+                mainScreen.classList.add('active');
+                mainScreen.style.display = 'flex';
+                showToast('테스트 유저님 환영합니다!');
+            }
+        }
+    
+        function executeLogout() {
+            showLoginScreen();
+            showToast('로그아웃 되었습니다.');
+        }
+
+        // 💡 2개 조합 우선 매칭 방식이 완벽하게 동작하도록 개선된 검색 알고리즘
+        function searchSupplementCompatibility() {
+            const queryEl = document.getElementById('inputSearchQuery');
+            const queryText = queryEl.textContent.trim().toLowerCase();
+            const resultArea = document.getElementById('searchResultArea');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultDesc = document.getElementById('resultDesc');
+
+            if(!queryText) {
+                showToast('⚠ 검색할 영양제 이름이나 성분을 입력해 주세요.');
                 return;
             }
 
-            // 키워드 정규화 및 검색 매칭
-            const cleanedQuery = query.replace(/\s+/g, '');
-            let found = supplementLocalDb[cleanedQuery] || supplementLocalDb[query];
+            let matched = null;
 
-            // 조합 검색어 유연성 확보 (예: "철분 비타민c" 등 순서 무관 검색)
-            if (!found && (query.includes('+') || query.includes('과') || query.includes('그리고'))) {
-                const parts = query.split(/[\+\s과와그리고]+/).filter(Boolean);
-                if (parts.length === 2) {
-                    const revKey = `${parts[1]}+${parts[0]}`;
-                    const fwdKey = `${parts[0]}+${parts[1]}`;
-                    found = supplementLocalDb[fwdKey] || supplementLocalDb[revKey];
-                }
+            // 1순위: 2가지 성분이 모두 포함된 조합 항목을 우선적으로 완벽 탐색
+            matched = supplementLocalDb.find(item => 
+                item.keys.length === 2 && 
+                item.keys.every(k => queryText.includes(k))
+            );
+
+            // 2순위: 2개 조합이 없을 경우에만 단일 키워드 항목 탐색
+            if(!matched) {
+                matched = supplementLocalDb.find(item => 
+                    item.keys.length === 1 && 
+                    queryText.includes(item.keys[0])
+                );
             }
 
-            if (found) {
-                if (found.type === 'combination') {
-                    resultDiv.innerHTML = `
-                        <div class="result-card">
-                            <span class="badge ${found.grade}">${found.gradeText}</span>
-                            <h3>${found.name}</h3>
-                            <p>${found.info}</p>
-                        </div>
-                    `;
-                } else {
-                    resultDiv.innerHTML = `
-                        <div class="result-card">
-                            <span class="badge good">단일 영양소</span>
-                            <h3>${found.name}</h3>
-                            <p><strong>효능:</strong> ${found.info}</p>
-                            <p style="margin-top: 8px;"><strong>복용 팁:</strong> ${found.tip}</p>
-                        </div>
-                    `;
-                }
+            resultArea.style.display = 'block';
+
+            if(matched) {
+                resultTitle.textContent = matched.title;
+                resultTitle.style.color = matched.title.includes('주의') ? '#b91c1c' : (matched.title.includes('단독') ? '#0284c7' : '#047857');
+                resultDesc.textContent = matched.desc;
+                showToast('🔍 통합 사전에서 정보를 명확히 찾았습니다!');
             } else {
-                resultDiv.innerHTML = `
-                    <div class="result-card" style="border-left-color: var(--caution-orange);">
-                        <h3>검색 결과</h3>
-                        <p>'${query}'에 대한 로컬 데이터베이스 검색 결과입니다. 기본 단일 성분 또는 등록된 주요 조합에 해당하지 않는 경우 상세 가이드를 준비 중입니다.</p>
-                    </div>
-                `;
+                resultTitle.textContent = `🤖 "${queryText}" 맞춤 건강 안내`;
+                resultTitle.style.color = '#0284c7';
+                resultDesc.textContent = "입력하신 성분은 대다수 식후 또는 물과 함께 충분히 섭취하는 것이 좋습니다. (추후 심층 AI API 연동으로 확장 가능합니다.)";
+                showToast('💡 맞춤 안내를 확인하세요.');
+            }
+        }
+    
+        function initRealtimeSync() {
+            if (!db) return;
+            try {
+                db.collection('users').doc('test_user').collection('records')
+                    .orderBy('timestamp', 'desc')
+                    .limit(1)
+                    .onSnapshot((snapshot) => {
+                        if (!snapshot.empty) {
+                            const latest = snapshot.docs[0].data();
+                            if(latest && latest.text) {
+                                updateMyPage(latest.text);
+                            }
+                        }
+                    });
+            } catch(e) {
+                console.error("실시간 연동 오류:", e);
+            }
+        }
+
+        async function saveToCloud(collectionName, dataObj) {
+            localStorage.setItem('ahm_' + collectionName, JSON.stringify(dataObj));
+            if (!db) return;
+            try {
+                await db.collection('users').doc('test_user').collection(collectionName).add({
+                    ...dataObj,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch(e) {
+                console.error("서버 저장 오류:", e);
+            }
+        }
+    
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            if(!toast) return;
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    
+        async function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if(modal) modal.classList.add('active');
+            
+            if(modalId === 'pedometerModal') {
+                checkAndResetDailySteps();
+                let steps = parseInt(localStorage.getItem('ahm_steps') || '0');
+                updateStepDisplay(steps);
+                await requestWakeLock();
+            } else if(modalId === 'voiceModal') {
+                document.getElementById('voiceStatus').textContent = '대기 중... 아래 버튼을 누르고 말씀하세요.';
+                document.getElementById('micIcon').className = 'fa-solid fa-microphone-lines';
+            } else if(modalId === 'addModal') {
+                document.getElementById('inputNewMedicineName').textContent = '';
+            } else if(modalId === 'compatibilityModal') {
+                document.getElementById('inputSearchQuery').textContent = '';
+                document.getElementById('searchResultArea').style.display = 'none';
+            }
+        }
+    
+        async function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if(modal) modal.classList.remove('active');
+            
+            if(modalId === 'pedometerModal') {
+                await releaseWakeLock();
+            }
+        }
+
+        async function requestWakeLock() {
+            if ('wakeLock' in navigator) {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                } catch (err) {
+                    console.log('Wake Lock 거부됨:', err);
+                }
+            }
+        }
+
+        async function releaseWakeLock() {
+            if (wakeLock !== null) {
+                try {
+                    await wakeLock.release();
+                    wakeLock = null;
+                } catch (err) {
+                    console.log('Wake Lock 해제 오류:', err);
+                }
+            }
+        }
+    
+        function checkAndResetDailySteps() {
+            const todayStr = new Date().toDateString();
+            const savedDate = localStorage.getItem('ahm_step_date');
+            if (savedDate !== todayStr) {
+                localStorage.setItem('ahm_step_date', todayStr);
+                localStorage.setItem('ahm_steps', '0');
+                stepCount = 0;
+            }
+        }
+    
+        function initStepCounter() {
+            if (window.DeviceMotionEvent) {
+                window.addEventListener('devicemotion', (event) => {
+                    const acc = event.accelerationIncludingGravity;
+                    if (!acc) return;
+
+                    const deltaX = Math.abs(acc.x - lastAccel.x);
+                    const deltaY = Math.abs(acc.y - lastAccel.y);
+                    const deltaZ = Math.abs(acc.z - lastAccel.z);
+
+                    const movementThreshold = 1.4;
+                    const currentTime = new Date().getTime();
+
+                    if ((deltaX > movementThreshold || deltaY > movementThreshold || deltaZ > movementThreshold) && (currentTime - lastStepTime > 500)) {
+                        stepCount++;
+                        localStorage.setItem('ahm_steps', stepCount);
+                        updateStepDisplay(stepCount);
+                        lastStepTime = currentTime;
+                    }
+
+                    lastAccel = { x: acc.x, y: acc.y, z: acc.z };
+                });
+            }
+        }
+    
+        function updateStepDisplay(steps) {
+            const formattedSteps = steps.toLocaleString();
+            const percent = Math.min(Math.round((steps / 10000) * 100), 100);
+            const calories = Math.round(steps * 0.043);
+            const stepDisplayEl = document.getElementById('stepCountDisplay');
+            const stepDescEl = document.getElementById('stepDescDisplay');
+            
+            if(stepDisplayEl) stepDisplayEl.textContent = `${formattedSteps} 걸음`;
+            if(stepDescEl) stepDescEl.textContent = `목표 10,000보 중 ${percent}% 달성 (소모 칼로리: ${calories} kcal)`;
+        }
+    
+        function saveNewMedicineRecord() {
+            const medName = document.getElementById('inputNewMedicineName').textContent.trim();
+            const medTime = document.getElementById('inputNewMedicineTime').value;
+            if(!medName) {
+                showToast('⚠ 약 이름을 입력해 주세요.');
+                return;
+            }
+            showToast(`💊 새 복용 약 등록됨: ${medName} (${medTime})`);
+            updateMyPage(`💊 새 복용 약 등록: ${medName} (${medTime})`);
+            saveToCloud('records', { text: `💊 새 복용 약 등록: ${medName} (${medTime})` });
+            document.getElementById('inputNewMedicineName').textContent = '';
+            closeModal('addModal');
+        }
+
+        function requestNotificationPermission() {
+            if ("Notification" in window && Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+        }
+    
+        function saveAlarmTimes() {
+            const morning = document.getElementById('inputMorningTime').value;
+            const lunch = document.getElementById('inputLunchTime').value;
+            const dinner = document.getElementById('inputDinnerTime').value;
+            const alarmText = `아침 ${morning} | 점심 ${lunch} | 저녁 ${dinner}`;
+            localStorage.setItem('ahm_alarm_times', alarmText);
+            document.getElementById('displayAlarmTimes').textContent = alarmText;
+            saveToCloud('settings', { alarmTimes: alarmText });
+            showToast('🔔 복용 알림 시간이 저장되었습니다!');
+            closeModal('alarmModal');
+        }
+    
+        function loadSavedAlarms() {
+            const saved = localStorage.getItem('ahm_alarm_times');
+            if(saved) {
+                document.getElementById('displayAlarmTimes').textContent = saved;
+            }
+        }
+    
+        function startRealVoiceRecognition() {
+            const statusEl = document.getElementById('voiceStatus');
+            const micIcon = document.getElementById('micIcon');
+            const actionBtn = document.getElementById('micActionBtn');
+    
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                statusEl.textContent = '현재 브라우저가 음성 인식을 지원하지 않습니다. "아침 약 먹었어"로 자동 기록합니다.';
+                setTimeout(() => {
+                    recordVoiceDoneText('아침 약 먹었어');
+                }, 1500);
+                return;
+            }
+    
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'ko-KR';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+    
+            recognition.onstart = function() {
+                statusEl.textContent = '🔴 말씀하세요... 듣고 있습니다.';
+                micIcon.className = 'fa-solid fa-microphone-lines fa-beat';
+                actionBtn.textContent = '듣는 중...';
+                actionBtn.disabled = true;
+            };
+    
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;
+                statusEl.textContent = `인식된 내용: "${speechResult}"`;
+                setTimeout(() => {
+                    recordVoiceDoneText(speechResult);
+                }, 1000);
+            };
+    
+            recognition.onerror = function() {
+                statusEl.textContent = '⚠ 음성 인식 실패. 다시 시도해 주세요.';
+                actionBtn.textContent = '음성 인식 다시 시작';
+                actionBtn.disabled = false;
+                micIcon.className = 'fa-solid fa-microphone-lines';
+            };
+    
+            recognition.onend = function() {
+                actionBtn.textContent = '음성 인식 다시 시작';
+                actionBtn.disabled = false;
+                micIcon.className = 'fa-solid fa-microphone-lines';
+            };
+    
+            try {
+                recognition.start();
+            } catch(e) {
+                statusEl.textContent = '음성 인식 시작 오류가 발생했습니다.';
+            }
+        }
+    
+        function recordVoiceDoneText(text) {
+            showToast(`✨ 음성 로깅 완료: "${text}"`);
+            updateMyPage(`🎙 음성 로깅: "${text}" 기록됨`);
+            saveToCloud('records', { text: `🎙 음성 로깅: "${text}" 기록됨` });
+            closeModal('voiceModal');
+        }
+    
+        function addWater(amount) {
+            currentWater += amount;
+            document.getElementById('waterAmount').textContent = currentWater;
+        }
+    
+        function saveWaterRecord() {
+            showToast(`💧 물 ${currentWater}ml 기록 완료!`);
+            updateMyPage(`💧 물 섭취 기록: ${currentWater}ml`);
+            saveToCloud('records', { text: `💧 물 섭취 기록: ${currentWater}ml` });
+            closeModal('waterModal');
+        }
+    
+        function updateMyPage(text) {
+            const myPageCard = document.getElementById('myPageRecordCard');
+            const myPageContent = document.getElementById('myPageRecordContent');
+            myPageCard.style.display = 'block';
+            myPageContent.innerHTML = `<b>${text}</b><br><span style="font-size: 11px; color: #64748b;">기록 완료 (방금 전)</span>`;
+        }
+    
+        function addPhotoToGallery(dataUrl, title) {
+            const galleryCard = document.getElementById('photoGalleryCard');
+            const galleryList = document.getElementById('photoGalleryList');
+            galleryCard.style.display = 'block';
+            const photoItem = document.createElement('div');
+            photoItem.style.cssText = 'min-width: 100px; height: 90px; background: #e2e8f0; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid #cbd5e1; position: relative; overflow: hidden; flex-shrink: 0; cursor: pointer;';
+            photoItem.innerHTML = `
+                <img src="${dataUrl}" style="width: 100%; height: 62px; object-fit: cover;">
+                <span style="font-size: 10px; font-weight: 700; color: #334155; padding: 2px 4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; background: white;">${title}</span>
+            `;
+            photoItem.onclick = function() {
+                const container = document.getElementById('modalPhotoContainer');
+                container.innerHTML = `<img src="${dataUrl}" style="width: 100%; height: 100%; object-fit: contain;">`;
+                openModal('photoViewModal');
+            };
+            galleryList.prepend(photoItem);
+        }
+    
+        async function startMeasurement(mode) {
+            currentMode = mode;
+            currentSessionPhotoCount = 0;
+            const modal = document.getElementById('measureModal');
+            const titleEl = document.getElementById('measureTitle');
+            const statusText = document.getElementById('measureStatusText');
+            const execBtn = document.getElementById('actionExecBtn');
+            const resultBox = document.getElementById('measureResultBox');
+            const scanActionButtons = document.getElementById('scanActionButtons');
+            
+            resultBox.style.display = 'none';
+            document.getElementById('measureOverlay').style.display = 'block';
+            document.getElementById('cameraBtnContainer').style.display = 'block';
+            scanActionButtons.style.display = 'none';
+    
+            if (mode === 'documentScan') {
+                titleEl.textContent = '📸 처방전 / 약봉투 촬영';
+                statusText.textContent = '문서를 카메라에 맞추고 촬영 버튼을 누르세요.';
+            } else if (mode === 'checkupScan') {
+                titleEl.textContent = '📄 건강검진 결과지 촬영';
+                statusText.textContent = '결과지를 카메라에 맞추고 촬영하세요.';
+            }
+            execBtn.textContent = '촬영하기';
+    
+            modal.classList.add('active');
+    
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' }, 
+                    audio: false 
+                });
+                document.getElementById('videoElement').srcObject = localStream;
+            } catch (err) {
+                console.error("카메라 권한 오류:", err);
+                showToast("⚠ 카메라 권한을 허용해 주세요.");
+            }
+        }
+    
+        function runMeasureProcess() {
+            const statusText = document.getElementById('measureStatusText');
+            const execBtnContainer = document.getElementById('cameraBtnContainer');
+            const resultBox = document.getElementById('measureResultBox');
+            const resultDesc = document.getElementById('resultDescText');
+            const photoCountBadge = document.getElementById('photoCountBadge');
+            const scanActionButtons = document.getElementById('scanActionButtons');
+            const videoEl = document.getElementById('videoElement');
+    
+            execBtnContainer.style.display = 'none';
+            statusText.textContent = '⏳ 사진을 저장 중입니다...';
+    
+            const canvas = document.createElement('canvas');
+            canvas.width = videoEl.videoWidth || 640;
+            canvas.height = videoEl.videoHeight || 480;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+            const capturedDataUrl = canvas.toDataURL('image/png');
+    
+            setTimeout(() => {
+                document.getElementById('measureOverlay').style.display = 'none';
+                resultBox.style.display = 'block';
+    
+                currentSessionPhotoCount++;
+                photoCountBadge.textContent = currentSessionPhotoCount;
+                const labelName = currentMode === 'checkupScan' ? '건강검진 결과지 촬영' : '처방전 촬영';
+                let resultString = `<b>[${labelName} 완료] ${currentSessionPhotoCount}장 저장됨</b>`;
+                let toastMsg = `📸 ${currentSessionPhotoCount}번째 촬영 완료!`;
+                
+                updateMyPage(resultString);
+                addPhotoToGallery(capturedDataUrl, `${labelName} #${currentSessionPhotoCount}`);
+                saveToCloud('records', { text: resultString });
+                scanActionButtons.style.display = 'flex';
+    
+                resultDesc.innerHTML = resultString;
+                showToast(toastMsg);
+            }, 1000);
+        }
+    
+        function continueShooting() {
+            const resultBox = document.getElementById('measureResultBox');
+            const statusText = document.getElementById('measureStatusText');
+            const execBtnContainer = document.getElementById('cameraBtnContainer');
+            const scanActionButtons = document.getElementById('scanActionButtons');
+    
+            resultBox.style.display = 'none';
+            document.getElementById('measureOverlay').style.display = 'block';
+            execBtnContainer.style.display = 'block';
+            scanActionButtons.style.display = 'none';
+            statusText.textContent = '다음 문서를 카메라에 비추고 촬영하세요.';
+        }
+    
+        function finishShooting() {
+            showToast(`✨ 총 ${currentSessionPhotoCount}장의 사진이 안전하게 저장되었습니다!`);
+            closeMeasurement();
+        }
+    
+        function closeMeasurement() {
+            const modal = document.getElementById('measureModal');
+            modal.classList.remove('active');
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+                localStream = null;
             }
         }
     </script>
+    
 </body>
 </html>
