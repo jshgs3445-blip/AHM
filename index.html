@@ -564,4 +564,210 @@
                 <!-- 2번: 통합 스마트 영양제 & 성분 사전 -->
                 <div class="card" style="background: #fffbeb; border-color: #fde68a; cursor: pointer;" onclick="openModal('compatibilityModal')">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div class="card-title
+                        <div class="card-title" style="color: #b45309; margin-bottom: 0;"><i class="fa-solid fa-magnifying-glass-chart"></i> 통합 스마트 영양제 & 성분 사전</div>
+                        <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: #b45309;"></i>
+                    </div>
+                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">수십 종의 비타민·미네랄 조합과 부작용 정보를 즉시 확인하세요.</p>
+                </div>
+
+                <!-- 3번: 주간 복용 달성률 -->
+                <div class="card" style="background: linear-gradient(135deg, #0b6623, #138833); color: white; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="openModal('statModal')">
+                    <div>
+                        <div class="card-title" style="color: white; margin-bottom: 4px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률 <span id="mainWeeklyRate">85%</span></div>
+                        <p style="font-size: 12px; opacity: 0.9;">터치해서 상세 통계 및 서버 연동 리포트 보기</p>
+                    </div>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 16px;"></i>
+                </div>
+
+                <!-- 오늘의 푸시 복용 알림 -->
+                <div class="card" style="background: #f0fdf4; border-color: #bbf7d0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="card-title" style="color: #0b6623; margin-bottom: 0;"><i class="fa-regular fa-clock"></i> 오늘의 푸시 복용 알림</div>
+                        <span onclick="openModal('alarmModal')" style="font-size: 13px; color: #0b6623; font-weight: 700; cursor: pointer;">수정</span>
+                    </div>
+                    <p id="displayAlarmTimes" style="font-size: 13px; color: #475569; margin-top: 8px;">아침 8:30 AM | 점심 12:30 PM | 저녁 7:00 PM</p>
+                </div>
+    
+                <!-- 내비 AI의 오늘 맞춤 추천 섹션 -->
+                <div class="ai-recommend-section">
+                    <div class="ai-section-title">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 내비 AI의 오늘 맞춤 추천
+                    </div>
+                    
+                    <!-- 아침 식후 추천 -->
+                    <div class="ai-rec-card">
+                        <div class="ai-card-header">
+                            <span class="ai-time-label"><i class="fa-regular fa-sun"></i> 아침 식후 추천</span>
+                            <span class="ai-badge high">우선순위 높음</span>
+                        </div>
+                        <div class="ai-rec-title">비타민 B군 & 비타민 C</div>
+                        <div class="ai-rec-desc">오늘 하루 피로 회복과 활력을 위해 지금 복용하는 것을 추천해요!</div>
+                        <button type="button" class="ai-check-btn" id="btnMorning" onclick="toggleTakeMed('btnMorning', '아침 비타민 B&C')">
+                            <i class="fa-regular fa-circle-check"></i> 먹었어요
+                        </button>
+                    </div>
+
+                    <!-- AI 성분 충돌 경고 -->
+                    <div class="ai-rec-card warning">
+                        <div class="ai-card-header">
+                            <span class="ai-time-label" style="color: #b91c1c;"><i class="fa-solid fa-triangle-exclamation"></i> AI 병용 섭취 주의 알림</span>
+                            <span class="ai-badge danger">AI 성분 충돌</span>
+                        </div>
+                        <div class="ai-rec-title" style="color: #991b1b;">칼슘과 철분 분리 복용</div>
+                        <div class="ai-rec-desc" style="color: #7f1d1d;">두 성분은 동시에 드시면 흡수를 방해해요. 4시간 간격을 두고 드세요.</div>
+                        <button type="button" class="ai-check-btn" id="btnWarning" onclick="toggleTakeMed('btnWarning', '칼슘/철분 시간 분리 복용')">
+                            <i class="fa-solid fa-check"></i> 오늘 복용 완료!
+                        </button>
+                    </div>
+
+                    <!-- 저녁 식후 추천 -->
+                    <div class="ai-rec-card">
+                        <div class="ai-card-header">
+                            <span class="ai-time-label"><i class="fa-regular fa-moon"></i> 저녁 식후 추천</span>
+                            <span class="ai-badge normal">맞춤 케어</span>
+                        </div>
+                        <div class="ai-rec-title">오메가3 & 마그네슘</div>
+                        <div class="ai-rec-desc">편안한 수면과 혈행 개선을 위해 저녁 시간에 복용을 권장해요.</div>
+                        <button type="button" class="ai-check-btn" id="btnEvening" onclick="toggleTakeMed('btnEvening', '저녁 오메가3/마그네슘')">
+                            <i class="fa-regular fa-circle-check"></i> 먹었어요
+                        </button>
+                    </div>
+                </div>
+    
+                <div id="myPageRecordCard" class="card" style="background: #f8fafc; border-left: 5px solid #138833; display: none;">
+                    <div class="card-title" style="color: #0b6623;"><i class="fa-solid fa-clipboard-check"></i> 서버 실시간 연동 기록</div>
+                    <div id="myPageRecordContent" style="font-size: 13px; color: #334155; line-height: 1.5;">아직 서버 기록이 없습니다.</div>
+                </div>
+    
+                <div id="photoGalleryCard" class="card" style="background: #ffffff; border: 1px solid #cbd5e1; display: none;">
+                    <div class="card-title" style="color: #0b6623;"><i class="fa-solid fa-images"></i> 서버 저장소 사진함</div>
+                    <div id="photoGalleryList" style="display: flex; gap: 10px; overflow-x: auto; padding-top: 5px;"></div>
+                </div>
+    
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #0b6623;"></i> 일상 기록 및 타이머</div>
+                    <div class="grid-3">
+                        <div class="sub-card" onclick="openModal('voiceModal')">
+                            <i class="fa-solid fa-microphone"></i>
+                            <span>음성 로깅</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('waterModal')">
+                            <i class="fa-solid fa-glass-water"></i>
+                            <span>물 섭취</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('pedometerModal')">
+                            <i class="fa-solid fa-person-walking"></i>
+                            <span>만보기</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card">
+                    <div class="card-title"><i class="fa-solid fa-toolbox" style="color: #3182ce;"></i> 스마트 관리 도구</div>
+                    <div class="grid-3">
+                        <div class="sub-card" onclick="openModal('expiryModal')">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>유통기한</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('familyModal')">
+                            <i class="fa-solid fa-users"></i>
+                            <span>가족 프로필</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('barcodeModal')">
+                            <i class="fa-solid fa-barcode"></i>
+                            <span>바코드 스캔</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card" style="background: #f0f9ff; border-color: #bae6fd;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div class="card-title" style="color: #0369a1; margin-bottom: 4px;"><i class="fa-solid fa-file-medical"></i> 건강보험 정보 및 검진 안내</div>
+                            <p style="font-size: 12px; color: #475569;">국민건강보험공단 공식 웹사이트 바로 연결</p>
+                        </div>
+                        <a href="https://www.nhis.or.kr" target="_blank" style="background: #0284c7; color: white; text-decoration: none; padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap;">방문하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- 모달 창들 -->
+        <div id="scanSelectModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center; padding: 25px 20px;">
+                <div class="modal-header" style="border:none; margin-bottom:0; padding-bottom:0;">
+                    <h3 style="width:100%; text-align:center; font-size: 18px;"><i class="fa-solid fa-camera-retro" style="color: var(--primary-color);"></i> 약 봉투 또는 건강검진 결과지 스캔</h3>
+                </div>
+                <p style="font-size: 13px; color: #64748b; margin: 12px 0 20px 0;">원하시는 스캔 유형을 선택해 주세요.</p>
+                <button type="button" class="action-btn" style="padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 12px;" onclick="closeModal('scanSelectModal'); startMeasurement('documentScan');"><i class="fa-solid fa-pills"></i> 약 봉투 / 처방전 촬영하기</button>
+                <button type="button" class="action-btn" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 15px;" onclick="closeModal('scanSelectModal'); startMeasurement('checkupScan');"><i class="fa-solid fa-file-medical"></i> 건강검진 결과지 촬영 및 맞춤 영양 추천받기</button>
+                <button type="button" onclick="closeModal('scanSelectModal')" style="background: none; border: none; color: #64748b; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px;">취소</button>
+            </div>
+        </div>
+    
+        <!-- 통합 영양제 사전 검색 모달 -->
+        <div id="compatibilityModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🔍 통합 영양제 & 성분 사전</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <p style="color: #64748b; font-size: 12px;">궁금한 영양제나 성분을 1개 또는 2개 이상 입력해 보세요 (예: 비타민C, 오메가3 등)</p>
+                    <label>검색할 영양제 / 성분: 
+                        <div id="inputSearchQuery" contenteditable="true" placeholder="예: 비타민C, 비타민D" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white; min-height: 45px; word-break: break-all;"></div>
+                    </label>
+                    <button type="button" class="action-btn" style="background: #b45309; margin-top: 5px; padding: 14px; font-size: 15px;" onclick="searchSupplementCompatibility()">스마트 통합 사전 검색하기</button>
+                    
+                    <div id="searchResultArea" style="margin-top: 10px; padding: 12px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none;">
+                        <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 4px; color: #1e293b;"></h4>
+                        <p id="resultDesc" style="font-size: 13px; color: #475569; line-height: 1.4;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 새 복용 약 추가 모달 -->
+        <div id="addModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>💊 새 복용 약 / 영양제 추가</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('addModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <label>약 / 영양제 이름: 
+                        <div id="inputNewMedicineName" contenteditable="true" placeholder="예: 루테인, 유산균" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white; min-height: 45px; word-break: break-all;"></div>
+                    </label>
+                    <label>복용 시간대: 
+                        <select id="inputNewMedicineTime" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; background:white; font-size: 14px;">
+                            <option value="아침 식후">아침 식후</option>
+                            <option value="점심 식후">점심 식후</option>
+                            <option value="저녁 식후">저녁 식후</option>
+                            <option value="취침 전">취침 전</option>
+                        </select>
+                    </label>
+                    <button type="button" class="action-btn" style="margin-top: 10px; padding: 14px; font-size: 15px;" onclick="saveNewMedicineRecord()">새 복용 약 등록하기</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="photoViewModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>📷 촬영된 건강 기록 사진</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('photoViewModal')">&times;</button>
+                </div>
+                <div id="modalPhotoContainer" style="width: 100%; height: 260px; background: #111; border-radius: 16px; display: flex; justify-content: center; align-items: center; margin-bottom: 14px; overflow: hidden; position: relative;"></div>
+                <p id="photoDetailText" style="font-size: 13px; color: #64748b; margin-bottom: 15px;">처방전 성분 및 유통기한 사진이 저장되었습니다.</p>
+                <button type="button" class="action-btn" onclick="closeModal('photoViewModal')">확인 완료</button>
+            </div>
+        </div>
+    
+        <div id="helpModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>❓ 도움말 및 사용 가이드</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; line-height: 1.6;">
+                    <p><b>1. 복약 알림:</b> 아침
