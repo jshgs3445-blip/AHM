@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -1337,14 +1336,14 @@
                 document.getElementById('measureResultBox').style.display = 'block';
 
                 if (currentMode === 'barcodeScan') {
-                    // 코코아 바코드와 영양제 바코드를 정확히 구분하는 API 연동 분기 로직
-                    const mockScannedCode = "8801043567890"; // 테스트용 바코드 번호
+                    // 코코아 등 일반 상품 바코드와 영양제 바코드를 정확히 구분하는 API 연동 분기 로직
+                    const mockScannedCode = "8801043567890"; // 테스트용 바코드 번호 (일반 식품/코코아 예시)
                     
                     let productName = "스위위 다크 코코아 파우더 (음료류)";
                     let ingredients = "코코아분말 100% (네덜란드산), 당류, 식물성크림";
-                    let analysisTip = "⚠ 코코아 제품입니다. 카페인 및 당류 함량을 고려하여 섭취하세요.";
+                    let analysisTip = "⚠ 코코아 제품입니다. 오메가3가 아니며 카페인 및 당류 함량을 고려하여 섭취하세요.";
 
-                    // 만약 바코드 번호가 건강기능식품 영양제 코드인 경우
+                    // 만약 영양제 바코드인 경우 (8809 등 특정 건기식 코드로 시작할 때만 영양제로 판독)
                     if(mockScannedCode.startsWith("8809")) {
                         productName = "고려은단 비타민C 1000 + 프리미엄 영양제";
                         ingredients = "비타민C (영국산), 캡슐기제 (젤라틴)";
