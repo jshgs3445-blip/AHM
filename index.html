@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -60,7 +59,7 @@
         }
     
         .screen {
-            display: none;
+            display: none !important;
             flex: 1;
             flex-direction: column;
             overflow-y: auto;
@@ -73,6 +72,7 @@
             display: flex !important;
         }
     
+        /* 1번 사진 스타일: 고급스러운 정회원 로그인 화면 */
         .login-container {
             flex: 1;
             padding: 30px 20px;
@@ -86,32 +86,52 @@
             height: 100%;
         }
     
-        .login-logo {
-            font-size: 55px;
+        .login-shield {
+            font-size: 50px;
             color: var(--primary-color);
-            margin-bottom: 20px;
+            margin-bottom: 12px;
+            background: white;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(11, 102, 35, 0.15);
         }
     
         .login-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary-color);
-            margin-bottom: 10px;
+            margin-bottom: 4px;
         }
     
         .login-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: #64748b;
-            margin-bottom: 30px;
-            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+    
+        .login-input-group {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 12px;
+        }
+    
+        .login-input-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 4px;
+            display: block;
         }
     
         .login-input {
             width: 100%;
-            padding: 14px;
+            padding: 12px 14px;
             border-radius: 12px;
             border: 1px solid #cbd5e1;
-            margin-bottom: 12px;
             font-size: 14px;
             outline: none;
             background: #ffffff;
@@ -122,15 +142,14 @@
             width: 100%;
             background: var(--primary-color);
             color: white;
-            text-decoration: none;
-            text-align: center;
             border: none;
             padding: 14px;
             border-radius: 12px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(11, 102, 35, 0.3);
+            margin-top: 10px;
             margin-bottom: 10px;
         }
     
@@ -139,15 +158,24 @@
             width: 100%;
             background: #ffffff;
             color: var(--primary-color);
-            text-decoration: none;
-            text-align: center;
             border: 2px solid var(--primary-color);
             padding: 12px;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
+            margin-bottom: 20px;
         }
+    
+        .login-footer-links {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .login-footer-links span { cursor: pointer; text-decoration: underline; }
     
         .app-header {
             background: var(--primary-color);
@@ -204,6 +232,76 @@
             gap: 8px;
         }
     
+        /* 💡 2번 사진 스타일 완벽 구현: 내비 AI의 오늘 맞춤 추천 섹션 */
+        .ai-recommend-section {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+    
+        .ai-section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+    
+        .ai-rec-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #e2e8f0;
+        }
+    
+        .ai-rec-card.warning {
+            background: #fff5f5;
+            border-color: #fed7d7;
+        }
+    
+        .ai-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+    
+        .ai-time-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    
+        .ai-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+        .ai-badge.high { background: #ffedd5; color: #c2410c; }
+        .ai-badge.danger { background: #fee2e2; color: #b91c1c; }
+        .ai-badge.normal { background: #e0f2fe; color: #0369a1; }
+    
+        .ai-rec-title { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+        .ai-rec-desc { font-size: 12px; color: #475569; line-height: 1.4; margin-bottom: 10px; }
+    
+        .ai-check-btn {
+            width: 100%; background: #ffffff; color: var(--primary-color);
+            border: 1px solid var(--primary-color); padding: 9px; border-radius: 10px;
+            font-size: 13px; font-weight: 600; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 6px;
+        }
+        .ai-check-btn.checked { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+
         .action-btn {
             width: 100%;
             background: linear-gradient(135deg, #2f855a, #38a169);
@@ -416,25 +514,42 @@
 <body>
     
     <div class="phone-frame">
-        <!-- 로그인 화면 -->
+        <!-- 1번 사진 스타일: 정회원 로그인 화면 -->
         <div id="loginScreen" class="screen active">
             <div class="login-container">
-                <div class="login-logo"><i class="fa-solid fa-heart-pulse"></i></div>
+                <div class="login-shield"><i class="fa-solid fa-shield-halved"></i></div>
                 <h2 class="login-title">AI Health 매니저</h2>
-                <p class="login-desc">서버 연동 건강 관리 시스템<br>로그인 후 안전하게 이용하세요.</p>
-                <input type="text" class="login-input" value="test_user" readonly>
-                <input type="password" class="login-input" value="••••••" readonly>
-                <button type="button" class="login-btn" onclick="executeLogin()">로그인하기</button>
-                <button type="button" class="guest-btn" onclick="executeLogin()">앱 둘러보기 (체험하기)</button>
+                <p class="login-desc">맞춤형 스마트 건강 관리 플랫폼</p>
+                
+                <div class="login-input-group">
+                    <label>이메일 주소 (ID)</label>
+                    <input type="text" class="login-input" value="jshgs3445@gmail.com" readonly>
+                </div>
+                <div class="login-input-group">
+                    <label>비밀번호 (숫자 4자리 이상)</label>
+                    <input type="password" class="login-input" value="••••" readonly>
+                </div>
+                
+                <button type="button" class="login-btn" onclick="executeLogin()">정회원 로그인</button>
+                <button type="button" class="guest-btn" onclick="executeLogin()">👀 비회원으로 둘러보기 (체험하기)</button>
+                
+                <p style="font-size: 13px; color: #0b6623; font-weight: 700; cursor: pointer; margin-bottom: 15px;" onclick="showToast('회원가입 기능으로 이동합니다.')">✨ 아직 회원이 아니신가요? [회원가입하기]</p>
+                
+                <div style="background: #ffffff; padding: 10px; border-radius: 10px; font-size: 11px; color: #64748b; border: 1px solid #e2e8f0; line-height: 1.4;">
+                    ⚖ 면책 조항: 본 앱의 AI 분석 결과는 참고용이며, 정확한 진단과 처방은 반드시 의사 및 약사와 상담하세요.
+                </div>
+                
+                <div class="login-footer-links">
+                    <span onclick="showToast('ID/비밀번호 찾기 안내')">ID/비밀번호 찾기</span> | <span onclick="openModal('helpModal')">앱 소개</span>
+                </div>
             </div>
         </div>
     
         <!-- 메인 대시보드 화면 -->
         <div id="mainScreen" class="screen">
             <div class="app-header">
-                <h1>AI Health 매니저 <span style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">테스트 유저님</span></h1>
+                <h1>AI Health 매니저 <span style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">정수현 유저님</span></h1>
                 <div class="header-icons">
-                    <i class="fa-solid fa-shield-halved" title="보안"></i>
                     <i class="fa-solid fa-circle-question" onclick="openModal('helpModal')" title="도움말"></i>
                     <i class="fa-solid fa-circle-plus" onclick="openModal('addModal')" title="추가"></i>
                     <i class="fa-solid fa-bell" onclick="openModal('alarmModal')" title="알림"></i>
@@ -443,22 +558,52 @@
             </div>
     
             <div class="app-content">
-                <div class="card" style="background: #f0fdf4; border-color: #bbf7d0;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div class="card-title" style="color: #0b6623; margin-bottom: 0;"><i class="fa-regular fa-clock"></i> 오늘의 푸시 복용 알림</div>
-                        <span onclick="openModal('alarmModal')" style="font-size: 13px; color: #0b6623; font-weight: 700; cursor: pointer;">수정</span>
+                <!-- 💡 2번 사진 스타일 완벽 구현: 내비 AI의 오늘 맞춤 추천 섹션 -->
+                <div class="ai-recommend-section">
+                    <div class="ai-section-title">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 내비 AI의 오늘 맞춤 추천
                     </div>
-                    <p id="displayAlarmTimes" style="font-size: 13px; color: #475569; margin-top: 8px;">아침 8:30 AM | 점심 12:30 PM | 저녁 7:00 PM</p>
-                </div>
-    
-                <div class="card" style="background: linear-gradient(135deg, #0b6623, #138833); color: white; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="openModal('statModal')">
-                    <div>
-                        <div class="card-title" style="color: white; margin-bottom: 4px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률 <span id="mainWeeklyRate">85%</span></div>
-                        <p style="font-size: 12px; opacity: 0.9;">터치해서 상세 통계 및 서버 연동 리포트 보기</p>
+                    
+                    <!-- 아침 식후 추천 -->
+                    <div class="ai-rec-card">
+                        <div class="ai-card-header">
+                            <span class="ai-time-label"><i class="fa-regular fa-sun"></i> 아침 식후 추천</span>
+                            <span class="ai-badge high">우선순위 높음</span>
+                        </div>
+                        <div class="ai-rec-title">비타민 B군 & 비타민 C</div>
+                        <div class="ai-rec-desc">오늘 하루 피로 회복과 활력을 위해 지금 복용하는 것을 추천해요!</div>
+                        <button type="button" class="ai-check-btn" id="btnMorning" onclick="toggleTakeMed('btnMorning', '아침 비타민 B&C')">
+                            <i class="fa-regular fa-circle-check"></i> 먹었어요
+                        </button>
                     </div>
-                    <i class="fa-solid fa-chevron-right" style="font-size: 16px;"></i>
+
+                    <!-- AI 성분 충돌 경고 -->
+                    <div class="ai-rec-card warning">
+                        <div class="ai-card-header">
+                            <span class="ai-time-label" style="color: #b91c1c;"><i class="fa-solid fa-triangle-exclamation"></i> AI 병용 섭취 주의 알림</span>
+                            <span class="ai-badge danger">AI 성분 충돌</span>
+                        </div>
+                        <div class="ai-rec-title" style="color: #991b1b;">칼슘과 철분 분리 복용</div>
+                        <div class="ai-rec-desc" style="color: #7f1d1d;">두 성분은 동시에 드시면 흡수를 방해해요. 4시간 간격을 두고 드세요.</div>
+                        <button type="button" class="ai-check-btn" id="btnWarning" onclick="toggleTakeMed('btnWarning', '칼슘/철분 시간 분리 복용')">
+                            <i class="fa-solid fa-check"></i> 오늘 복용 완료!
+                        </button>
+                    </div>
+
+                    <!-- 저녁 식후 추천 -->
+                    <div class="ai-rec-card">
+                        <div class="ai-card-header">
+                            <span class="ai-time-label"><i class="fa-regular fa-moon"></i> 저녁 식후 추천</span>
+                            <span class="ai-badge normal">맞춤 케어</span>
+                        </div>
+                        <div class="ai-rec-title">오메가3 & 마그네슘</div>
+                        <div class="ai-rec-desc">편안한 수면과 혈행 개선을 위해 저녁 시간에 복용을 권장해요.</div>
+                        <button type="button" class="ai-check-btn" id="btnEvening" onclick="toggleTakeMed('btnEvening', '저녁 오메가3/마그네슘')">
+                            <i class="fa-regular fa-circle-check"></i> 먹었어요
+                        </button>
+                    </div>
                 </div>
-    
+
                 <!-- 💡 광범위 통합 영양제 궁합 사전 카드 -->
                 <div class="card" style="background: #fffbeb; border-color: #fde68a; cursor: pointer;" onclick="openModal('compatibilityModal')">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -796,7 +941,7 @@
             { keys: ["콜라겐", "비타민c"], title: "✨ [추천] 콜라겐 & 비타민C", desc: "비타민C는 체내 콜라겐 합성 속도를 높여주는 필수 촉매제입니다. 함께 섭취 시 피부 탄력에 좋습니다." },
             { keys: ["루테인", "오메가3"], title: "✨ [추천] 루테인 & 오메가3", desc: "눈 피로 및 건조함 개선(루테인)과 혈행·안구 건조 개선(오메가3) 시너지가 매우 뛰어납니다." },
             { keys: ["유산균"], title: "🟢 [단독] 프로바이오틱스(유산균)", desc: "장내 유익균 증식 및 배변 활동 원활에 도움을 줍니다. 위산이 적은 아침 공복이나 식전 30분에 드세요." },
-            { keys: ["비타민c"], title: "🟢 [단독] 비타민C (항산화)", desc: "유해산소로부터 세포를 보호하고 결합조직 형성에 필요합니다. 공복보다는 식후 복용을 권장합니다." },
+            { keys: ["비타민c"], title: "🟢 [단독] 비타민C (항상화)", desc: "유해산소로부터 세포를 보호하고 결합조직 형성에 필요합니다. 공복보다는 식후 복용을 권장합니다." },
             { keys: ["오메가3"], title: "🟢 [단독] 오메가3 (EPA/DHA)", desc: "혈중 중성지질 개선 및 혈행 개선에 도움을 줍니다. 위장 장애 방지를 위해 식후에 드세요." },
             { keys: ["비타민d"], title: "🟢 [단독] 비타민D", desc: "칼슘과 인이 흡수되고 이용되는데 필요하며 뼈의 형성과 유지에 도움을 줍니다. 지용성이므로 식후에 드세요." },
             { keys: ["마그네슘"], title: "🟢 [단독] 마그네슘", desc: "에너지 이용에 필요하고 신경과 근육 유지에 도움을 줍니다. 설사를 유발할 수 있으므로 식후 복용이 좋습니다." },
@@ -834,7 +979,7 @@
                 loginScreen.style.display = 'none';
                 mainScreen.classList.add('active');
                 mainScreen.style.display = 'flex';
-                showToast('테스트 유저님 환영합니다!');
+                showToast('정수현님 환영합니다!');
             }
         }
     
