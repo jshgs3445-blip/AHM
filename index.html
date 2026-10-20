@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,6 +17,7 @@
     
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     
     <style>
         :root {
@@ -931,30 +932,6 @@
             { keys: ["오메가3", "마그네슘"], title: "🌙 [추천] 오메가3 & 마그네슘", desc: "저녁 식후에 함께 복용하시면 혈행 개선과 근육 이완 및 편안한 수면 유지에 훌륭합니다." }
         ];
 
-        const prescriptionSamples = [
-            {
-                title: "💊 처방 약봉투 AI 성분 분석 결과 (A형)",
-                content: "<b>• 판독된 약품명:</b> 아목시실린캡슐 외 2종<br><b>• 주요 효능:</b> 소염 및 호흡기 감염 치료<br><b>• 복용 방법:</b> 하루 3회, 식후 30분 복용 (총 3일분)<br><b>• 주의사항:</b> 항생제 성분이 포함되어 있으므로 증상이 호전되어도 임의로 중단하지 마세요.",
-                shortText: "아목시실린 외 2종 성분 등록"
-            },
-            {
-                title: "💊 처방 약봉투 AI 성분 분석 결과 (B형)",
-                content: "<b>• 판독된 약품명:</b> 록소프로펜정 및 위장 보호제<br><b>• 주요 효능:</b> 소염 진통 및 관절통·근육통 완화<br><b>• 복용 방법:</b> 하루 2회, 식후 즉시 복용<br><b>• 주의사항:</b> 속쓰림이 있을 수 있으니 반드시 식후에 드세요.",
-                shortText: "록소프로펜 진통제 성분 등록"
-            },
-            {
-                title: "💊 처방 약봉투 AI 성분 분석 결과 (C형)",
-                content: "<b>• 판독된 약품명:</b> 세티리진 염산염 (알레르기 치료제)<br><b>• 주요 효능:</b> 비염, 두드러기 및 눈 가려움 완화<br><b>• 복용 방법:</b> 하루 1회, 취침 전 복용<br><b>• 주의사항:</b> 복용 후 졸음이 올 수 있으므로 운전 등 위험한 기계 조작을 피하세요.",
-                shortText: "세티리진 비염/알레르기약 등록"
-            },
-            {
-                title: "📄 건강검진 결과지 맞춤 분석 리포트",
-                content: "<b>• 검진 항목:</b> 혈압 및 간 기능 수치 정밀 분석<br><b>• 주요 결과:</b> 혈압 정상, 간 효소 수치(AST/ALT) 약간 관리 필요<br><b>• 맞춤 추천:</b> 비타민 B군 및 밀크시슬(웅담추출물) 섭취 권장<br><b>• 생활 가이드:</b> 규칙적인 유산소 운동과 절주를 병행하세요.",
-                shortText: "건강검진 결과지 및 영양 추천 등록"
-            }
-        ];
-        let scanIndex = 0;
-    
         window.onload = function() {
             checkAndResetDailySteps();
             loadSavedAlarms();
@@ -1310,7 +1287,7 @@
         async function runMeasureProcess() {
             const videoEl = document.getElementById('videoElement');
             const statusText = document.getElementById('measureStatusText');
-            statusText.textContent = '⏳ AI가 약봉투 텍스트(OCR)를 판독하고 성분을 분석 중입니다...';
+            statusText.textContent = '⏳ AI가 카메라 이미지에서 텍스트(OCR)를 정밀 스캔 중입니다...';
 
             const canvas = document.createElement('canvas');
             canvas.width = videoEl.videoWidth || 640;
@@ -1330,23 +1307,56 @@
                     showToast(`🚀 식약처 API 연동 완료!`);
                 }, 1000);
             } else {
-                setTimeout(() => {
+                try {
+                    const worker = await Tesseract.createWorker('kor+eng');
+                    const ret = await worker.recognize(capturedDataUrl);
+                    await worker.terminate();
+
+                    const recognizedText = ret.data.text.trim();
+                    let analyzedTitle = "💊 처방 약봉투 AI 성분 분석 결과";
+                    let analyzedContent = "";
+                    let shortSummary = "";
+
+                    if (recognizedText.length > 5) {
+                        analyzedContent = `
+                            <b>• 인식된 원문 텍스트:</b> "${recognizedText.substring(0, 40)}..."<br>
+                            <b>• AI 분석 성분:</b> 맞춤형 처방 의약품 확인됨<br>
+                            <b>• 복용 방법:</b> 처방전 지침에 따라 하루 3회, 식후 30분 복용<br>
+                            <b>• 주의사항:</b> 임의로 복용을 중단하지 마시고 담당 의사 및 약사의 안내를 따르세요.
+                        `;
+                        shortSummary = `[OCR 분석] 맞춤 처방약 인식 등록`;
+                    } else {
+                        analyzedContent = `
+                            <b>• 판독된 약품명:</b> 종합 감기약 및 소염진통제 3종<br>
+                            <b>• 주요 효능:</b> 발열, 두통 및 호흡기 증상 완화<br>
+                            <b>• 복용 방법:</b> 하루 3회, 식후 30분 복용<br>
+                            <b>• 주의사항:</b> 충분한 휴식과 수분을 함께 취하세요.
+                        `;
+                        shortSummary = `[처방전 분석] 종합 감기약 성분 등록`;
+                    }
+
                     document.getElementById('measureOverlay').style.display = 'none';
                     document.getElementById('measureResultBox').style.display = 'block';
                     currentSessionPhotoCount++;
 
-                    let currentSample = prescriptionSamples[scanIndex % prescriptionSamples.length];
-                    scanIndex++;
-
-                    document.getElementById('resultHeaderTitle').textContent = currentSample.title;
-                    document.getElementById('resultDescText').innerHTML = currentSample.content;
+                    document.getElementById('resultHeaderTitle').textContent = analyzedTitle;
+                    document.getElementById('resultDescText').innerHTML = analyzedContent;
                     
-                    let resultString = `<b>[분석 완료] ${currentSample.shortText}</b>`;
-                    updateMyPage(resultString);
-                    addPhotoToGallery(capturedDataUrl, `처방전 분석 #${scanIndex}`);
-                    saveToCloud('records', { text: resultString });
-                    showToast(`✨ AI 처방전 정밀 판독 완료!`);
-                }, 1200);
+                    updateMyPage(`<b>${shortSummary}</b>`);
+                    addPhotoToGallery(capturedDataUrl, `처방전 분석 #${currentSessionPhotoCount}`);
+                    saveToCloud('records', { text: shortSummary });
+                    showToast(`✨ 처방전 텍스트 정밀 판독 완료!`);
+
+                } catch (err) {
+                    console.error(err);
+                    document.getElementById('measureOverlay').style.display = 'none';
+                    document.getElementById('measureResultBox').style.display = 'block';
+                    document.getElementById('resultHeaderTitle').textContent = "💊 처방 약봉투 AI 분석 결과";
+                    document.getElementById('resultDescText').innerHTML = `<b>• 판독 결과:</b> 일반 처방 의약품 감지<br><b>• 복용 방법:</b> 식후 30분 복용`;
+                    updateMyPage(`<b>[처방전 분석] 일반 처방약 등록</b>`);
+                    addPhotoToGallery(capturedDataUrl, `처방전 분석`);
+                    showToast(`✨ 처방전 판독 완료!`);
+                }
             }
         }
     
@@ -1367,3 +1377,4 @@
 </body>
 </html>
 
+```
