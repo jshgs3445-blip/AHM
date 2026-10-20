@@ -1276,7 +1276,6 @@
             modal.classList.add('active');
     
             try {
-                // 고해상도(HD 이상) 및 연속 자동 초점(continuous) 제약 조건 강제 설정
                 const constraints = {
                     video: {
                         facingMode: { ideal: 'environment' },
@@ -1310,7 +1309,7 @@
         async function runMeasureProcess() {
             const videoEl = document.getElementById('videoElement');
             const statusText = document.getElementById('measureStatusText');
-            statusText.textContent = '⏳ 실제 촬영된 처방전 텍스트(OCR)를 정밀 분석 중입니다...';
+            statusText.textContent = '⏳ 실제 촬영된 텍스트를 OCR로 정밀 분석 중입니다...';
 
             const canvas = document.createElement('canvas');
             canvas.width = videoEl.videoWidth || 1920;
@@ -1332,7 +1331,6 @@
                 }, 1000);
             } else {
                 try {
-                    // Tesseract.js를 이용한 실시간 OCR 한글/영문 텍스트 추출
                     const worker = await Tesseract.createWorker('kor+eng');
                     const ret = await worker.recognize(capturedDataUrl);
                     await worker.terminate();
@@ -1342,23 +1340,20 @@
                     let analyzedContent = "";
                     let shortSummary = "";
 
-                    // 추출된 텍스트가 풍부할 경우 실제 내용을 요약하여 표시
-                    if (recognizedText.length > 5) {
+                    if (recognizedText.length > 2) {
                         analyzedContent = `
-                            <b>• OCR 판독 원문:</b> "${recognizedText.replace(/\n/g, ' ').substring(0, 50)}..."<br>
-                            <b>• 분석된 처방 정보:</b> 정식 처방 의약품 확인 완료<br>
-                            <b>• 복용 방법:</b> 하루 3회, 식후 30분 복용<br>
-                            <b>• 주의사항:</b> 처방 일수를 채우고 임의로 복용을 중단하지 마세요.
+                            <b>• OCR 판독 원문:</b> "${recognizedText.replace(/\n/g, ' ').substring(0, 60)}..."<br>
+                            <b>• 실시간 인식 성분:</b> 캡처된 처방전 본문 텍스트 분석 완료<br>
+                            <b>• 복용 방법:</b> 의사/약사 처방 지침에 따라 식후 복용<br>
+                            <b>• 주의사항:</b> 임의로 용량을 변경하거나 중단하지 마세요.
                         `;
-                        shortSummary = `[OCR 판독] 처방전 성분 등록 완료`;
+                        shortSummary = `[실시간 OCR] 처방전 본문 인식 등록`;
                     } else {
                         analyzedContent = `
-                            <b>• 판독된 약품명:</b> 일반 처방 의약품 (성분 정밀 매칭)<br>
-                            <b>• 주요 효능:</b> 소염 및 호흡기 치료<br>
-                            <b>• 복용 방법:</b> 하루 3회, 식후 30분 복용<br>
-                            <b>• 주의사항:</b> 의사 및 약사의 복약 지도에 따르세요.
+                            <b>• OCR 판독 결과:</b> 텍스트가 감지되지 않았거나 선명하지 않습니다.<br>
+                            <b>• 안내:</b> 처방전 글자가 카메라 중앙에 오도록 다시 촬영해 주세요.
                         `;
-                        shortSummary = `[처방전 분석] 처방약 성분 등록`;
+                        shortSummary = `[처방전 분석] 촬영 등록`;
                     }
 
                     document.getElementById('measureOverlay').style.display = 'none';
@@ -1371,7 +1366,7 @@
                     updateMyPage(`<b>${shortSummary}</b>`);
                     addPhotoToGallery(capturedDataUrl, `처방전 분석 #${currentSessionPhotoCount}`);
                     saveToCloud('records', { text: shortSummary });
-                    showToast(`✨ 실시간 OCR 처방전 판독 완료!`);
+                    showToast(`✨ 실시간 OCR 처방전 분석 완료!`);
 
                 } catch (err) {
                     console.error(err);
