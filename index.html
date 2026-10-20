@@ -405,86 +405,6 @@
             color: #64748b;
         }
     
-        .measure-modal {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 15px;
-            z-index: 400;
-            color: white;
-            text-align: center;
-        }
-    
-        .measure-modal.active {
-            display: flex !important;
-        }
-    
-        .measure-box {
-            width: 100%;
-            flex: 1;
-            background: #111;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            margin: 10px 0;
-            border: 2px solid #334155;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-        }
-    
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-    
-        .measure-overlay {
-            position: relative;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.75);
-            padding: 12px 16px;
-            border-radius: 14px;
-            width: 90%;
-            margin-top: 5px;
-        }
-    
-        .measure-btn-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            padding-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-    
-        .measure-btn {
-            background: var(--secondary-color);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(19, 136, 51, 0.7);
-        }
-    
         .toast {
             position: absolute;
             top: 80px;
@@ -512,6 +432,9 @@
 <body>
     
     <div class="phone-frame">
+        <!-- 숨겨진 파일 업로드 인풋 -->
+        <input type="file" id="prescriptionFileInput" accept="image/*" style="display: none;" onchange="handlePrescriptionFileUpload(event)">
+
         <div id="loginScreen" class="screen active">
             <div class="login-container">
                 <div class="login-shield"><i class="fa-solid fa-shield-halved"></i></div>
@@ -554,7 +477,8 @@
             </div>
     
             <div class="app-content">
-                <button type="button" class="action-btn" onclick="openModal('scanSelectModal')"><i class="fa-solid fa-camera"></i> 처방전 AI 빠른 촬영 및 즉시 분석</button>
+                <!-- 갤러리 파일 업로드 트리거 버튼 -->
+                <button type="button" class="action-btn" onclick="triggerFileUpload()"><i class="fa-solid fa-image"></i> 📁 갤러리에서 처방전 사진 선택 및 정밀 분석</button>
     
                 <div class="card" style="background: #fffbeb; border-color: #fde68a; cursor: pointer;" onclick="openModal('compatibilityModal')">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -683,42 +607,31 @@
                 </div>
             </div>
         </div>
-    
-        <div id="scanSelectModal" class="custom-modal">
-            <div class="modal-content" style="text-align: center; padding: 25px 20px;">
-                <div class="modal-header" style="border:none; margin-bottom:0; padding-bottom:0;">
-                    <h3 style="width:100%; text-align:center; font-size: 18px;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary-color);"></i> AI 처방전 정밀 분석 방법 선택</h3>
-                </div>
-                <p style="font-size: 13px; color: #64748b; margin: 12px 0 20px 0;">가장 빠르고 정확한 분석 방식을 선택해 주세요.</p>
-                <button type="button" class="action-btn" style="padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 12px;" onclick="closeModal('scanSelectModal'); startMeasurement('documentScan');"><i class="fa-solid fa-camera"></i> 1단계: 처방전 촬영하기</button>
-                <button type="button" class="action-btn" style="background: linear-gradient(135deg, #2563eb, #1d4ed8); padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 15px;" onclick="closeModal('scanSelectModal'); openModal('quickSelectModal');"><i class="fa-solid fa-bolt"></i> 2단계: 약 이름 원클릭 빠른 지정 분석</button>
-                <button type="button" onclick="closeModal('scanSelectModal')" style="background: none; border: none; color: #64748b; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px;">취소</button>
-            </div>
-        </div>
 
-        <!-- 원클릭 빠른 약품 선택 모달 (가장 확실하고 정확하게 바로 분석) -->
-        <div id="quickSelectModal" class="custom-modal">
+        <!-- 수동 보정 및 약품 지정 모달 (업로드 후 인식된 텍스트 보완용) -->
+        <div id="manualCorrectionModal" class="custom-modal">
             <div class="modal-content" style="max-width: 360px;">
                 <div class="modal-header">
-                    <h3>⚡ 처방전 의약품 원클릭 지정</h3>
-                    <button type="button" class="close-modal-btn" onclick="closeModal('quickSelectModal')">&times;</button>
+                    <h3>✍ 처방전 약품 직접 확인 및 지정</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('manualCorrectionModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.5; margin-bottom: 12px;">
-                    처방전에 적힌 대표 약품을 선택하시면 즉시 효능, 복용법, 영양제 상호작용 분석 리포트가 생성됩니다.
+                    업로드된 처방전 이미지에서 의약품명을 정확히 매칭하기 위해 아래에서 처방받은 약을 선택하거나 입력해 주세요.
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
-                    <button type="button" onclick="selectQuickPrescription(['올로타딘정 5mg', '스카정'])" style="padding: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; font-weight: 700; color: #0b6623; cursor: pointer; text-align: left;">💊 [세트 A] 올로타딘정 + 스카정 (비염/위산조절)</button>
-                    <button type="button" onclick="selectQuickPrescription(['로라반정', '펜타디온정'])" style="padding: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; font-weight: 700; color: #0b6623; cursor: pointer; text-align: left;">💊 [세트 B] 로라반정 + 펜타디온정 (알레르기/소화통증)</button>
-                    <button type="button" onclick="selectQuickPrescription(['세프테졸정', '아모디핀정'])" style="padding: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; font-weight: 700; color: #0b6623; cursor: pointer; text-align: left;">💊 [세트 C] 세프테졸정 + 아모디핀정 (항생제/고혈압)</button>
-                    <div style="margin-top: 6px;">
-                        <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">또는 직접 약 이름 입력:</label>
-                        <div style="display:flex; gap:6px;">
-                            <input type="text" id="inputDirectMedName" placeholder="예: 메트포르민정" style="flex:1; padding:10px; border-radius:8px; border:1px solid #cbd5e1; outline:none; font-size:14px;">
-                            <button type="button" onclick="applyDirectMedInput()" style="background:var(--primary-color); color:white; border:none; padding:10px 14px; border-radius:8px; font-weight:700; cursor:pointer;">확인</button>
-                        </div>
-                    </div>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                    <label style="font-size: 12px; font-weight: 700; color: #475569;">주요 약품 선택:</label>
+                    <select id="selectPresetMed" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; background: white; font-size: 14px;" onchange="document.getElementById('inputManualMedName').value=this.value;">
+                        <option value="">-- DB에서 약품 선택하기 --</option>
+                        <option value="올로타딘정 5mg">올로타딘정 5mg (알레르기 비염)</option>
+                        <option value="로라반정">로라반정 (두드러기 완화)</option>
+                        <option value="스카정">스카정 (소화기계 위산 조절)</option>
+                        <option value="펜타디온정">펜타디온정 (소화기계 통증 완화)</option>
+                        <option value="세프테졸정">세프테졸정 (항생제)</option>
+                        <option value="아모디핀정">아모디핀정 (고혈압)</option>
+                    </select>
+                    <input type="text" id="inputManualMedName" placeholder="또는 처방받은 약 이름 직접 입력" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 14px; background: white;">
                 </div>
-                <button type="button" class="action-btn" onclick="closeModal('quickSelectModal')">닫기</button>
+                <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="applyManualCorrection()">✅ 지정한 약품으로 리포트 확정</button>
             </div>
         </div>
 
@@ -729,9 +642,7 @@
                     <h3>📋 처방전 전수 정밀 분석 리포트</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('prescriptionDetailModal')">&times;</button>
                 </div>
-                <div id="prescriptionDetailModalBody" style="font-size: 13px; color: #334155; line-height: 1.6; max-height: 60vh; overflow-y: auto;">
-                    <!-- 동적으로 모든 약 목록과 부작용 상세 출력 -->
-                </div>
+                <div id="prescriptionDetailModalBody" style="font-size: 13px; color: #334155; line-height: 1.6; max-height: 60vh; overflow-y: auto;"></div>
                 <button type="button" class="action-btn" style="margin-top: 15px;" onclick="closeModal('prescriptionDetailModal')">확인 완료</button>
             </div>
         </div>
@@ -783,7 +694,7 @@
         <div id="photoViewModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header">
-                    <h3>📷 촬영된 처방전 상세 보기</h3>
+                    <h3>📷 업로드된 처방전 상세 보기</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('photoViewModal')">&times;</button>
                 </div>
                 <div id="modalPhotoContainer" style="width: 100%; height: 260px; background: #111; border-radius: 16px; display: flex; justify-content: center; align-items: center; margin-bottom: 14px; overflow: hidden; position: relative;"></div>
@@ -799,8 +710,8 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.6;">
-                    <p><b>1. 처방전 촬영 및 분석:</b> 사진을 찍은 뒤 원클릭 빠른 지정 기능을 통해 오인식 없이 즉시 정확한 리포트를 확인하세요.</p>
-                    <p style="margin-top: 6px;"><b>2. 상세 리포트 확인:</b> 마이페이지 카드를 터치하면 언제든 전체 약 목록을 볼 수 있습니다.</p>
+                    <p><b>1. 갤러리 사진 업로드:</b> 선명하게 찍어둔 처방전 사진을 파일로 업로드하여 정확하게 분석합니다.</p>
+                    <p style="margin-top: 6px;"><b>2. 상세 리포트 확인:</b> 마이페이지 리포트 카드를 터치하면 전체 약 목록과 부작용 안내를 언제든 다시 볼 수 있습니다.</p>
                 </div>
             </div>
         </div>
@@ -881,7 +792,7 @@
                 <div style="font-size: 14px; color: #334155; line-height: 1.6;">
                     <p><b>비타민 C:</b> ~ 2027.05.12 (여유)</p>
                     <p style="margin-top: 8px;"><b>오메가3:</b> ~ 2026.11.30 (임박!)</p>
-                    <button type="button" class="action-btn" style="margin-top: 20px; padding: 14px; font-size: 15px;" onclick="closeModal('expiryModal'); openModal('scanSelectModal');">새 영양제 등록하기 (촬영)</button>
+                    <button type="button" class="action-btn" style="margin-top: 20px; padding: 14px; font-size: 15px;" onclick="closeModal('expiryModal'); triggerFileUpload();">새 영양제 등록하기 (파일 업로드)</button>
                 </div>
             </div>
         </div>
@@ -908,25 +819,7 @@
                 </div>
                 <p style="font-size: 13px; color: #64748b; margin: 15px 0;">영양제 또는 일반 상품 바코드를 카메라에 비추면 식약처 API DB를 조회합니다.</p>
                 <div style="font-size: 50px; color: #0b6623; margin: 15px 0;"><i class="fa-solid fa-barcode"></i></div>
-                <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="closeModal('barcodeModal'); startMeasurement('barcodeScan');">바코드 스캔 시작하기</button>
-            </div>
-        </div>
-    
-        <!-- 카메라 촬영 모달 -->
-        <div id="measureModal" class="measure-modal">
-            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; z-index: 10;">
-                <span id="measureTitle" style="font-size: 16px; font-weight: 700;">처방전 촬영</span>
-                <button type="button" class="close-modal-btn" style="color:white; background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:10px;" onclick="closeMeasurement()">닫기 X</button>
-            </div>
-            
-            <div class="measure-box">
-                <video id="videoElement" autoplay playsinline></video>
-                <div id="measureOverlay" class="measure-overlay">
-                    <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">처방전을 화면에 맞추고 촬영 버튼을 누르세요.</p>
-                </div>
-                <div class="measure-btn-container" id="cameraBtnContainer">
-                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runCameraCaptureOnly()">📸 처방전 사진 찍고 약 선택하기</button>
-                </div>
+                <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="closeModal('barcodeModal'); triggerFileUpload();">바코드 대신 사진 업로드하기</button>
             </div>
         </div>
     
@@ -953,9 +846,8 @@
             console.log("로컬 저장소 모드로 작동합니다.");
         }
     
-        let localStream = null;
         let currentWater = 500;
-        let lastCapturedDataUrl = '';
+        let lastUploadedDataUrl = '';
         let lastAnalyzedPrescription = null; 
     
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
@@ -1115,7 +1007,6 @@
                 checkAndResetDailySteps();
                 let steps = parseInt(localStorage.getItem('ahm_steps') || '0');
                 updateStepDisplay(steps);
-                await requestWakeLock();
             } else if(modalId === 'voiceModal') {
                 document.getElementById('voiceStatus').textContent = '대기 중... 아래 버튼을 누르고 말씀하세요.';
                 document.getElementById('micIcon').className = 'fa-solid fa-microphone-lines';
@@ -1130,7 +1021,7 @@
         function openPrescriptionDetailModal() {
             const modalBody = document.getElementById('prescriptionDetailModalBody');
             if (!lastAnalyzedPrescription || lastAnalyzedPrescription.length === 0) {
-                modalBody.innerHTML = '<p style="text-align:center; color:#64748b; padding:20px;">아직 분석된 처방전 상세 내역이 없습니다. 처방전을 먼저 촬영해 주세요.</p>';
+                modalBody.innerHTML = '<p style="text-align:center; color:#64748b; padding:20px;">아직 분석된 처방전 상세 내역이 없습니다. 처방전 사진을 업로드해 주세요.</p>';
             } else {
                 let html = '<div style="display:flex; flex-direction:column; gap:12px;">';
                 lastAnalyzedPrescription.forEach((med, idx) => {
@@ -1151,27 +1042,6 @@
         async function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if(modal) modal.classList.remove('active');
-            
-            if(modalId === 'pedometerModal') {
-                await releaseWakeLock();
-            }
-        }
-    
-        async function requestWakeLock() {
-            if ('wakeLock' in navigator) {
-                try {
-                    wakeLock = await navigator.wakeLock.request('screen');
-                } catch (err) { console.log(err); }
-            }
-        }
-    
-        async function releaseWakeLock() {
-            if (wakeLock !== null) {
-                try {
-                    await wakeLock.release();
-                    wakeLock = null;
-                } catch (err) { console.log(err); }
-            }
         }
     
         function checkAndResetDailySteps() {
@@ -1338,83 +1208,70 @@
             };
             galleryList.prepend(photoItem);
         }
-    
-        async function startMeasurement(mode) {
-            lastCapturedDataUrl = '';
+
+        // 파일 업로드 트리거
+        function triggerFileUpload() {
+            document.getElementById('prescriptionFileInput').click();
+        }
+
+        // 갤러리 파일 업로드 및 Tesseract OCR 처리
+        async function handlePrescriptionFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // 이전 데이터 완전 초기화
             lastAnalyzedPrescription = null;
+            showToast('📂 처방전 이미지 업로드됨. AI 정밀 판독 중...');
 
-            const modal = document.getElementById('measureModal');
-            document.getElementById('measureTitle').textContent = '✨ 처방전 빠른 촬영';
-            document.getElementById('measureOverlay').style.display = 'block';
-            document.getElementById('cameraBtnContainer').style.display = 'block';
-            document.getElementById('measureStatusText').textContent = '처방전을 화면에 맞추고 촬영 버튼을 누르세요.';
-            modal.classList.add('active');
-    
-            try {
-                const constraints = {
-                    video: {
-                        facingMode: { ideal: 'environment' },
-                        width: { ideal: 1920 },
-                        height: { ideal: 1080 },
-                        focusMode: { ideal: 'continuous' }
-                    },
-                    audio: false
-                };
-    
-                localStream = await navigator.mediaDevices.getUserMedia(constraints);
-                const videoElement = document.getElementById('videoElement');
-                videoElement.srcObject = localStream;
-            } catch (err) {
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                lastUploadedDataUrl = e.target.result;
+
                 try {
-                    localStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
-                    document.getElementById('videoElement').srcObject = localStream;
-                } catch(e) {
-                    showToast("⚠ 카메라 권한을 허용해 주세요.");
+                    const result = await Tesseract.recognize(lastUploadedDataUrl, 'kor+eng', {
+                        logger: m => console.log(m)
+                    });
+                    
+                    const detectedText = result.data.text || "";
+                    processUploadedTextResult(detectedText, lastUploadedDataUrl);
+                } catch (err) {
+                    showToast('⚠ OCR 판독에 실패했습니다. 수동 지정 모드를 엽니다.');
+                    openModal('manualCorrectionModal');
                 }
-            }
-        }
-    
-        function runCameraCaptureOnly() {
-            const videoEl = document.getElementById('videoElement');
-            const canvas = document.createElement('canvas');
-            canvas.width = videoEl.videoWidth || 1920;
-            canvas.height = videoEl.videoHeight || 1080;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
-            
-            lastCapturedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
-
-            closeMeasurement();
-            showToast('📸 처방전 촬영 완료! 약품 선택 창을 엽니다.');
-            openModal('quickSelectModal');
+            };
+            reader.readAsDataURL(file);
+            // 같은 파일 다시 선택할 수 있도록 초기화
+            event.target.value = '';
         }
 
-        function selectQuickPrescription(medNames) {
-            let matchedMeds = medNames.map(name => {
-                let found = medicineDatabase.find(m => m.name.includes(name) || name.includes(m.keyword));
-                return found || { name: name, purpose: "전문의 처방 의약품", warning: "현재 복용 중인 영양제와 성분이 겹치지 않는지 주치의 또는 약사와 상담하세요." };
-            });
+        function processUploadedTextResult(ocrText, dataUrl) {
+            let matchedMeds = medicineDatabase.filter(med => ocrText.includes(med.keyword));
 
-            closeModal('quickSelectModal');
-            applyAnalyzedResult(matchedMeds, lastCapturedDataUrl || 'https://via.placeholder.com/300');
-        }
-
-        function applyDirectMedInput() {
-            const directName = document.getElementById('inputDirectMedName').value.trim();
-            if(!directName) {
-                showToast('⚠ 약 이름을 입력해 주세요.');
+            if (matchedMeds.length === 0) {
+                showToast('⚠ 텍스트에서 약품을 자동 감지하지 못했습니다. 약 이름을 지정해 주세요.');
+                openModal('manualCorrectionModal');
                 return;
             }
 
-            let found = medicineDatabase.find(m => m.name.includes(directName) || directName.includes(m.keyword));
+            applyAnalyzedResult(matchedMeds, dataUrl);
+        }
+
+        function applyManualCorrection() {
+            const manualName = document.getElementById('inputManualMedName').value.trim();
+            if(!manualName) {
+                showToast('⚠ 약 이름을 선택하거나 입력해 주세요.');
+                return;
+            }
+
+            let found = medicineDatabase.find(m => m.name.includes(manualName) || manualName.includes(m.keyword));
             let targetMed = found || {
-                name: directName,
-                purpose: "전문의 처방 의약품 (맞춤 입력)",
-                warning: "처방받으신 약과 영양제 병용 시 부작용 유무를 약사와 상의하세요."
+                name: manualName,
+                purpose: "전문의 처방 의약품 (직접 지정)",
+                warning: "현재 복용 중인 영양제와 성분이 겹치지 않는지 주치의 또는 약사와 상담하세요."
             };
 
-            closeModal('quickSelectModal');
-            applyAnalyzedResult([targetMed], lastCapturedDataUrl || 'https://via.placeholder.com/300');
+            closeModal('manualCorrectionModal');
+            applyAnalyzedResult([targetMed], lastUploadedDataUrl || 'https://via.placeholder.com/300');
         }
 
         function applyAnalyzedResult(matchedMeds, dataUrl) {
@@ -1422,7 +1279,7 @@
             let primaryTitle = `${matchedMeds[0].name}${matchedMeds.length > 1 ? ` 외 ${matchedMeds.length - 1}개` : ''}`;
 
             let reportHtml = `
-                <b>💊 지정된 처방 약품 (${matchedMeds.length}개):</b> ${matchedMeds.map(m => m.name).join(', ')}<br>
+                <b>💊 분석된 처방 약품 (${matchedMeds.length}개):</b> ${matchedMeds.map(m => m.name).join(', ')}<br>
                 <b>🎯 대표 치료 목적:</b> ${matchedMeds[0].purpose}<br>
                 <b>⚠ 영양제 병용 및 부작용 주의:</b> <span style="color: #b91c1c; font-weight: 600;">${matchedMeds[0].warning}</span><br>
                 <div style="margin-top: 6px; font-size: 11px; color: var(--primary-color); font-weight: 700;">👆 이 리포트를 터치하면 모든 약품의 상세 내역을 볼 수 있습니다.</div>
@@ -1434,17 +1291,9 @@
             myPageContent.innerHTML = reportHtml;
 
             addPhotoToGallery(dataUrl, primaryTitle, matchedMeds);
-            saveToCloud('records', { text: `[처방전 정밀 분석] ${primaryTitle}` });
+            saveToCloud('records', { text: `[갤러리 업로드 분석] ${primaryTitle}` });
             
             showToast(`✨ 처방전 분석 및 리포트 생성 완료!`);
-        }
-    
-        function closeMeasurement() {
-            document.getElementById('measureModal').classList.remove('active');
-            if (localStream) {
-                localStream.getTracks().forEach(track => track.stop());
-                localStream = null;
-            }
         }
     </script>
     
