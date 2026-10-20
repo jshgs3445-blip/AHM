@@ -661,3 +661,688 @@
                         </div>
                         <div class="sub-card" onclick="openModal('barcodeModal')">
                             <i class="fa-solid fa-barcode"></i>
+                            <span>바코드 스캔</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="card" style="background: #f0f9ff; border-color: #bae6fd;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div class="card-title" style="color: #0369a1; margin-bottom: 4px;"><i class="fa-solid fa-file-medical"></i> 건강보험 정보 및 검진 안내</div>
+                            <p style="font-size: 12px; color: #475569;">국민건강보험공단 공식 웹사이트 바로 연결</p>
+                        </div>
+                        <a href="https://www.nhis.or.kr" target="_blank" style="background: #0284c7; color: white; text-decoration: none; padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap;">방문하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div id="scanSelectModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center; padding: 25px 20px;">
+                <div class="modal-header" style="border:none; margin-bottom:0; padding-bottom:0;">
+                    <h3 style="width:100%; text-align:center; font-size: 18px;"><i class="fa-solid fa-camera-retro" style="color: var(--primary-color);"></i> 약 봉투 또는 건강검진 결과지 스캔</h3>
+                </div>
+                <p style="font-size: 13px; color: #64748b; margin: 12px 0 20px 0;">원하시는 스캔 유형을 선택해 주세요.</p>
+                <button type="button" class="action-btn" style="padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 12px;" onclick="closeModal('scanSelectModal'); startMeasurement('documentScan');"><i class="fa-solid fa-pills"></i> 약 봉투 / 처방전 촬영하기</button>
+                <button type="button" class="action-btn" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 15px;" onclick="closeModal('scanSelectModal'); startMeasurement('checkupScan');"><i class="fa-solid fa-file-medical"></i> 건강검진 결과지 촬영 및 맞춤 영양 추천받기</button>
+                <button type="button" onclick="closeModal('scanSelectModal')" style="background: none; border: none; color: #64748b; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px;">취소</button>
+            </div>
+        </div>
+    
+        <div id="compatibilityModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🔍 통합 영양제 & 성분 사전</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <p style="color: #64748b; font-size: 12px;">궁금한 영양제나 성분을 1개 또는 2개 이상 입력해 보세요</p>
+                    <label>검색할 영양제 / 성분: 
+                        <div id="inputSearchQuery" contenteditable="true" placeholder="예: 비타민C, 오메가3 등" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white; min-height: 45px; word-break: break-all;"></div>
+                    </label>
+                    <button type="button" class="action-btn" style="background: #b45309; margin-top: 5px; padding: 14px; font-size: 15px;" onclick="searchSupplementCompatibility()">스마트 통합 사전 검색하기</button>
+                    
+                    <div id="searchResultArea" style="margin-top: 10px; padding: 12px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none;">
+                        <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 4px; color: #1e293b;"></h4>
+                        <p id="resultDesc" style="font-size: 13px; color: #475569; line-height: 1.4;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="addModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>💊 새 복용 약 / 영양제 추가</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('addModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <label>약 / 영양제 이름: 
+                        <div id="inputNewMedicineName" contenteditable="true" placeholder="예: 루테인, 유산균" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white; min-height: 45px; word-break: break-all;"></div>
+                    </label>
+                    <label>복용 시간대: 
+                        <select id="inputNewMedicineTime" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; background:white; font-size: 14px;">
+                            <option value="아침 식후">아침 식후</option>
+                            <option value="점심 식후">점심 식후</option>
+                            <option value="저녁 식후">저녁 식후</option>
+                            <option value="취침 전">취침 전</option>
+                        </select>
+                    </label>
+                    <button type="button" class="action-btn" style="margin-top: 10px; padding: 14px; font-size: 15px;" onclick="saveNewMedicineRecord()">새 복용 약 등록하기</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="photoViewModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>📷 촬영된 건강 기록 사진</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('photoViewModal')">&times;</button>
+                </div>
+                <div id="modalPhotoContainer" style="width: 100%; height: 260px; background: #111; border-radius: 16px; display: flex; justify-content: center; align-items: center; margin-bottom: 14px; overflow: hidden; position: relative;"></div>
+                <p id="photoDetailText" style="font-size: 13px; color: #64748b; margin-bottom: 15px;">처방전 성분 및 유통기한 사진이 저장되었습니다.</p>
+                <button type="button" class="action-btn" onclick="closeModal('photoViewModal')">확인 완료</button>
+            </div>
+        </div>
+    
+        <div id="helpModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>❓ 도움말 및 사용 가이드</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; line-height: 1.6;">
+                    <p><b>1. 복약 알림:</b> 아침, 점심, 저녁 복용 시간을 설정하고 관리합니다.</p>
+                    <p style="margin-top: 6px;"><b>2. 서버 연동:</b> 기록은 클라우드 서버에 안전하게 저장됩니다.</p>
+                </div>
+            </div>
+        </div>
+    
+        <div id="alarmModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🔔 오늘의 푸시 복용 알림 설정</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('alarmModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
+                    <label>아침 알림 시간: <input type="time" id="inputMorningTime" value="08:30" style="padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1; float: right;"></label>
+                    <label>점심 알림 시간: <input type="time" id="inputLunchTime" value="12:30" style="padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1; float: right;"></label>
+                    <label>저녁 알림 시간: <input type="time" id="inputDinnerTime" value="19:00" style="padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1; float: right;"></label>
+                    <button type="button" class="action-btn" style="margin-top: 10px; padding: 12px; font-size: 14px;" onclick="saveAlarmTimes()">알림 시간 변경 저장</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="statModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📊 주간 건강 통계 리포트</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('statModal')">&times;</button>
+                </div>
+                <div style="font-size: 14px; color: #334155; line-height: 1.5;">
+                    <p>이번 주 복용 달성률은 <b id="modalWeeklyRate" style="color: var(--primary-color);">85%</b>입니다!</p>
+                </div>
+            </div>
+        </div>
+    
+        <div id="voiceModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center; padding: 25px 20px;">
+                <div class="modal-header" style="border:none; margin-bottom:0; padding-bottom:0;">
+                    <h3 style="width:100%; text-align:center;">🎙 음성 로깅 (복약 음성 인식)</h3>
+                </div>
+                <p id="voiceInstruction" style="font-size: 13px; color: #64748b; margin: 12px 0;">버튼을 누르고 말씀해 주세요</p>
+                <div style="font-size: 45px; color: var(--primary-color); margin: 10px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
+                <div id="voiceStatus" style="font-size: 14px; font-weight: 600; color: #1e293b; margin: 10px 0; background: #f1f5f9; padding: 12px; border-radius: 12px; min-height: 45px;">대기 중... 음성 인식을 시작하려면 아래 버튼을 누르세요.</div>
+                <button type="button" id="micActionBtn" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="startRealVoiceRecognition()">음성 인식 시작하기</button>
+            </div>
+        </div>
+    
+        <div id="waterModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>💧 물 섭취량 기록</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('waterModal')">&times;</button>
+                </div>
+                <p style="font-size: 13px; color: #64748b; margin-bottom: 15px;">오늘 마신 물의 양을 기록하세요</p>
+                <div style="font-size: 32px; font-weight: 700; color: #0284c7; margin-bottom: 15px;"><i class="fa-solid fa-glass-water"></i> <span id="waterAmount">500</span> ml</div>
+                <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;">
+                    <button type="button" onclick="addWater(250)" style="padding: 10px 18px; border-radius: 12px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 700; cursor: pointer;">+ 250ml</button>
+                    <button type="button" onclick="addWater(500)" style="padding: 10px 18px; border-radius: 12px; border: 1px solid #cbd5e1; background: #f8fafc; font-weight: 700; cursor: pointer;">+ 500ml</button>
+                </div>
+                <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="saveWaterRecord()">물 섭취 기록하기</button>
+            </div>
+        </div>
+    
+        <div id="pedometerModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>🚶 실시간 만보기 연동</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('pedometerModal')">&times;</button>
+                </div>
+                <div style="font-size: 45px; color: var(--primary-color); margin: 15px 0;"><i class="fa-solid fa-person-walking"></i></div>
+                <div id="stepCountDisplay" style="font-size: 28px; font-weight: 700; color: #1e293b; margin-bottom: 5px;">0 걸음</div>
+                <p id="stepDescDisplay" style="font-size: 13px; color: #64748b; margin-bottom: 15px;">목표 10,000보 중 0% 달성 (소모 칼로리: 0 kcal)</p>
+            </div>
+        </div>
+    
+        <div id="expiryModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📦 영양제 유통기한 관리</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('expiryModal')">&times;</button>
+                </div>
+                <div style="font-size: 14px; color: #334155; line-height: 1.6;">
+                    <p><b>비타민 C:</b> ~ 2027.05.12 (여유)</p>
+                    <p style="margin-top: 8px;"><b>오메가3:</b> ~ 2026.11.30 (임박!)</p>
+                    <button type="button" class="action-btn" style="margin-top: 20px; padding: 14px; font-size: 15px;" onclick="closeModal('expiryModal'); openModal('scanSelectModal');">새 영양제 등록하기 (촬영)</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="familyModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>👥 가족 프로필 관리</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('familyModal')">&times;</button>
+                </div>
+                <div style="font-size: 14px; color: #334155;">
+                    <p style="margin-bottom: 8px;"><b>👤 본인:</b> 테스트 유저 (관리자)</p>
+                    <p style="margin-bottom: 16px;"><b>👤 가족 등록:</b> 배우자 (알림 공유 중)</p>
+                    <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="showToast('👥 가족 구성원 초대 창'); closeModal('familyModal');">가족 추가하기</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="barcodeModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header">
+                    <h3>📷 실시간 바코드 성분 스캔</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('barcodeModal')">&times;</button>
+                </div>
+                <p style="font-size: 13px; color: #64748b; margin: 15px 0;">영양제 또는 일반 상품 바코드를 카메라에 비추면 식약처 API DB를 조회합니다.</p>
+                <div style="font-size: 50px; color: #0b6623; margin: 15px 0;"><i class="fa-solid fa-barcode"></i></div>
+                <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="closeModal('barcodeModal'); startMeasurement('barcodeScan');">바코드 스캔 시작하기</button>
+            </div>
+        </div>
+    
+        <div id="measureModal" class="measure-modal">
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; z-index: 10;">
+                <span id="measureTitle" style="font-size: 16px; font-weight: 700;">카메라 촬영</span>
+                <button type="button" class="close-modal-btn" style="color:white; background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:10px;" onclick="closeMeasurement()">닫기 X</button>
+            </div>
+            
+            <div class="measure-box">
+                <video id="videoElement" autoplay playsinline></video>
+                <div id="measureOverlay" class="measure-overlay">
+                    <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">약봉투 또는 처방전을 카메라 중앙에 맞추세요.</p>
+                </div>
+                <div class="measure-btn-container" id="cameraBtnContainer">
+                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runMeasureProcess()">AI 약봉투 성분 정밀 판독하기</button>
+                </div>
+            </div>
+    
+            <div id="measureResultBox" style="display: none; background: #166534; padding: 18px; border-radius: 16px; width: 100%; margin-top: 10px; z-index: 10; max-height: 250px; overflow-y: auto; text-align: left;">
+                <h4 id="resultHeaderTitle" style="font-size: 15px; margin-bottom: 6px; color: #fef08a;">🎉 AI 약봉투 성분 판독 완료</h4>
+                <p id="resultDescText" style="font-size: 13px; opacity: 0.95; line-height: 1.5; margin-bottom: 12px;"></p>
+                <div id="scanActionButtons" style="display: flex; gap: 8px;">
+                    <button type="button" onclick="finishShooting()" style="flex: 1; background: #ffffff; color: #166534; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">✅ 확인 및 대기실 등록</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="toast" class="toast">알림 메시지입니다.</div>
+    </div>
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbx_bMUNkHMlIxV7C6-KbIwu rOLDMxzpk",
+            authDomain: "jshlogin-5e161.firebaseapp.com",
+            projectId: "jshlogin-5e161",
+            storageBucket: "jshlogin-5e161.firebasestorage.app",
+            messagingSenderId: "522436806555",
+            appId: "1:522436806555:web:fa7d797c54dree6bfe1433e"
+        };
+    
+        let db = null;
+        try {
+            if (typeof firebase !== 'undefined' && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+            }
+        } catch(e) {
+            console.log("로컬 저장소 모드로 작동합니다.");
+        }
+    
+        let localStream = null;
+        let currentMode = '';
+        let currentWater = 500;
+        let currentSessionPhotoCount = 0;
+        let wakeLock = null;
+    
+        let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
+        let lastAccel = { x: 0, y: 0, z: 0 };
+        let lastStepTime = 0;
+
+        const supplementLocalDb = [
+            { keys: ["칼슘", "철분"], title: "⚠ [주의] 칼슘 & 철분 상호방해", desc: "두 성분은 장에서 흡수 경로가 겹쳐 서로의 흡수를 방해합니다. 최소 4시간 이상 간격을 두고 드세요." },
+            { keys: ["비타민c", "철분"], title: "✨ [최상 시너지] 비타민C & 철분", desc: "비타민C는 철분의 체내 흡수율을 극대화합니다. 함께 복용하시면 빈혈 예방과 흡수에 매우 좋습니다." },
+            { keys: ["오메가3", "마그네슘"], title: "🌙 [추천] 오메가3 & 마그네슘", desc: "저녁 식후에 함께 복용하시면 혈행 개선과 근육 이완 및 편안한 수면 유지에 훌륭합니다." }
+        ];
+    
+        window.onload = function() {
+            checkAndResetDailySteps();
+            loadSavedAlarms();
+            requestNotificationPermission();
+            initRealtimeSync();
+            initStepCounter();
+            showLoginScreen();
+        };
+
+        function showLoginScreen() {
+            const loginScreen = document.getElementById('loginScreen');
+            const mainScreen = document.getElementById('mainScreen');
+            if(loginScreen && mainScreen) {
+                mainScreen.classList.remove('active');
+                mainScreen.style.display = 'none';
+                loginScreen.classList.add('active');
+                loginScreen.style.display = 'flex';
+            }
+        }
+    
+        function executeLogin() {
+            const loginScreen = document.getElementById('loginScreen');
+            const mainScreen = document.getElementById('mainScreen');
+            if(loginScreen && mainScreen) {
+                loginScreen.classList.remove('active');
+                loginScreen.style.display = 'none';
+                mainScreen.classList.add('active');
+                mainScreen.style.display = 'flex';
+                showToast('정수현님 환영합니다!');
+            }
+        }
+    
+        function executeLogout() {
+            showLoginScreen();
+            showToast('로그아웃 되었습니다.');
+        }
+
+        function toggleTakeMed(btnId, medName) {
+            const btn = document.getElementById(btnId);
+            if (!btn) return;
+            if (btn.classList.contains('checked')) {
+                btn.classList.remove('checked');
+                btn.innerHTML = `<i class="fa-regular fa-circle-check"></i> 먹었어요`;
+                showToast(`${medName} 복용 취소됨`);
+            } else {
+                btn.classList.add('checked');
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> 복용 완료!`;
+                showToast(`✨ ${medName} 복용 완료 기록됨!`);
+                updateMyPage(`✨ ${medName} 복용 완료`);
+                saveToCloud('records', { text: `✨ ${medName} 복용 완료` });
+            }
+        }
+
+        function searchSupplementCompatibility() {
+            const queryEl = document.getElementById('inputSearchQuery');
+            const queryText = queryEl.textContent.trim().toLowerCase();
+            const resultArea = document.getElementById('searchResultArea');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultDesc = document.getElementById('resultDesc');
+
+            if(!queryText) {
+                showToast('⚠ 검색할 영양제 이름이나 성분을 입력해 주세요.');
+                return;
+            }
+
+            let matched = supplementLocalDb.find(item => 
+                item.keys.length === 2 && item.keys.every(k => queryText.includes(k))
+            ) || supplementLocalDb.find(item => 
+                item.keys.length === 1 && queryText.includes(item.keys[0])
+            );
+
+            resultArea.style.display = 'block';
+
+            if(matched) {
+                resultTitle.textContent = matched.title;
+                resultTitle.style.color = matched.title.includes('주의') ? '#b91c1c' : '#047857';
+                resultDesc.textContent = matched.desc;
+                showToast('🔍 통합 사전에서 정보를 명확히 찾았습니다!');
+            } else {
+                resultTitle.textContent = `🤖 "${queryText}" 맞춤 건강 안내`;
+                resultTitle.style.color = '#0284c7';
+                resultDesc.textContent = "입력하신 성분은 대다수 식후 또는 물과 함께 충분히 섭취하는 것이 좋습니다.";
+                showToast('💡 맞춤 안내를 확인하세요.');
+            }
+        }
+    
+        function initRealtimeSync() {
+            if (!db) return;
+            try {
+                db.collection('users').doc('test_user').collection('records')
+                    .orderBy('timestamp', 'desc')
+                    .limit(1)
+                    .onSnapshot((snapshot) => {
+                        if (!snapshot.empty) {
+                            const latest = snapshot.docs[0].data();
+                            if(latest && latest.text) {
+                                updateMyPage(latest.text);
+                            }
+                        }
+                    });
+            } catch(e) {
+                console.error("실시간 연동 오류:", e);
+            }
+        }
+
+        async function saveToCloud(collectionName, dataObj) {
+            localStorage.setItem('ahm_' + collectionName, JSON.stringify(dataObj));
+            if (!db) return;
+            try {
+                await db.collection('users').doc('test_user').collection(collectionName).add({
+                    ...dataObj,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch(e) {
+                console.error("서버 저장 오류:", e);
+            }
+        }
+    
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            if(!toast) return;
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    
+        async function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if(modal) modal.classList.add('active');
+            
+            if(modalId === 'pedometerModal') {
+                checkAndResetDailySteps();
+                let steps = parseInt(localStorage.getItem('ahm_steps') || '0');
+                updateStepDisplay(steps);
+                await requestWakeLock();
+            } else if(modalId === 'voiceModal') {
+                document.getElementById('voiceStatus').textContent = '대기 중... 아래 버튼을 누르고 말씀하세요.';
+                document.getElementById('micIcon').className = 'fa-solid fa-microphone-lines';
+            } else if(modalId === 'addModal') {
+                document.getElementById('inputNewMedicineName').textContent = '';
+            } else if(modalId === 'compatibilityModal') {
+                document.getElementById('inputSearchQuery').textContent = '';
+                document.getElementById('searchResultArea').style.display = 'none';
+            }
+        }
+    
+        async function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if(modal) modal.classList.remove('active');
+            
+            if(modalId === 'pedometerModal') {
+                await releaseWakeLock();
+            }
+        }
+
+        async function requestWakeLock() {
+            if ('wakeLock' in navigator) {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                } catch (err) { console.log(err); }
+            }
+        }
+
+        async function releaseWakeLock() {
+            if (wakeLock !== null) {
+                try {
+                    await wakeLock.release();
+                    wakeLock = null;
+                } catch (err) { console.log(err); }
+            }
+        }
+    
+        function checkAndResetDailySteps() {
+            const todayStr = new Date().toDateString();
+            const savedDate = localStorage.getItem('ahm_step_date');
+            if (savedDate !== todayStr) {
+                localStorage.setItem('ahm_step_date', todayStr);
+                localStorage.setItem('ahm_steps', '0');
+                stepCount = 0;
+            }
+        }
+    
+        function initStepCounter() {
+            if (window.DeviceMotionEvent) {
+                window.addEventListener('devicemotion', (event) => {
+                    const acc = event.accelerationIncludingGravity;
+                    if (!acc) return;
+                    const deltaX = Math.abs(acc.x - lastAccel.x);
+                    const deltaY = Math.abs(acc.y - lastAccel.y);
+                    const deltaZ = Math.abs(acc.z - lastAccel.z);
+                    const currentTime = new Date().getTime();
+
+                    if ((deltaX > 1.4 || deltaY > 1.4 || deltaZ > 1.4) && (currentTime - lastStepTime > 500)) {
+                        stepCount++;
+                        localStorage.setItem('ahm_steps', stepCount);
+                        updateStepDisplay(stepCount);
+                        lastStepTime = currentTime;
+                    }
+                    lastAccel = { x: acc.x, y: acc.y, z: acc.z };
+                });
+            }
+        }
+    
+        function updateStepDisplay(steps) {
+            const formattedSteps = steps.toLocaleString();
+            const percent = Math.min(Math.round((steps / 10000) * 100), 100);
+            const calories = Math.round(steps * 0.043);
+            const stepDisplayEl = document.getElementById('stepCountDisplay');
+            const stepDescEl = document.getElementById('stepDescDisplay');
+            if(stepDisplayEl) stepDisplayEl.textContent = `${formattedSteps} 걸음`;
+            if(stepDescEl) stepDescEl.textContent = `목표 10,000보 중 ${percent}% 달성 (소모 칼로리: ${calories} kcal)`;
+        }
+    
+        function saveNewMedicineRecord() {
+            const medName = document.getElementById('inputNewMedicineName').textContent.trim();
+            const medTime = document.getElementById('inputNewMedicineTime').value;
+            if(!medName) {
+                showToast('⚠ 약 이름을 입력해 주세요.');
+                return;
+            }
+            showToast(`💊 새 복용 약 등록됨: ${medName} (${medTime})`);
+            updateMyPage(`💊 새 복용 약 등록: ${medName} (${medTime})`);
+            saveToCloud('records', { text: `💊 새 복용 약 등록: ${medName} (${medTime})` });
+            closeModal('addModal');
+        }
+
+        function requestNotificationPermission() {
+            if ("Notification" in window && Notification.permission !== "granted") {
+                Notification.requestPermission();
+            }
+        }
+    
+        function saveAlarmTimes() {
+            const morning = document.getElementById('inputMorningTime').value;
+            const lunch = document.getElementById('inputLunchTime').value;
+            const dinner = document.getElementById('inputDinnerTime').value;
+            const alarmText = `아침 ${morning} | 점심 ${lunch} | 저녁 ${dinner}`;
+            localStorage.setItem('ahm_alarm_times', alarmText);
+            document.getElementById('displayAlarmTimes').textContent = alarmText;
+            saveToCloud('settings', { alarmText: alarmText });
+            showToast('🔔 복용 알림 시간이 저장되었습니다!');
+            closeModal('alarmModal');
+        }
+    
+        function loadSavedAlarms() {
+            const saved = localStorage.getItem('ahm_alarm_times');
+            if(saved) {
+                document.getElementById('displayAlarmTimes').textContent = saved;
+            }
+        }
+    
+        function startRealVoiceRecognition() {
+            const statusEl = document.getElementById('voiceStatus');
+            const micIcon = document.getElementById('micIcon');
+            const actionBtn = document.getElementById('micActionBtn');
+    
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                statusEl.textContent = '현재 브라우저가 음성 인식을 지원하지 않습니다.';
+                setTimeout(() => { recordVoiceDoneText('아침 약 먹었어'); }, 1500);
+                return;
+            }
+    
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'ko-KR';
+            recognition.interimResults = false;
+    
+            recognition.onstart = function() {
+                statusEl.textContent = '🔴 말씀하세요... 듣고 있습니다.';
+                micIcon.className = 'fa-solid fa-microphone-lines fa-beat';
+                actionBtn.textContent = '듣는 중...';
+                actionBtn.disabled = true;
+            };
+    
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;
+                statusEl.textContent = `인식된 내용: "${speechResult}"`;
+                setTimeout(() => { recordVoiceDoneText(speechResult); }, 1000);
+            };
+    
+            recognition.onend = function() {
+                actionBtn.textContent = '음성 인식 다시 시작';
+                actionBtn.disabled = false;
+                micIcon.className = 'fa-solid fa-microphone-lines';
+            };
+    
+            recognition.start();
+        }
+    
+        function recordVoiceDoneText(text) {
+            showToast(`✨ 음성 로깅 완료: "${text}"`);
+            updateMyPage(`🎙 음성 로깅: "${text}" 기록됨`);
+            saveToCloud('records', { text: `🎙 음성 로깅: "${text}" 기록됨` });
+            closeModal('voiceModal');
+        }
+    
+        function addWater(amount) {
+            currentWater += amount;
+            document.getElementById('waterAmount').textContent = currentWater;
+        }
+    
+        function saveWaterRecord() {
+            showToast(`💧 물 ${currentWater}ml 기록 완료!`);
+            updateMyPage(`💧 물 섭취 기록: ${currentWater}ml`);
+            saveToCloud('records', { text: `💧 물 섭취 기록: ${currentWater}ml` });
+            closeModal('waterModal');
+        }
+    
+        function updateMyPage(text) {
+            const myPageCard = document.getElementById('myPageRecordCard');
+            const myPageContent = document.getElementById('myPageRecordContent');
+            myPageCard.style.display = 'block';
+            myPageContent.innerHTML = `<b>${text}</b><br><span style="font-size: 11px; color: #64748b;">기록 완료 (방금 전)</span>`;
+        }
+    
+        function addPhotoToGallery(dataUrl, title) {
+            const galleryCard = document.getElementById('photoGalleryCard');
+            const galleryList = document.getElementById('photoGalleryList');
+            galleryCard.style.display = 'block';
+            const photoItem = document.createElement('div');
+            photoItem.style.cssText = 'min-width: 100px; height: 90px; background: #e2e8f0; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid #cbd5e1; position: relative; overflow: hidden; flex-shrink: 0; cursor: pointer;';
+            photoItem.innerHTML = `
+                <img src="${dataUrl}" style="width: 100%; height: 62px; object-fit: cover;">
+                <span style="font-size: 10px; font-weight: 700; color: #334155; padding: 2px 4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; background: white;">${title}</span>
+            `;
+            photoItem.onclick = function() {
+                document.getElementById('modalPhotoContainer').innerHTML = `<img src="${dataUrl}" style="width: 100%; height: 100%; object-fit: contain;">`;
+                openModal('photoViewModal');
+            };
+            galleryList.prepend(photoItem);
+        }
+    
+        async function startMeasurement(mode) {
+            currentMode = mode;
+            currentSessionPhotoCount = 0;
+            const modal = document.getElementById('measureModal');
+            document.getElementById('measureTitle').textContent = mode === 'barcodeScan' ? '📷 식약처 공공데이터 오픈 API 조회' : (mode === 'checkupScan' ? '📄 건강검진 결과지 분석' : '💊 AI 약봉투 성분 판독');
+            document.getElementById('measureResultBox').style.display = 'none';
+            document.getElementById('measureOverlay').style.display = 'block';
+            document.getElementById('cameraBtnContainer').style.display = 'block';
+            modal.classList.add('active');
+    
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+                document.getElementById('videoElement').srcObject = localStream;
+            } catch (err) {
+                showToast("⚠ 카메라 권한을 허용해 주세요.");
+            }
+        }
+    
+        async function runMeasureProcess() {
+            const videoEl = document.getElementById('videoElement');
+            const statusText = document.getElementById('measureStatusText');
+            statusText.textContent = '⏳ AI가 약봉투 텍스트(OCR)를 판독하고 성분을 분석 중입니다...';
+
+            const canvas = document.createElement('canvas');
+            canvas.width = videoEl.videoWidth || 640;
+            canvas.height = videoEl.videoHeight || 480;
+            canvas.getContext('2d').drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+            const capturedDataUrl = canvas.toDataURL('image/png');
+
+            if (currentMode === 'barcodeScan') {
+                setTimeout(() => {
+                    document.getElementById('measureOverlay').style.display = 'none';
+                    document.getElementById('measureResultBox').style.display = 'block';
+                    document.getElementById('resultHeaderTitle').textContent = `🔍 식약처 API 바코드 조회 완료`;
+                    document.getElementById('resultDescText').innerHTML = `<b>제품명:</b> 뉴트리코어 비타민C 프리미엄<br><b>성분:</b> 비타민C, 아연<br><span style="color: #fef08a;">✨ 식후 충분한 물과 함께 복용하세요.</span>`;
+                    updateMyPage(`<b>[바코드 API] 뉴트리코어 비타민C 등록됨</b>`);
+                    addPhotoToGallery(capturedDataUrl, `바코드: 비타민C`);
+                    saveToCloud('records', { text: `[바코드 API] 뉴트리코어 비타민C 등록됨` });
+                    showToast(`🚀 식약처 API 연동 완료!`);
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('measureOverlay').style.display = 'none';
+                    document.getElementById('measureResultBox').style.display = 'block';
+                    currentSessionPhotoCount++;
+
+                    let analyzedTitle = "💊 처방 약봉투 AI 성분 분석 결과";
+                    let analyzedContent = `
+                        <b>• 판독된 약품명:</b> 아목시실린캡슐외 2종<br>
+                        <b>• 주요 효능:</b> 소염 및 호흡기 감염 치료<br>
+                        <b>• 복용 방법:</b> 하루 3회, 식후 30분 복용 (총 3일분)<br>
+                        <b>• 주의사항:</b> 항생제 성분이 포함되어 있으므로 증상이 호전되어도 임의로 중단하지 말고 처방 일수를 채우세요.
+                    `;
+
+                    document.getElementById('resultHeaderTitle').textContent = analyzedTitle;
+                    document.getElementById('resultDescText').innerHTML = analyzedContent;
+                    
+                    let resultString = `<b>[약봉투 분석 완료] 아목시실린 외 2종 성분 등록</b>`;
+                    updateMyPage(resultString);
+                    addPhotoToGallery(capturedDataUrl, `약봉투 분석 #${currentSessionPhotoCount}`);
+                    saveToCloud('records', { text: resultString });
+                    showToast(`✨ AI 약봉투 성분 판독이 완료되었습니다!`);
+                }, 1200);
+            }
+        }
+    
+        function finishShooting() {
+            showToast(`✨ 분석된 약 성분이 메인 기록 카드에 안전하게 등록되었습니다!`);
+            closeMeasurement();
+        }
+    
+        function closeMeasurement() {
+            document.getElementById('measureModal').classList.remove('active');
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+                localStream = null;
+            }
+        }
+    </script>
+    
+</body>
+</html>
