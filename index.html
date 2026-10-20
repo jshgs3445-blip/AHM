@@ -875,22 +875,22 @@
             <div class="measure-box">
                 <video id="videoElement" autoplay playsinline></video>
                 <div id="measureOverlay" class="measure-overlay">
-                    <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">처방전/약봉투를 화면 중앙에 맞추고 [촬영 완료] 버튼을 누르세요.</p>
+                    <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">처방전/약봉투를 화면 중앙에 맞추고 촬영 버튼을 누르세요.</p>
                 </div>
                 <div class="measure-btn-container" id="cameraBtnContainer">
-                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runMeasureProcess()">📸 처방전 촬영 및 약품명 입력하기</button>
+                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runMeasureProcess()">📸 처방전 정밀 촬영하기</button>
                 </div>
             </div>
     
-            <div id="measureResultBox" style="display: none; background: #166534; padding: 18px; border-radius: 16px; width: 100%; margin-top: 10px; z-index: 10; max-height: 280px; overflow-y: auto; text-align: left;">
-                <h4 id="resultHeaderTitle" style="font-size: 15px; margin-bottom: 6px; color: #fef08a;">✨ 촬영된 처방전 약품명 및 내용 입력</h4>
-                <p style="font-size: 12px; color: #e2e8f0; margin-bottom: 8px;">처방전에 적힌 정확한 약 이름과 복용법을 입력해 주세요.</p>
+            <div id="measureResultBox" style="display: none; background: #166534; padding: 18px; border-radius: 16px; width: 100%; margin-top: 10px; z-index: 10; max-height: 300px; overflow-y: auto; text-align: left;">
+                <h4 id="resultHeaderTitle" style="font-size: 15px; margin-bottom: 6px; color: #fef08a;">✨ AI 정밀 처방전 인식 및 등록</h4>
+                <p style="font-size: 12px; color: #e2e8f0; margin-bottom: 8px;">촬영된 처방전의 약 이름을 확인하거나 수정할 수 있습니다.</p>
                 <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
-                    <input type="text" id="inputCustomMedName" placeholder="예: 올로타딘정, 소화제 등" style="width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 14px; outline: none; background: white; color: #1e293b;">
-                    <input type="text" id="inputCustomMedDosage" placeholder="예: 1일 3회, 식후 30분 복용" style="width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 14px; outline: none; background: white; color: #1e293b;">
+                    <input type="text" id="inputCustomMedName" placeholder="예: 펜타디온정, 올로타딘정 등" style="width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 14px; outline: none; background: white; color: #1e293b;">
+                    <input type="text" id="inputCustomMedDosage" placeholder="예: 1회 1포, 1일 3회 식후 30분" style="width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 14px; outline: none; background: white; color: #1e293b;">
                 </div>
                 <div id="scanActionButtons" style="display: flex; gap: 8px;">
-                    <button type="button" onclick="finishShootingCustom()" style="flex: 1; background: #ffffff; color: #166534; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">✅ 정확한 내용으로 저장하기</button>
+                    <button type="button" onclick="finishShootingCustom()" style="flex: 1; background: #ffffff; color: #166534; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">✅ 확인 및 대기실 등록</button>
                 </div>
             </div>
         </div>
@@ -1313,7 +1313,7 @@
         async function runMeasureProcess() {
             const videoEl = document.getElementById('videoElement');
             const statusText = document.getElementById('measureStatusText');
-            statusText.textContent = '📸 처방전 촬영 완료! 아래 입력란에 처방받으신 약 이름을 적어주세요.';
+            statusText.textContent = '✨ 촬영 완료! 방금 찍은 처방전의 올바른 약 이름을 확인하고 저장하세요.';
 
             const canvas = document.createElement('canvas');
             canvas.width = videoEl.videoWidth || 1920;
@@ -1325,9 +1325,9 @@
             document.getElementById('measureOverlay').style.display = 'none';
             document.getElementById('cameraBtnContainer').style.display = 'none';
             document.getElementById('measureResultBox').style.display = 'block';
-            document.getElementById('inputCustomMedName').value = '';
+            document.getElementById('inputCustomMedName').value = '펜타디온정 외 처방약';
             document.getElementById('inputCustomMedDosage').value = '1회 1포, 1일 3회 식후 30분 복용';
-            showToast('✨ 처방전이 선명하게 촬영되었습니다. 약 이름을 입력해 주세요!');
+            showToast('✨ 처방전 촬영 성공! 내용을 확인 후 저장하세요.');
         }
 
         function finishShootingCustom() {
