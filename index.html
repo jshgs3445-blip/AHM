@@ -687,10 +687,10 @@
         <div id="scanSelectModal" class="custom-modal">
             <div class="modal-content" style="text-align: center; padding: 25px 20px;">
                 <div class="modal-header" style="border:none; margin-bottom:0; padding-bottom:0;">
-                    <h3 style="width:100%; text-align:center; font-size: 18px;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary-color);"></i> AI 처방전 스마트 멀티 분석</h3>
+                    <h3 style="width:100%; text-align:center; font-size: 18px;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary-color);"></i> AI 처방전 스마트 순수 판독</h3>
                 </div>
-                <p style="font-size: 13px; color: #64748b; margin: 12px 0 20px 0;">처방전을 촬영하면 포함된 모든 약품을 동시 판독하고 영양제 부작용을 검사합니다.</p>
-                <button type="button" class="action-btn" style="padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 12px;" onclick="closeModal('scanSelectModal'); startMeasurement('documentScan');"><i class="fa-solid fa-pills"></i> 처방전 자동 촬영 및 전수 분석하기</button>
+                <p style="font-size: 13px; color: #64748b; margin: 12px 0 20px 0;">처방전을 촬영하면 실제 텍스트를 정확히 추출하여 분석합니다.</p>
+                <button type="button" class="action-btn" style="padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 12px;" onclick="closeModal('scanSelectModal'); startMeasurement('documentScan');"><i class="fa-solid fa-pills"></i> 처방전 실제 촬영 및 순수 분석하기</button>
                 <button type="button" class="action-btn" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 15px;" onclick="closeModal('scanSelectModal'); startMeasurement('checkupScan');"><i class="fa-solid fa-file-medical"></i> 건강검진 결과지 촬영 및 맞춤 영양 추천</button>
                 <button type="button" onclick="closeModal('scanSelectModal')" style="background: none; border: none; color: #64748b; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px;">취소</button>
             </div>
@@ -773,8 +773,8 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.6;">
-                    <p><b>1. AI 자동 처방전 전수 분석:</b> 처방전을 찍으면 모든 약을 감지해 효능과 영양제 상호작용 위험을 상세히 리포트합니다.</p>
-                    <p style="margin-top: 6px;"><b>2. 상세 리포트 확인:</b> 마이페이지 리포트 카드를 터치하면 전체 약 목록과 부작용 안내를 언제든 다시 볼 수 있습니다.</p>
+                    <p><b>1. AI 실제 처방전 분석:</b> 처방전 사진 속 글자를 순수하게 OCR 판독하여 일치하는 약품만 정확히 분석합니다.</p>
+                    <p style="margin-top: 6px;"><b>2. 상세 리포트 확인:</b> 마이페이지 리포트 카드를 터치하면 해당 처방전의 정확한 약 목록을 볼 수 있습니다.</p>
                 </div>
             </div>
         </div>
@@ -886,10 +886,10 @@
             </div>
         </div>
     
-        <!-- 카메라 촬영 및 자동 AI 분석 모달 -->
+        <!-- 카메라 촬영 및 순수 OCR 분석 모달 -->
         <div id="measureModal" class="measure-modal">
             <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; z-index: 10;">
-                <span id="measureTitle" style="font-size: 16px; font-weight: 700;">처방전 AI 정밀 스캔</span>
+                <span id="measureTitle" style="font-size: 16px; font-weight: 700;">처방전 순수 스캔</span>
                 <button type="button" class="close-modal-btn" style="color:white; background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:10px;" onclick="closeMeasurement()">닫기 X</button>
             </div>
             
@@ -899,7 +899,7 @@
                     <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">처방전을 화면 중앙에 맞추고 촬영 버튼을 누르세요.</p>
                 </div>
                 <div class="measure-btn-container" id="cameraBtnContainer">
-                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runAiScanProcess()">✨ 촬영 및 AI 전수 분석 시작</button>
+                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runPureAiScanProcess()">✨ 촬영 및 순수 OCR 분석 시작</button>
                 </div>
             </div>
         </div>
@@ -930,9 +930,8 @@
         let localStream = null;
         let currentWater = 500;
         let currentSessionPhotoCount = 0;
-        let lastCapturedDataUrl = '';
         let wakeLock = null;
-        let lastAnalyzedPrescription = null; // 최근 분석된 처방전 상세 데이터 보관
+        let lastAnalyzedPrescription = null; 
     
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
         let lastAccel = { x: 0, y: 0, z: 0 };
@@ -944,7 +943,7 @@
             { keys: ["오메가3", "마그네슘"], title: "🌙 [추천] 오메가3 & 마그네슘", desc: "저녁 식후에 함께 복용하시면 혈행 개선과 근육 이완 및 편안한 수면 유지에 훌륭합니다." }
         ];
 
-        // 여러 의약품을 동시에 정밀 판독하기 위한 확장된 의약품 데이터베이스
+        // 의약품 데이터베이스 (실제 텍스트 매칭용)
         const medicineDatabase = [
             { keyword: "올로타딘", name: "올로타딘정 5mg", purpose: "알레르기 비염 및 결막염 치료", warning: "비타민C와 함께 복용 시 흡수에 영향이 없으나, 졸음이 올 수 있으니 수면 전 복용을 권장합니다." },
             { keyword: "로라반", name: "로라반정", purpose: "알레르기 및 두드러기 증상 완화", warning: "종합비타민과 병용 시 특이 상호작용은 없으나 과음은 피하세요." },
@@ -1317,7 +1316,7 @@
     
         async function startMeasurement(mode) {
             const modal = document.getElementById('measureModal');
-            document.getElementById('measureTitle').textContent = mode === 'barcodeScan' ? '📷 식약처 공공데이터 오픈 API 조회' : (mode === 'checkupScan' ? '📄 건강검진 결과지 분석' : '✨ AI 처방전 전수 자동 판독');
+            document.getElementById('measureTitle').textContent = mode === 'barcodeScan' ? '📷 식약처 공공데이터 오픈 API 조회' : (mode === 'checkupScan' ? '📄 건강검진 결과지 분석' : '✨ AI 처방전 순수 OCR 판독');
             document.getElementById('measureOverlay').style.display = 'block';
             document.getElementById('cameraBtnContainer').style.display = 'block';
             document.getElementById('measureStatusText').textContent = '처방전을 화면 중앙에 맞추고 아래 촬영 버튼을 누르세요.';
@@ -1354,11 +1353,11 @@
             }
         }
     
-        // 처방전 사진 촬영 시 모든 약품을 다중 대조하여 전수 분석하는 핵심 로직
-        async function runAiScanProcess() {
+        // 처방전 사진 촬영 시 순수하게 OCR 텍스트만 분석하여 일치하는 약품만 추출 (가짜 임의 매칭 완전 차단)
+        async function runPureAiScanProcess() {
             const videoEl = document.getElementById('videoElement');
             const statusText = document.getElementById('measureStatusText');
-            statusText.textContent = '🤖 AI가 처방전의 모든 약품 글자를 정밀 스캔 중입니다... (잠시만요)';
+            statusText.textContent = '🤖 처방전 사진에서 순수 텍스트를 추출하고 있습니다... (잠시만요)';
 
             const canvas = document.createElement('canvas');
             canvas.width = videoEl.videoWidth || 1920;
@@ -1369,7 +1368,7 @@
             let capturedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
 
             closeMeasurement();
-            showToast('🔍 텍스트 전수 추출 및 다중 의약품 DB 대조 중...');
+            showToast('🔍 순수 OCR 텍스트 추출 및 의약품 DB 대조 중...');
 
             try {
                 const result = await Tesseract.recognize(capturedDataUrl, 'kor+eng', {
@@ -1377,45 +1376,52 @@
                 });
                 
                 const detectedText = result.data.text || "";
-                analyzePrescriptionMultiResult(detectedText, capturedDataUrl);
+                analyzePurePrescriptionResult(detectedText, capturedDataUrl);
             } catch (err) {
-                // OCR 인식에 실패하거나 테스트 시 기본으로 여러 약품이 매칭되도록 보완
-                analyzePrescriptionMultiResult("올로타딘정 스카정 로라반정 세프테졸정", capturedDataUrl);
+                showToast("⚠ 텍스트 판독에 실패했습니다. 밝은 곳에서 다시 촬영해 주세요.");
             }
         }
 
-        function analyzePrescriptionMultiResult(ocrText, dataUrl) {
-            // DB 내 여러 약품 중 처방전 텍스트에 포함된 항목을 모두 찾아냄 (최소 2~3개 이상 매칭되도록 데모 검증 포함)
+        function analyzePurePrescriptionResult(ocrText, dataUrl) {
+            // 강제 가짜 매칭을 없애고, 오직 처방전 텍스트에 포함된 키워드만 엄격하게 필터링
             let matchedMeds = medicineDatabase.filter(med => ocrText.includes(med.keyword));
-            
-            // 만약 감지된 키워드가 너무 적다면 테스트를 위해 기본 3개 약품을 기본 포함하여 풍성하게 제공
-            if (matchedMeds.length < 2) {
-                matchedMeds = [medicineDatabase[0], medicineDatabase[2], medicineDatabase[3]];
+
+            const myPageCard = document.getElementById('myPageRecordCard');
+            const myPageContent = document.getElementById('myPageRecordContent');
+
+            if (matchedMeds.length === 0) {
+                // 매칭되는 약이 없을 때 정직하게 안내
+                lastAnalyzedPrescription = [];
+                myPageCard.style.display = 'block';
+                myPageContent.innerHTML = `
+                    <b>⚠ 처방전 일치 약품 미발견</b><br>
+                    추출된 텍스트에서 등록된 의약품을 찾지 못했습니다.<br>
+                    <span style="font-size: 11px; color: #64748b;">추출된 원문: ${ocrText.replace(/\n/g, ' ').substring(0, 60)}...</span>
+                `;
+                addPhotoToGallery(dataUrl, "판독 실패 (미인식)", []);
+                showToast('⚠ 처방전에서 일치하는 약품을 찾지 못했습니다.');
+                return;
             }
 
             lastAnalyzedPrescription = matchedMeds;
             currentSessionPhotoCount++;
 
-            // 메인 리포트 요약 텍스트 구성 (첫 번째 약 이름 + 총 개수 안내)
-            let primaryTitle = `${matchedMeds[0].name} 외 ${matchedMeds.length - 1}개 의약품`;
-            if (matchedMeds.length === 1) primaryTitle = matchedMeds[0].name;
+            let primaryTitle = `${matchedMeds[0].name}${matchedMeds.length > 1 ? ` 외 ${matchedMeds.length - 1}개` : ''}`;
 
             let reportHtml = `
-                <b>💊 총 감지된 처방 약품 (${matchedMeds.length개}):</b> ${matchedMeds.map(m => m.name).join(', ')}<br>
-                <b>🎯 대표 효능 및 목적:</b> ${matchedMeds[0].purpose}<br>
-                <b>⚠ 영양제 병용 및 부작용 주의사항:</b> <span style="color: #b91c1c; font-weight: 600;">${matchedMeds[0].warning}</span><br>
-                <div style="margin-top: 6px; font-size: 11px; color: var(--primary-color); font-weight: 700;">👆 이 리포트를 터치하면 모든 약품(${matchedMeds.length개})의 상세 내역을 볼 수 있습니다.</div>
+                <b>💊 판독된 처방 약품 (${matchedMeds.length}개):</b> ${matchedMeds.map(m => m.name).join(', ')}<br>
+                <b>🎯 대표 치료 목적:</b> ${matchedMeds[0].purpose}<br>
+                <b>⚠ 영양제 병용 및 부작용 주의:</b> <span style="color: #b91c1c; font-weight: 600;">${matchedMeds[0].warning}</span><br>
+                <div style="margin-top: 6px; font-size: 11px; color: var(--primary-color); font-weight: 700;">👆 이 리포트를 터치하면 모든 약품(${matchedMeds.length}개)의 상세 내역을 볼 수 있습니다.</div>
             `;
 
-            const myPageCard = document.getElementById('myPageRecordCard');
-            const myPageContent = document.getElementById('myPageRecordContent');
             myPageCard.style.display = 'block';
             myPageContent.innerHTML = reportHtml;
 
             addPhotoToGallery(dataUrl, primaryTitle, matchedMeds);
-            saveToCloud('records', { text: `[처방전 전수분석] ${primaryTitle} (${matchedMeds.length}개 약품 감지)` });
+            saveToCloud('records', { text: `[순수 처방전 분석] ${primaryTitle} (${matchedMeds.length}개 약품)` });
             
-            showToast(`✨ 처방전 내 의약품 ${matchedMeds.length}개 전수 분석 완료!`);
+            showToast(`✨ 처방전 순수 분석 완료 (${matchedMeds.length}개 약품 감지)!`);
         }
     
         function closeMeasurement() {
