@@ -875,22 +875,22 @@
             <div class="measure-box">
                 <video id="videoElement" autoplay playsinline></video>
                 <div id="measureOverlay" class="measure-overlay">
-                    <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">처방전/약봉투를 화면 중앙에 맞추고 촬영 버튼을 누르세요.</p>
+                    <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">새로운 처방전을 화면 중앙에 맞추고 촬영 버튼을 누르세요.</p>
                 </div>
                 <div class="measure-btn-container" id="cameraBtnContainer">
-                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runMeasureProcess()">📸 처방전 정밀 촬영하기</button>
+                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runMeasureProcess()">📸 새 처방전 정밀 촬영하기</button>
                 </div>
             </div>
     
             <div id="measureResultBox" style="display: none; background: #166534; padding: 18px; border-radius: 16px; width: 100%; margin-top: 10px; z-index: 10; max-height: 300px; overflow-y: auto; text-align: left;">
-                <h4 id="resultHeaderTitle" style="font-size: 15px; margin-bottom: 6px; color: #fef08a;">✨ AI 정밀 처방전 인식 및 등록</h4>
-                <p style="font-size: 12px; color: #e2e8f0; margin-bottom: 8px;">촬영된 처방전의 약 이름을 확인하거나 수정할 수 있습니다.</p>
+                <h4 id="resultHeaderTitle" style="font-size: 15px; margin-bottom: 6px; color: #fef08a;">✨ 방금 촬영한 처방전 약품명 및 내용 입력</h4>
+                <p style="font-size: 12px; color: #e2e8f0; margin-bottom: 8px;">방금 찍은 처방전에 적힌 정확한 약 이름과 복용법을 입력해 주세요.</p>
                 <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px;">
-                    <input type="text" id="inputCustomMedName" placeholder="예: 펜타디온정, 올로타딘정 등" style="width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 14px; outline: none; background: white; color: #1e293b;">
-                    <input type="text" id="inputCustomMedDosage" placeholder="예: 1회 1포, 1일 3회 식후 30분" style="width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 14px; outline: none; background: white; color: #1e293b;">
+                    <input type="text" id="inputCustomMedName" placeholder="예: 방금 처방받은 약 이름 입력" style="width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 14px; outline: none; background: white; color: #1e293b;">
+                    <input type="text" id="inputCustomMedDosage" placeholder="예: 1회 1포, 1일 3회 식후 30분 복용" style="width: 100%; padding: 10px; border-radius: 8px; border: none; font-size: 14px; outline: none; background: white; color: #1e293b;">
                 </div>
                 <div id="scanActionButtons" style="display: flex; gap: 8px;">
-                    <button type="button" onclick="finishShootingCustom()" style="flex: 1; background: #ffffff; color: #166534; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">✅ 확인 및 대기실 등록</button>
+                    <button type="button" onclick="finishShootingCustom()" style="flex: 1; background: #ffffff; color: #166534; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">✅ 새 처방전으로 저장하기</button>
                 </div>
             </div>
         </div>
@@ -1271,9 +1271,15 @@
     
         async function startMeasurement(mode) {
             currentMode = mode;
-            currentSessionPhotoCount = 0;
+            // 새로 촬영할 때마다 기존 입력값과 이전 캐시를 완전히 초기화
+            lastCapturedDataUrl = '';
+            const nameInput = document.getElementById('inputCustomMedName');
+            const dosageInput = document.getElementById('inputCustomMedDosage');
+            if(nameInput) nameInput.value = '';
+            if(dosageInput) dosageInput.value = '';
+
             const modal = document.getElementById('measureModal');
-            document.getElementById('measureTitle').textContent = mode === 'barcodeScan' ? '📷 식약처 공공데이터 오픈 API 조회' : (mode === 'checkupScan' ? '📄 건강검진 결과지 분석' : '💊 실시간 처방전 정밀 등록');
+            document.getElementById('measureTitle').textContent = mode === 'barcodeScan' ? '📷 식약처 공공데이터 오픈 API 조회' : (mode === 'checkupScan' ? '📄 건강검진 결과지 분석' : '💊 실시간 새 처방전 정밀 등록');
             document.getElementById('measureResultBox').style.display = 'none';
             document.getElementById('measureOverlay').style.display = 'block';
             document.getElementById('cameraBtnContainer').style.display = 'block';
@@ -1310,24 +1316,28 @@
             }
         }
     
-        async function runMeasureProcess() {
+        function runMeasureProcess() {
             const videoEl = document.getElementById('videoElement');
             const statusText = document.getElementById('measureStatusText');
-            statusText.textContent = '✨ 촬영 완료! 방금 찍은 처방전의 올바른 약 이름을 확인하고 저장하세요.';
+            statusText.textContent = '✨ 방금 촬영된 새로운 처방전입니다! 아래 입력란에 약 이름을 새로 입력해 주세요.';
 
             const canvas = document.createElement('canvas');
             canvas.width = videoEl.videoWidth || 1920;
             canvas.height = videoEl.videoHeight || 1080;
             const ctx = canvas.getContext('2d');
             ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+            
+            // 확실하게 방금 촬영한 프레임 데이터로 갱신
             lastCapturedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
 
             document.getElementById('measureOverlay').style.display = 'none';
             document.getElementById('cameraBtnContainer').style.display = 'none';
             document.getElementById('measureResultBox').style.display = 'block';
-            document.getElementById('inputCustomMedName').value = '펜타디온정 외 처방약';
+            
+            // 이전 입력 내용이 남아있지 않도록 빈 칸으로 제공하여 새로 입력 유도
+            document.getElementById('inputCustomMedName').value = '';
             document.getElementById('inputCustomMedDosage').value = '1회 1포, 1일 3회 식후 30분 복용';
-            showToast('✨ 처방전 촬영 성공! 내용을 확인 후 저장하세요.');
+            showToast('✨ 새 처방전 촬영 완료! 약 이름을 입력해 주세요.');
         }
 
         function finishShootingCustom() {
@@ -1335,17 +1345,17 @@
             const customDosage = document.getElementById('inputCustomMedDosage').value.trim();
 
             if(!customName) {
-                showToast('⚠ 처방받으신 약 이름을 입력해 주세요.');
+                showToast('⚠ 방금 찍은 처방전의 약 이름을 입력해 주세요.');
                 return;
             }
 
             currentSessionPhotoCount++;
-            const shortSummary = `[처방전] ${customName} (${customDosage})`;
+            const shortSummary = `[처방전 #${currentSessionPhotoCount}] ${customName} (${customDosage})`;
             updateMyPage(`<b>${shortSummary}</b>`);
             addPhotoToGallery(lastCapturedDataUrl, `${customName}`);
             saveToCloud('records', { text: shortSummary });
             
-            showToast(`✨ "${customName}" 처방전이 정확히 등록되었습니다!`);
+            showToast(`✨ "${customName}" 처방전이 새롭게 등록되었습니다!`);
             closeMeasurement();
         }
     
