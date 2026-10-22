@@ -597,9 +597,9 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <p style="color: #64748b; font-size: 12px;">비타민 B군 전종 및 주요 성분을 검색하거나 아래 태그를 터치해 보세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">비타민 B군 전종(B1~B12) 및 주요 성분을 태그로 터치하거나 검색하세요.</p>
                     
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 130px; overflow-y: auto;" id="dictTagContainer">
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 140px; overflow-y: auto;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('비타민b')">비타민B군 전체</span>
                         <span class="dict-tag" onclick="quickSelectDict('비타민b1')">비타민B1(티아민)</span>
                         <span class="dict-tag" onclick="quickSelectDict('비타민b2')">비타민B2(리보플래빈)</span>
@@ -789,7 +789,7 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
     
-        // 🚀 비타민 B군 전종(B1~B12) 세부 데이터베이스 포함 대백과사전
+        // 🚀 비타민 B군 전종(B1~B12) 및 주요 성분 백과사전 데이터베이스
         const encyclopediaDb = {
             "비타민b": { 
                 title: "⚡ 비타민 B군 (Vitamin B Complex) 종합 가이드", 
