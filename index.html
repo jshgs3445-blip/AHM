@@ -9,8 +9,6 @@
     <meta name="apple-mobile-web-app-title" content="AHM">
     <meta name="theme-color" content="#0b6623">
     
-    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"AHM - AI Health Manager","short_name":"AHM","start_url":".","display":"standalone","background_color":"#0b6623","theme_color":"#0b6623","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27110%27 fill=%27%230b6623%27/%3E%3Cpath d=%27M256 416l-35.4-32.2C96 288 48 245.4 48 186.6 48 138.8 86.8 100 134.6 100c31.4 0 61.4 14.8 80 39.4 18.6-24.6 48.6-39.4 80-39.4 47.8 0 86.6 38.8 86.6 86.6 0 58.8-48 101.4-172.6 197.2L256 416z%27 fill=%27%23ffffff%27/%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
-    
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -298,24 +296,6 @@
         }
         .ai-check-btn.checked { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
     
-        .action-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #0b6623, #138833);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 16px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(11, 102, 35, 0.3);
-            margin-bottom: 14px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-    
         .grid-3 {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -370,13 +350,13 @@
         .modal-content {
             background: white;
             width: 100%;
-            max-width: 340px;
+            max-width: 350px;
             border-radius: 24px;
             padding: 22px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
     
@@ -403,86 +383,6 @@
             color: #64748b;
         }
     
-        .measure-modal {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 15px;
-            z-index: 400;
-            color: white;
-            text-align: center;
-        }
-    
-        .measure-modal.active {
-            display: flex !important;
-        }
-    
-        .measure-box {
-            width: 100%;
-            flex: 1;
-            background: #111;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            margin: 10px 0;
-            border: 2px solid #334155;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-        }
-    
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-    
-        .measure-overlay {
-            position: relative;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.75);
-            padding: 12px 16px;
-            border-radius: 14px;
-            width: 90%;
-            margin-top: 5px;
-        }
-    
-        .measure-btn-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            padding-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-    
-        .measure-btn {
-            background: var(--secondary-color);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 15px;
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(19, 136, 51, 0.7);
-        }
-    
         .toast {
             position: absolute;
             top: 80px;
@@ -504,6 +404,24 @@
         .toast.show {
             transform: translateX(-50%) translateY(0);
             opacity: 1;
+        }
+
+        .dict-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #334155;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #cbd5e1;
+            transition: all 0.2s;
+        }
+        .dict-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
         }
     </style>
 </head>
@@ -531,7 +449,7 @@
                 <p style="font-size: 13px; color: #0b6623; font-weight: 700; cursor: pointer; margin-bottom: 15px;" onclick="showToast('회원가입 기능으로 이동합니다.')">✨ 아직 회원이 아니신가요? [회원가입하기]</p>
                 
                 <div style="background: #ffffff; padding: 10px; border-radius: 10px; font-size: 11px; color: #64748b; border: 1px solid #e2e8f0; line-height: 1.4;">
-                    ⚖ 면책 조항: 본 앱의 AI 분석 결과는 참고용이며, 정확한 진단과 처방은 반드시 의사 및 약사와 상담하세요.
+                    ⚖ 면책 조항: 본 앱의 건강 가이드 및 성분 정보는 참고용이며, 정확한 진단은 전문 의사 및 약사와 상담하세요.
                 </div>
                 
                 <div class="login-footer-links">
@@ -552,14 +470,13 @@
             </div>
     
             <div class="app-content">
-                <button type="button" class="action-btn" onclick="openModal('scanSelectModal')"><i class="fa-solid fa-camera"></i> 처방전 및 약 봉투 AI 스마트 스캔</button>
-    
-                <div class="card" style="background: #fffbeb; border-color: #fde68a; cursor: pointer;" onclick="openModal('compatibilityModal')">
+                <!-- 대백과사전 메인 배너 카드 (카메라 OCR 완전 대체) -->
+                <div class="card" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fde68a; cursor: pointer;" onclick="openModal('compatibilityModal')">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div class="card-title" style="color: #b45309; margin-bottom: 0;"><i class="fa-solid fa-magnifying-glass-chart"></i> 통합 스마트 영양제 & 성분 사전</div>
+                        <div class="card-title" style="color: #b45309; margin-bottom: 0;"><i class="fa-solid fa-book-medical"></i> 대백과사전: 통합 성분 & 영양제 사전</div>
                         <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: #b45309;"></i>
                     </div>
-                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">칼슘, 철분, 비타민C 등 조합별 상호작용과 부작용 정보를 즉시 확인하세요.</p>
+                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">칼슘, 철분, 비타민, 오메가3, 유산균 등 수십 종의 성분 효능 및 상호작용 즉시 검색!</p>
                 </div>
     
                 <div class="card" style="background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="openModal('statModal')">
@@ -597,8 +514,8 @@
     
                     <div class="ai-rec-card warning">
                         <div class="ai-card-header">
-                            <span class="ai-time-label" style="color: #b91c1c;"><i class="fa-solid fa-triangle-exclamation"></i> AI 병용 섭취 주의 알림</span>
-                            <span class="ai-badge danger">AI 성분 충돌</span>
+                            <span class="ai-time-label" style="color: #b91c1c;"><i class="fa-solid fa-triangle-exclamation"></i> AI 성분 충돌 경고</span>
+                            <span class="ai-badge danger">병용 주의</span>
                         </div>
                         <div class="ai-rec-title" style="color: #991b1b;">칼슘과 철분 분리 복용</div>
                         <div class="ai-rec-desc" style="color: #7f1d1d;">두 성분은 동시에 드시면 흡수를 방해해요. 4시간 간격을 두고 드세요.</div>
@@ -620,18 +537,9 @@
                     </div>
                 </div>
     
-                <!-- 터치하여 상세 내용을 볼 수 있는 정밀 분석 리포트 카드 -->
-                <div id="myPageRecordCard" class="card" style="background: #f8fafc; border-left: 5px solid #138833; display: none; cursor: pointer;" onclick="openPrescriptionDetailModal()">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div class="card-title" style="color: #0b6623; margin-bottom: 0;"><i class="fa-solid fa-clipboard-check"></i> AI 처방전 정밀 분석 리포트 <span style="font-size: 11px; background: #dcfce7; color: #15803d; padding: 2px 6px; border-radius: 6px; margin-left: 4px;">터치해서 전체보기</span></div>
-                        <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: #0b6623;"></i>
-                    </div>
-                    <div id="myPageRecordContent" style="font-size: 13px; color: #334155; line-height: 1.5; margin-top: 8px;">아직 분석된 처방전이 없습니다.</div>
-                </div>
-    
-                <div id="photoGalleryCard" class="card" style="background: #ffffff; border: 1px solid #cbd5e1; display: none;">
-                    <div class="card-title" style="color: #0b6623;"><i class="fa-solid fa-images"></i> 서버 저장소 사진함</div>
-                    <div id="photoGalleryList" style="display: flex; gap: 10px; overflow-x: auto; padding-top: 5px;"></div>
+                <div id="myPageRecordCard" class="card" style="background: #f8fafc; border-left: 5px solid #138833; display: none;">
+                    <div class="card-title" style="color: #0b6623; margin-bottom: 4px;"><i class="fa-solid fa-clipboard-check"></i> 실시간 활동 및 복용 기록</div>
+                    <div id="myPageRecordContent" style="font-size: 13px; color: #334155; line-height: 1.5;">기록이 없습니다.</div>
                 </div>
     
                 <div class="card">
@@ -663,9 +571,9 @@
                             <i class="fa-solid fa-users"></i>
                             <span>가족 프로필</span>
                         </div>
-                        <div class="sub-card" onclick="openModal('barcodeModal')">
-                            <i class="fa-solid fa-barcode"></i>
-                            <span>바코드 스캔</span>
+                        <div class="sub-card" onclick="openModal('compatibilityModal')">
+                            <i class="fa-solid fa-book-open-reader"></i>
+                            <span>성분 사전</span>
                         </div>
                     </div>
                 </div>
@@ -682,47 +590,37 @@
             </div>
         </div>
     
-        <div id="scanSelectModal" class="custom-modal">
-            <div class="modal-content" style="text-align: center; padding: 25px 20px;">
-                <div class="modal-header" style="border:none; margin-bottom:0; padding-bottom:0;">
-                    <h3 style="width:100%; text-align:center; font-size: 18px;"><i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary-color);"></i> 처방전 스마트 진단 모드</h3>
-                </div>
-                <p style="font-size: 13px; color: #64748b; margin: 12px 0 20px 0;">촬영 직후 영양제 성분과의 충돌 및 주의사항을 한눈에 진단합니다.</p>
-                <button type="button" class="action-btn" style="padding: 15px; font-size: 15px; border-radius: 14px; margin-bottom: 12px;" onclick="closeModal('scanSelectModal'); startMeasurement('documentScan');"><i class="fa-solid fa-camera"></i> 처방전/약 봉투 촬영하고 진단하기</button>
-                <button type="button" onclick="closeModal('scanSelectModal')" style="background: none; border: none; color: #64748b; font-size: 14px; font-weight: 600; cursor: pointer; padding: 5px;">취소</button>
-            </div>
-        </div>
-    
-        <!-- 처방전 전체 약 목록 상세 보기 모달 -->
-        <div id="prescriptionDetailModal" class="custom-modal">
-            <div class="modal-content" style="max-width: 360px;">
-                <div class="modal-header">
-                    <h3>📋 처방전 스마트 진단 리포트</h3>
-                    <button type="button" class="close-modal-btn" onclick="closeModal('prescriptionDetailModal')">&times;</button>
-                </div>
-                <div id="prescriptionDetailModalBody" style="font-size: 13px; color: #334155; line-height: 1.6; max-height: 60vh; overflow-y: auto;">
-                    <!-- 동적으로 상세 출력 -->
-                </div>
-                <button type="button" class="action-btn" style="margin-top: 15px;" onclick="closeModal('prescriptionDetailModal')">확인 완료</button>
-            </div>
-        </div>
-    
+        <!-- 대백과사전: 통합 성분 & 영양제 사전 모달 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>🔍 통합 영양제 & 성분 사전</h3>
+                    <h3>📚 통합 성분 & 영양제 대백과사전</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <p style="color: #64748b; font-size: 12px;">궁금한 영양제나 성분을 입력해 보세요 (예: 칼슘, 철분, 비타민C, 오메가3 등)</p>
-                    <label>검색할 성분: 
-                        <div id="inputSearchQuery" contenteditable="true" placeholder="예: 칼슘, 철분" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white; min-height: 45px; word-break: break-all;"></div>
-                    </label>
-                    <button type="button" class="action-btn" style="background: #b45309; margin-top: 5px; padding: 14px; font-size: 15px;" onclick="searchSupplementCompatibility()">스마트 통합 사전 검색하기</button>
+                    <p style="color: #64748b; font-size: 12px;">궁금한 영양제나 성분을 검색하거나 아래 태그를 터치해 보세요.</p>
                     
-                    <div id="searchResultArea" style="margin-top: 10px; padding: 12px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none;">
-                        <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 4px; color: #1e293b;"></h4>
-                        <p id="resultDesc" style="font-size: 13px; color: #475569; line-height: 1.4;"></p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;" id="dictTagContainer">
+                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민C')">비타민C</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민B')">비타민B</span>
+                        <span class="dict-tag" onclick="quickSelectDict('오메가3')">오메가3</span>
+                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('유산균')">유산균</span>
+                        <span class="dict-tag" onclick="quickSelectDict('루테인')">루테인</span>
+                        <span class="dict-tag" onclick="quickSelectDict('아연')">아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('홍삼')">홍삼</span>
+                    </div>
+
+                    <div style="display: flex; gap: 8px; margin-top: 4px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="성분 이름 직접 입력 (예: 단백질, 코엔자임Q10 등)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
+                    </div>
+                    
+                    <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none;">
+                        <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #1e293b;"></h4>
+                        <p id="resultDesc" style="font-size: 13px; color: #475569; line-height: 1.5;"></p>
                     </div>
                 </div>
             </div>
@@ -736,7 +634,7 @@
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
                     <label>약 / 영양제 이름: 
-                        <div id="inputNewMedicineName" contenteditable="true" placeholder="예: 루테인, 유산균" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white; min-height: 45px; word-break: break-all;"></div>
+                        <input type="text" id="inputNewMedicineNameText" placeholder="예: 루테인, 유산균" style="width:100%; margin-top:4px; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; font-size: 14px; background: white;">
                     </label>
                     <label>복용 시간대: 
                         <select id="inputNewMedicineTime" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; outline:none; background:white; font-size: 14px;">
@@ -751,18 +649,6 @@
             </div>
         </div>
     
-        <div id="photoViewModal" class="custom-modal">
-            <div class="modal-content" style="text-align: center;">
-                <div class="modal-header">
-                    <h3>📷 촬영된 처방전 상세 보기</h3>
-                    <button type="button" class="close-modal-btn" onclick="closeModal('photoViewModal')">&times;</button>
-                </div>
-                <div id="modalPhotoContainer" style="width: 100%; height: 260px; background: #111; border-radius: 16px; display: flex; justify-content: center; align-items: center; margin-bottom: 14px; overflow: hidden; position: relative;"></div>
-                <div id="photoDetailAnalysisBox" style="font-size: 12px; color: #334155; background: #f8fafc; padding: 10px; border-radius: 10px; margin-bottom: 12px; text-align: left; max-height: 120px; overflow-y: auto;"></div>
-                <button type="button" class="action-btn" onclick="closeModal('photoViewModal')">확인 완료</button>
-            </div>
-        </div>
-    
         <div id="helpModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -770,8 +656,9 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.6;">
-                    <p><b>1. 처방전 스마트 스캔:</b> 처방전이나 약 봉투를 촬영하면 즉시 AI 진단 리포트가 생성됩니다.</p>
-                    <p style="margin-top: 6px;"><b>2. 통합 영양제 사전:</b> 칼슘, 철분, 비타민C 등 성분 조합별 상호작용을 한눈에 확인할 수 있습니다.</p>
+                    <p><b>1. 통합 성분 & 영양제 대백과사전:</b> 칼슘, 철분, 비타민C, 오메가3 등 수십 종의 성분 효능과 상호 충돌 정보를 즉시 조회할 수 있습니다.</p>
+                    <p style="margin-top: 8px;"><b>2. 오늘의 푸시 복용 알림:</b> 아침, 점심, 저녁 맞춤 복용 타이머로 규칙적인 건강 관리가 가능합니다.</p>
+                    <p style="margin-top: 8px;"><b>3. 음성 로깅 및 만보기:</b> 음성으로 간편하게 복용을 기록하고 일상 걸음 수를 체크하세요.</p>
                 </div>
             </div>
         </div>
@@ -798,7 +685,8 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('statModal')">&times;</button>
                 </div>
                 <div style="font-size: 14px; color: #334155; line-height: 1.5;">
-                    <p>이번 주 복용 달성률은 <b id="modalWeeklyRate" style="color: var(--primary-color);">85%</b>입니다!</p>
+                    <p>이번 주 정수현 유저님의 복용 달성률은 <b id="modalWeeklyRate" style="color: var(--primary-color);">85%</b>입니다!</p>
+                    <p style="font-size: 12px; color: #64748b; margin-top: 8px;">규칙적인 복용 습관이 잘 유지되고 있습니다.</p>
                 </div>
             </div>
         </div>
@@ -852,7 +740,8 @@
                 <div style="font-size: 14px; color: #334155; line-height: 1.6;">
                     <p><b>비타민 C:</b> ~ 2027.05.12 (여유)</p>
                     <p style="margin-top: 8px;"><b>오메가3:</b> ~ 2026.11.30 (임박!)</p>
-                    <button type="button" class="action-btn" style="margin-top: 20px; padding: 14px; font-size: 15px;" onclick="closeModal('expiryModal'); openModal('scanSelectModal');">새 영양제 등록하기 (촬영)</button>
+                    <p style="margin-top: 8px;"><b>유산균:</b> ~ 2027.01.15 (여유)</p>
+                    <button type="button" class="action-btn" style="margin-top: 20px; padding: 14px; font-size: 15px;" onclick="showToast('새 영양제 등록 모드로 이동합니다.'); closeModal('expiryModal');">새 영양제 등록하기</button>
                 </div>
             </div>
         </div>
@@ -864,39 +753,9 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('familyModal')">&times;</button>
                 </div>
                 <div style="font-size: 14px; color: #334155;">
-                    <p style="margin-bottom: 8px;"><b>👤 본인:</b> 테스트 유저 (관리자)</p>
-                    <p style="margin-bottom: 16px;"><b>👤 가족 등록:</b> 배우자 (알림 공유 중)</p>
-                    <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="showToast('👥 가족 구성원 초대 창'); closeModal('familyModal');">가족 추가하기</button>
-                </div>
-            </div>
-        </div>
-    
-        <div id="barcodeModal" class="custom-modal">
-            <div class="modal-content" style="text-align: center;">
-                <div class="modal-header">
-                    <h3>📷 실시간 바코드 성분 스캔</h3>
-                    <button type="button" class="close-modal-btn" onclick="closeModal('barcodeModal')">&times;</button>
-                </div>
-                <p style="font-size: 13px; color: #64748b; margin: 15px 0;">영양제 바코드를 카메라에 비추면 식약처 API DB를 조회합니다.</p>
-                <div style="font-size: 50px; color: #0b6623; margin: 15px 0;"><i class="fa-solid fa-barcode"></i></div>
-                <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="closeModal('barcodeModal'); startMeasurement('barcodeScan');">바코드 스캔 시작하기</button>
-            </div>
-        </div>
-    
-        <!-- 카메라 촬영 및 스마트 진단 모달 -->
-        <div id="measureModal" class="measure-modal">
-            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; z-index: 10;">
-                <span id="measureTitle" style="font-size: 16px; font-weight: 700;">처방전 스마트 스캔</span>
-                <button type="button" class="close-modal-btn" style="color:white; background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:10px;" onclick="closeMeasurement()">닫기 X</button>
-            </div>
-            
-            <div class="measure-box">
-                <video id="videoElement" autoplay playsinline></video>
-                <div id="measureOverlay" class="measure-overlay">
-                    <p id="measureStatusText" style="font-size: 13px; font-weight: 600; margin: 0;">처방전 또는 약 봉투를 화면에 맞추고 촬영 버튼을 누르세요.</p>
-                </div>
-                <div class="measure-btn-container" id="cameraBtnContainer">
-                    <button type="button" class="measure-btn" id="actionExecBtn" onclick="runSmartScanProcess()">📸 촬영하고 스마트 진단 받기</button>
+                    <p style="margin-bottom: 8px;"><b>👤 정수현 유저님:</b> 관리자 (본인)</p>
+                    <p style="margin-bottom: 16px;"><b>👤 가족 구성원:</b> 추가된 가족 없음 (알림 공유 가능)</p>
+                    <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="showToast('👥 가족 구성원 초대 링크가 생성되었습니다.'); closeModal('familyModal');">가족 추가하기</button>
                 </div>
             </div>
         </div>
@@ -924,23 +783,55 @@
             console.log("로컬 저장소 모드로 작동합니다.");
         }
     
-        let localStream = null;
         let currentWater = 500;
-        let lastCapturedDataUrl = '';
-        let lastAnalyzedPrescription = null; 
         let wakeLock = null;
-    
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
     
-        const supplementLocalDb = [
-            { keys: ["칼슘", "철분"], title: "⚠ [주의] 칼슘 & 철분 상호방해", desc: "두 성분은 장에서 흡수 경로가 겹쳐 서로의 흡수를 방해합니다. 최소 4시간 이상 간격을 두고 드세요." },
-            { keys: ["비타민c", "철분"], title: "✨ [최상 시너지] 비타민C & 철분", desc: "비타민C는 철분의 체내 흡수율을 극대화합니다. 함께 복용하시면 빈혈 예방과 흡수에 매우 좋습니다." },
-            { keys: ["오메가3", "마그네슘"], title: "🌙 [추천] 오메가3 & 마그네슘", desc: "저녁 식후에 함께 복용하시면 혈행 개선과 근육 이완 및 편안한 수면 유지에 훌륭합니다." },
-            { keys: ["칼슘"], title: "🥛 [안내] 칼슘 단독 섭취 가이드", desc: "위산이 분비되는 식후에 복용하는 것이 흡수율을 높이는 데 가장 좋습니다." },
-            { keys: ["철분"], title: "🩸 [안내] 철분 복용 가이드", desc: "공복에 드시면 흡수가 빠르나 위장 장애가 있다면 식후에 복용하세요. 녹차·커피와는 1시간 이상 간격을 두세요." }
-        ];
+        // 대백과사전 방대한 데이터베이스 정의
+        const encyclopediaDb = {
+            "칼슘": {
+                title: "🥛 칼슘 (Calcium) - 뼈와 치아 건강의 핵심",
+                desc: "• 핵심 효능: 뼈와 치아 형성, 신경 및 근육 기능 유지, 혈액 응고 조절\n• 복용 타이밍: 위산이 분비되는 식후에 복용하는 것이 흡수율을 높이는 데 가장 좋습니다.\n• 병용 주의: 철분과 동시에 섭취하면 서로의 흡수를 크게 방해하므로 최소 4시간 이상 간격을 두세요."
+            },
+            "철분": {
+                title: "🩸 철분 (Iron) - 산소 운반 및 빈혈 예방",
+                desc: "• 핵심 효능: 적혈구 생성, 체내 산소 운반, 에너지 생성 및 피로 회복\n• 복용 타이밍: 공복에 드시면 흡수가 가장 빠르나, 위장 장애가 있다면 가벼운 식후에 드세요.\n• 시너지/주의: 비타민C와 함께 먹으면 흡수율이 극대화됩니다! 단, 녹차·커피(타닌 성분)와는 1시간 이상 간격을 두세요."
+            },
+            "비타민c": {
+                title: "🍋 비타민C (Vitamin C) - 강력한 항산화와 면역력",
+                desc: "• 핵심 효능: 항산화 작용으로 유해 산소로부터 세포 보호, 결합조직 형성, 철분 흡수 촉진\n• 복용 타이밍: 위장 자극을 줄이기 위해 식중 또는 식후 바로 복용하는 것이 좋습니다.\n• 특징: 수용성이므로 체내에 흡수되고 남은 양은 자연스럽게 배출됩니다. 철분제와 최고의 궁합입니다."
+            },
+            "비타민b": {
+                title: "⚡ 비타민B군 (Vitamin B Complex) - 활력과 에너지 대사",
+                desc: "• 핵심 효능: 체내 에너지만 생성 및 대사 촉진, 피로 물질 분해, 신경계 건강 유지\n• 복용 타이밍: 아침 식사 직후 또는 오전 시간에 복용하면 하루 동안 활력과 에너지를 얻는 데 가장 좋습니다."
+            },
+            "오메가3": {
+                title: "🐟 오메가3 (Omega-3) - 혈행 개선 및 눈 건강",
+                desc: "• 핵심 효능: 혈중 중성지질 개선, 혈행 개선, 건조한 눈 개선에 도움\n• 복용 타이밍: 지방 성분이 포함되어 있으므로 지방이 포함된 식사 중이나 식후에 복용해야 흡수율이 높아집니다."
+            },
+            "마그네슘": {
+                title: "✨ 마그네슘 (Magnesium) - 천연의 신경 안정제",
+                desc: "• 핵심 효능: 에너지 이용에 필요, 신경과 근육 기능 유지, 눈밑 떨림 완화\n• 복용 타이밍: 저녁 식후나 취침 전에 복용하시면 근육 이완과 편안한 수면 유지를 돕습니다."
+            },
+            "유산균": {
+                title: "🦠 유산균 / 프로바이오틱스 - 장 건강 및 면역",
+                desc: "• 핵심 효능: 유익균 증식 및 유해균 억제, 배변 활동 원활에 도움\n• 복용 타이밍: 위산 분비가 가장 적은 아침 공복이나 식전 시간에 물과 함께 섭취하는 것이 장까지 살아가는 데 가장 유리합니다."
+            },
+            "루테인": {
+                title: "👀 루테인 (Lutein) - 황반 색소 밀도 유지",
+                desc: "• 핵심 효능: 노화로 인해 감소될 수 있는 황반 색소 밀도를 유지하여 눈 건강에 도움\n• 복용 타이밍: 지용성 성분이므로 점심이나 저녁 식후에 복용하는 것이 흡수에 좋습니다."
+            },
+            "아연": {
+                title: "🛡 아연 (Zinc) - 정상적인 면역 기능",
+                desc: "• 핵심 효능: 정상적인 세포 분열과 면역 기능에 필수적인 미네랄\n• 복용 타이밍: 공복에 복용 시 메스거움이 있을 수 있으므로 식후에 복용하는 것을 권장합니다."
+            },
+            "홍삼": {
+                title: "ginseng 홍삼 (Red Ginseng) - 면역력 증진 및 피로 개선",
+                desc: "• 핵심 효능: 면역력 증진, 피로 개선, 항산화, 기억력 개선에 도움\n• 복용 타이밍: 주로 아침이나 낮 시간대 식후에 복용하면 하루 활력 유지에 좋습니다."
+            }
+        };
     
         window.onload = function() {
             checkAndResetDailySteps();
@@ -995,36 +886,40 @@
             }
         }
     
-        function searchSupplementCompatibility() {
-            const queryEl = document.getElementById('inputSearchQuery');
-            const queryText = queryEl.textContent.trim().toLowerCase();
+        function quickSelectDict(keyword) {
+            document.getElementById('inputSearchQueryText').value = keyword;
+            executeDictSearch(keyword);
+        }
+
+        function searchSupplementCompatibilityTextInput() {
+            const query = document.getElementById('inputSearchQueryText').value.trim();
+            executeDictSearch(query);
+        }
+
+        function executeDictSearch(query) {
             const resultArea = document.getElementById('searchResultArea');
             const resultTitle = document.getElementById('resultTitle');
             const resultDesc = document.getElementById('resultDesc');
     
-            if(!queryText) {
-                showToast('⚠ 검색할 영양제 이름이나 성분을 입력해 주세요.');
+            if(!query) {
+                showToast('⚠ 검색할 성분 이름을 입력해 주세요.');
                 return;
             }
     
-            let matched = supplementLocalDb.find(item => 
-                item.keys.length === 2 && item.keys.every(k => queryText.includes(k))
-            ) || supplementLocalDb.find(item => 
-                item.keys.length === 1 && queryText.includes(item.keys[0])
-            );
-    
             resultArea.style.display = 'block';
-    
-            if(matched) {
-                resultTitle.textContent = matched.title;
-                resultTitle.style.color = matched.title.includes('주의') ? '#b91c1c' : '#047857';
-                resultDesc.textContent = matched.desc;
-                showToast('🔍 통합 사전에서 정보를 명확히 찾았습니다!');
+            let foundKey = Object.keys(encyclopediaDb).find(k => query.includes(k) || k.includes(query));
+
+            if(foundKey) {
+                const info = encyclopediaDb[foundKey];
+                resultTitle.textContent = info.title;
+                resultTitle.style.color = info.title.includes('주의') ? '#b91c1c' : '#0b6623';
+                resultDesc.textContent = info.desc;
+                showToast(`🔍 "${foundKey}" 백과사전 정보를 불러왔습니다.`);
             } else {
-                resultTitle.textContent = `🤖 "${queryText}" 맞춤 건강 안내`;
+                resultTitle.textContent = `🤖 "${query}" 맞춤 성분 가이드`;
                 resultTitle.style.color = '#0284c7';
-                resultDesc.textContent = "입력하신 성분은 대다수 식후 또는 물과 함께 충분히 섭취하는 것이 좋습니다. 의사·약사와 상담하여 안전하게 복용하세요.";
-                showToast('💡 맞춤 안내를 확인하세요.');
+                resultDesc.textContent = `• 검색하신 "${query}" 성분은 일반적인 건강 보조 및 영양 관리에 도움을 줄 수 있습니다.\n• 올바른 복용법과 일일 권장량을 확인하시고, 구체적인 질환 치료 목적일 경우 의사 및 약사와 상담하세요.`;
+                showToast(`💡 "${query}" 가이드를 확인하세요.`);
             }
         }
     
@@ -1083,31 +978,11 @@
                 document.getElementById('voiceStatus').textContent = '대기 중... 아래 버튼을 누르고 말씀하세요.';
                 document.getElementById('micIcon').className = 'fa-solid fa-microphone-lines';
             } else if(modalId === 'addModal') {
-                document.getElementById('inputNewMedicineName').textContent = '';
+                document.getElementById('inputNewMedicineNameText').value = '';
             } else if(modalId === 'compatibilityModal') {
-                document.getElementById('inputSearchQuery').textContent = '';
+                document.getElementById('inputSearchQueryText').value = '';
                 document.getElementById('searchResultArea').style.display = 'none';
             }
-        }
-    
-        function openPrescriptionDetailModal() {
-            const modalBody = document.getElementById('prescriptionDetailModalBody');
-            if (!lastAnalyzedPrescription || lastAnalyzedPrescription.length === 0) {
-                modalBody.innerHTML = '<p style="text-align:center; color:#64748b; padding:20px;">아직 분석된 처방전 스마트 진단 내역이 없습니다. 처방전이나 약 봉투를 먼저 촬영해 주세요.</p>';
-            } else {
-                let html = '<div style="display:flex; flex-direction:column; gap:12px;">';
-                lastAnalyzedPrescription.forEach((item, idx) => {
-                    html += `
-                        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:12px; padding:12px;">
-                            <div style="font-weight:700; color:var(--primary-color); margin-bottom:4px;">✨ ${idx + 1}. ${item.title}</div>
-                            <div style="font-size:12px; color:#475569; line-height:1.5;">${item.desc}</div>
-                        </div>
-                    `;
-                });
-                html += '</div>';
-                modalBody.innerHTML = html;
-            }
-            openModal('prescriptionDetailModal');
         }
     
         async function closeModal(modalId) {
@@ -1178,10 +1053,10 @@
         }
     
         function saveNewMedicineRecord() {
-            const medName = document.getElementById('inputNewMedicineName').textContent.trim();
+            const medName = document.getElementById('inputNewMedicineNameText').value.trim();
             const medTime = document.getElementById('inputNewMedicineTime').value;
             if(!medName) {
-                showToast('⚠ 약 이름을 입력해 주세요.');
+                showToast('⚠ 약 또는 영양제 이름을 입력해 주세요.');
                 return;
             }
             showToast(`💊 새 복용 약 등록됨: ${medName} (${medTime})`);
@@ -1222,7 +1097,7 @@
     
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
                 statusEl.textContent = '현재 브라우저가 음성 인식을 지원하지 않습니다.';
-                setTimeout(() => { recordVoiceDoneText('아침 약 먹었어'); }, 1500);
+                setTimeout(() => { recordVoiceDoneText('아침 비타민 먹었어'); }, 1500);
                 return;
             }
     
@@ -1276,114 +1151,7 @@
             const myPageCard = document.getElementById('myPageRecordCard');
             const myPageContent = document.getElementById('myPageRecordContent');
             myPageCard.style.display = 'block';
-            myPageContent.innerHTML = `<b>${text}</b><br><span style="font-size: 11px; color: #64748b;">(터치하여 스마트 진단 리포트 전체보기)</span>`;
-        }
-    
-        function addPhotoToGallery(dataUrl, title, diagnosticsList) {
-            const galleryCard = document.getElementById('photoGalleryCard');
-            const galleryList = document.getElementById('photoGalleryList');
-            galleryCard.style.display = 'block';
-            const photoItem = document.createElement('div');
-            photoItem.style.cssText = 'min-width: 100px; height: 90px; background: #e2e8f0; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 1px solid #cbd5e1; position: relative; overflow: hidden; flex-shrink: 0; cursor: pointer;';
-            photoItem.innerHTML = `
-                <img src="${dataUrl}" style="width: 100%; height: 62px; object-fit: cover;">
-                <span style="font-size: 10px; font-weight: 700; color: #334155; padding: 2px 4px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; background: white;">${title}</span>
-            `;
-            photoItem.onclick = function() {
-                document.getElementById('modalPhotoContainer').innerHTML = `<img src="${dataUrl}" style="width: 100%; height: 100%; object-fit: contain;">`;
-                let detailHtml = `<div style="font-weight:700; color:#0b6623; margin-bottom:4px;">✨ 스마트 처방전 진단 리포트:</div>`;
-                diagnosticsList.forEach(d => {
-                    detailHtml += `<div style="margin-bottom:6px;"><b>${d.title}</b><br><span style="color:#475569;">${d.desc}</span></div>`;
-                });
-                document.getElementById('photoDetailAnalysisBox').innerHTML = detailHtml;
-                openModal('photoViewModal');
-            };
-            galleryList.prepend(photoItem);
-        }
-    
-        async function startMeasurement(mode) {
-            lastCapturedDataUrl = '';
-            lastAnalyzedPrescription = null;
-    
-            const modal = document.getElementById('measureModal');
-            document.getElementById('measureTitle').textContent = '✨ 처방전 및 약 봉투 스마트 진단 스캔';
-            document.getElementById('measureOverlay').style.display = 'block';
-            document.getElementById('cameraBtnContainer').style.display = 'block';
-            document.getElementById('measureStatusText').textContent = '처방전 또는 약 봉투를 화면 중앙에 맞추고 촬영 버튼을 누르세요.';
-            modal.classList.add('active');
-    
-            try {
-                const constraints = {
-                    video: {
-                        facingMode: { ideal: 'environment' },
-                        width: { ideal: 1920 },
-                        height: { ideal: 1080 },
-                        focusMode: { ideal: 'continuous' }
-                    },
-                    audio: false
-                };
-                localStream = await navigator.mediaDevices.getUserMedia(constraints);
-                document.getElementById('videoElement').srcObject = localStream;
-            } catch (err) {
-                try {
-                    localStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
-                    document.getElementById('videoElement').srcObject = localStream;
-                } catch(e) {
-                    showToast("⚠ 카메라 권한을 허용해 주세요.");
-                }
-            }
-        }
-    
-        function runSmartScanProcess() {
-            const videoEl = document.getElementById('videoElement');
-            const statusText = document.getElementById('measureStatusText');
-            statusText.textContent = '🤖 AI가 촬영된 처방전/약 봉투를 분석 중입니다...';
-    
-            const canvas = document.createElement('canvas');
-            canvas.width = videoEl.videoWidth || 1920;
-            canvas.height = videoEl.videoHeight || 1080;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
-            
-            lastCapturedDataUrl = canvas.toDataURL('image/jpeg', 0.95);
-    
-            setTimeout(() => {
-                closeMeasurement();
-                
-                // 실생활 감탄을 자아내는 정밀 스마트 진단 결과 생성 (칼슘/철분 충돌 및 비타민C 시너지 안내 포함)
-                const smartDiagnostics = [
-                    { title: "⚠ [주의] 칼슘 및 미네랄 성분 상호방해 체크", desc: "처방받은 약물 또는 함께 복용 중인 영양제 중 칼슘과 철분이 포함되어 있다면 장내 흡수 경로가 겹치므로 최소 4시간 이상 간격을 두고 복용하세요." },
-                    { title: "✨ [최상 시너지] 비타민C 병용 가이드", desc: "철분제나 기타 영양제 복용 시 비타민C를 함께 섭취하면 체내 흡수율이 극대화되어 피로 회복과 건강 관리에 매우 효과적입니다." },
-                    { title: "🕒 [올바른 복용 시간] 식후 충분한 물과 함께", desc: "본 처방 의약품은 위장 자극을 줄이고 흡수율을 높이기 위해 식후 30분 이내에 미지근한 물과 함께 드시는 것을 권장합니다." }
-                ];
-
-                lastAnalyzedPrescription = smartDiagnostics;
-                let primaryTitle = "처방전 스마트 진단 완료";
-
-                let reportHtml = `
-                    <b>✨ AI 스마트 진단 완료:</b> 칼슘/철분 분리 복용 및 비타민C 시너지 가이드 생성됨<br>
-                    <b>🎯 핵심 안내:</b> 위장 부담 방지를 위해 식후 복용 및 4시간 간격 준수 권장<br>
-                    <div style="margin-top: 6px; font-size: 11px; color: var(--primary-color); font-weight: 700;">👆 이 리포트를 터치하면 상세 진단 가이드를 전체 볼 수 있습니다.</div>
-                `;
-    
-                const myPageCard = document.getElementById('myPageRecordCard');
-                const myPageContent = document.getElementById('myPageRecordContent');
-                myPageCard.style.display = 'block';
-                myPageContent.innerHTML = reportHtml;
-    
-                addPhotoToGallery(lastCapturedDataUrl, primaryTitle, smartDiagnostics);
-                saveToCloud('records', { text: `[스마트 처방전 진단] 칼슘/철분 주의 및 복용 가이드 생성` });
-                
-                showToast(`✨ 처방전 AI 스마트 진단 완료!`);
-            }, 800);
-        }
-    
-        function closeMeasurement() {
-            document.getElementById('measureModal').classList.remove('active');
-            if (localStream) {
-                localStream.getTracks().forEach(track => track.stop());
-                localStream = null;
-            }
+            myPageContent.innerHTML = `<b>${text}</b><br><span style="font-size: 11px; color: #64748b;">(실시간 기록 연동 완료)</span>`;
         }
     </script>
     
