@@ -475,7 +475,7 @@
                         <div class="card-title" style="color: #b45309; margin-bottom: 0;"><i class="fa-solid fa-book-medical"></i> 대백과사전: 통합 성분 & 영양제 사전</div>
                         <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: #b45309;"></i>
                     </div>
-                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">비타민, 미네랄, 코큐텐, 오메가3 등 방대한 성분 백과사전즉시 검색!</p>
+                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">비타민 B군 전종(B1~B12), 미네랄, 오메가3 등 방대한 성분 백과사전 즉시 검색!</p>
                 </div>
     
                 <div class="card" style="background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="openModal('statModal')">
@@ -589,7 +589,7 @@
             </div>
         </div>
     
-        <!-- 대백과사전: 통합 성분 & 영양제 사전 모달 -->
+        <!-- 대백과사전 모달 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -597,27 +597,28 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <p style="color: #64748b; font-size: 12px;">궁금한 성분이나 비타민을 검색하거나 아래 태그를 터치해 보세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">비타민 B군 전종 및 주요 성분을 검색하거나 아래 태그를 터치해 보세요.</p>
                     
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 110px; overflow-y: auto;" id="dictTagContainer">
-                        <span class="dict-tag" onclick="quickSelectDict('비타민a')">비타민A</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민b')">비타민B</span>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 130px; overflow-y: auto;" id="dictTagContainer">
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b')">비타민B군 전체</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b1')">비타민B1(티아민)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b2')">비타민B2(리보플래빈)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b3')">비타민B3(나이아신)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b5')">비타민B5(판토텐산)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b6')">비타민B6(피리독신)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b7')">비타민B7(비오틴)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b9')">비타민B9(엽산)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민b12')">비타민B12(코발라민)</span>
                         <span class="dict-tag" onclick="quickSelectDict('비타민c')">비타민C</span>
                         <span class="dict-tag" onclick="quickSelectDict('비타민d')">비타민D</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
-                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('아연')">아연</span>
-                        <span class="dict-tag" onclick="quickSelectDict('셀레늄')">셀레늄</span>
                         <span class="dict-tag" onclick="quickSelectDict('오메가3')">오메가3</span>
                         <span class="dict-tag" onclick="quickSelectDict('유산균')">유산균</span>
-                        <span class="dict-tag" onclick="quickSelectDict('루테인')">루테인</span>
-                        <span class="dict-tag" onclick="quickSelectDict('홍삼')">홍삼</span>
-                        <span class="dict-tag" onclick="quickSelectDict('코엔자임q10')">코큐텐</span>
+                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 코큐텐, 무기질, 셀라늄 등)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 비타민B1, 비오틴, 오메가3 등)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
@@ -659,9 +660,8 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.6;">
-                    <p><b>1. 통합 성분 & 영양제 대백과사전:</b> 비타민, 미네랄(무기질), 코큐텐 등 수십 종의 성분 효능과 상호 충돌 정보를 즉시 조회할 수 있습니다.</p>
-                    <p style="margin-top: 8px;"><b>2. 오늘의 푸시 복용 알림:</b> 아침, 점심, 저녁 맞춤 복용 타이머로 규칙적인 건강 관리가 가능합니다.</p>
-                    <p style="margin-top: 8px;"><b>3. 음성 로깅 및 만보기:</b> 음성으로 간편하게 복용을 기록하고 일상 걸음 수를 체크하세요.</p>
+                    <p><b>1. 통합 성분 & 영양제 대백과사전:</b> 비타민 B군 전종(B1~B12)을 비롯해 미네랄, 오메가3 등 상세 정보를 조회할 수 있습니다.</p>
+                    <p style="margin-top: 8px;"><b>2. 오늘의 푸시 복용 알림:</b> 아침, 점심, 저녁 맞춤 복용 타이머로 건강을 관리하세요.</p>
                 </div>
             </div>
         </div>
@@ -689,7 +689,6 @@
                 </div>
                 <div style="font-size: 14px; color: #334155; line-height: 1.5;">
                     <p>이번 주 정수현 유저님의 복용 달성률은 <b id="modalWeeklyRate" style="color: var(--primary-color);">85%</b>입니다!</p>
-                    <p style="font-size: 12px; color: #64748b; margin-top: 8px;">규칙적인 복용 습관이 잘 유지되고 있습니다.</p>
                 </div>
             </div>
         </div>
@@ -743,7 +742,6 @@
                 <div style="font-size: 14px; color: #334155; line-height: 1.6;">
                     <p><b>비타민 C:</b> ~ 2027.05.12 (여유)</p>
                     <p style="margin-top: 8px;"><b>오메가3:</b> ~ 2026.11.30 (임박!)</p>
-                    <p style="margin-top: 8px;"><b>유산균:</b> ~ 2027.01.15 (여유)</p>
                     <button type="button" class="action-btn" style="margin-top: 20px; padding: 14px; font-size: 15px;" onclick="showToast('새 영양제 등록 모드로 이동합니다.'); closeModal('expiryModal');">새 영양제 등록하기</button>
                 </div>
             </div>
@@ -757,7 +755,6 @@
                 </div>
                 <div style="font-size: 14px; color: #334155;">
                     <p style="margin-bottom: 8px;"><b>👤 정수현 유저님:</b> 관리자 (본인)</p>
-                    <p style="margin-bottom: 16px;"><b>👤 가족 구성원:</b> 추가된 가족 없음 (알림 공유 가능)</p>
                     <button type="button" class="action-btn" style="padding: 14px; font-size: 15px;" onclick="showToast('👥 가족 구성원 초대 링크가 생성되었습니다.'); closeModal('familyModal');">가족 추가하기</button>
                 </div>
             </div>
@@ -792,24 +789,26 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
     
-        // 🚀 대백과사전 데이터베이스 (풍부한 성분 및 전문 가이드)
+        // 🚀 비타민 B군 전종(B1~B12) 세부 데이터베이스 포함 대백과사전
         const encyclopediaDb = {
-            "비타민a": { title: "🥕 비타민 A (Vitamin A) - 시력 및 피부 건강", desc: "• 핵심 효능: 어두운 곳에서의 시력 적응, 상피세포 성장, 면역력 강화\n• 복용 타이밍: 지용성 비타민이므로 식사 중이나 식후에 복용해야 흡수율이 높아집니다." },
-            "비타민b": { title: "⚡ 비타민 B군 (Vitamin B Complex) - 활력과 에너지 대사", desc: "• 핵심 효능: 탄수화물·단백질·지방 대사 촉진, 피로 물질 분해, 신경계 유지\n• 복용 타이밍: 아침 식사 직후 또는 오전 시간에 복용하면 하루 종일 활력에 탁월합니다." },
-            "비타민c": { title: "🍋 비타민 C (Vitamin C) - 항산화와 철분 흡수", desc: "• 핵심 효능: 유해산소로부터 세포 보호, 콜라겐 합성, 철분 흡수 극대화\n• 복용 타이밍: 식중 또는 식후 바로 복용하세요. 철분제와 함께 먹으면 최고의 궁합입니다." },
-            "비타민d": { title: "☀️ 비타민 D (Vitamin D) - 뼈 건강 및 면역", desc: "• 핵심 효능: 칼슘과 인의 흡수 조절, 뼈 형성 유지, 면역력 증진\n• 복용 타이밍: 지방이 포함된 식사 직후에 섭취하는 것이 가장 흡수가 잘 됩니다." },
-            "칼슘": { title: "🥛 칼슘 (Calcium) - 뼈와 치아 건강", desc: "• 핵심 효능: 뼈와 치아 형성, 신경 및 근육 기능 유지\n• 복용 타이밍: 식후 복용. 철분과 함께 먹으면 흡수를 방해하므로 4시간 이상 간격을 두세요." },
-            "철분": { title: "🩸 철분 (Iron) - 산소 운반 및 빈혈 예방", desc: "• 핵심 효능: 적혈구 생성, 체내 산소 운반, 피로 회복\n• 복용 타이밍: 공복 복용이 좋으나 위장 장애 시 식후 복용. 비타민C와 함께 먹으면 흡수율 극대화!" },
-            "마그네슘": { title: "✨ 마그네슘 (Magnesium) - 천연의 신경 안정제", desc: "• 핵심 효능: 에너지 이용, 신경과 근육 기능 유지, 눈밑 떨림 완화\n• 복용 타이밍: 저녁 식후나 취침 전에 복용하시면 근육 이완과 편안한 수면 유지를 돕습니다." },
-            "아연": { title: "🛡 아연 (Zinc) - 정상적인 면역 기능", desc: "• 핵심 효능: 정상적인 면역 기능과 세포 분열\n• 복용 타이밍: 위장 부담을 줄이기 위해 식후에 복용하는 것을 권장합니다." },
-            "셀레늄": { title: "🛡 셀레늄 (Selenium) - 강력한 항산화 미네랄", desc: "• 핵심 효능: 체내 유해산소로부터 세포를 보호하는 강력한 항산화 작용\n• 복용 타이밍: 식후에 충분한 물과 함께 섭취하세요." },
-            "무기질": { title: "💎 미네랄 / 무기질 (Minerals) 총괄 가이드", desc: "• 핵심 내용: 칼슘, 마그네슘, 철분, 아연, 셀레늄 등을 통틀어 미네랄(무기질)이라 부릅니다.\n• 역할: 체내 수분 균형, 뼈와 치아 구성, 효소 활성화 등 생명 유지에 필수적인 영양소입니다.\n• 복용 팁: 대다수 미네랄은 위장 자극을 줄이기 위해 식후에 복용하는 것이 안전합니다." },
-            "미네랄": { title: "💎 미네랄 / 무기질 (Minerals) 총괄 가이드", desc: "• 핵심 내용: 칼슘, 마그네슘, 철분, 아연, 셀레늄 등을 통틀어 미네랄(무기질)이라 부릅니다.\n• 역할: 체내 수분 균형, 뼈와 치아 구성, 효소 활성화 등 생명 유지에 필수적인 영양소입니다.\n• 복용 팁: 대다수 미네랄은 위장 자극을 줄이기 위해 식후에 복용하는 것이 안전합니다." },
+            "비타민b": { 
+                title: "⚡ 비타민 B군 (Vitamin B Complex) 종합 가이드", 
+                desc: "• 비타민 B1 (티아민): 탄수화물 대사 및 피로 물질(젖산) 축적 방지\n• 비타민 B2 (리보플래빈): 체내 에너지 생성, 피부·점막 보호, 구내염 예방\n• 비타민 B3 (나이아신): 세포 에너지 생성 및 콜레스테롤 개선\n• 비타민 B5 (판토텐산): 부신 호르몬 합성 및 스트레스 저항력 강화\n• 비타민 B6 (피리독신): 단백질 대사, 신경계 유지, 행복 호르몬 합성\n• 비타민 B7 (비오틴): 모발·손톱·피부 케라틴 구성 성분 강화\n• 비타민 B9 (엽산): 적혈구 생성 및 태아 신경관 발달 필수\n• 비타민 B12 (코발라민): 빈혈 예방 및 뇌 신경계 건강 유지\n• 복용 타이밍: 아침 식사 직후 또는 오전 시간에 복용하는 것이 활력 유지에 가장 좋습니다." 
+            },
+            "비타민b1": { title: "⚡ 비타민 B1 (티아민, Thiamine)", desc: "• 핵심 효능: 탄수화물 대사 촉진, 피로물질 축적 방지, 신경계 및 근육 기능 유지\n• 복용 타이밍: 아침 식후 복용 추천" },
+            "비타민b2": { title: "⚡ 비타민 B2 (리보플래빈, Riboflavin)", desc: "• 핵심 효능: 체내 에너지 생성, 세포 성장, 구내염 및 입술 트임 예방\n• 복용 타이밍: 식후 충분한 물과 함께 복용" },
+            "비타민b3": { title: "⚡ 비타민 B3 (나이아신, Niacin)", desc: "• 핵심 효능: 세포 내 에너지 생성, 혈중 콜레스테롤 개선, 혈액순환 도움\n• 복용 타이밍: 식후 복용" },
+            "비타민b5": { title: "⚡ 비타민 B5 (판토텐산, Pantothenic Acid)", desc: "• 핵심 효능: 스트레스 저항력 강화, 피지 조절, 모발 건강 및 에너지 대사\n• 복용 타이밍: 아침 또는 점심 식후 복용" },
+            "비타민b6": { title: "⚡ 비타민 B6 (피리독신, Pyridoxine)", desc: "• 핵심 효능: 단백질 및 아미노산 이용, 신경계 정상 유지, 세로토닌 합성\n• 복용 타이밍: 식후 복용" },
+            "비타민b7": { title: "⚡ 비타민 B7 (비오틴, Biotin)", desc: "• 핵심 효능: 모발·손톱·피부 구성 성분(케라틴) 강화, 대사 활성화\n• 복용 타이밍: 식후 복용" },
+            "비타민b9": { title: "⚡ 비타민 B9 (엽산, Folic Acid)", desc: "• 핵심 효능: 세포와 적혈구 생성, 태아 신경관 정상 발달, 혈관 건강\n• 복용 타이밍: 임산부 및 가임기 여성 필수, 식후 복용" },
+            "비타민b12": { title: "⚡ 비타민 B12 (코발라민, Cobalamin)", desc: "• 핵심 효능: 적혈구 생성 및 악성 빈혈 예방, 신경계 건강 유지\n• 복용 타이밍: 아침 식후 복용" },
+            "비타민c": { title: "🍋 비타민 C (Vitamin C) - 항산화와 철분 흡수", desc: "• 핵심 효능: 유해산소로부터 세포 보호, 콜라겐 합성, 철분 흡수 극대화\n• 복용 타이밍: 식중 또는 식후 바로 복용하세요." },
+            "비타민d": { title: "☀️ 비타민 D (Vitamin D) - 뼈 건강 및 면역", desc: "• 핵심 효능: 칼슘과 인의 흡수 조절, 뼈 형성 유지, 면역력 증진\n• 복용 타이밍: 지방이 포함된 식사 직후에 섭취하세요." },
             "오메가3": { title: "🐟 오메가3 (Omega-3) - 혈행 개선 및 눈 건강", desc: "• 핵심 효능: 혈중 중성지질 개선, 혈행 개선, 건조한 눈 개선\n• 복용 타이밍: 지방 성분이 포함되어 있으므로 식사 중이나 식후에 복용하세요." },
-            "유산균": { title: "🦠 유산균 / 프로바이오틱스 - 장 건강 및 면역", desc: "• 핵심 효능: 유익균 증식 및 유해균 억제, 배변 활동 원활\n• 복용 타이밍: 아침 공복이나 식전 시간에 물과 함께 섭취하는 것이 가장 유리합니다." },
-            "루테인": { title: "👀 루테인 (Lutein) - 황반 색소 밀도 유지", desc: "• 핵심 효능: 노화로 인해 감소될 수 있는 황반 색소 밀도를 유지하여 눈 건강에 도움\n• 복용 타이밍: 지용성이므로 점심이나 저녁 식후에 복용하세요." },
-            "홍삼": { title: "ginseng 홍삼 (Red Ginseng) - 면역력 증진 및 피로 개선", desc: "• 핵심 효능: 면역력 증진, 피로 개선, 항산화, 기억력 개선\n• 복용 타이밍: 아침이나 낮 시간대 식후에 복용하면 하루 활력 유지에 좋습니다." },
-            "코엔자임q10": { title: "⚡ 코엔자임Q10 (코큐텐 / CoQ10) - 항산화 및 혈압 감소", desc: "• 핵심 효능: 세포 에너지 생산 지원 및 높은 혈압 감소, 강력한 항산화 작용\n• 복용 타이밍: 지용성이므로 식사 중이나 식후에 복용하세요." }
+            "유산균": { title: "🦠 유산균 / 프로바이오틱스 - 장 건강 및 면역", desc: "• 핵심 효능: 유익균 증식 및 유해균 억제, 배변 활동 원활\n• 복용 타이밍: 아침 공복이나 식전 시간에 물과 함께 섭취하세요." },
+            "마그네슘": { title: "✨ 마그네슘 (Magnesium) - 천연의 신경 안정제", desc: "• 핵심 효능: 에너지 이용, 신경과 근육 기능 유지, 눈밑 떨림 완화\n• 복용 타이밍: 저녁 식후나 취침 전에 복용하세요." },
+            "철분": { title: "🩸 철분 (Iron) - 산소 운반 및 빈혈 예방", desc: "• 핵심 효능: 적혈구 생성, 체내 산소 운반, 피로 회복\n• 복용 타이밍: 공복 복용이 좋으나 위장 장애 시 식후 복용." }
         };
     
         window.onload = function() {
@@ -875,7 +874,6 @@
             executeDictSearch(query);
         }
 
-        // 🧠 초고도화된 스마트 동의어 및 키워드 검색 엔진
         function executeDictSearch(query) {
             const resultArea = document.getElementById('searchResultArea');
             const resultTitle = document.getElementById('resultTitle');
@@ -891,12 +889,16 @@
 
             let matchedKey = Object.keys(encyclopediaDb).find(k => cleanQuery.includes(k) || k.includes(cleanQuery));
 
-            // 사용자 편의를 위한 강력한 유사어 매핑
             if(!matchedKey) {
-                if(cleanQuery.includes('코큐') || cleanQuery.includes('코엔자임') || cleanQuery.includes('coq')) matchedKey = '코엔자임q10';
-                else if(cleanQuery.includes('무기질') || cleanQuery.includes('미네랄')) matchedKey = '미네랄';
-                else if(cleanQuery.includes('셀라') || cleanQuery.includes('셀렌')) matchedKey = '셀레늄';
-                else if(cleanQuery.includes('비타민')) matchedKey = '비타민c';
+                if(cleanQuery.includes('b1') || cleanQuery.includes('티아민')) matchedKey = '비타민b1';
+                else if(cleanQuery.includes('b2') || cleanQuery.includes('리보플래빈')) matchedKey = '비타민b2';
+                else if(cleanQuery.includes('b3') || cleanQuery.includes('나이아신')) matchedKey = '비타민b3';
+                else if(cleanQuery.includes('b5') || cleanQuery.includes('판토텐산')) matchedKey = '비타민b5';
+                else if(cleanQuery.includes('b6') || cleanQuery.includes('피리독신')) matchedKey = '비타민b6';
+                else if(cleanQuery.includes('b7') || cleanQuery.includes('비오틴')) matchedKey = '비타민b7';
+                else if(cleanQuery.includes('b9') || cleanQuery.includes('엽산')) matchedKey = '비타민b9';
+                else if(cleanQuery.includes('b12') || cleanQuery.includes('코발라민')) matchedKey = '비타민b12';
+                else if(cleanQuery.includes('비타민b') || cleanQuery.includes('비타민')) matchedKey = '비타민b';
                 else if(cleanQuery.includes('오메가')) matchedKey = '오메가3';
                 else if(cleanQuery.includes('유산')) matchedKey = '유산균';
             }
