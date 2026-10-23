@@ -475,7 +475,7 @@
                         <div class="card-title" style="color: #b45309; margin-bottom: 0;"><i class="fa-solid fa-book-medical"></i> 대백과사전: 통합 성분 & 영양제 사전</div>
                         <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: #b45309;"></i>
                     </div>
-                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">탄수화물, 단백질, 지방, 비타민 13종, 무기질 14종, 콜린 등 정확한 팩트 사전 검색!</p>
+                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">비타민 13종 상세 기능, 물, 탄단지, 무기질 팩트 사전 검색!</p>
                 </div>
     
                 <div class="card" style="background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="openModal('statModal')">
@@ -589,7 +589,7 @@
             </div>
         </div>
     
-        <!-- 대백과사전 모달 (비타민 B군은 '비타민B' 전체만 표시하고 세부 B군 태그는 제외) -->
+        <!-- 대백과사전 모달 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -597,28 +597,23 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <p style="color: #64748b; font-size: 12px;">핵심 영양소 및 6대 분류별 태그를 터치하거나 직접 검색하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">핵심 영양소 및 비타민 13종 태그를 터치하거나 직접 검색하세요.</p>
                     
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 150px; overflow-y: auto;" id="dictTagContainer">
+                        <span class="dict-tag" onclick="quickSelectDict('비타민')">④ 비타민(13가지)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('물')">⑥ 물(수분)</span>
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">① 탄수화물</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">② 단백질</span>
                         <span class="dict-tag" onclick="quickSelectDict('지방')">③ 지방</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민')">④ 비타민(13가지)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민b')">비타민B(전체)</span>
                         <span class="dict-tag" onclick="quickSelectDict('무기질')">⑤ 무기질</span>
-                        <span class="dict-tag" onclick="quickSelectDict('물')">⑥ 물(수분)</span>
                         <span class="dict-tag" onclick="quickSelectDict('콜린')">콜린</span>
-                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">필수아미노산(9가지)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('오메가3')">오메가3(알파리놀렌산)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('오메가6')">오메가6(리놀레산)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
                         <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('아연')">아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색 (예: 탄수화물, 단백질, 필수아미노산 등)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색 (예: 비타민, 물, 마그네슘 등)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
@@ -660,7 +655,7 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.6;">
-                    <p><b>1. 통합 영양 대백과사전:</b> 탄수화물, 단백질, 지방, 비타민 13종, 무기질 14종, 콜린 등 엄선된 팩트 정보를 조회할 수 있습니다.</p>
+                    <p><b>1. 통합 영양 대백과사전:</b> 비타민 13종의 세부 기능과 식품, 물, 탄단지, 무기질 등 정확한 팩트 정보를 조회할 수 있습니다.</p>
                     <p style="margin-top: 8px;"><b>2. 오늘의 푸시 복용 알림:</b> 아침, 점심, 저녁 맞춤 복용 타이머로 건강을 관리하세요.</p>
                 </div>
             </div>
@@ -789,8 +784,16 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
     
-        // 🚀 유저님이 제공해주신 완벽한 영양소 팩트 데이터베이스 구축
+        // 🚀 비타민 13가지 세부 기능 및 식품이 완벽히 포함된 데이터베이스
         const encyclopediaDb = {
+            "비타민": {
+                title: "💊 비타민 (Vitamin - 총 13가지 완벽 가이드)",
+                desc: "• 주요 역할: 에너지 대사와 신체 기능 조절 (총 13가지)\n\n[지용성 비타민 4가지] (지방과 함께 흡수)\n1. 비타민 A: 시력 보호, 피부 및 점막 건강 (대표식품: 당근, 시금치, 달걀)\n2. 비타민 D: 칼슘 흡수 조절, 뼈 형성 및 면역력 (대표식품: 햇빛, 연어, 달걀노른자)\n3. 비타민 E: 강력한 항산화 작용, 세포 보호 (대표식품: 아몬드, 식물성 기름, 아보카도)\n4. 비타민 K: 혈액 응고 및 뼈 건강 유지 (대표식품: 시금치, 케일, 브로콜리)\n\n[수용성 비타민 9가지] (물에 녹는 성질)\n5. 비타민 C: 항산화, 콜라겐 합성, 철분 흡수 (대표식품: 레몬, 오렌지, 피망)\n6. 비타민 B1(티아민): 탄수화물 대사, 피로물질 축적 방지 (대표식품: 통곡물, 돼지고기)\n7. 비타민 B2(리보플라빈): 체내 에너지 생성, 구내염 예방 (대표식품: 우유, 달걀, 시금치)\n8. 비타민 B3(나이아신): 세포 에너지 생성, 콜레스테롤 개선 (대표식품: 닭고기, 생선, 버섯)\n9. 비타민 B5(판토텐산): 스트레스 저항, 부신 호르몬 합성 (대표식품: 아보카도, 견과류)\n10. 비타민 B6(피리독신): 단백질 대사, 신경계 유지 (대표식품: 바나나, 닭고기, 현미)\n11. 비타민 B7(비오틴): 모발·손톱·피부 케라틴 강화 (대표식품: 달걀노른자, 견과류)\n12. 비타민 B9(엽산): 적혈구 생성, 태아 신경관 발달 (대표식품: 시금치, 콩류, 브로콜리)\n13. 비타민 B12(코발라민): 빈혈 예방, 신경계 건강 (대표식품: 육류, 생선, 조개류)"
+            },
+            "물": {
+                title: "⑥ 물 (Water / 수분)",
+                desc: "• 주요 역할: 체온 조절, 영양소 운반, 노폐물 배출\n• 공급원: 마시는 물과 음식 속 수분"
+            },
             "탄수화물": {
                 title: "① 탄수화물 (Carbohydrate)",
                 desc: "• 주요 역할: 몸과 뇌가 사용하는 주요 에너지원\n• 구성 형태: 당류, 전분, 식이섬유 등"
@@ -799,57 +802,29 @@
                 title: "② 단백질 (Protein)",
                 desc: "• 주요 역할: 근육·피부·장기를 구성하고 효소·항체 등을 만드는 재료\n• 포함 성분: 필수아미노산 9가지 등을 포함"
             },
-            "필수아미노산": {
-                title: "🧬 단백질에 포함되는 필수 아미노산 (9가지)",
-                desc: "몸에서 충분히 만들지 못하므로 음식으로 섭취해야 합니다.\n1. 히스티딘\n2. 이소류신\n3. 류신\n4. 라이신\n5. 메티오닌\n6. 페닐알라닌\n7. 트레오닌\n8. 트립토판\n9. 발린\n• 대표 식품: 달걀, 생선, 육류, 유제품, 콩·두부"
-            },
             "지방": {
                 title: "③ 지방 (Fat)",
                 desc: "• 주요 역할: 에너지 저장, 세포막 구성, 지용성 비타민 흡수\n• 포함 성분: 필수 지방산 2가지 등을 포함"
             },
-            "오메가6": {
-                title: "🌿 필수 지방산 1 - 리놀레산 (오메가6)",
-                desc: "• 계열: 오메가6\n• 대표 식품: 콩기름, 해바라기씨, 견과류"
-            },
-            "오메가3": {
-                title: "🐟 필수 지방산 2 - 알파리놀렌산 (오메가3)",
-                desc: "• 계열: 오메가3 (EPA·DHA도 오메가3 계열에 포함)\n• 대표 식품:들기름, 아마씨, 호두, 고등어·연어"
-            },
-            "비타민": {
-                title: "④ 비타민 (Vitamin - 총 13가지)",
-                desc: "• 주요 역할: 에너지 대사와 신체 기능 조절 (총 13가지)\n• 지용성 4가지: 비타민 A, D, E, K (지방과 함께 흡수)\n• 수용성 9가지: 비타민 C, B1(티아민), B2(리보플라빈), B3(나이아신), B5(판토텐산), B6, B7(비오틴), B9(엽산), B12(물에 녹는 성질)"
-            },
-            "비타민b": { 
-                title: "⚡ 비타민 B군 (Vitamin B Complex) 종합 가이드", 
-                desc: "• 비타민 B1 (티아민): 탄수화물 대사 및 피로 물질(젖산) 축적 방지\n• 비타민 B2 (리보플래빈): 체내 에너지 생성, 피부·점막 보호, 구내염 예방\n• 비타민 B3 (나이아신): 세포 에너지 생성 및 콜레스테롤 개선\n• 비타민 B5 (판토텐산): 부신 호르몬 합성 및 스트레스 저항력 강화\n• 비타민 B6 (피리독신): 단백질 대사, 신경계 유지, 행복 호르몬 합성\n• 비타민 B7 (비오틴): 모발·손톱·피부 케라틴 구성 성분 강화\n• 비타민 B9 (엽산): 적혈구 생성 및 태아 신경관 발달 필수\n• 비타민 B12 (코발라민): 빈혈 예방 및 뇌 신경계 건강 유지\n• 복용 타이밍: 아침 식사 직후 또는 오전 시간에 복용하는 것이 활력 유지에 가장 좋습니다." 
-            },
             "무기질": {
                 title: "⑤ 무기질 (Mineral)",
-                desc: "• 주요 역할: 뼈·치아 구성, 수분 균형, 신경·근육 기능 조절\n• 다량 무기질 (7가지): 칼슘, 인, 마그네슘, 나트륨, 칼륨, 염소, 황 (상대적으로 많은 양 필요)\n• 미량 무기질 (7가지): 철, 아연, 구리, 망간, 요오드, 셀레늄, 몰리브덴 (적은 양 필요)"
-            },
-            "칼슘": {
-                title: "🥛 칼슘 (Calcium - 다량 무기질)",
-                desc: "• 분류: 다량 무기질\n• 효능: 뼈와 치아 형성, 신경 전달 및 근육 수축 조절\n• 주의: 철분과 동시 복용 시 흡수가 방해되므로 4시간 간격을 두세요."
-            },
-            "철분": {
-                title: "🩸 철분 (Iron - 미량 무기질)",
-                desc: "• 분류: 미량 무기질\n• 효능: 적혈구 생성 및 체내 산소 운반, 피로 회복\n• 복용 팁: 공복 복용이 흡수율이 가장 좋으나 위장 장애 시 식후 복용"
+                desc: "• 주요 역할: 뼈·치아 구성, 수분 균형, 신경·근육 기능 조절\n• 다량 무기질 (7가지): 칼슘, 인, 마그네슘, 나트륨, 칼륨, 염소, 황\n• 미량 무기질 (7가지): 철, 아연, 구리, 망간, 요오드, 셀레늄, 몰리브덴"
             },
             "마그네슘": {
                 title: "✨ 마그네슘 (Magnesium - 다량 무기질)",
                 desc: "• 분류: 다량 무기질\n• 효능: 에너지 이용, 신경과 근육 기능 유지, 눈밑 떨림 완화\n• 복용 타이밍: 저녁 식후나 취침 전"
             },
-            "아연": {
-                title: "🛡 아연 (Zinc - 미량 무기질)",
-                desc: "• 분류: 미량 무기질\n• 효능: 정상적인 면역 기능 및 세포 분열에 필수"
+            "철분": {
+                title: "🩸 철분 (Iron - 미량 무기질)",
+                desc: "• 분류: 미량 무기질\n• 효능: 적혈구 생성 및 체내 산소 운반, 피로 회복\n• 복용 팁: 공복 복용이 흡수율이 가장 좋으나 위장 장애 시 식후 복용"
             },
-            "물": {
-                title: "⑥ 물 (Water / 수분)",
-                desc: "• 주요 역할: 체온 조절, 영양소 운반, 노폐물 배출\n• 공급원: 마시는 물과 음식 속 수분"
+            "칼슘": {
+                title: "🥛 칼슘 (Calcium - 다량 무기질)",
+                desc: "• 분류: 다량 무기질\n• 효능: 뼈와 치아 형성, 신경 전달 및 근육 수축 조절\n• 주의: 철분과 동시 복용 시 흡수가 방해되므로 4시간 간격을 두세요."
             },
             "콜린": {
                 title: "🥚 콜린 (Choline - 필수 영양소)",
-                desc: "• 특징: 몸에서도 일부 만들어지지만 충분하지 않아 음식으로 섭취해야 하는 필수 영양소 (비타민과 유사한 성격)\n• 역할: 세포막 구성, 기억과 근육 조절(아세틸콜린 생성), 간의 지방 운반\n• 대표 식품: 달걀노른자, 콩, 육류, 생선"
+                desc: "• 특징: 몸에서도 일부 만들어지지만 충분하지 않아 음식으로 섭취해야 하는 필수 영양소\n• 역할: 세포막 구성, 기억과 근육 조절(아세틸콜린 생성), 간의 지방 운반\n• 대표 식품: 달걀노른자, 콩, 육류, 생선"
             }
         };
     
@@ -932,10 +907,11 @@
             let matchedKey = Object.keys(encyclopediaDb).find(k => cleanQuery.includes(k) || k.includes(cleanQuery));
 
             if(!matchedKey) {
-                if(cleanQuery.includes('아미노산')) matchedKey = '필수아미노산';
-                else if(cleanQuery.includes('오메가3') || cleanQuery.includes('알파리놀렌산')) matchedKey = '오메가3';
-                else if(cleanQuery.includes('오메가6') || cleanQuery.includes('리놀레산')) matchedKey = '오메가6';
-                else if(cleanQuery.includes('비타민b') || cleanQuery.includes('비타민')) matchedKey = '비타민b';
+                if(cleanQuery === '물' || cleanQuery.includes('수분')) matchedKey = '물';
+                else if(cleanQuery.includes('비타민')) matchedKey = '비타민';
+                else if(cleanQuery.includes('탄수화물')) matchedKey = '탄수화물';
+                else if(cleanQuery.includes('단백질')) matchedKey = '단백질';
+                else if(cleanQuery.includes('지방')) matchedKey = '지방';
             }
 
             if(matchedKey && encyclopediaDb[matchedKey]) {
