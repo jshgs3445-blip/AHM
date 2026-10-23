@@ -475,7 +475,7 @@
                         <div class="card-title" style="color: #b45309; margin-bottom: 0;"><i class="fa-solid fa-book-medical"></i> 대백과사전: 통합 성분 & 영양제 사전</div>
                         <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: #b45309;"></i>
                     </div>
-                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">6대 영양소별 대표식품 및 무기질 14종, 필수아미노산 완벽 검색!</p>
+                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">다량/미량 무기질 14종 완벽 분리 검색 및 6대 영양소 팩트 가이드!</p>
                 </div>
     
                 <div class="card" style="background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="openModal('statModal')">
@@ -597,17 +597,17 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <p style="color: #64748b; font-size: 12px;">6대 영양소 및 다량/미량 무기질 14종, 필수아미노산 태그를 터치하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">다량/미량 무기질 14종 및 필수아미노산, 6대 영양소 태그를 터치하세요.</p>
                     
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 150px; overflow-y: auto;" id="dictTagContainer">
-                        <span class="dict-tag" onclick="quickSelectDict('탄수화물')">① 탄수화물</span>
-                        <span class="dict-tag" onclick="quickSelectDict('단백질')">② 단백질</span>
-                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산(9가지)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('지방')">③ 지방(식물/동물)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민(13종)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('무기질')">⑤ 무기질 종합</span>
                         <span class="dict-tag" onclick="quickSelectDict('다량무기질')">⚖ 다량무기질(7가지)</span>
                         <span class="dict-tag" onclick="quickSelectDict('미량무기질')">🔬 미량무기질(7가지)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('무기질종합')">⑤ 무기질 종합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산(9가지)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('탄수화물')">① 탄수화물</span>
+                        <span class="dict-tag" onclick="quickSelectDict('단백질')">② 단백질</span>
+                        <span class="dict-tag" onclick="quickSelectDict('지방')">③ 지방</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민(13종)</span>
                         <span class="dict-tag" onclick="quickSelectDict('물')">⑥ 물(수분)</span>
                         <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
@@ -616,7 +616,7 @@
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색 (예: 탄수화물, 지방, 다량무기질 등)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색 (예: 다량무기질, 미량무기질 등)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
@@ -658,7 +658,7 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.6;">
-                    <p><b>1. 통합 영양 대백과사전:</b> 6대 영양소별 대표식품, 필수아미노산 9가지, 다량/미량 무기질 14종의 기능과 대표식품을 완벽하게 조회할 수 있습니다.</p>
+                    <p><b>1. 통합 영양 대백과사전:</b> 다량무기질(7가지)과 미량무기질(7가지)을 완벽하게 분리하여 각각의 역할과 대표 식품을 조회할 수 있습니다.</p>
                     <p style="margin-top: 8px;"><b>2. 오늘의 푸시 복용 알림:</b> 아침, 점심, 저녁 맞춤 복용 타이머로 건강을 관리하세요.</p>
                 </div>
             </div>
@@ -787,55 +787,55 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
     
-        // 🚀 6대 영양소별 대표 식품 및 필수아미노산, 다량/미량 무기질 14종 완벽 반영 DB
+        // 🚀 다량무기질, 미량무기질 완벽 분리 DB 구축
         const encyclopediaDb = {
-            "탄수화물": {
-                title: "① 탄수화물 (Carbohydrate) - 역할 및 대표 식품",
-                desc: "• 주요 역할: 몸과 뇌가 사용하는 주요 에너지원\n• 구성 형태: 당류, 전분, 식이섬유 등\n• 대표 식품: 현미, 고구마, 통밀빵, 오트밀, 바나나, 감자"
+            "다량무기질": {
+                title: "⚖ 다량 무기질 7가지 (역할 및 대표 식품)",
+                desc: "상대적으로 많은 양이 필요한 7가지 다량 무기질입니다.\n\n1. 칼슘: 뼈와 치아 형성, 신경전달 및 근육 수축 (대표식품: 우유, 치즈, 멸치, 요거트)\n2. 인: 뼈 형성, 세포 에너지 대사 (대표식품: 소고기, 돼지고기, 달걀, 견과류)\n3. 마그네슘: 신경·근육 기능 유지, 눈밑 떨림 완화 (대표식품: 아몬드, 시금치, 바나나, 호박씨)\n4. 나트륨: 체내 수분 균형, 삼투압 조절 (대표식품: 소금, 된장, 간장, 치즈)\n5. 칼륨: 혈압 조절, 나트륨 배출 (대표식품: 바나나, 감자, 고구마, 시금치)\n6. 염소: 위산 구성, 전해질 균형 유지 (대표식품: 소금, 간장)\n7. 황: 단백질 구조 유지, 연골 건강 (대표식품: 마늘, 양파, 부추, 달걀)"
             },
-            "단백질": {
-                title: "② 단백질 (Protein) - 역할 및 대표 식품",
-                desc: "• 주요 역할: 근육·피부·장기 구성, 효소·항체 형성 재료\n• 포함 성분: 필수아미노산 9가지 포함\n• 대표 식품: 닭가슴살, 소고기, 달걀, 연어, 두부, 콩류"
+            "미량무기질": {
+                title: "🔬 미량 무기질 7가지 (역할 및 대표 식품)",
+                desc: "적은 양이 필요하지만 생체 기능에 필수적인 7가지 미량 무기질입니다.\n\n1. 철(철분): 적혈구 생성 및 산소 운반, 피로 회복 (대표식품: 소고기, 돼지 간, 시금치, 렌틸콩)\n2. 아연: 정상적인 면역 기능 및 세포 분열 (대표식품: 굴, 소고기, 호박씨, 게)\n3. 구리: 철분 흡수 및 적혈구 생성 (대표식품: 캐슈넛, 해바라기씨, 랍스터)\n4. 망간: 뼈 형성, 항산화 효소 활성화 (대표식품: 현미, 귀리, 시금치, 차)\n5. 요오드: 갑상선 호르몬 합성, 대사 조절 (대표식품: 미역, 김, 다시마, 새우)\n6. 셀레늄: 강력한 항산화 작용, 면역력 증진 (대표식품: 브라질너트, 참치, 달걀, 닭가슴살)\n7. 몰리브덴: 체내 효소 작용 조절, 해독 작용 (대표식품: 콩류, 렌틸콩, 통곡물)"
+            },
+            "무기질종합": {
+                title: "⑤ 무기질 (Mineral 종합 & 다량/미량 14종)",
+                desc: "• 주요 역할: 뼈·치아 구성, 수분 균형, 신경·근육 기능 조절\n• 대표 식품: 우유, 치즈, 멸치, 소고기, 굴, 미역, 브라질너트 등\n\n[다량 무기질 7가지]\n• 칼슘, 인, 마그네슘, 나트륨, 칼륨, 염소, 황\n\n[미량 무기질 7가지]\n• 철, 아연, 구리, 망간, 요오드, 셀레늄, 몰리브덴"
             },
             "필수아미노산": {
                 title: "🧬 단백질에 포함되는 필수 아미노산 (9가지) - 역할 및 대표 식품",
                 desc: "몸에서 충분히 합성되지 않아 음식으로 반드시 섭취해야 합니다.\n1. 히스티딘: 유아 발달 및 조직 수복 (대표식품: 육류, 생선, 유제품)\n2. 이소류신: 근육 에너지 생성, 면역 지원 (대표식품: 달걀, 치즈, 닭고기)\n3. 류신: 근육 단백질 합성 촉진 (대표식품: 콩, 대두, 육류)\n4. 라이신: 칼슘 흡수 및 항체·콜라겐 생성 (대표식품: 생선, 콩류, 우유)\n5. 메티오닌: 항산화, 간 해독 및 지방 대사 (대표식품: 달걀, 마늘, 양파)\n6. 페닐알라닌: 도파민·노르에피네프린 전구체 (대표식품: 아몬드, 닭고기)\n7. 트레오닌: 콜라겐·엘라스틴 구성, 지방 간 예방 (대표식품: 유제품, 달걀)\n8. 트립토판: 세로토닌 및 멜라토닌 생성 (대표식품: 바나나, 칠면조, 우유)\n9. 발린: 근육 조직 대사 촉진 및 에너지 공급 (대표식품: 버섯, 유제품, 육류)"
             },
+            "탄수화물": {
+                title: "① 탄수화물 (Carbohydrate) - 역할 및 대표 식품",
+                desc: "• 주요 역할: 몸과 뇌가 사용하는 주요 에너지원\n• 대표 식품: 현미, 고구마, 통밀빵, 오트밀, 바나나, 감자"
+            },
+            "단백질": {
+                title: "② 단백질 (Protein) - 역할 및 대표 식품",
+                desc: "• 주요 역할: 근육·피부·장기 구성, 효소·항체 형성 재료\n• 대표 식품: 닭가슴살, 소고기, 달걀, 연어, 두부, 콩류"
+            },
             "지방": {
                 title: "③ 지방 (Fat) - 식물성 및 동물성 지방 구분과 대표 식품",
-                desc: "• 주요 역할: 에너지 저장, 세포막 구성, 지용성 비타민 흡수\n\n[식물성 지방]\n• 역할: 혈관 건강 개선, 콜레스테롤 조절\n• 대표 식품: 아보카도, 올리브유, 견과류(아몬드, 호두)\n\n[동물성 지방]\n• 역할: 체온 유지, 에너지 공급, 호르몬 합성\n• 대표 식품: 연어, 육류 지방, 버터, 치즈 등"
+                desc: "• 주요 역할: 에너지 저장, 세포막 구성, 지용성 비타민 흡수\n• 식물성 지방: 아보카도, 올리브유, 견과류(아몬드, 호두)\n• 동물성 지방: 연어, 육류 지방, 버터, 치즈"
             },
             "비타민": {
-                title: "④ 비타민 (Vitamin - 총 13가지 완벽 가이드)",
-                desc: "• 주요 역할: 에너지 대사와 신체 기능 조절 (총 13가지)\n• 대표 식품: 당근, 시금치, 연어, 레몬, 오렌지, 견과류 등\n\n[지용성 비타민 4가지]\n1. 비타민 A: 시력 보호, 피부 건강 (대표식품: 당근, 시금치, 달걀)\n2. 비타민 D: 칼슘 흡수, 뼈 형성 (대표식품: 연어, 달걀노른자, 햇빛)\n3. 비타민 E: 항산화 작용, 세포 보호 (대표식품: 아몬드, 식물성 기름)\n4. 비타민 K: 혈액 응고, 뼈 유지 (대표식품: 시금치, 케일, 브로콜리)\n\n[수용성 비타민 9가지]\n5. 비타민 C: 항산화, 콜라겐 합성 (대표식품: 레몬, 오렌지, 피망)\n6. 비타민 B1: 탄수화물 대사 (대표식품: 통곡물, 돼지고기)\n7. 비타민 B2: 에너지 생성, 구내염 예방 (대표식품: 우유, 달걀)\n8. 비타민 B3: 세포 에너지 (대표식품: 닭고기, 버섯)\n9. 비타민 B5: 스트레스 저항 (대표식품: 아보카도, 견과류)\n10. 비타민 B6: 단백질 대사 (대표식품: 바나나, 현미)\n11. 비타민 B7: 모발·피부 강화 (대표식품: 달걀노른자)\n12. 비타민 B9: 적혈구 생성 (대표식품: 시금치, 콩류)\n13. 비타민 B12: 빈혈 예방 (대표식품: 육류, 조개류)"
-            },
-            "무기질": {
-                title: "⑤ 무기질 (Mineral 종합 & 다량/미량 14종)",
-                desc: "• 주요 역할: 뼈·치아 구성, 수분 균형, 신경·근육 기능 조절\n• 대표 식품: 우유, 치즈, 멸치, 소고기, 굴, 미역, 브라질너트 등\n\n[다량 무기질 7가지]\n• 칼슘, 인, 마그네슘, 나트륨, 칼륨, 염소, 황\n\n[미량 무기질 7가지]\n• 철, 아연, 구리, 망간, 요오드, 셀레늄, 몰리브덴"
-            },
-            "다량무기질": {
-                title: "⚖ 다량 무기질 (7가지) - 역할 및 대표 식품",
-                desc: "상대적으로 많은 양이 필요한 무기질입니다.\n1. 칼슘: 뼈·치아 형성, 신경전달 및 근육 수축 (대표식품: 우유, 치즈, 멸치, 요거트)\n2. 인: 뼈 형성, 세포 에너지 대사 (대표식품: 소고기, 돼지고기, 달걀, 견과류)\n3. 마그네슘: 신경·근육 기능 유지, 눈밑 떨림 완화 (대표식품: 아몬드, 시금치, 바나나, 호박씨)\n4. 나트륨: 체내 수분 균형, 삼투압 조절 (대표식품: 소금, 된장, 간장, 치즈)\n5. 칼륨: 혈압 조절, 나트륨 배출 (대표식품: 바나나, 감자, 고구마, 시금치)\n6. 염소: 위산 구성, 전해질 균형 유지 (대표식품: 소금, 간장)\n7. 황: 단백질 구조 유지, 연골 건강 (대표식품: 마늘, 양파, 부추, 달걀)"
-            },
-            "미량무기질": {
-                title: "🔬 미량 무기질 (7가지) - 역할 및 대표 식품",
-                desc: "적은 양이 필요하지만 생체 기능에 필수적인 무기질입니다.\n1. 철: 적혈구 생성 및 산소 운반, 피로 회복 (대표식품: 소고기, 돼지 간, 시금치, 렌틸콩)\n2. 아연: 정상적인 면역 기능 및 세포 분열 (대표식품: 굴, 소고기, 호박씨, 게)\n3. 구리: 철분 흡수 및 적혈구 생성 (대표식품: 캐슈넛, 해바라기씨, 랍스터)\n4. 망간: 뼈 형성, 항산화 효소 활성화 (대표식품: 현미, 귀리, 시금치, 차)\n5. 요오드: 갑상선 호르몬 합성, 대사 조절 (대표식품: 미역, 김, 다시마, 새우)\n6. 셀레늄: 강력한 항산화 작용, 면역력 증진 (대표식품: 브라질너트, 참치, 달걀, 닭가슴살)\n7. 몰리브덴: 체내 효소 작용 조절, 해독 작용 (대표식품: 콩류, 렌틸콩, 통곡물)"
+                title: "④ 비타민 (Vitamin - 총 13종 가이드)",
+                desc: "• 주요 역할: 에너지 대사와 신체 기능 조절\n• 대표 식품: 당근, 시금치, 연어, 레몬, 오렌지 등"
             },
             "물": {
                 title: "⑥ 물 (Water / 수분) - 역할 및 대표 공급원",
-                desc: "• 주요 역할: 체온 조절, 영양소 운반, 노폐물 배출, 관절 윤활\n• 대표 식품: 생수, 오이, 수박, 토마토"
+                desc: "• 주요 역할: 체온 조절, 영양소 운반, 노폐물 배출\n• 대표 식품: 생수, 오이, 수박, 토마토"
             },
             "마그네슘": {
                 title: "✨ 마그네슘 (Magnesium - 다량 무기질)",
-                desc: "• 분류: 다량 무기질\n• 효능: 에너지 이용, 신경과 근육 기능 유지, 눈밑 떨림 완화\n• 대표 식품: 아몬드, 시금치, 바나나, 호박씨\n• 복용 타이밍: 저녁 식후나 취침 전"
+                desc: "• 분류: 다량 무기질\n• 효능: 에너지 이용, 신경과 근육 기능 유지, 눈밑 떨림 완화\n• 대표 식품: 아몬드, 시금치, 바나나, 호박씨"
             },
             "철분": {
                 title: "🩸 철분 (Iron - 미량 무기질)",
-                desc: "• 분류: 미량 무기질\n• 효능: 적혈구 생성 및 체내 산소 운반, 피로 회복\n• 대표 식품: 소고기, 돼지 간, 시금치, 렌틸콩\n• 복용 팁: 공복 복용이 흡수율이 좋으나 위장 장애 시 식후 복용"
+                desc: "• 분류: 미량 무기질\n• 효능: 적혈구 생성 및 체내 산소 운반, 피로 회복\n• 대표 식품: 소고기, 돼지 간, 시금치, 렌틸콩"
             },
             "칼슘": {
                 title: "🥛 칼슘 (Calcium - 다량 무기질)",
-                desc: "• 분류: 다량 무기질\n• 효능: 뼈와 치아 형성, 신경 전달 및 근육 수축 조절\n• 대표 식품: 우유, 치즈, 멸치, 요거트\n• 주의: 철분과 동시 복용 시 흡수가 방해되므로 4시간 간격을 두세요."
+                desc: "• 분류: 다량 무기질\n• 효능: 뼈와 치아 형성, 신경 전달 및 근육 수축 조절\n• 대표 식품: 우유, 치즈, 멸치, 요거트"
             },
             "아연": {
                 title: "🛡 아연 (Zinc - 미량 무기질)",
@@ -919,18 +919,25 @@
             resultArea.style.display = 'block';
             let cleanQuery = query.toLowerCase().replace(/\s+/g, '');
 
-            let matchedKey = Object.keys(encyclopediaDb).find(k => cleanQuery.includes(k) || k.includes(cleanQuery));
+            let matchedKey = null;
+
+            if (cleanQuery.includes('다량')) {
+                matchedKey = '다량무기질';
+            } else if (cleanQuery.includes('미량')) {
+                matchedKey = '미량무기질';
+            } else if (cleanQuery.includes('아미노산')) {
+                matchedKey = '필수아미노산';
+            } else {
+                matchedKey = Object.keys(encyclopediaDb).find(k => cleanQuery.includes(k) || k.includes(cleanQuery));
+            }
 
             if(!matchedKey) {
                 if(cleanQuery === '물' || cleanQuery.includes('수분')) matchedKey = '물';
-                else if(cleanQuery.includes('아미노산')) matchedKey = '필수아미노산';
-                else if(cleanQuery.includes('다량')) matchedKey = '다량무기질';
-                else if(cleanQuery.includes('미량')) matchedKey = '미량무기질';
                 else if(cleanQuery.includes('탄수화물')) matchedKey = '탄수화물';
                 else if(cleanQuery.includes('단백질')) matchedKey = '단백질';
                 else if(cleanQuery.includes('지방')) matchedKey = '지방';
                 else if(cleanQuery.includes('비타민')) matchedKey = '비타민';
-                else if(cleanQuery.includes('무기질')) matchedKey = '무기질';
+                else if(cleanQuery.includes('무기질')) matchedKey = '무기질종합';
             }
 
             if(matchedKey && encyclopediaDb[matchedKey]) {
