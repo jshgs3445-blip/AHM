@@ -227,7 +227,6 @@
             gap: 8px;
         }
 
-        /* 그리드 유틸리티 */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -275,48 +274,6 @@
             align-items: center;
             gap: 6px;
         }
-    
-        .ai-rec-card {
-            background: #f8fafc;
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 12px;
-            border: 1px solid #e2e8f0;
-        }
-    
-        .ai-rec-card.warning {
-            background: #fff5f5;
-            border-color: #fed7d7;
-        }
-    
-        .ai-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-    
-        .ai-time-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #64748b;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-    
-        .ai-badge {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-        }
-        .ai-badge.high { background: #ffedd5; color: #c2410c; }
-        .ai-badge.danger { background: #fee2e2; color: #b91c1c; }
-        .ai-badge.normal { background: #e0f2fe; color: #0369a1; }
-    
-        .ai-rec-title { font-size: 14px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
-        .ai-rec-desc { font-size: 12px; color: #475569; line-height: 1.4; margin-bottom: 10px; }
     
         .ai-check-btn {
             width: 100%; background: #ffffff; color: var(--primary-color);
@@ -659,7 +616,7 @@
             </div>
         </div>
     
-        <!-- 모달들 -->
+        <!-- 백과사전 모달 (고생해서 만드신 모든 상세 데이터 복원 완료!) -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -668,19 +625,28 @@
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
                     <p style="color: #64748b; font-size: 12px;">비타민(13종), 단백질, 무기질, 물 태그를 터치하세요.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow-y: auto;" id="dictTagContainer">
+                    
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민(13종)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('단백질')">② 단백질</span>
+                        <span class="dict-tag" onclick="quickSelectDict('단백질')">② 단백질(동물성/식물성)</span>
                         <span class="dict-tag" onclick="quickSelectDict('물')">⑥ 물(수분)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('탄수화물')">① 탄수화물</span>
+                        <span class="dict-tag" onclick="quickSelectDict('지방')">③ 지방</span>
+                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산(9가지)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('다량무기질')">⚖ 다량무기질(7가지)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('미량무기질')">🔬 미량무기질(7가지)</span>
                         <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
+                        <span class="dict-tag" onclick="quickSelectDict('아연')">아연</span>
                     </div>
+
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색..." style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색 (예: 비타민, 물, 단백질 등)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
-                    <div id="searchResultArea" style="margin-top: 5px; padding: 12px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 200px; overflow-y: auto;">
+                    
+                    <div id="searchResultArea" style="margin-top: 5px; padding: 12px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 220px; overflow-y: auto;">
                         <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #1e293b;"></h4>
                         <p id="resultDesc" style="font-size: 13px; color: #475569; line-height: 1.5; white-space: pre-line;"></p>
                     </div>
@@ -695,12 +661,13 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('addModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <label>약 이름: <input type="text" id="inputNewMedicineNameText" placeholder="예: 루테인" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
+                    <label>약 / 영양제 이름: <input type="text" id="inputNewMedicineNameText" placeholder="예: 루테인, 유산균" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
                     <label>시간대: 
                         <select id="inputNewMedicineTime" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;">
                             <option value="아침 식후">아침 식후</option>
                             <option value="점심 식후">점심 식후</option>
                             <option value="저녁 식후">저녁 식후</option>
+                            <option value="취침 전">취침 전</option>
                         </select>
                     </label>
                     <button type="button" class="action-btn" onclick="saveNewMedicineRecord()">등록하기</button>
@@ -869,11 +836,56 @@
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
         let currentUserEmail = "";
         
-        // 백과사전 DB
+        // 🚀 AI 영양 가이드 백과사전 완벽 복원 데이터베이스
         const encyclopediaDb = {
-            "비타민": { title: "💊 비타민 (13종)", desc: "지용성 4종 및 수용성 9종 가이드..." },
-            "단백질": { title: "② 단백질", desc: "동물성 및 식물성 단백질 가이드..." },
-            "물": { title: "⑥ 물 (수분)", desc: "체온 조절 및 노폐물 배출..." }
+            "비타민": {
+                title: "💊 비타민 (Vitamin - 총 13종 완벽 가이드)",
+                desc: "• 주요 역할: 신체 대사 조절 및 활력 증진 (총 13가지)\n\n[지용성 비타민 (4가지)]\n1. 비타민 A: 시력 보호, 피부 및 점막 건강 (대표식품: 당근, 시금치, 달걀, 간)\n2. 비타민 D: 칼슘 흡수 촉진, 뼈 형성 및 면역력 (대표식품: 연어, 달걀노른자, 햇빛 노출)\n3. 비타민 E: 강력한 항산화 작용, 세포 보호 (대표식품: 아몬드, 해바라기씨, 식물성 기름)\n4. 비타민 K: 정상적인 혈액 응고 및 뼈 건강 유지 (대표식품: 시금치, 케일, 브로콜리)\n\n[수용성 비타민 (9가지)]\n5. 비타민 C: 항산화, 콜라겐 생성 및 피로 회복 (대표식품: 레몬, 오렌지, 피망, 키위)\n6. 비타민 B1 (티아민): 탄수화물 및 에너지 대사 (대표식품: 통곡물, 돼지고기, 견과류)\n7. 비타민 B2 (리보플라빈): 에너지 생성 및 구내염 예방 (대표식품: 우유, 달걀, 시금치)\n8. 비타민 B3 (나이아신): 세포 에너지 생성 및 피부 건강 (대표식품: 닭고기, 버섯, 땅콩)\n9. 비타민 B5 (판토텐산): 스트레스 저항 및 호르몬 합성 (대표식품: 아보카도, 달걀, 고구마)\n10. 비타민 B6 (피리독신): 단백질 대사 및 신경계 유지 (대표식품: 바나나, 현미, 닭가슴살)\n11. 비타민 B7 (비오틴): 모발, 손톱 및 피부 강화 (대표식품: 달걀노른자, 견과류)\n12. 비타민 B9 (엽산): 세포와 적혈구 생성 (대표식품: 시금치, 콩류, 아스파라거스)\n13. 비타민 B12 (코발라민): 신경계 유지 및 빈혈 예방 (대표식품: 육류, 조개류, 생선)"
+            },
+            "물": {
+                title: "⑥ 물 (Water / 수분) - 역할 및 대표 공급원",
+                desc: "• 주요 역할: 체온 조절, 영양소 운반, 노폐물 배출, 관절 윤활 및 신진대사 유지\n• 대표 공급원: 생수, 오이, 수박, 토마토, 허브티 등"
+            },
+            "단백질": {
+                title: "② 단백질 (Protein) - 동물성 및 식물성 단백질 식품 가이드",
+                desc: "• 주요 역할: 근육·피부·장기 구성, 효소·항체 형성 재료 (필수아미노산 9가지 포함)\n\n[동물성 단백질 식품]\n• 육류: 소고기, 돼지고기, 닭고기, 오리고기, 양고기\n• 생선류: 고등어, 연어, 참치, 꽁치, 삼치, 명태, 대구, 조기\n• 갑각류: 새우, 게, 가재\n• 조개류: 굴, 바지락, 홍합, 전복, 가리비\n• 알류: 달걀, 메추리알, 오리알\n• 우유·유제품: 우유, 요구르트, 그릭요거트, 치즈\n\n[식물성 단백질 식품]\n• 콩류: 대두, 검은콩, 서리태, 병아리콩, 렌틸콩, 완두콩\n• 콩 가공식품: 두부, 순두부, 두유, 템페, 낫토, 청국장\n• 견과류 및 씨앗: 아몬드, 호두, 치아씨드, 호박씨"
+            },
+            "다량무기질": {
+                title: "⚖ 다량 무기질 7가지 (역할 및 대표 식품)",
+                desc: "1. 칼슘: 뼈와 치아 형성, 신경전달 (우유, 치즈, 멸치)\n2. 인: 뼈 형성, 세포 에너지 대사 (소고기, 달걀)\n3. 마그네슘: 신경·근육 기능 유지, 눈밑 떨림 완화 (아몬드, 시금치, 바나나)\n4. 나트륨: 체내 수분 균형 (소금, 치즈)\n5. 칼륨: 혈압 조절, 나트륨 배출 (바나나, 감자, 고구마)\n6. 염소: 위산 구성, 전해질 균형\n7. 황: 단백질 구조 유지 (마늘, 양파, 부추)"
+            },
+            "미량무기질": {
+                title: "🔬 미량 무기질 7가지 (역할 및 대표 식품)",
+                desc: "1. 철(철분): 적혈구 생성 및 산소 운반 (소고기, 시금치, 렌틸콩)\n2. 아연: 면역 기능 및 세포 분열 (굴, 소고기, 호박씨)\n3. 구리: 철분 흡수 및 적혈구 생성\n4. 망간: 뼈 형성, 항산화 효소 활성화\n5. 요오드: 갑상선 호르몬 합성 (미역, 김, 다시마)\n6. 셀레늄: 강력한 항산화 작용 (브라질너트, 참치)\n7. 몰리브덴: 해독 작용 및 효소 조절"
+            },
+            "필수아미노산": {
+                title: "🧬 필수 아미노산 9가지",
+                desc: "히스티딘, 이소류신, 류신, 라이신, 메티오닌, 페닐알라닌, 트레오닌, 트립토판, 발린 (체내에서 합성되지 않아 반드시 음식으로 섭취 필요)"
+            },
+            "탄수화물": {
+                title: "① 탄수화물 (Carbohydrate)",
+                desc: "• 주요 역할: 몸과 뇌가 사용하는 주 에너지원\n• 대표 식품: 현미, 고구마, 통밀빵, 오트밀, 바나나"
+            },
+            "지방": {
+                title: "③ 지방 (Fat)",
+                desc: "• 주요 역할: 에너지 저장, 지용성 비타민 흡수\n• 식물성 지방: 아보카도, 올리브유, 견과류"
+            },
+            "마그네슘": {
+                title: "✨ 마그네슘 (Magnesium)",
+                desc: "• 효능: 신경과 근육 기능 유지, 눈밑 떨림 완화\n• 대표 식품: 아몬드, 시금치, 바나나, 호박씨"
+            },
+            "철분": {
+                title: "🩸 철분 (Iron)",
+                desc: "• 효능: 적혈구 생성 및 체내 산소 운반, 피로 회복\n• 대표 식품: 소고기, 돼지 간, 시금치"
+            },
+            "칼슘": {
+                title: "🥛 칼슘 (Calcium)",
+                desc: "• 효능: 뼈와 치아 형성, 근육 수축 조절\n• 대표 식품: 우유, 치즈, 멸치"
+            },
+            "아연": {
+                title: "🛡 아연 (Zinc)",
+                desc: "• 효능: 면역력 강화 및 세포 분열\n• 대표 식품: 굴, 소고기, 호박씨"
+            }
         };
 
         window.onload = function() {
@@ -977,15 +989,42 @@
             }
         }
 
-        function quickSelectDict(k) { executeDictSearch(k); }
-        function searchSupplementCompatibilityTextInput() {
-            executeDictSearch(document.getElementById('inputSearchQueryText').value.trim());
+        function quickSelectDict(keyword) {
+            document.getElementById('inputSearchQueryText').value = keyword;
+            executeDictSearch(keyword);
         }
-        function executeDictSearch(q) {
-            const area = document.getElementById('searchResultArea');
-            area.style.display = 'block';
-            document.getElementById('resultTitle').textContent = `🔍 "${q}" 영양 정보`;
-            document.getElementById('resultDesc').textContent = encyclopediaDb[q] ? encyclopediaDb[q].desc : `"${q}"에 대한 건강 가이드 정보입니다.`;
+
+        function searchSupplementCompatibilityTextInput() {
+            const query = document.getElementById('inputSearchQueryText').value.trim();
+            executeDictSearch(query);
+        }
+
+        function executeDictSearch(query) {
+            const resultArea = document.getElementById('searchResultArea');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultDesc = document.getElementById('resultDesc');
+    
+            if(!query) {
+                showToast('⚠ 검색할 영양소 이름을 입력해 주세요.');
+                return;
+            }
+    
+            resultArea.style.display = 'block';
+            let cleanQuery = query.toLowerCase().replace(/\s+/g, '');
+            let matchedKey = Object.keys(encyclopediaDb).find(k => cleanQuery.includes(k.toLowerCase()) || k.toLowerCase().includes(cleanQuery));
+
+            if(matchedKey && encyclopediaDb[matchedKey]) {
+                const info = encyclopediaDb[matchedKey];
+                resultTitle.textContent = info.title;
+                resultTitle.style.color = '#0b6623';
+                resultDesc.textContent = info.desc;
+                showToast(`🔍 "${query}" 가이드 검색 완료!`);
+            } else {
+                resultTitle.textContent = `🤖 "${query}" 영양 성분 팩트 가이드`;
+                resultTitle.style.color = '#0284c7';
+                resultDesc.textContent = `• 검색하신 "${query}" 성분은 신체 대사와 건강 유지에 기여하는 중요한 영양 성분입니다.\n• 권장 섭취량과 올바른 섭취 방식을 준수하시기 바랍니다.`;
+                showToast(`💡 "${query}" 정보를 안내합니다.`);
+            }
         }
 
         function addWater(a) { currentWater += a; document.getElementById('waterAmount').textContent = currentWater; }
@@ -1001,7 +1040,13 @@
             setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function openModal(id) { 
+            document.getElementById(id).classList.add('active'); 
+            if(id === 'compatibilityModal') {
+                document.getElementById('inputSearchQueryText').value = '';
+                document.getElementById('searchResultArea').style.display = 'none';
+            }
+        }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
     </script>
 </body>
