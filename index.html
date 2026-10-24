@@ -227,7 +227,6 @@
             gap: 8px;
         }
 
-        /* 🚀 상단 2분할 레이아웃 스타일 */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -508,9 +507,8 @@
             </div>
     
             <div class="app-content">
-                <!-- 🚀 상단 나란히(2분할) 배치: AI 영양 가이드(연핑크) & 복용약 추가(연보라) -->
+                <!-- 상단 2분할 카드 영역 (AI 영양 가이드 & 복용약 추가) -->
                 <div class="grid-2">
-                    <!-- AI 영양 가이드 (연핑크 배경) -->
                     <div class="top-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <div>
                             <div style="font-size: 14px; font-weight: 700; color: #e11d48; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
@@ -523,7 +521,6 @@
                         </div>
                     </div>
 
-                    <!-- 복용약 추가 (연보라 배경) -->
                     <div class="top-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('addModal')">
                         <div>
                             <div style="font-size: 14px; font-weight: 700; color: #7e22ce; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
@@ -555,7 +552,7 @@
     
                 <div class="ai-recommend-section">
                     <div class="ai-section-title">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> 내비 AI의 오늘 맞춤 추천
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천
                     </div>
                     
                     <div class="ai-rec-card">
