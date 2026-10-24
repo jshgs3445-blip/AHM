@@ -226,6 +226,29 @@
             align-items: center;
             gap: 8px;
         }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .top-action-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 16px 14px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .top-action-card:hover {
+            border-color: var(--primary-color);
+        }
     
         .ai-recommend-section {
             background: #ffffff;
@@ -352,11 +375,11 @@
             width: 100%;
             max-width: 350px;
             border-radius: 24px;
-            padding: 22px;
+            padding: 20px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
-            max-height: 85vh;
+            max-height: 88vh;
             overflow-y: auto;
         }
     
@@ -364,9 +387,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 12px;
+            padding-bottom: 10px;
         }
     
         .modal-header h3 {
@@ -423,6 +446,20 @@
             color: white;
             border-color: var(--primary-color);
         }
+
+        .action-btn {
+            display: block;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -470,12 +507,31 @@
             </div>
     
             <div class="app-content">
-                <div class="card" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fde68a; cursor: pointer;" onclick="openModal('compatibilityModal')">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div class="card-title" style="color: #b45309; margin-bottom: 0;"><i class="fa-solid fa-book-medical"></i> 대백과사전: 통합 성분 & 영양제 사전</div>
-                        <i class="fa-solid fa-chevron-right" style="font-size: 14px; color: #b45309;"></i>
+                <!-- 상단 나란히 배치된 카드 영역 (AI 영양 가이드 & 복용약 추가) -->
+                <div class="grid-2">
+                    <div class="top-action-card" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fde68a;" onclick="openModal('compatibilityModal')">
+                        <div>
+                            <div style="font-size: 14px; font-weight: 700; color: #b45309; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                                <i class="fa-solid fa-book-medical"></i> AI 영양 가이드
+                            </div>
+                            <p style="font-size: 11px; color: #78350f; line-height: 1.4;">단백질, 비타민 13종, 무기질 14종 완벽 검색</p>
+                        </div>
+                        <div style="font-size: 11px; color: #b45309; font-weight: 700; margin-top: 10px; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
+                            열기 <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+                        </div>
                     </div>
-                    <p style="font-size: 12px; color: #78350f; margin-top: 6px;">단백질 상세 분류, 비타민 13종 가이드, 무기질 14종 완벽 검색!</p>
+
+                    <div class="top-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0;" onclick="openModal('addModal')">
+                        <div>
+                            <div style="font-size: 14px; font-weight: 700; color: #0b6623; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                                <i class="fa-solid fa-circle-plus"></i> 복용약 추가
+                            </div>
+                            <p style="font-size: 11px; color: #15803d; line-height: 1.4;">새로운 영양제 및 복용약 간편 등록</p>
+                        </div>
+                        <div style="font-size: 11px; color: #0b6623; font-weight: 700; margin-top: 10px; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
+                            추가 <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+                        </div>
+                    </div>
                 </div>
     
                 <div class="card" style="background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="openModal('statModal')">
@@ -593,13 +649,13 @@
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>📚 통합 성분 & 영양제 대백과사전</h3>
+                    <h3>📚 AI 영양 가이드</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
-                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
                     <p style="color: #64748b; font-size: 12px;">비타민(13종), 단백질, 무기질, 물 태그를 터치하세요.</p>
                     
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 150px; overflow-y: auto;" id="dictTagContainer">
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민(13종)</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">② 단백질(동물성/식물성)</span>
                         <span class="dict-tag" onclick="quickSelectDict('물')">⑥ 물(수분)</span>
@@ -619,7 +675,7 @@
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
-                    <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none;">
+                    <div id="searchResultArea" style="margin-top: 5px; padding: 12px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 220px; overflow-y: auto;">
                         <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #1e293b;"></h4>
                         <p id="resultDesc" style="font-size: 13px; color: #475569; line-height: 1.5; white-space: pre-line;"></p>
                     </div>
@@ -657,7 +713,7 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.6;">
-                    <p><b>1. 통합 영양 대백과사전:</b> 비타민 13종 상세 가이드, 단백질 분류, 무기질 14종의 팩트를 완벽하게 조회할 수 있습니다.</p>
+                    <p><b>1. AI 영양 가이드:</b> 비타민 13종 상세 가이드, 단백질 분류, 무기질 14종의 팩트를 완벽하게 조회할 수 있습니다.</p>
                     <p style="margin-top: 8px;"><b>2. 오늘의 푸시 복용 알림:</b> 아침, 점심, 저녁 맞춤 복용 타이머로 건강을 관리하세요.</p>
                 </div>
             </div>
@@ -786,7 +842,7 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
     
-        // 🚀 비타민 13종(지용성 4종, 수용성 9종) 전체 내용 및 단백질, 물 완벽 반영 DB
+        // 🚀 AI 영양 가이드 백과사전 DB
         const encyclopediaDb = {
             "비타민": {
                 title: "💊 비타민 (Vitamin - 총 13종 완벽 가이드)",
@@ -941,7 +997,7 @@
                 resultTitle.textContent = info.title;
                 resultTitle.style.color = '#0b6623';
                 resultDesc.textContent = info.desc;
-                showToast(`🔍 "${query}" 백과사전 검색 완료!`);
+                showToast(`🔍 "${query}" 가이드 검색 완료!`);
             } else {
                 resultTitle.textContent = `🤖 "${query}" 영양 성분 팩트 가이드`;
                 resultTitle.style.color = '#0284c7';
