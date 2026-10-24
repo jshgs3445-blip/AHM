@@ -227,7 +227,7 @@
             gap: 8px;
         }
 
-        /* 🚀 2분할 그리드 레이아웃 */
+        /* 🚀 상단 2분할 레이아웃 스타일 */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -508,28 +508,30 @@
             </div>
     
             <div class="app-content">
-                <!-- 🚀 상단 나란히(2분할) 배치된 카드 영역 (AI 영양 가이드 & 복용약 추가) -->
+                <!-- 🚀 상단 나란히(2분할) 배치: AI 영양 가이드(연핑크) & 복용약 추가(연보라) -->
                 <div class="grid-2">
-                    <div class="top-action-card" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fde68a;" onclick="openModal('compatibilityModal')">
+                    <!-- AI 영양 가이드 (연핑크 배경) -->
+                    <div class="top-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <div>
-                            <div style="font-size: 14px; font-weight: 700; color: #b45309; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                            <div style="font-size: 14px; font-weight: 700; color: #e11d48; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
                                 <i class="fa-solid fa-book-medical"></i> AI 영양 가이드
                             </div>
-                            <p style="font-size: 11px; color: #78350f; line-height: 1.4;">단백질, 비타민 13종, 무기질 14종 완벽 검색</p>
+                            <p style="font-size: 11px; color: #9f1239; line-height: 1.4;">단백질, 비타민 13종, 무기질 14종 완벽 검색</p>
                         </div>
-                        <div style="font-size: 11px; color: #b45309; font-weight: 700; margin-top: 10px; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
+                        <div style="font-size: 11px; color: #e11d48; font-weight: 700; margin-top: 10px; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
                             열기 <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
                         </div>
                     </div>
 
-                    <div class="top-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0;" onclick="openModal('addModal')">
+                    <!-- 복용약 추가 (연보라 배경) -->
+                    <div class="top-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('addModal')">
                         <div>
-                            <div style="font-size: 14px; font-weight: 700; color: #0b6623; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                            <div style="font-size: 14px; font-weight: 700; color: #7e22ce; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
                                 <i class="fa-solid fa-circle-plus"></i> 복용약 추가
                             </div>
-                            <p style="font-size: 11px; color: #15803d; line-height: 1.4;">새로운 영양제 및 복용약 간편 등록</p>
+                            <p style="font-size: 11px; color: #6b21a8; line-height: 1.4;">새로운 영양제 및 복용약 간편 등록</p>
                         </div>
-                        <div style="font-size: 11px; color: #0b6623; font-weight: 700; margin-top: 10px; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
+                        <div style="font-size: 11px; color: #7e22ce; font-weight: 700; margin-top: 10px; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
                             추가 <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
                         </div>
                     </div>
@@ -618,7 +620,7 @@
     
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-toolbox" style="color: #3182ce;"></i> 스마트 관리 도구</div>
-                    <div class="grid-3">
+                    <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                         <div class="sub-card" onclick="openModal('expiryModal')">
                             <i class="fa-solid fa-clock-rotate-left"></i>
                             <span>유통기한</span>
@@ -626,10 +628,6 @@
                         <div class="sub-card" onclick="openModal('familyModal')">
                             <i class="fa-solid fa-users"></i>
                             <span>가족 프로필</span>
-                        </div>
-                        <div class="sub-card" onclick="openModal('compatibilityModal')">
-                            <i class="fa-solid fa-book-open-reader"></i>
-                            <span>성분 사전</span>
                         </div>
                     </div>
                 </div>
