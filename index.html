@@ -460,12 +460,13 @@
                     <i class="fa-solid fa-circle-question" onclick="openModal('helpModal')" title="도움말"></i>
                     <i class="fa-solid fa-circle-plus" onclick="openModal('addModal')" title="추가"></i>
                     <i class="fa-solid fa-bell" onclick="openModal('alarmModal')" title="알림"></i>
-                    <i class="fa-solid fa-user-gear" onclick="executeLogout()" title="로그아웃"></i>
+                    <!-- 마이페이지 모달 연결 -->
+                    <i class="fa-solid fa-user-gear" onclick="openModal('myPageModal')" title="마이페이지"></i>
                 </div>
             </div>
     
             <div class="app-content">
-                <!-- 1. 최상단 2분할 (AI 영양 가이드 메인창 노출) -->
+                <!-- 1. 최상단 2분할 (AI 영양 가이드) -->
                 <div class="grid-2">
                     <div class="top-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <div>
@@ -491,8 +492,25 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 2. 오늘의 말씀 영역 (24시간 유지 및 지난 말씀 보기 기능 탑재) -->
+                <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <div style="font-size: 14px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-book-bible"></i> <span id="displayBibleTitle">오늘의 말씀 (요일 5:14)</span>
+                        </div>
+                        <div style="display: flex; gap: 6px; align-items: center;">
+                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
+                            <!-- 관리자 전용 오늘의 말씀 등록 버튼 -->
+                            <span id="adminBibleBtnWrap" style="display: none;">
+                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">✍ 등록</button>
+                            </span>
+                        </div>
+                    </div>
+                    <p style="font-size: 13px; color: #713f12; line-height: 1.5;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
+                </div>
     
-                <!-- 2. AI 맞춤 추천 영역 (3분할 가로 배치) -->
+                <!-- 3. AI 맞춤 추천 영역 (3분할 가로 배치) -->
                 <div class="ai-recommend-section">
                     <div class="ai-section-title">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천
@@ -517,7 +535,7 @@
                     </div>
                 </div>
     
-                <!-- 3. 통계 및 알림 (2분할) -->
+                <!-- 4. 통계 및 알림 (2분할) -->
                 <div class="grid-2">
                     <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer;" onclick="openModal('statModal')">
                         <div class="card-title" style="color: #0b6623; margin-bottom: 4px; font-size: 13px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
@@ -530,7 +548,7 @@
                 </div>
                 <div style="height: 14px;"></div>
     
-                <!-- 4. 일상 기록 및 타이머 (3분할) -->
+                <!-- 5. 일상 기록 및 타이머 (3분할) -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #0b6623;"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
@@ -549,7 +567,7 @@
                     </div>
                 </div>
     
-                <!-- 5. 스마트 관리 도구 (3분할) -->
+                <!-- 6. 스마트 관리 도구 (3분할) -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-toolbox" style="color: #3182ce;"></i> 스마트 관리 도구</div>
                     <div class="grid-3">
@@ -568,7 +586,7 @@
                     </div>
                 </div>
     
-                <!-- 6. 건강 상식 코너 (최신 뉴스, 핫 이슈 영상, 공지사항, 게시판) -->
+                <!-- 7. 건강 상식 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
@@ -616,6 +634,51 @@
             </div>
         </div>
     
+        <!-- 마이페이지 모달 -->
+        <div id="myPageModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>👤 마이페이지 (개인 정보 수정)</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('myPageModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <label>닉네임 / 성함: <input type="text" id="myPageNameInput" value="정수현" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
+                    <label>이메일 (ID): <input type="text" id="myPageEmailInput" value="jshgs3445@gmail.com" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
+                    <label>상태 메시지 / 목표: <input type="text" id="myPageStatusInput" value="건강한 하루, 활기찬 세컨드 라이프!" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
+                    <button type="button" class="action-btn" onclick="saveMyPageInfo()">정보 수정 저장하기</button>
+                    <button type="button" style="background: #ef4444; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 4px;" onclick="executeLogout()">로그아웃</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 관리자용 오늘의 말씀 등록 모달 -->
+        <div id="adminBibleModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>✍ 오늘의 말씀 등록 (24시간 유지)</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('adminBibleModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
+                    <label>구절 제목 (예: 요일 5:14): <input type="text" id="adminBibleTitleInput" value="요일 5:14" style="width:100%; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
+                    <label>말씀 내용: <textarea id="adminBibleDescInput" style="width:100%; height:80px; padding:8px; border-radius:8px; border:1px solid #cbd5e1;">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</textarea></label>
+                    <button type="button" class="action-btn" onclick="saveAdminBible()">오늘의 말씀 게시하기</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 지난 말씀 보관함 모달 -->
+        <div id="bibleHistoryModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📚 지난 말씀 보관함</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('bibleHistoryModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; line-height: 1.6; max-height: 280px; overflow-y: auto;" id="bibleHistoryList">
+                    <p style="color: #64748b;">등록된 지난 말씀이 없습니다.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- 백과사전 모달 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
@@ -833,7 +896,7 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
-        // 🚀 수현님이 제공해주신 15가지 무기질 및 6대 영양소 완벽 반영
+        // 무기질 15가지 및 6대 영양소 데이터베이스
         const encyclopediaDb = {
             "탄수화물": {
                 title: "① 탄수화물 (Carbohydrate) - 6대 영양소",
@@ -852,7 +915,7 @@
                 desc: "【지용성 비타민 (4가지)】\n1. 비타민 A: 시력 보호 및 피부 건강 (당근, 시금치, 달걀노른자)\n2. 비타민 D: 칼슘 흡수 및 뼈 건강 (연어, 고등어, 햇빛)\n3. 비타민 E: 항산화 및 세포 보호 (아몬드, 해바라기씨)\n4. 비타민 K: 혈액 응고 및 골밀도 유지 (시금치, 케일, 브로콜리)\n\n【수용성 비타민 (9가지)】\n5. 비타민 C: 항산화 및 피로 회복 (레몬, 오렌지, 키위, 파프리카)\n6. 비타민 B1 (티아민): 탄수화물 대사 (통곡물, 돼지고기)\n7. 비타민 B2 (리보플라빈): 에너지 생성 (우유, 달걀)\n8. 비타민 B3 (나이아신): 피부 및 신경 건강 (닭가슴살, 땅콩)\n9. 비타민 B5 (판토텐산): 호르몬 합성 (아보카도, 고구마)\n10. 비타민 B6 (피리독신): 단백질 대사 (바나나, 현미)\n11. 비타민 B7 (비오틴): 모발 및 손톱 강화 (달걀노른자, 견과류)\n12. 비타민 B9 (엽산): 적혈구 생성 (시금치, 렌틸콩)\n13. 비타민 B12 (코발라민): 신경계 및 빈혈 예방 (조개류, 소고기)"
             },
             "무기질": {
-                title: "⑤ 무기질 (Mineral / 미네랄 - 15가지) - 6대 영양소",
+                title: "⑤ 무기질 (Mineral - 15가지) - 6대 영양소",
                 desc: "1. 칼슘 ㅡ 우유, 요구르트, 치즈, 뼈째 먹는 멸치, 칼슘 응고제로 만든 두부\n2. 인 ㅡ 육류, 생선, 달걀, 우유, 치즈, 콩\n3. 나트륨 ㅡ 소금, 간장, 된장, 김치, 젓갈\n4. 염소 — 염화물 형태 소금, 간장, 소금으로 절인 식품\n5. 칼륨 ㅡ 감자, 고구마, 바나나, 토마토, 콩, 시금치\n6. 마그네슘 ㅡ 호박씨, 아몬드, 땅콩, 현미, 콩, 시금치\n7. 철 ㅡ 소고기, 간, 조개류, 렌틸콩, 대두\n8. 아연 ㅡ 굴, 소고기, 돼지고기, 치즈, 호박씨\n9. 구리 ㅡ 간, 굴, 캐슈너트, 참깨, 코코아\n10. 불소 ㅡ 녹차·홍차 등 차, 일부 생선·해산물, 불소가 함유된 음용수\n11. 망간 ㅡ 현미, 귀리, 견과류, 콩, 차\n12. 요오드 ㅡ 미역, 다시마, 김, 생선, 우유, 달걀\n13. 셀레늄 ㅡ 생선, 육류, 달걀, 브라질너트\n14. 몰리브덴 ㅡ 대두, 강낭콩, 렌틸콩, 통곡물, 간\n15. 크롬 ㅡ 육류, 통곡물, 브로콜리, 포도주스"
             },
             "물": {
@@ -867,6 +930,7 @@
 
         window.onload = function() {
             loadSavedContent();
+            loadSavedBible24h();
             initStepCounter();
         };
 
@@ -877,7 +941,8 @@
             const loginScreen = document.getElementById('loginScreen');
             const mainScreen = document.getElementById('mainScreen');
             const badge = document.getElementById('userRoleBadge');
-            const adminBtnWrap = document.getElementById('adminAddBtnWrap');
+            const adminAddBtnWrap = document.getElementById('adminAddBtnWrap');
+            const adminBibleBtnWrap = document.getElementById('adminBibleBtnWrap');
 
             loginScreen.classList.remove('active');
             loginScreen.style.display = 'none';
@@ -886,11 +951,13 @@
 
             if (currentUserEmail === "jshgs3445@gmail.com") {
                 badge.textContent = "정수현 관리자";
-                adminBtnWrap.style.display = "inline-block";
+                if(adminAddBtnWrap) adminAddBtnWrap.style.display = "inline-block";
+                if(adminBibleBtnWrap) adminBibleBtnWrap.style.display = "inline-block";
                 showToast("👑 최고 관리자 모드로 로그인되었습니다.");
             } else {
                 badge.textContent = "정회원 유저";
-                adminBtnWrap.style.display = "none";
+                if(adminAddBtnWrap) adminAddBtnWrap.style.display = "none";
+                if(adminBibleBtnWrap) adminBibleBtnWrap.style.display = "none";
                 showToast("👋 정회원으로 로그인되었습니다.");
             }
         }
@@ -900,7 +967,95 @@
             document.getElementById('mainScreen').style.display = 'none';
             document.getElementById('loginScreen').classList.add('active');
             document.getElementById('loginScreen').style.display = 'flex';
+            closeModal('myPageModal');
             showToast('로그아웃 되었습니다.');
+        }
+
+        function saveMyPageInfo() {
+            const name = document.getElementById('myPageNameInput').value;
+            const email = document.getElementById('myPageEmailInput').value;
+            currentUserEmail = email;
+            showToast(`✨ ${name}님의 마이페이지 정보가 저장되었습니다!`);
+            closeModal('myPageModal');
+        }
+
+        // 🚀 24시간 유지 및 히스토리(지난 말씀) 관리 기능
+        function saveAdminBible() {
+            const titleInput = document.getElementById('adminBibleTitleInput').value.trim();
+            const desc = document.getElementById('adminBibleDescInput').value.trim();
+
+            if(!titleInput || !desc) {
+                showToast("⚠ 구절과 내용을 모두 입력해주세요.");
+                return;
+            }
+
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}.${now.getMonth()+1}.${now.getDate()}`;
+            const fullTitle = `오늘의 말씀 (${titleInput})`;
+
+            const newBibleItem = {
+                title: fullTitle,
+                desc: desc,
+                date: dateStr,
+                timestamp: now.getTime()
+            };
+
+            // 기존 히스토리 불러오기
+            let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
+            history.unshift(newBibleItem); // 맨 앞에 추가
+
+            localStorage.setItem('ahm_bible_history', JSON.stringify(history));
+            localStorage.setItem('ahm_bible_active', JSON.stringify(newBibleItem));
+
+            applyBibleToScreen(newBibleItem);
+            showToast("✨ 오늘의 말씀이 24시간 동안 유지되도록 등록되었습니다!");
+            closeModal('adminBibleModal');
+        }
+
+        function loadSavedBible24h() {
+            let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active'));
+            
+            if(!activeBible) {
+                // 기본 초기값
+                activeBible = {
+                    title: "오늘의 말씀 (요일 5:14)",
+                    desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라",
+                    date: "2026.10.25",
+                    timestamp: new Date().getTime()
+                };
+                localStorage.setItem('ahm_bible_active', JSON.stringify(activeBible));
+            }
+
+            applyBibleToScreen(activeBible);
+            renderBibleHistory();
+        }
+
+        function applyBibleToScreen(item) {
+            document.getElementById('displayBibleTitle').textContent = item.title;
+            document.getElementById('displayBibleDesc').textContent = item.desc;
+            document.getElementById('adminBibleTitleInput').value = item.title.replace("오늘의 말씀 (", "").replace(")", "");
+            document.getElementById('adminBibleDescInput').value = item.desc;
+        }
+
+        function renderBibleHistory() {
+            const historyListEl = document.getElementById('bibleHistoryList');
+            let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
+
+            if(history.length === 0) {
+                historyListEl.innerHTML = `<p style="color: #64748b;">등록된 지난 말씀이 없습니다.</p>`;
+                return;
+            }
+
+            let html = '';
+            history.forEach((item, index) => {
+                html += `
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0;">
+                        <div style="font-size: 12px; font-weight: 700; color: #854d0e; margin-bottom: 2px;">${item.title} <span style="font-size:10px; color:#94a3b8; font-weight:normal; float:right;">${item.date}</span></div>
+                        <p style="font-size: 12px; color: #475569; line-height: 1.4;">${item.desc}</p>
+                    </div>
+                `;
+            });
+            historyListEl.innerHTML = html;
         }
 
         function initStepCounter() {
@@ -1120,6 +1275,8 @@
             } else if(id === 'voiceModal') {
                 document.getElementById('voiceStatus').textContent = '버튼을 누르고 말씀하세요.';
                 document.getElementById('micIcon').className = 'fa-solid fa-microphone-lines';
+            } else if(id === 'bibleHistoryModal') {
+                renderBibleHistory();
             }
         }
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
