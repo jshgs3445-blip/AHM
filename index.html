@@ -460,7 +460,6 @@
                     <i class="fa-solid fa-circle-question" onclick="openModal('helpModal')" title="도움말"></i>
                     <i class="fa-solid fa-circle-plus" onclick="openModal('addModal')" title="추가"></i>
                     <i class="fa-solid fa-bell" onclick="openModal('alarmModal')" title="알림"></i>
-                    <!-- 마이페이지 모달 연결 -->
                     <i class="fa-solid fa-user-gear" onclick="openModal('myPageModal')" title="마이페이지"></i>
                 </div>
             </div>
@@ -493,7 +492,7 @@
                     </div>
                 </div>
 
-                <!-- 2. 오늘의 말씀 영역 (24시간 유지 및 지난 말씀 보기 기능 탑재) -->
+                <!-- 2. 오늘의 말씀 영역 -->
                 <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                         <div style="font-size: 14px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 6px;">
@@ -501,7 +500,6 @@
                         </div>
                         <div style="display: flex; gap: 6px; align-items: center;">
                             <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
-                            <!-- 관리자 전용 오늘의 말씀 등록 버튼 -->
                             <span id="adminBibleBtnWrap" style="display: none;">
                                 <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">✍ 등록</button>
                             </span>
@@ -510,7 +508,7 @@
                     <p style="font-size: 13px; color: #713f12; line-height: 1.5;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
     
-                <!-- 3. AI 맞춤 추천 영역 (3분할 가로 배치) -->
+                <!-- 3. AI 맞춤 추천 영역 -->
                 <div class="ai-recommend-section">
                     <div class="ai-section-title">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천
@@ -535,7 +533,7 @@
                     </div>
                 </div>
     
-                <!-- 4. 통계 및 알림 (2분할) -->
+                <!-- 4. 통계 및 알림 -->
                 <div class="grid-2">
                     <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer;" onclick="openModal('statModal')">
                         <div class="card-title" style="color: #0b6623; margin-bottom: 4px; font-size: 13px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
@@ -548,7 +546,7 @@
                 </div>
                 <div style="height: 14px;"></div>
     
-                <!-- 5. 일상 기록 및 타이머 (3분할) -->
+                <!-- 5. 일상 기록 및 타이머 -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #0b6623;"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
@@ -567,7 +565,7 @@
                     </div>
                 </div>
     
-                <!-- 6. 스마트 관리 도구 (3분할) -->
+                <!-- 6. 스마트 관리 도구 -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-toolbox" style="color: #3182ce;"></i> 스마트 관리 도구</div>
                     <div class="grid-3">
@@ -896,11 +894,11 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
-        // 무기질 15가지 및 6대 영양소 데이터베이스
+        // 🚀 수현님이 가져다주신 상세한 탄수화물 내용 및 무기질 15가지 완벽 반영
         const encyclopediaDb = {
             "탄수화물": {
                 title: "① 탄수화물 (Carbohydrate) - 6대 영양소",
-                desc: "• 주요 기능: 뇌와 신체의 주 에너지원(1g당 4kcal), 단백질 절약 작용, 장 건강(식이섬유)\n• 대표 식품: 현미, 오트밀, 통밀빵, 고구마, 감자, 바나나, 퀴노아"
+                desc: "【1. 기능과 효과】\n• 에너지 공급: 1g당 약 4kcal, 걷기·운동·일상생활의 연료\n• 뇌의 에너지원: 포도당은 뇌의 주된 에너지원\n• 근육 활동 지원: 간과 근육에 글리코겐으로 저장\n• 단백질 절약: 단백질이 에너지로 쓰이는 것을 막고 조직 유지 보조\n• 지방 대사 관여: 지방을 에너지로 이용하는 대사 과정 보조\n• 장 건강 (식이섬유): 배변 활동 촉진 및 장내 유익균 먹이 제공\n\n【2. 종류와 대표 식품】\n• 당류 (과일, 우유, 꿀, 설탕, 사탕, 탄산음료)\n• 전분 (쌀밥, 현미밥, 보리밥, 빵, 국수, 떡, 감자, 고구마, 옥수수)\n• 식이섬유 (통곡물, 콩, 채소, 과일, 견과류)\n*(참고: 고구마에는 전분·당류·식이섬유가 함께 들어 있어요)*\n\n【3. 식품군별 대표 식품】\n• 곡류: 쌀, 현미, 보리, 귀리, 밀 (식물성 단백질, 비타민 B군 등)\n• 감자·고구마류: 감자, 고구마, 토란 (칼륨, 식이섬유 등)\n• 옥수수: 찐 옥수수, 알갱이 (식이섬유)\n• 콩류: 강낭콩, 병아리콩, 렌틸콩, 팥 (단백질, 식이섬유)\n• 과일류: 사과, 배, 바나나, 포도 (수분, 비타민 등)\n• 우유·유제품: 우유, 무가당 요구르트 (단백질, 칼슘)\n• 당류 가공식품: 사탕, 과자, 케이크 (지방 다량 포함)"
             },
             "단백질": {
                 title: "② 단백질 (Protein) - 6대 영양소",
@@ -979,7 +977,6 @@
             closeModal('myPageModal');
         }
 
-        // 🚀 24시간 유지 및 히스토리(지난 말씀) 관리 기능
         function saveAdminBible() {
             const titleInput = document.getElementById('adminBibleTitleInput').value.trim();
             const desc = document.getElementById('adminBibleDescInput').value.trim();
@@ -1000,9 +997,8 @@
                 timestamp: now.getTime()
             };
 
-            // 기존 히스토리 불러오기
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
-            history.unshift(newBibleItem); // 맨 앞에 추가
+            history.unshift(newBibleItem);
 
             localStorage.setItem('ahm_bible_history', JSON.stringify(history));
             localStorage.setItem('ahm_bible_active', JSON.stringify(newBibleItem));
@@ -1016,7 +1012,6 @@
             let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active'));
             
             if(!activeBible) {
-                // 기본 초기값
                 activeBible = {
                     title: "오늘의 말씀 (요일 5:14)",
                     desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라",
@@ -1047,7 +1042,7 @@
             }
 
             let html = '';
-            history.forEach((item, index) => {
+            history.forEach((item) => {
                 html += `
                     <div style="background: #f8fafc; padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0;">
                         <div style="font-size: 12px; font-weight: 700; color: #854d0e; margin-bottom: 2px;">${item.title} <span style="font-size:10px; color:#94a3b8; font-weight:normal; float:right;">${item.date}</span></div>
