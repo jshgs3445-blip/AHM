@@ -508,12 +508,12 @@
                     <p style="font-size: 13px; color: #713f12; line-height: 1.5;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
 
-                <!-- 🚀 3. AI 신체 기능 & 운동 처방전 코너 (오늘의 말씀 바로 아래 배치) -->
+                <!-- 3. AI 신체 기능 & 운동 처방전 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; cursor: pointer;" onclick="openModal('bodyCareModal')">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <div class="card-title" style="color: #0b6623; margin-bottom: 4px;"><i class="fa-solid fa-heart-pulse"></i> AI 신체 기능 & 운동 처방전</div>
-                            <p style="font-size: 12px; color: #166534;">인체 기관별 맞춤 식품 및 추천 운동 가이드</p>
+                            <p style="font-size: 12px; color: #166534;">신체 부위별 아이콘 맵 및 AI 맞춤 컨디션 처방</p>
                         </div>
                         <div style="font-size: 13px; color: #0b6623; font-weight: 700; white-space: nowrap;">
                             확인하기 <i class="fa-solid fa-chevron-right" style="font-size: 11px;"></i>
@@ -690,27 +690,40 @@
             </div>
         </div>
 
-        <!-- 🚀 AI 신체 기능 & 운동 처방전 모달 -->
+        <!-- 🚀 AI 신체 기능 & 운동 처방전 모달 (Body Map + AI 맞춤 매칭) -->
         <div id="bodyCareModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🫀 AI 신체 기능 & 운동 처방전</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('bodyCareModal')">&times;</button>
                 </div>
-                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <p style="color: #64748b; font-size: 12px;">원하시는 신체 기능을 선택하여 맞춤 식품과 운동을 확인하세요.</p>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
                     
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px;" id="bodyTagContainer">
-                        <span class="dict-tag" onclick="quickSelectBody('뇌신경계')">🧠 뇌·신경계</span>
-                        <span class="dict-tag" onclick="quickSelectBody('심혈관계')">❤️ 심혈관계</span>
-                        <span class="dict-tag" onclick="quickSelectBody('근골격계')">🦴 근골격계</span>
-                        <span class="dict-tag" onclick="quickSelectBody('소화면역계')">🛡 소화·면역계</span>
-                        <span class="dict-tag" onclick="quickSelectBody('대사해독계')">⚡ 대사·해독계</span>
+                    <!-- 1. 신체 부위별 아이콘 맵 (Body Map) -->
+                    <div>
+                        <p style="color: #64748b; font-size: 12px; margin-bottom: 6px;">📍 신체 부위별 아이콘 맵 선택:</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                            <span class="dict-tag" onclick="quickSelectBody('뇌신경계')">🧠 뇌·신경</span>
+                            <span class="dict-tag" onclick="quickSelectBody('심혈관계')">❤️ 심혈관</span>
+                            <span class="dict-tag" onclick="quickSelectBody('근골격계')">🦴 관절·뼈</span>
+                            <span class="dict-tag" onclick="quickSelectBody('소화면역계')">🛡 소화·면역</span>
+                            <span class="dict-tag" onclick="quickSelectBody('대사해독계')">⚡ 대사·해독</span>
+                        </div>
                     </div>
 
-                    <div id="bodyResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 250px; overflow-y: auto;">
+                    <!-- 2. AI 맞춤 컨디션 매칭 기능 -->
+                    <div style="background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <p style="color: #0b6623; font-weight: 700; font-size: 12px; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 맞춤 컨디션 처방</p>
+                        <div style="display: flex; gap: 6px;">
+                            <input type="text" id="inputUserCondition" placeholder="예: 피곤해요, 소화가 안 돼요, 잠이 안 와요" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; outline: none;">
+                            <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="generateAiConditionPrescription()">처방받기</button>
+                        </div>
+                    </div>
+
+                    <!-- 결과 출력 영역 -->
+                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 220px; overflow-y: auto;">
                         <h4 id="bodyResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0b6623;"></h4>
-                        <p id="bodyResultDesc" style="font-size: 12px; color: #475569; line-height: 1.6; white-space: pre-line;"></p>
+                        <p id="bodyResultDesc" style="font-size: 12px; color: #166534; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
                 </div>
             </div>
@@ -942,74 +955,45 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
-        // 영양소 백과사전 데이터
         const encyclopediaDb = {
-            "탄수화물": {
-                title: "① 탄수화물 (Carbohydrate) - 6대 영양소",
-                desc: "【1. 기능과 효과】\n• 에너지 공급: 1g당 약 4kcal, 걷기·운동·일상생활의 연료\n• 뇌의 에너지원: 포도당은 뇌의 주된 에너지원\n• 근육 활동 지원: 간과 글리코겐으로 저장\n• 단백질 절약: 단백질이 에너지로 쓰이는 것을 막고 조직 유지 보조\n• 지방 대사 관여: 지방을 에너지로 이용하는 대사 과정 보조\n• 장 건강 (식이섬유): 배변 활동 촉진 및 장내 유익균 먹이 제공\n\n【2. 종류와 대표 식품】\n• 당류 (과일, 우유, 꿀, 설탕, 사탕, 탄산음료)\n• 전분 (쌀밥, 현미밥, 보리밥, 빵, 국수, 떡, 감자, 고구마, 옥수수)\n• 식이섬유 (통곡물, 콩, 채소, 과일, 견과류)"
-            },
-            "단백질": {
-                title: "② 단백질 (Protein) - 6대 영양소",
-                desc: "【1. 기능과 효과】\n• 근육 형성·유지: 근육의 재료가 되며, 운동 후 회복과 유지에 필수\n• 조직 생성·회복: 피부·장기·혈관 등 신체 조직 구성 및 손상 회복\n• 효소 생성: 음식물 소화 및 체내 화학반응 효소 재료\n• 일부 호르몬 생성: 인슐린 등 신체 기능 조절 호르몬 재료\n• 면역 기능 유지: 항체 및 면역 관련 물질 생성\n• 영양소·산소 운반: 헤모글로빈(산소), 운반 단백질(영양소)\n• 체액·산도 균형: 알부민 등으로 체액 분포 및 산도 균형 조절\n• 에너지 공급: 필요 시 1g당 약 4kcal 에너지 제공\n\n【2. 종류와 대표 식품】\n• 육류 및 생선류: 소고기, 닭고기, 연어, 고등어, 참치\n• 알류 및 유제품: 달걀, 우유, 그릭요거트, 치즈\n• 식물성 단백질: 두부, 낫토, 렌틸콩, 병아리콩, 퀴노아"
-            },
-            "지방": {
-                title: "③ 지방 (Fat) - 6대 영양소",
-                desc: "【1. 기능과 효과】\n• 에너지 공급·저장: 1g당 약 9kcal, 남은 에너지는 체지방으로 저장\n• 세포막 구성 및 비타민(A·D·E·K) 흡수 촉진\n• 필수지방산 공급 및 체온 유지·장기 보호\n\n【2. 대표 식품】\n• 동물성: 삼겹살, 생선(오메가3), 버터, 치즈\n• 식물성: 올리브유, 아보카도, 들기름, 견과류"
-            },
-            "비타민": {
-                title: "④ 비타민 (Vitamin - 총 13종) - 6대 영양소",
-                desc: "【지용성 비타민】 비타민 A, D, E, K (당근, 연어, 아몬드, 시금치)\n【수용성 비타민】 비타민 C 및 B군 9종 (레몬, 통곡물, 달걀, 닭가슴살)"
-            },
-            "무기질": {
-                title: "⑤ 무기질 (Mineral - 15가지) - 6대 영양소",
-                desc: "뼈와 치아 구성, 체액 평형 유지, 생리 조절에 필수적인 성분입니다.\n(칼슘, 마그네슘, 철분, 망간, 아연, 칼륨, 나트륨 등)"
-            },
-            "칼슘": {
-                title: "🦴 칼슘 (Calcium) - 핵심 무기질",
-                desc: "• 주요 기능: 뼈와 치아의 강한 구조 형성, 근육 수축·이완 조절, 신경 전달\n• 주요 식품: 우유, 요구르트, 치즈, 뼈째 먹는 멸치, 두부"
-            },
-            "마그네슘": {
-                title: "⚡ 마그네슘 (Magnesium) - 천연 진정제",
-                desc: "• 주요 기능: 에너지 생성, 신경 및 근육 기능 정상 유지, 눈밑 떨림 방지\n• 주요 식품: 호박씨, 아몬드, 땅콩, 현미, 시금치"
-            },
-            "철분": {
-                title: "🩸 철분 (Iron) - 산소 운반",
-                desc: "• 주요 기능: 적혈구 헤모글로빈 구성 및 온몸에 산소 공급, 빈혈 예방\n• 주요 식품: 소고기, 돼지고기, 조개류(바지락, 굴), 렌틸콩, 시금치"
-            },
-            "망간": {
-                title: "🌱 망간 (Manganese) - 항산화 및 대사",
-                desc: "• 주요 기능: 뼈 형성, 탄수화물·단백질·지방 대사 보조, 항산화 효소 구성\n• 주요 식품: 현미, 귀리 등 통곡물, 견과류, 차(녹차·홍차)"
-            },
-            "아연": { title: "🛡 아연 (Zinc)", desc: "• 기능: 면역 기능 및 세포 분열, 상처 회복\n• 식품: 굴, 소고기, 치즈, 호박씨" },
-            "칼륨": { title: "🍌 칼륨 (Potassium)", desc: "• 기능: 나트륨 배출 및 혈압 조절\n• 식품: 감자, 고구마, 바나나, 토마토, 아보카도" },
-            "나트륨": { title: "🧂 나트륨 (Sodium)", desc: "• 기능: 체액 삼투압 및 수분 균형 유지\n• 식품: 소금, 간장, 된장, 김치" },
-            "셀레늄": { title: "🌰 셀레늄 (Selenium)", desc: "• 기능: 강력한 항산화 및 면역력 강화\n• 식품: 브라질너트, 생선류, 달걀" },
-            "요오드": { title: "🌊 요오드 (Iodine)", desc: "• 기능: 갑상선 호르몬 합성 및 신진대사 조절\n• 식품: 미역, 다시마, 김, 생선" },
-            "물": { title: "⑥ 물 (Water / 수분)", desc: "• 기능: 체온 조절, 노폐물 배출, 영양소 운반\n• 식품: 생수, 오이, 수박, 토마토" },
-            "필수아미노산": { title: "🧬 필수 아미노산 9가지", desc: "• 기능: 단백질 합성 및 신체 조직 유지\n• 식품: 닭가슴살, 달걀, 대두, 생선" }
+            "탄수화물": { title: "① 탄수화물 (Carbohydrate)", desc: "• 주요 기능: 1g당 약 4kcal 에너지원, 뇌의 주된 에너지원(포도당), 근육 글리코겐 저장\n• 대표 식품: 쌀밥, 현미밥, 감자, 고구마, 통곡물, 과일" },
+            "단백질": { title: "② 단백질 (Protein)", desc: "• 주요 기능: 근육 형성·유지, 조직 생성 및 손상 회복, 효소·호르몬·항체 생성\n• 대표 식품: 닭가슴살, 소고기, 생선, 달걀, 두부, 콩류" },
+            "지방": { title: "③ 지방 (Fat)", desc: "• 주요 기능: 1g당 약 9kcal 에너지 저장, 세포막 구성, 지용성 비타민(A·D·E·K) 흡수 촉진\n• 대표 식품: 올리브유, 아보카도, 견과류, 등푸른생선" },
+            "비타민": { title: "④ 비타민 (13종)", desc: "• 주요 기능: 신체 대사 조절, 면역력 강화, 항산화 작용\n• 대표 식품: 레몬, 파프리카, 당근, 시금치, 통곡물" },
+            "무기질": { title: "⑤ 무기질 (15가지)", desc: "• 주요 기능: 뼈와 치아 구성, 체액 평형 유지, 생리 조절\n• 주요 식품: 우유, 멸치, 시금치, 견과류, 조개류" },
+            "칼슘": { title: "🦴 칼슘", desc: "• 기능: 뼈·치아 강화, 근육 수축 조절\n• 식품: 우유, 치즈, 멸치, 두부" },
+            "마그네슘": { title: "⚡ 마그네슘", desc: "• 기능: 신경 안정, 눈밑 떨림 방지, 에너지 생성\n• 식품: 호박씨, 아몬드, 현미, 시금치" },
+            "철분": { title: "🩸 철분", desc: "• 기능: 적혈구 헤모글로빈 구성 및 산소 운반\n• 식품: 소고기, 바지락, 굴, 렌틸콩" },
+            "망간": { title: "🌱 망간", desc: "• 기능: 뼈 형성 및 항산화 효소 구성\n• 식품: 통곡물, 견과류, 녹차" },
+            "아연": { title: "🛡 아연", desc: "• 기능: 면역 기능 및 세포 분열\n• 식품: 굴, 소고기, 호박씨" },
+            "칼륨": { title: "🍌 칼륨", desc: "• 기능: 나트륨 배출 및 혈압 조절\n• 식품: 바나나, 감자, 고구마, 아보카도" },
+            "나트륨": { title: "🧂 나트륨", desc: "• 기능: 체액 삼투압 및 수분 균형 유지\n• 식품: 소금, 간장, 된장" },
+            "셀레늄": { title: "🌰 셀레늄", desc: "• 기능: 강력한 항산화 및 면역력 강화\n• 식품: 브라질너트, 생선, 달걀" },
+            "요오드": { title: "🌊 요오드", desc: "• 기능: 갑상선 호르몬 합성 및 신진대사 조절\n• 식품: 미역, 다시마, 김" },
+            "물": { title: "⑥ 물 (수분)", desc: "• 기능: 체온 조절, 노폐물 배출, 영양소 운반\n• 식품: 생수, 오이, 수박" },
+            "필수아미노산": { title: "🧬 필수 아미노산 9가지", desc: "• 기능: 체내 합성 불가, 단백질 합성 핵심\n• 식품: 닭가슴살, 달걀, 대두, 생선" }
         };
 
-        // 🚀 인체 기능별 맞춤 케어 데이터베이스
         const bodyCareDb = {
             "뇌신경계": {
-                title: "🧠 뇌·신경계 맞춤 케어 (기억력 및 스트레스 완화)",
-                desc: "• 추천 식품:\n  - 호두 및 견과류 (불포화지방산, 비타민E)\n  - 등푸른생선 (오메가3 EPA·DHA)\n  - 다크초콜릿 (항산화 성분, 뇌 혈류 개선)\n• 추천 운동 요법:\n  - 유산소 운동 (빠르게 걷기, 조깅 - 뇌 혈류 공급 촉진)\n  - 새로운 동작이 포함된 코디네이션 스텝 운동"
+                title: "🧠 뇌·신경계 맞춤 케어",
+                desc: "• 추천 식품: 호두, 아몬드, 등푸른생선(오메가3), 다크초콜릿\n• 추천 운동: 빠르게 걷기, 조깅 (뇌 혈류 공급 촉진), 코디네이션 스텝 운동"
             },
             "심혈관계": {
-                title: "❤️ 심혈관계 맞춤 케어 (혈압 및 콜레스테롤 조절)",
-                desc: "• 추천 식품:\n  - 토마토 (라이코펜, 혈관 보호)\n  - 양파 및 마늘 (알리신, 혈액 순환)\n  - 올리브오일 (단일불포화지방산)\n• 추천 운동 요법:\n  - 인터벌 워킹 (빠른 걸음 3분 + 보통 걸음 3분 반복)\n  - 자전거 타기 및 가벼운 수영"
+                title: "❤️ 심혈관계 맞춤 케어",
+                desc: "• 추천 식품: 토마토, 양파, 마늘, 올리브오일\n• 추천 운동: 인터벌 워킹 (빠른 걸음 3분 + 보통 걸음 3분), 자전거 타기"
             },
             "근골격계": {
-                title: "🦴 근골격계 맞춤 케어 (관절·뼈·근육 강화)",
-                desc: "• 추천 식품:\n  - 우유, 치즈, 멸치 (칼슘 및 인)\n  - 표고버섯, 연어 (비타민D)\n  - 닭가슴살, 두부 (단백질)\n• 추천 운동 요법:\n  - 하체 근력 운동 (가벼운 스쿼트, 까치발 들기)\n  - 코어 안정화 운동 (플랭크, 브릿지)"
+                title: "🦴 근골격계 맞춤 케어",
+                desc: "• 추천 식품: 우유, 치즈, 멸치(칼슘), 표고버섯(비타민D), 닭가슴살\n• 추천 운동: 하체 스쿼트, 코어 플랭크, 가벼운 스트레칭"
             },
             "소화면역계": {
-                title: "🛡 소화·면역계 맞춤 케어 (장 건강 및 면역 증진)",
-                desc: "• 추천 식품:\n  - 그릭요거트, 김치, 청국장 (유산균 및 발효 프로바이오틱스)\n  - 브로콜리, 마늘 (면역력 강화)\n• 추천 운동 요법:\n  - 복부 마사지를 곁들인 가벼운 산책\n  - 척추 회전 및 스트레칭 요가"
+                title: "🛡 소화·면역계 맞춤 케어",
+                desc: "• 추천 식품: 그릭요거트, 김치(유산균), 브로콜리, 마늘\n• 추천 운동: 복부 마사지를 곁들인 가벼운 산책, 요가 및 호흡 운동"
             },
             "대사해독계": {
-                title: "⚡ 대사·해독계 맞춤 케어 (간 건강 및 피로 회복)",
-                desc: "• 추천 식품:\n  - 부추, 미나리 (간 해독 보조)\n  - 레몬, 자몽 (항산화 및 비타민C)\n  - 충분한 생수 (노폐물 체외 배출)\n• 추천 운동 요법:\n  - 림프 순환 스트레칭 (목, 겨드랑이, 서혜부 가벼운 마사지)\n  - 가벼운 유산소 및 호흡 운동"
+                title: "⚡ 대사·해독계 맞춤 케어",
+                desc: "• 추천 식품: 부추, 미나리, 레몬, 충분한 생수\n• 추천 운동: 림프 순환 스트레칭, 유연성 운동"
             }
         };
 
@@ -1296,6 +1280,36 @@
             }
         }
 
+        function generateAiConditionPrescription() {
+            const inputVal = document.getElementById('inputUserCondition').value.trim();
+            const area = document.getElementById('bodyResultArea');
+            const titleEl = document.getElementById('bodyResultTitle');
+            const descEl = document.getElementById('bodyResultDesc');
+
+            if(!inputVal) {
+                showToast('⚠ 오늘 컨디션이나 고민을 입력해 주세요.');
+                return;
+            }
+
+            area.style.display = 'block';
+            let clean = inputVal.toLowerCase();
+
+            if(clean.includes('피곤') || clean.includes('지쳐') || clean.includes('피로')) {
+                titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 회복 솔루션`;
+                descEl.textContent = `• 추천 식품: 레몬(비타민C), 부추, 견과류(마그네슘), 충분한 수분\n• 추천 운동: 림프 순환 스트레칭 및 가벼운 산책\n• AI 코멘트: 에너지 대사를 돕는 비타민 B군과 수분 보충이 필수적입니다.`;
+            } else if(clean.includes('소화') || clean.includes('더부룩') || clean.includes('체했')) {
+                titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 완화 솔루션`;
+                descEl.textContent = `• 추천 식품: 무, 매실차, 그릭요거트(유산균), 따뜻한 생강차\n• 추천 운동: 복부 시계방향 마사지 및 가벼운 실내 걷기\n• AI 코멘트: 과식을 피하고 소화 효소 분비를 돕는 발효 식품을 섭취하세요.`;
+            } else if(clean.includes('잠') || clean.includes('불면') || clean.includes('피곤')) {
+                titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 수면 케어 솔루션`;
+                descEl.textContent = `• 추천 식품: 따뜻한 우유, 바나나(트립토판·마그네슘), 캐모마일 티\n• 추천 운동: 취침 전 가벼운 스트레칭 및 복식 호흡\n• AI 코멘트: 신경을 안정시키는 마그네슘과 트립토판 섭취가 도움을 줍니다.`;
+            } else {
+                titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 통합 건강 솔루션`;
+                descEl.textContent = `• 추천 식품: 신선한 채소와 과일, 양질의 단백질(두부·살코기), 충분한 물\n• 추천 운동: 인터벌 워킹 및 전신 스트레칭\n• AI 코멘트: 규칙적인 식습관과 균형 잡힌 6대 영양소 섭취를 유지하세요.`;
+            }
+            showToast(`✨ AI 맞춤 처방이 생성되었습니다!`);
+        }
+
         function searchSupplementCompatibilityTextInput() {
             const query = document.getElementById('inputSearchQueryText').value.trim();
             executeDictSearch(query);
@@ -1350,6 +1364,7 @@
                 document.getElementById('searchResultArea').style.display = 'none';
             } else if(id === 'bodyCareModal') {
                 document.getElementById('bodyResultArea').style.display = 'none';
+                document.getElementById('inputUserCondition').value = '';
             } else if(id === 'pedometerModal') {
                 updateStepDisplay(stepCount);
             } else if(id === 'voiceModal') {
