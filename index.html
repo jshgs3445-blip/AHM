@@ -211,17 +211,17 @@
         .card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 18px;
-            margin-bottom: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
             border: 1px solid #e2e8f0;
         }
     
         .card-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: #1e293b;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -231,21 +231,26 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
-        /* 🚀 3분할 레이아웃 스타일 */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
         .grid-3-col {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .top-action-card {
             background: #ffffff;
             border-radius: 16px;
-            padding: 14px 10px;
+            padding: 12px 8px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
             cursor: pointer;
@@ -253,6 +258,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            min-height: 95px;
         }
         .top-action-card:hover {
             border-color: var(--primary-color);
@@ -260,18 +266,18 @@
     
         .ai-recommend-section {
             background: #ffffff;
-            border-radius: 22px;
+            border-radius: 20px;
             padding: 16px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             border: 2px solid #e2e8f0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
     
         .ai-section-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--primary-color);
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -279,18 +285,18 @@
     
         .ai-check-btn {
             width: 100%; background: #ffffff; color: var(--primary-color);
-            border: 1px solid var(--primary-color); padding: 9px; border-radius: 10px;
-            font-size: 13px; font-weight: 600; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; gap: 6px;
+            border: 1px solid var(--primary-color); padding: 6px 4px; border-radius: 8px;
+            font-size: 11px; font-weight: 600; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 4px;
         }
         .ai-check-btn.checked { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
     
         .sub-card {
             background: #ffffff;
-            padding: 14px 8px;
-            border-radius: 16px;
+            padding: 12px 6px;
+            border-radius: 14px;
             text-align: center;
-            border: 2px solid #e2e8f0;
+            border: 1px solid #e2e8f0;
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -300,13 +306,13 @@
         }
     
         .sub-card i {
-            font-size: 20px;
+            font-size: 18px;
             color: var(--primary-color);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
     
         .sub-card span {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: #334155;
             display: block;
@@ -471,80 +477,80 @@
                 <div class="grid-2">
                     <div class="top-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <div>
-                            <div style="font-size: 13px; font-weight: 700; color: #e11d48; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
-                                <i class="fa-solid fa-book-medical"></i> AI 영양 가이드
+                            <div style="font-size: 12px; font-weight: 700; color: #e11d48; margin-bottom: 3px; display: flex; align-items: center; gap: 4px;">
+                                <i class="fa-solid fa-book-medical"></i> 영양 가이드
                             </div>
-                            <p style="font-size: 10px; color: #9f1239; line-height: 1.3;">18대 영양소 완벽 검색</p>
+                            <p style="font-size: 9px; color: #9f1239; line-height: 1.2;">6대 영양소 및 비타민·무기질 백과</p>
                         </div>
-                        <div style="font-size: 10px; color: #e11d48; font-weight: 700; margin-top: 6px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
-                            열기 <i class="fa-solid fa-chevron-right" style="font-size: 9px;"></i>
+                        <div style="font-size: 9px; color: #e11d48; font-weight: 700; margin-top: 4px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            열기 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
                         </div>
                     </div>
 
                     <div class="top-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('addModal')">
                         <div>
-                            <div style="font-size: 13px; font-weight: 700; color: #7e22ce; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+                            <div style="font-size: 12px; font-weight: 700; color: #7e22ce; margin-bottom: 3px; display: flex; align-items: center; gap: 4px;">
                                 <i class="fa-solid fa-circle-plus"></i> 복용약 추가
                             </div>
-                            <p style="font-size: 10px; color: #6b21a8; line-height: 1.3;">영양제 간편 등록</p>
+                            <p style="font-size: 9px; color: #6b21a8; line-height: 1.2;">새로운 영양제 및 복용약 등록</p>
                         </div>
-                        <div style="font-size: 10px; color: #7e22ce; font-weight: 700; margin-top: 6px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
-                            추가 <i class="fa-solid fa-chevron-right" style="font-size: 9px;"></i>
+                        <div style="font-size: 9px; color: #7e22ce; font-weight: 700; margin-top: 4px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            추가 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- 2. 오늘의 말씀 영역 -->
                 <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <div style="font-size: 14px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 6px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 5px;">
                             <i class="fa-solid fa-book-bible"></i> <span id="displayBibleTitle">오늘의 말씀 (요일 5:14)</span>
                         </div>
-                        <div style="display: flex; gap: 6px; align-items: center;">
-                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
                             <span id="adminBibleBtnWrap" style="display: none;">
-                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">✍ 등록</button>
+                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">✍ 등록</button>
                             </span>
                         </div>
                     </div>
-                    <p style="font-size: 13px; color: #713f12; line-height: 1.5;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
+                    <p style="font-size: 12px; color: #713f12; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
 
-                <!-- 🚀 3. 3분할 나란히 배치 코너 ([병원·진료과 길잡이] | [AI 인체 기능 맵] | [AI 맞춤 운동 처방]) -->
+                <!-- 3. 3분할 나란히 배치 코너 ([병원·진료과 길잡이] | [AI 인체 기능 맵] | [AI 맞춤 운동 처방]) -->
                 <div class="grid-3-col">
                     <div class="top-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe;" onclick="openModal('hospitalGuideModal')">
                         <div>
-                            <div style="font-size: 12px; font-weight: 700; color: #1d4ed8; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+                            <div style="font-size: 11px; font-weight: 700; color: #1d4ed8; margin-bottom: 3px; display: flex; align-items: center; gap: 3px;">
                                 <i class="fa-solid fa-hospital-user"></i> 병원 길잡이
                             </div>
-                            <p style="font-size: 9px; color: #1e40af; line-height: 1.3;">증상별 맞춤 진료과 찾기</p>
+                            <p style="font-size: 8.5px; color: #1e40af; line-height: 1.2;">증상별 맞춤 진료과 찾기</p>
                         </div>
-                        <div style="font-size: 9px; color: #1d4ed8; font-weight: 700; margin-top: 8px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
-                            찾기 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
+                        <div style="font-size: 8.5px; color: #1d4ed8; font-weight: 700; margin-top: 4px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            찾기 <i class="fa-solid fa-chevron-right" style="font-size: 7px;"></i>
                         </div>
                     </div>
 
                     <div class="top-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0;" onclick="openModal('bodyMapModal')">
                         <div>
-                            <div style="font-size: 12px; font-weight: 700; color: #0b6623; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+                            <div style="font-size: 11px; font-weight: 700; color: #0b6623; margin-bottom: 3px; display: flex; align-items: center; gap: 3px;">
                                 <i class="fa-solid fa-brain"></i> 인체 기능 맵
                             </div>
-                            <p style="font-size: 9px; color: #166534; line-height: 1.3;">부위별 영양 가이드 확인</p>
+                            <p style="font-size: 8.5px; color: #166534; line-height: 1.2;">부위별 영양 가이드 확인</p>
                         </div>
-                        <div style="font-size: 9px; color: #0b6623; font-weight: 700; margin-top: 8px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
-                            확인 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
+                        <div style="font-size: 8.5px; color: #0b6623; font-weight: 700; margin-top: 4px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            확인 <i class="fa-solid fa-chevron-right" style="font-size: 7px;"></i>
                         </div>
                     </div>
 
                     <div class="top-action-card" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fde68a;" onclick="openModal('exerciseModal')">
                         <div>
-                            <div style="font-size: 12px; font-weight: 700; color: #b45309; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+                            <div style="font-size: 11px; font-weight: 700; color: #b45309; margin-bottom: 3px; display: flex; align-items: center; gap: 3px;">
                                 <i class="fa-solid fa-dumbbell"></i> 맞춤 운동
                             </div>
-                            <p style="font-size: 9px; color: #92400e; line-height: 1.3;">컨디션별 운동 솔루션</p>
+                            <p style="font-size: 8.5px; color: #92400e; line-height: 1.2;">컨디션별 운동 솔루션</p>
                         </div>
-                        <div style="font-size: 9px; color: #b45309; font-weight: 700; margin-top: 8px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
-                            처방 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
+                        <div style="font-size: 8.5px; color: #b45309; font-weight: 700; margin-top: 4px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            처방 <i class="fa-solid fa-chevron-right" style="font-size: 7px;"></i>
                         </div>
                     </div>
                 </div>
@@ -555,37 +561,37 @@
                         <i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천
                     </div>
                     
-                    <div class="grid-3" style="gap: 8px;">
-                        <div class="sub-card" style="background: #f8fafc; padding: 10px 6px;" onclick="toggleTakeMed('btnMorning', '아침 비타민')">
-                            <span style="font-size: 11px; color: #64748b; font-weight: 600;"><i class="fa-regular fa-sun"></i> 아침 식후</span>
-                            <span style="font-size: 12px; color: #1e293b; margin-top: 4px;">비타민 B&C</span>
-                            <button type="button" id="btnMorning" class="ai-check-btn" style="padding: 4px; font-size: 11px; margin-top: 6px;">먹었어요</button>
+                    <div class="grid-3" style="gap: 6px;">
+                        <div class="sub-card" style="background: #f8fafc; padding: 8px 4px;" onclick="toggleTakeMed('btnMorning', '아침 비타민')">
+                            <span style="font-size: 10px; color: #64748b; font-weight: 600;"><i class="fa-regular fa-sun"></i> 아침 식후</span>
+                            <span style="font-size: 11px; color: #1e293b; margin-top: 3px; font-weight: 700;">비타민 B&C</span>
+                            <button type="button" id="btnMorning" class="ai-check-btn" style="padding: 3px; font-size: 10px; margin-top: 4px;">먹었어요</button>
                         </div>
-                        <div class="sub-card" style="background: #fff5f5; border-color: #fed7d7; padding: 10px 6px;" onclick="toggleTakeMed('btnWarning', '칼슘/철분 분리')">
-                            <span style="font-size: 11px; color: #b91c1c; font-weight: 600;"><i class="fa-solid fa-triangle-exclamation"></i> 점심 추천</span>
-                            <span style="font-size: 12px; color: #991b1b; margin-top: 4px;">철분 (간격)</span>
-                            <button type="button" id="btnWarning" class="ai-check-btn" style="padding: 4px; font-size: 11px; margin-top: 6px; border-color:#b91c1c; color:#b91c1c;">확인완료</button>
+                        <div class="sub-card" style="background: #fff5f5; border-color: #fed7d7; padding: 8px 4px;" onclick="toggleTakeMed('btnWarning', '칼슘/철분 분리')">
+                            <span style="font-size: 10px; color: #b91c1c; font-weight: 600;"><i class="fa-solid fa-triangle-exclamation"></i> 점심 추천</span>
+                            <span style="font-size: 11px; color: #991b1b; margin-top: 3px; font-weight: 700;">철분 (간격)</span>
+                            <button type="button" id="btnWarning" class="ai-check-btn" style="padding: 3px; font-size: 10px; margin-top: 4px; border-color:#b91c1c; color:#b91c1c;">확인완료</button>
                         </div>
-                        <div class="sub-card" style="background: #f8fafc; padding: 10px 6px;" onclick="toggleTakeMed('btnEvening', '저녁 오메가3')">
-                            <span style="font-size: 11px; color: #64748b; font-weight: 600;"><i class="fa-regular fa-moon"></i> 저녁</span>
-                            <span style="font-size: 12px; color: #1e293b; margin-top: 4px;">오메가3</span>
-                            <button type="button" id="btnEvening" class="ai-check-btn" style="padding: 4px; font-size: 11px; margin-top: 6px;">먹었어요</button>
+                        <div class="sub-card" style="background: #f8fafc; padding: 8px 4px;" onclick="toggleTakeMed('btnEvening', '저녁 오메가3')">
+                            <span style="font-size: 10px; color: #64748b; font-weight: 600;"><i class="fa-regular fa-moon"></i> 저녁</span>
+                            <span style="font-size: 11px; color: #1e293b; margin-top: 3px; font-weight: 700;">오메가3</span>
+                            <button type="button" id="btnEvening" class="ai-check-btn" style="padding: 3px; font-size: 10px; margin-top: 4px;">먹었어요</button>
                         </div>
                     </div>
                 </div>
     
                 <!-- 5. 통계 및 알림 -->
                 <div class="grid-2">
-                    <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer;" onclick="openModal('statModal')">
-                        <div class="card-title" style="color: #0b6623; margin-bottom: 4px; font-size: 13px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
-                        <p style="font-size: 15px; font-weight: 700; color: #15803d;">85% <i class="fa-solid fa-chevron-right" style="font-size: 11px; float: right;"></i></p>
+                    <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; padding: 12px;" onclick="openModal('statModal')">
+                        <div class="card-title" style="color: #0b6623; margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
+                        <p style="font-size: 14px; font-weight: 700; color: #15803d;">85% <i class="fa-solid fa-chevron-right" style="font-size: 10px; float: right;"></i></p>
                     </div>
-                    <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer;" onclick="openModal('alarmModal')">
-                        <div class="card-title" style="color: #0b6623; margin-bottom: 4px; font-size: 13px;"><i class="fa-regular fa-clock"></i> 푸시 복용 알림</div>
-                        <p style="font-size: 11px; color: #475569;" id="displayAlarmTimes">아침/점심/저녁 설정</p>
+                    <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; padding: 12px;" onclick="openModal('alarmModal')">
+                        <div class="card-title" style="color: #0b6623; margin-bottom: 2px; font-size: 12px;"><i class="fa-regular fa-clock"></i> 푸시 복용 알림</div>
+                        <p style="font-size: 10.5px; color: #475569;" id="displayAlarmTimes">아침/점심/저녁 설정</p>
                     </div>
                 </div>
-                <div style="height: 14px;"></div>
+                <div style="height: 12px;"></div>
     
                 <!-- 6. 일상 기록 및 타이머 -->
                 <div class="card">
@@ -612,11 +618,11 @@
                     <div class="grid-3">
                         <div class="sub-card" onclick="openModal('expiryModal')">
                             <i class="fa-solid fa-clock-rotate-left"></i>
-                            <span>영양제 유통기한</span>
+                            <span>유통기한</span>
                         </div>
                         <div class="sub-card" onclick="openModal('bpModal')">
                             <i class="fa-solid fa-heart-pulse"></i>
-                            <span>혈압·당뇨 수치</span>
+                            <span>혈압·당뇨</span>
                         </div>
                         <div class="sub-card" onclick="openModal('weightModal')">
                             <i class="fa-solid fa-weight-scale"></i>
@@ -627,47 +633,47 @@
     
                 <!-- 8. 건강 상식 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
-                    <div class="card-title" style="color: #1d4ed8; justify-content: space-between;">
+                    <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 8px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
                         <span id="adminAddBtnWrap" style="display: none;">
-                            <button type="button" onclick="openModal('adminPostModal')" style="background: #1d4ed8; color: white; border: none; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer;">+ 콘텐츠 등록</button>
+                            <button type="button" onclick="openModal('adminPostModal')" style="background: #1d4ed8; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">+ 콘텐츠 등록</button>
                         </span>
                     </div>
                     
-                    <div class="grid-2" style="margin-bottom: 10px;">
-                        <div class="sub-card" style="background: white; text-align: left; padding: 10px;" onclick="showPostContent('news')">
-                            <i class="fa-solid fa-globe" style="font-size: 16px;"></i>
-                            <span style="font-size: 13px; font-weight: 700; color: #1e293b;">최신 뉴스</span>
-                            <p style="font-size: 10px; color: #64748b; margin-top: 2px;" id="previewNews">등록된 최신 뉴스가 없습니다.</p>
+                    <div class="grid-2" style="margin-bottom: 8px;">
+                        <div class="sub-card" style="background: white; text-align: left; padding: 8px;" onclick="showPostContent('news')">
+                            <i class="fa-solid fa-globe" style="font-size: 14px;"></i>
+                            <span style="font-size: 12px; font-weight: 700; color: #1e293b;">최신 뉴스</span>
+                            <p style="font-size: 9px; color: #64748b; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="previewNews">등록된 최신 뉴스가 없습니다.</p>
                         </div>
-                        <div class="sub-card" style="background: white; text-align: left; padding: 10px;" onclick="showPostContent('video')">
-                            <i class="fa-solid fa-video" style="font-size: 16px; color: #dc2626;"></i>
-                            <span style="font-size: 13px; font-weight: 700; color: #1e293b;">핫 이슈 영상</span>
-                            <p style="font-size: 10px; color: #64748b; margin-top: 2px;" id="previewVideo">등록된 영상이 없습니다.</p>
+                        <div class="sub-card" style="background: white; text-align: left; padding: 8px;" onclick="showPostContent('video')">
+                            <i class="fa-solid fa-video" style="font-size: 14px; color: #dc2626;"></i>
+                            <span style="font-size: 12px; font-weight: 700; color: #1e293b;">핫 이슈 영상</span>
+                            <p style="font-size: 9px; color: #64748b; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="previewVideo">등록된 영상이 없습니다.</p>
                         </div>
                     </div>
 
                     <div class="grid-2" style="margin-bottom: 0;">
-                        <div class="sub-card" style="background: white; text-align: left; padding: 10px;" onclick="showPostContent('notice')">
-                            <i class="fa-solid fa-bullhorn" style="font-size: 16px; color: #d97706;"></i>
-                            <span style="font-size: 13px; font-weight: 700; color: #1e293b;">공지사항</span>
-                            <p style="font-size: 10px; color: #64748b; margin-top: 2px;" id="previewNotice">관리자 공지사항 확인하기</p>
+                        <div class="sub-card" style="background: white; text-align: left; padding: 8px;" onclick="showPostContent('notice')">
+                            <i class="fa-solid fa-bullhorn" style="font-size: 14px; color: #d97706;"></i>
+                            <span style="font-size: 12px; font-weight: 700; color: #1e293b;">공지사항</span>
+                            <p style="font-size: 9px; color: #64748b; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="previewNotice">관리자 공지사항 확인하기</p>
                         </div>
-                        <div class="sub-card" style="background: white; text-align: left; padding: 10px;" onclick="showPostContent('board')">
-                            <i class="fa-solid fa-comments" style="font-size: 16px; color: #059669;"></i>
-                            <span style="font-size: 13px; font-weight: 700; color: #1e293b;">게시판</span>
-                            <p style="font-size: 10px; color: #64748b; margin-top: 2px;" id="previewBoard">회원 소통 게시판</p>
+                        <div class="sub-card" style="background: white; text-align: left; padding: 8px;" onclick="showPostContent('board')">
+                            <i class="fa-solid fa-comments" style="font-size: 14px; color: #059669;"></i>
+                            <span style="font-size: 12px; font-weight: 700; color: #1e293b;">게시판</span>
+                            <p style="font-size: 9px; color: #64748b; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="previewBoard">회원 소통 게시판</p>
                         </div>
                     </div>
                 </div>
     
-                <div class="card" style="background: #f0f9ff; border-color: #bae6fd;">
+                <div class="card" style="background: #f0f9ff; border-color: #bae6fd; padding: 12px;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
-                            <div class="card-title" style="color: #0369a1; margin-bottom: 4px;"><i class="fa-solid fa-file-medical"></i> 건강보험 정보 및 검진 안내</div>
-                            <p style="font-size: 12px; color: #475569;">국민건강보험공단 공식 웹사이트 바로 연결</p>
+                            <div class="card-title" style="color: #0369a1; margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-file-medical"></i> 건강보험 정보 및 검진 안내</div>
+                            <p style="font-size: 11px; color: #475569;">국민건강보험공단 공식 웹사이트 바로 연결</p>
                         </div>
-                        <a href="https://www.nhis.or.kr" target="_blank" style="background: #0284c7; color: white; text-decoration: none; padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; white-space: nowrap;">방문하기</a>
+                        <a href="https://www.nhis.or.kr" target="_blank" style="background: #0284c7; color: white; text-decoration: none; padding: 8px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; white-space: nowrap;">방문하기</a>
                     </div>
                 </div>
             </div>
@@ -801,37 +807,39 @@
             </div>
         </div>
 
-        <!-- 백과사전 모달 -->
+        <!-- AI 영양 가이드 (풍부한 백과사전 전체 데이터 복구) 모달 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>📚 AI 영양 가이드 (전체 영양소)</h3>
+                    <h3>📚 AI 영양 가이드 (종합 백과사전)</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <p style="color: #64748b; font-size: 12px;">버튼을 누르거나 검색하여 상세 정보를 확인하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 풍부한 영양소 정보를 확인하세요.</p>
                     
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 180px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
-                        <span class="dict-tag" onclick="quickSelectDict('탄수화물')">① 탄수화물</span>
-                        <span class="dict-tag" onclick="quickSelectDict('단백질')">② 단백질</span>
-                        <span class="dict-tag" onclick="quickSelectDict('지방')">③ 지방</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민(13종)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('무기질')">⚖ 무기질(15가지)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('물')">⑥ 물(수분)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산(9종)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">🦴 칼슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">⚡ 마그네슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('철분')">🩸 철분</span>
-                        <span class="dict-tag" onclick="quickSelectDict('망간')">🌱 망간</span>
-                        <span class="dict-tag" onclick="quickSelectDict('아연')">🛡 아연</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼륨')">🍌 칼륨</span>
-                        <span class="dict-tag" onclick="quickSelectDict('나트륨')">🧂 나트륨</span>
-                        <span class="dict-tag" onclick="quickSelectDict('셀레늄')">🌰 셀레늄</span>
-                        <span class="dict-tag" onclick="quickSelectDict('요오드')">🌊 요오드</span>
+                        <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
+                        <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
+                        <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민 13종 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('무기질')">⚖ 무기질 15가지 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산 9종</span>
+                        <span class="dict-tag" onclick="quickSelectDict('물')">💧 물 (수분)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민A')">비타민 A</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민B')">비타민 B군</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민C')">비타민 C</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민D')">비타민 D</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민E')">비타민 E</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민K')">비타민 K</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
+                        <span class="dict-tag" onclick="quickSelectDict('아연')">아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼륨')">칼륨</span>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색 (예: 마그네슘, 칼슘, 철분)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 비타민C, 마그네슘, 단백질)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
@@ -1027,23 +1035,47 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
+        // 🚀 탄수화물, 단백질, 지방, 비타민(13종), 무기질(15가지), 필수아미노산(9종) 상세 백과사전 내용 전체 포함
         const encyclopediaDb = {
-            "탄수화물": { title: "① 탄수화물 (Carbohydrate)", desc: "• 주요 기능: 1g당 약 4kcal 에너지원, 뇌의 주된 에너지원(포도당), 근육 글리코겐 저장\n• 대표 식품: 쌀밥, 현미밥, 감자, 고구마, 통곡물, 과일" },
-            "단백질": { title: "② 단백질 (Protein)", desc: "• 주요 기능: 근육 형성·유지, 조직 생성 및 손상 회복, 효소·호르몬·항체 생성\n• 대표 식품: 닭가슴살, 소고기, 생선, 달걀, 두부, 콩류" },
-            "지방": { title: "③ 지방 (Fat)", desc: "• 주요 기능: 1g당 약 9kcal 에너지 저장, 세포막 구성, 지용성 비타민(A·D·E·K) 흡수 촉진\n• 대표 식품: 올리브유, 아보카도, 견과류, 등푸른생선" },
-            "비타민": { title: "④ 비타민 (13종)", desc: "• 주요 기능: 신체 대사 조절, 면역력 강화, 항산화 작용\n• 대표 식품: 레몬, 파프리카, 당근, 시금치, 통곡물" },
-            "무기질": { title: "⑤ 무기질 (15가지)", desc: "• 주요 기능: 뼈와 치아 구성, 체액 평형 유지, 생리 조절\n• 대표 식품: 우유, 멸치, 시금치, 견과류, 조개류" },
-            "칼슘": { title: "🦴 칼슘", desc: "• 기능: 뼈·치아 강화, 근육 수축 조절\n• 식품: 우유, 치즈, 멸치, 두부" },
-            "마그네슘": { title: "⚡ 마그네슘", desc: "• 기능: 신경 안정, 눈밑 떨림 방지, 에너지 생성\n• 식품: 호박씨, 아몬드, 현미, 시금치" },
-            "철분": { title: "🩸 철분", desc: "• 기능: 적혈구 헤모글로빈 구성 및 산소 운반\n• 식품: 소고기, 바지락, 굴, 렌틸콩" },
-            "망간": { title: "🌱 망간", desc: "• 기능: 뼈 형성 및 항산화 효소 구성\n• 식품: 통곡물, 견과류, 녹차" },
-            "아연": { title: "🛡 아연", desc: "• 기능: 면역 기능 및 세포 분열\n• 식품: 굴, 소고기, 호박씨" },
-            "칼륨": { title: "🍌 칼륨", desc: "• 기능: 나트륨 배출 및 혈압 조절\n• 식품: 바나나, 감자, 고구마, 아보카도" },
-            "나트륨": { title: "🧂 나트륨", desc: "• 기능: 체액 삼투압 및 수분 균형 유지\n• 식품: 소금, 간장, 된장" },
-            "셀레늄": { title: "🌰 셀레늄", desc: "• 기능: 강력한 항산화 및 면역력 강화\n• 식품: 브라질너트, 생선, 달걀" },
-            "요오드": { title: "🌊 요오드", desc: "• 기능: 갑상선 호르몬 합성 및 신진대사 조절\n• 식품: 미역, 다시마, 김" },
-            "물": { title: "⑥ 물 (수분)", desc: "• 기능: 체온 조절, 노폐물 배출, 영양소 운반\n• 식품: 생수, 오이, 수박" },
-            "필수아미노산": { title: "🧬 필수 아미노산 9가지", desc: "• 기능: 체내 합성 불가, 단백질 합성 핵심\n• 식품: 닭가슴살, 달걀, 대두, 생선" }
+            "탄수화물": { 
+                title: "🍞 1. 탄수화물 (Carbohydrate)", 
+                desc: "• 주요 기능: 신체와 두뇌의 주된 에너지원 (1g당 약 4kcal). 적정량이 공급되어야 단백질이 에너지로 소모되는 것을 막고 근육을 보호함.\n• 종류 및 특징: 복합 탄수화물(현미, 통곡물, 채소)은 혈당을 서서히 올려 건강에 유익하며, 단순당은 피로 회복에 즉각적이나 과다 섭취 시 체지방으로 축적됨.\n• 대표 식품: 현미밥, 귀리, 고구마, 감자, 통밀빵, 바나나, 콩류" 
+            },
+            "단백질": { 
+                title: "🥩 2. 단백질 (Protein)", 
+                desc: "• 주요 기능: 근육, 피부, 장기 등 신체 조직의 구성과 유지. 효소, 호르몬, 항체를 생성하여 면역 체계를 지탱하고 체액 균형 유지.\n• 구성 단위: 20가지 아미노산으로 이루어져 있으며, 이 중 9가지 필수 아미노산은 반드시 외부 식단을 통해 섭취해야 함.\n• 대표 식품: 닭가슴살, 소고기 우둔살, 달걀, 생선, 두부, 콩류, 그릭요거트" 
+            },
+            "지방": { 
+                title: "🥑 3. 지방 (Fat)", 
+                desc: "• 주요 기능: 1g당 약 9kcal의 고효율 에너지 저장고. 체온 유지, 장기 보호, 그리고 지용성 비타민(A, D, E, K)의 흡수를 돕는 필수 영양소.\n• 종류: 불포화 지방산(오메가3·6 등)은 혈관 건강에 이롭고, 트랜스 지방 및 과도한 포화 지방은 제한하는 것이 좋음.\n• 대표 식품: 올리브유, 아보카도, 등푸른생선, 아몬드, 호두, 치아씨드" 
+            },
+            "비타민": { 
+                title: "💊 4. 비타민 (13종 종합 가이드)", 
+                desc: "• 수용성 비타민 (9종): 비타민 B군(B1 티아민, B2 리보플래빈, B3 나이아신, B5 판토텐산, B6 피리독신, B7 비오틴, B9 엽산, B12 코발라민)과 비타민 C(아스코르브산). 에너지 대사, 피로 회복, 항산화 작용을 하며 체내에 남지 않고 배출되므로 매일 섭취 필요.\n• 지용성 비타민 (4종): 비타민 A(시력·피부), 비타민 D(칼슘 흡수·면역), 비타민 E(항산화), 비타민 K(혈액 응고). 지방과 함께 섭취 시 흡수율이 높아짐.\n• 대표 식품: 파프리카, 브로콜리, 감귤류, 시금치, 당근, 견과류" 
+            },
+            "무기질": { 
+                title: "⚖ 5. 무기질 / 미네랄 (15가지 종합 가이드)", 
+                desc: "• 다량 무기질 (7가지): 칼슘(뼈·치아), 인(에너지 대사), 칼륨(혈압 조절), 나트륨(체액 균형), 마그네슘(근육·신경 안정), 염소, 황.\n• 미량 무기질 (8가지): 철분(산소 운반), 아연(면역·세포분열), 요오드(갑상선), 셀레늄(항산화), 구리, 망간, 몰리브덴, 크롬(혈당 대사).\n• 대표 식품: 우유, 멸치, 미역, 굴, 소고기, 견과류, 바나나, 시금치" 
+            },
+            "필수아미노산": { 
+                title: "🧬 6. 필수 아미노산 (9가지 핵심)", 
+                desc: "• 종류 (9종): 류신(Leucine), 이소류신(Isoleucine), 발린(Valine) - BCAA 3종, 라이신(Lysine), 메티오닌(Methionine), 페닐알라닌(Phenylalanine), 트레오닌(Threonine), 트립토판(Tryptophan), 히스티딘(Histidine).\n• 주요 기능: 체내에서 합성되지 않아 반드시 음식으로 섭취해야 하며, 근육 합성 촉진, 뇌 신경전달물질 생성, 피로 회복 및 수면 질 개선에 결정적 역할.\n• 대표 식품: 닭가슴살, 달걀, 소고기, 대두(콩), 우유 및 유제품" 
+            },
+            "물": { 
+                title: "💧 7. 물 (수분)", 
+                desc: "• 주요 기능: 인체의 약 60~70%를 차지. 영양소 운반, 체온 조절, 노폐물 배출(신장 해독), 관절 윤활 작용.\n• 권장 섭취: 성인 기준 하루 약 1.5~2리터 이상의 생수 섭취 권장.\n• 주요 식품: 생수, 오이, 수박, 토마토 등 수분이 풍부한 채소·과일" 
+            },
+            "비타민A": { title: "🥕 비타민 A (레티놀·카로틴)", desc: "• 기능: 어두운 곳에서의 시력 적응, 상피세포 성장 및 피부·점막 보호, 강력한 항산화.\n• 식품: 당근, 시금치, 고구마, 달걀노른자, 호박" },
+            "비타민B": { title: "⚡ 비타민 B군 (에너지 대사 비타민)", desc: "• 기능: 탄수화물·단백질·지방의 에너지 전환 촉진, 피로 물질 축적 방지, 신경계 안정 및 적혈구 생성.\n• 식품: 현미, 통곡물, 달걀, 육류, 푸른 잎채소, 콩류" },
+            "비타민C": { title: "🍋 비타민 C (아스코르브산)", desc: "• 기능: 콜라겐 합성을 통한 피부 탄력 유지, 철분 흡수 촉진, 강력한 항산화 작용으로 면역력 강화.\n• 식품: 레몬, 파프리카, 키위, 딸기, 브로콜리" },
+            "비타민D": { title: "☀️ 비타민 D (선샤인 비타민)", desc: "• 기능: 장에서 칼슘과 인의 흡수를 도와 뼈 건강을 강화하고 면역 세포 조절.\n• 식품: 표고버섯, 연어, 달걀노른자, 햇볕 쬐기" },
+            "비타민E": { title: "🌰 비타민 E (토코페롤)", desc: "• 기능: 세포막을 보호하는 강력한 항산화제, 노화 방지 및 혈액 순환 원활화.\n• 식품: 아몬드, 해바라기씨, 올리브유, 시금치" },
+            "비타민K": { title: "🥬 비타민 K", desc: "• 기능: 정상적인 혈액 응고 작용 및 뼈 단백질 활성화로 골밀도 유지.\n• 식품: 케일, 시금치, 브로콜리, 양배추" },
+            "칼슘": { title: "🦴 칼슘 (Calcium)", desc: "• 기능: 뼈와 치아의 단단한 구조 형성, 근육 수축·이완 및 신경 전달 조절.\n• 식품: 우유, 치즈, 멸치, 두부, 케일" },
+            "마그네슘": { title: "⚡ 마그네슘 (Magnesium)", desc: "• 기능: 천연의 신경 안정제. 눈밑 떨림 방지, 에너지 생성, 근육 경련 이완.\n• 식품: 아몬드, 호박씨, 현미, 시금치, 바나나" },
+            "철분": { title: "🩸 철분 (Iron)", desc: "• 기능: 적혈구의 헤모글로빈을 구성하여 온몸에 산소를 운반하고 피로 예방.\n• 식품: 소고기 우둔살, 바지락, 굴, 렌틸콩, 시금치" },
+            "아연": { title: "🛡 아연 (Zinc)", desc: "• 기능: 정상적인 면역 반응 및 세포 분열, 상처 치유, 미각 유지.\n• 식품: 굴, 소고기, 호박씨, 게" },
+            "칼륨": { title: "🍌 칼륨 (Potassium)", desc: "• 기능: 체내 나트륨을 배출하여 혈압을 조절하고 세포 내외 수분 평형 유지.\n• 식품: 바나나, 감자, 고구마, 아보카도, 콩" }
         };
 
         const bodyCareDb = {
