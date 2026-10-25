@@ -508,7 +508,20 @@
                     <p style="font-size: 13px; color: #713f12; line-height: 1.5;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
 
-                <!-- 3. AI 신체 기능 & 운동 처방전 코너 -->
+                <!-- 🚀 3. [병원·진료과 길잡이] 코너 (신규 배치) -->
+                <div class="card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; cursor: pointer;" onclick="openModal('hospitalGuideModal')">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div class="card-title" style="color: #1d4ed8; margin-bottom: 4px;"><i class="fa-solid fa-hospital-user"></i> [병원·진료과 길잡이]</div>
+                            <p style="font-size: 12px; color: #1e40af;">어디로 가야 할지 모를 때, 증상별 맞춤 진료과 찾기</p>
+                        </div>
+                        <div style="font-size: 13px; color: #1d4ed8; font-weight: 700; white-space: nowrap;">
+                            찾아보기 <i class="fa-solid fa-chevron-right" style="font-size: 11px;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. AI 신체 기능 & 운동 처방전 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; cursor: pointer;" onclick="openModal('bodyCareModal')">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
@@ -521,7 +534,7 @@
                     </div>
                 </div>
     
-                <!-- 4. AI 맞춤 추천 영역 -->
+                <!-- 5. AI 맞춤 추천 영역 -->
                 <div class="ai-recommend-section">
                     <div class="ai-section-title">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천
@@ -546,7 +559,7 @@
                     </div>
                 </div>
     
-                <!-- 5. 통계 및 알림 -->
+                <!-- 6. 통계 및 알림 -->
                 <div class="grid-2">
                     <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer;" onclick="openModal('statModal')">
                         <div class="card-title" style="color: #0b6623; margin-bottom: 4px; font-size: 13px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
@@ -559,7 +572,7 @@
                 </div>
                 <div style="height: 14px;"></div>
     
-                <!-- 6. 일상 기록 및 타이머 -->
+                <!-- 7. 일상 기록 및 타이머 -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #0b6623;"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
@@ -578,7 +591,7 @@
                     </div>
                 </div>
     
-                <!-- 7. 스마트 관리 도구 -->
+                <!-- 8. 스마트 관리 도구 -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-toolbox" style="color: #3182ce;"></i> 스마트 관리 도구</div>
                     <div class="grid-3">
@@ -597,7 +610,7 @@
                     </div>
                 </div>
     
-                <!-- 8. 건강 상식 코너 -->
+                <!-- 9. 건강 상식 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
@@ -690,7 +703,41 @@
             </div>
         </div>
 
-        <!-- 🚀 AI 신체 기능 & 운동 처방전 모달 (Body Map + AI 맞춤 매칭) -->
+        <!-- 🚀 [병원·진료과 길잡이] 모달 -->
+        <div id="hospitalGuideModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🏥 [병원·진료과 길잡이]</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('hospitalGuideModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <p style="color: #64748b; font-size: 12px;">아픈 증상 칩을 누르거나 직접 입력하여 알맞은 진료과를 찾으세요.</p>
+                    
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        <span class="dict-tag" onclick="quickSelectHospital('두통')">🧠 머리가 아파요 (신경과)</span>
+                        <span class="dict-tag" onclick="quickSelectHospital('가슴통증')">❤️ 가슴이 두근/통증 (순환기내과)</span>
+                        <span class="dict-tag" onclick="quickSelectHospital('소화불량')">🍽 속쓰림·소화불량 (소화기내과)</span>
+                        <span class="dict-tag" onclick="quickSelectHospital('기침목')">🗣 기침·목감기 (이비인후과)</span>
+                        <span class="dict-tag" onclick="quickSelectHospital('관절통증')">🦴 관절·허리 쑤심 (정형외과)</span>
+                        <span class="dict-tag" onclick="quickSelectTagSearch('피부 가려움 발진', '피부과')">✨ 피부 가려움 (피부과)</span>
+                        <span class="dict-tag" onclick="quickSelectTagSearch('소변 볼 때 통증', '비뇨의학과')">💧 소변 통증 (비뇨의학과)</span>
+                        <span class="dict-tag" onclick="quickSelectTagSearch('불면증 우울 불안', '정신건강의학과')">🌙 불면·우울 (정신건강의학과)</span>
+                    </div>
+
+                    <div style="display: flex; gap: 6px; margin-top: 4px;">
+                        <input type="text" id="inputHospitalSearch" placeholder="증상 입력 (예: 기침이 안 떨어져요)" style="flex: 1; padding: 9px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; outline: none;">
+                        <button type="button" style="background: #1d4ed8; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="searchHospitalAI()">AI 진단</button>
+                    </div>
+
+                    <div id="hospitalResultArea" style="padding: 14px; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; display: none; max-height: 200px; overflow-y: auto;">
+                        <h4 id="hospitalResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #1d4ed8;"></h4>
+                        <p id="hospitalResultDesc" style="font-size: 12px; color: #1e40af; line-height: 1.6; white-space: pre-line;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI 신체 기능 & 운동 처방전 모달 -->
         <div id="bodyCareModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -698,8 +745,6 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('bodyCareModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    
-                    <!-- 1. 신체 부위별 아이콘 맵 (Body Map) -->
                     <div>
                         <p style="color: #64748b; font-size: 12px; margin-bottom: 6px;">📍 신체 부위별 아이콘 맵 선택:</p>
                         <div style="display: flex; flex-wrap: wrap; gap: 6px;">
@@ -711,7 +756,6 @@
                         </div>
                     </div>
 
-                    <!-- 2. AI 맞춤 컨디션 매칭 기능 -->
                     <div style="background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0;">
                         <p style="color: #0b6623; font-weight: 700; font-size: 12px; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 맞춤 컨디션 처방</p>
                         <div style="display: flex; gap: 6px;">
@@ -720,8 +764,7 @@
                         </div>
                     </div>
 
-                    <!-- 결과 출력 영역 -->
-                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 220px; overflow-y: auto;">
+                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 200px; overflow-y: auto;">
                         <h4 id="bodyResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0b6623;"></h4>
                         <p id="bodyResultDesc" style="font-size: 12px; color: #166534; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
@@ -960,7 +1003,7 @@
             "단백질": { title: "② 단백질 (Protein)", desc: "• 주요 기능: 근육 형성·유지, 조직 생성 및 손상 회복, 효소·호르몬·항체 생성\n• 대표 식품: 닭가슴살, 소고기, 생선, 달걀, 두부, 콩류" },
             "지방": { title: "③ 지방 (Fat)", desc: "• 주요 기능: 1g당 약 9kcal 에너지 저장, 세포막 구성, 지용성 비타민(A·D·E·K) 흡수 촉진\n• 대표 식품: 올리브유, 아보카도, 견과류, 등푸른생선" },
             "비타민": { title: "④ 비타민 (13종)", desc: "• 주요 기능: 신체 대사 조절, 면역력 강화, 항산화 작용\n• 대표 식품: 레몬, 파프리카, 당근, 시금치, 통곡물" },
-            "무기질": { title: "⑤ 무기질 (15가지)", desc: "• 주요 기능: 뼈와 치아 구성, 체액 평형 유지, 생리 조절\n• 주요 식품: 우유, 멸치, 시금치, 견과류, 조개류" },
+            "무기질": { title: "⑤ 무기질 (15가지)", desc: "• 주요 기능: 뼈와 치아 구성, 체액 평형 유지, 생리 조절\n• 대표 식품: 우유, 멸치, 시금치, 견과류, 조개류" },
             "칼슘": { title: "🦴 칼슘", desc: "• 기능: 뼈·치아 강화, 근육 수축 조절\n• 식품: 우유, 치즈, 멸치, 두부" },
             "마그네슘": { title: "⚡ 마그네슘", desc: "• 기능: 신경 안정, 눈밑 떨림 방지, 에너지 생성\n• 식품: 호박씨, 아몬드, 현미, 시금치" },
             "철분": { title: "🩸 철분", desc: "• 기능: 적혈구 헤모글로빈 구성 및 산소 운반\n• 식품: 소고기, 바지락, 굴, 렌틸콩" },
@@ -994,6 +1037,30 @@
             "대사해독계": {
                 title: "⚡ 대사·해독계 맞춤 케어",
                 desc: "• 추천 식품: 부추, 미나리, 레몬, 충분한 생수\n• 추천 운동: 림프 순환 스트레칭, 유연성 운동"
+            }
+        };
+
+        // 🏥 [병원·진료과 길잡이] 데이터베이스
+        const hospitalDb = {
+            "두통": {
+                title: "🧠 추천 진료과: 신경과",
+                desc: "• 주요 원인 질환: 편두통, 긴장성 두통, 뇌혈관 질환, 말초신경 이상\n• 방문 팁: 두통이 주기적으로 발생하거나 어지러움, 손발 저림이 동반될 때 방문하세요."
+            },
+            "가슴통증": {
+                title: "❤️ 추천 진료과: 순환기내과",
+                desc: "• 주요 원인 질환: 협심증, 심근경색, 부정맥, 고혈압 관련 합병증\n• 방문 팁: 가슴 압박감이나 숨이 차는 증상이 있다면 신속하게 정밀 검진을 받으세요."
+            },
+            "소화불량": {
+                title: "🍽 추천 진료과: 소화기내과",
+                desc: "• 주요 원인 질환: 위염, 역류성 식도염, 소화성 궤양, 기능성 소화불량\n• 방문 팁: 식후 속쓰림, 더부룩함, 잦은 트림이 지속될 때 방문합니다."
+            },
+            "기침목": {
+                title: "🗣 추천 진료과: 이비인후과",
+                desc: "• 주요 원인 질환: 감기, 편도선염, 부비동염(축농증), 역류성 인후두염\n• 방문 팁: 목 통증, 기침, 콧물, 목 쉼 증상이 있을 때 1차로 방문하세요."
+            },
+            "관절통증": {
+                title: "🦴 추천 진료과: 정형외과",
+                desc: "• 주요 원인 질환: 관절염, 허리 디스크, 인대 손상, 오십견\n• 방문 팁: 관절을 움직일 때 찌릿한 통증이나 부기가 있을 때 방문하세요."
             }
         };
 
@@ -1280,6 +1347,66 @@
             }
         }
 
+        function quickSelectHospital(key) {
+            const area = document.getElementById('hospitalResultArea');
+            const titleEl = document.getElementById('hospitalResultTitle');
+            const descEl = document.getElementById('hospitalResultDesc');
+
+            area.style.display = 'block';
+            if(hospitalDb[key]) {
+                titleEl.textContent = hospitalDb[key].title;
+                descEl.textContent = hospitalDb[key].desc;
+                showToast(`🏥 맞춤 진료과 안내를 불러왔습니다.`);
+            }
+        }
+
+        function quickSelectTagSearch(symptom, dept) {
+            const area = document.getElementById('hospitalResultArea');
+            const titleEl = document.getElementById('hospitalResultTitle');
+            const descEl = document.getElementById('hospitalResultDesc');
+
+            area.style.display = 'block';
+            titleEl.textContent = `🏥 추천 진료과: ${dept}`;
+            descEl.textContent = `• 관련 증상: "${symptom}"\n• 방문 팁: 해당 증상이 지속되거나 불편감이 클 때 ${dept} 전문의와 상담하세요.`;
+            showToast(`🏥 ${dept} 안내를 불러왔습니다.`);
+        }
+
+        function searchHospitalAI() {
+            const query = document.getElementById('inputHospitalSearch').value.trim();
+            const area = document.getElementById('hospitalResultArea');
+            const titleEl = document.getElementById('hospitalResultTitle');
+            const descEl = document.getElementById('hospitalResultDesc');
+
+            if(!query) {
+                showToast('⚠ 아픈 증상을 입력해 주세요.');
+                return;
+            }
+
+            area.style.display = 'block';
+            let clean = query.toLowerCase();
+
+            if(clean.includes('머리') || clean.includes('두통') || clean.includes('어지러')) {
+                titleEl.textContent = "🧠 추천 진료과: 신경과";
+                descEl.textContent = `• 입력하신 증상: "${query}"\n• 주요 진료 질환: 편두통, 긴장성 두통, 어지러움, 말초신경 장애`;
+            } else if(clean.includes('가슴') || clean.includes('심장') || clean.includes('숨')) {
+                titleEl.textContent = "❤️ 추천 진료과: 순환기내과";
+                descEl.textContent = `• 입력하신 증상: "${query}"\n• 주요 진료 질환: 협심증, 부정맥, 가슴 압박감, 혈압 이상`;
+            } else if(clean.includes('소화') || clean.includes('속') || clean.includes('배') || clean.includes('위')) {
+                titleEl.textContent = "🍽 추천 진료과: 소화기내과";
+                descEl.textContent = `• 입력하신 증상: "${query}"\n• 주요 진료 질환: 위염, 역류성 식도염, 소화불량, 복통`;
+            } else if(clean.includes('기침') || clean.includes('목') || clean.includes('콧물') || clean.includes('감기')) {
+                titleEl.textContent = "🗣 추천 진료과: 이비인후과";
+                descEl.textContent = `• 입력하신 증상: "${query}"\n• 주요 진료 질환: 감기, 편도선염, 부비동염, 인후통`;
+            } else if(clean.includes('관절') || clean.includes('허리') || clean.includes('어깨') || clean.includes('다리')) {
+                titleEl.textContent = "🦴 추천 진료과: 정형외과";
+                descEl.textContent = `• 입력하신 증상: "${query}"\n• 주요 진료 질환: 관절염, 디스크, 인대 손상, 근골격계 통증`;
+            } else {
+                titleEl.textContent = `🤖 AI 진료과 추천: 통합 내과 / 가정의학과`;
+                descEl.textContent = `• 입력하신 증상: "${query}"\n• 방문 가이드: 증상이 모호하거나 여러 복합 증세가 있을 때는 1차로 가정의학과나 일반 내과를 방문하여 기본 진료를 받으시는 것이 안전합니다.`;
+            }
+            showToast(`✨ 맞춤 진료과 안내가 완료되었습니다!`);
+        }
+
         function generateAiConditionPrescription() {
             const inputVal = document.getElementById('inputUserCondition').value.trim();
             const area = document.getElementById('bodyResultArea');
@@ -1300,7 +1427,7 @@
             } else if(clean.includes('소화') || clean.includes('더부룩') || clean.includes('체했')) {
                 titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 완화 솔루션`;
                 descEl.textContent = `• 추천 식품: 무, 매실차, 그릭요거트(유산균), 따뜻한 생강차\n• 추천 운동: 복부 시계방향 마사지 및 가벼운 실내 걷기\n• AI 코멘트: 과식을 피하고 소화 효소 분비를 돕는 발효 식품을 섭취하세요.`;
-            } else if(clean.includes('잠') || clean.includes('불면') || clean.includes('피곤')) {
+            } else if(clean.includes('잠') || clean.includes('불면')) {
                 titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 수면 케어 솔루션`;
                 descEl.textContent = `• 추천 식품: 따뜻한 우유, 바나나(트립토판·마그네슘), 캐모마일 티\n• 추천 운동: 취침 전 가벼운 스트레칭 및 복식 호흡\n• AI 코멘트: 신경을 안정시키는 마그네슘과 트립토판 섭취가 도움을 줍니다.`;
             } else {
@@ -1365,6 +1492,9 @@
             } else if(id === 'bodyCareModal') {
                 document.getElementById('bodyResultArea').style.display = 'none';
                 document.getElementById('inputUserCondition').value = '';
+            } else if(id === 'hospitalGuideModal') {
+                document.getElementById('hospitalResultArea').style.display = 'none';
+                document.getElementById('inputHospitalSearch').value = '';
             } else if(id === 'pedometerModal') {
                 updateStepDisplay(stepCount);
             } else if(id === 'voiceModal') {
