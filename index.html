@@ -240,7 +240,6 @@
             gap: 8px;
         }
 
-        /* 3분할 코너 레이아웃 (.grid-3-col) */
         .grid-3-col {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -725,7 +724,7 @@
             </div>
         </div>
 
-        <!-- 1. [병원 길잡이] 모달 -->
+        <!-- [병원 길잡이] 모달 -->
         <div id="hospitalGuideModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -756,7 +755,7 @@
             </div>
         </div>
 
-        <!-- 2. [인체 기능 맵] 모달 -->
+        <!-- [인체 기능 맵] 모달 -->
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -782,7 +781,7 @@
             </div>
         </div>
 
-        <!-- 3. [맞춤 운동] 모달 -->
+        <!-- [맞춤 운동] 모달 -->
         <div id="exerciseModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -808,7 +807,7 @@
             </div>
         </div>
 
-        <!-- 영양 가이드 백과사전 모달 -->
+        <!-- 🚀 AI 영양 가이드 (풍부한 6대 영양소 & 백과사전) 모달 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -826,15 +825,15 @@
                         <span class="dict-tag" onclick="quickSelectDict('무기질')">⚖ 무기질 15가지 통합</span>
                         <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산 9종</span>
                         <span class="dict-tag" onclick="quickSelectDict('물')">💧 물 (수분)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
-                        <span class="dict-tag" onclick="quickSelectDict('아연')">아연</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼륨')">칼륨</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">🦴 칼슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">⚡ 마그네슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('철분')">🩸 철분</span>
+                        <span class="dict-tag" onclick="quickSelectDict('아연')">🛡 아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼륨')">🍌 칼륨</span>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 비타민C, 마그네슘, 단백질)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 비타민, 마그네슘, 단백질)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
@@ -1030,24 +1029,56 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
-        // 🚀 풍부한 영양 가이드 데이터베이스
+        // 🚀 풍부하고 깊이 있는 6대 영양소 및 백과사전 데이터
         const encyclopediaDb = {
-            "탄수화물": { title: "🍞 1. 탄수화물 (Carbohydrate)", desc: "• 주요 기능: 1g당 약 4kcal 에너지원, 뇌의 주된 에너지원(포도당), 근육 글리코겐 저장\n• 대표 식품: 쌀밥, 현미밥, 감자, 고구마, 통곡물, 과일" },
-            "단백질": { title: "🥩 2. 단백질 (Protein)", desc: "• 주요 기능: 근육 형성·유지, 조직 생성 및 손상 회복, 효소·호르몬·항체 생성\n• 대표 식품: 닭가슴살, 소고기, 생선, 달걀, 두부, 콩류" },
-            "지방": { title: "🥑 3. 지방 (Fat)", desc: "• 주요 기능: 1g당 약 9kcal 에너지 저장, 세포막 구성, 지용성 비타민(A·D·E·K) 흡수 촉진\n• 대표 식품: 올리브유, 아보카도, 견과류, 등푸른생선" },
-            "비타민": { title: "💊 4. 비타민 (13종)", desc: "• 주요 기능: 신체 대사 조절, 면역력 강화, 항산화 작용\n• 대표 식품: 레몬, 파프리카, 당근, 시금치, 통곡물" },
-            "무기질": { title: "⚖ 5. 무기질 (15가지)", desc: "• 주요 기능: 뼈와 치아 구성, 체액 평형 유지, 생리 조절\n• 주요 식품: 우유, 멸치, 시금치, 견과류, 조개류" },
-            "칼슘": { title: "🦴 칼슘", desc: "• 기능: 뼈·치아 강화, 근육 수축 조절\n• 식품: 우유, 치즈, 멸치, 두부" },
-            "마그네슘": { title: "⚡ 마그네슘", desc: "• 기능: 신경 안정, 눈밑 떨림 방지, 에너지 생성\n• 식품: 호박씨, 아몬드, 현미, 시금치" },
-            "철분": { title: "🩸 철분", desc: "• 기능: 적혈구 헤모글로빈 구성 및 산소 운반\n• 식품: 소고기, 바지락, 굴, 렌틸콩" },
-            "망간": { title: "🌱 망간", desc: "• 기능: 뼈 형성 및 항산화 효소 구성\n• 식품: 통곡물, 견과류, 녹차" },
-            "아연": { title: "🛡 아연", desc: "• 기능: 면역 기능 및 세포 분열\n• 식품: 굴, 소고기, 호박씨" },
-            "칼륨": { title: "🍌 칼륨", desc: "• 기능: 나트륨 배출 및 혈압 조절\n• 식품: 바나나, 감자, 고구마, 아보카도" },
-            "나트륨": { title: "🧂 나트륨", desc: "• 기능: 체액 삼투압 및 수분 균형 유지\n• 식품: 소금, 간장, 된장" },
-            "셀레늄": { title: "🌰 셀레늄", desc: "• 기능: 강력한 항산화 및 면역력 강화\n• 식품: 브라질너트, 생선, 달걀" },
-            "요오드": { title: "🌊 요오드", desc: "• 기능: 갑상선 호르몬 합성 및 신진대사 조절\n• 식품: 미역, 다시마, 김" },
-            "물": { title: "💧 6. 물 (수분)", desc: "• 기능: 체온 조절, 노폐물 배출, 영양소 운반\n• 식품: 생수, 오이, 수박" },
-            "필수아미노산": { title: "🧬 필수 아미노산 9가지", desc: "• 기능: 체내 합성 불가, 단백질 합성 핵심\n• 식품: 닭가슴살, 달걀, 대두, 생선" }
+            "탄수화물": { 
+                title: "🍞 1. 탄수화물 (Carbohydrate)", 
+                desc: "• 주요 기능: 신체와 두뇌의 주된 에너지원 (1g당 약 4kcal). 포도당을 공급하여 뇌 기능을 유지하고 근육 글리코겐을 저장함.\n• 복합 vs 단순: 현미·통곡물·채소 등의 복합 탄수화물은 혈당을 서서히 올려 건강에 이롭고, 단순당은 피로 회복에 즉각적이나 과다 시 체지방으로 축적됨.\n• 대표 식품: 현미밥, 귀리, 고구마, 감자, 통밀빵, 바나나, 콩류" 
+            },
+            "단백질": { 
+                title: "🥩 2. 단백질 (Protein)", 
+                desc: "• 주요 기능: 근육, 피부, 장기 등 신체 조직 구성 및 손상 회복. 효소, 호르몬, 항체를 생성하여 면역 체계를 지탱하고 체액 균형 유지.\n• 구성: 20가지 아미노산으로 이루어져 있으며, 필수 아미노산은 외부 식단을 통해 반드시 섭취해야 함.\n• 대표 식품: 닭가슴살, 소고기 우둔살, 달걀, 생선, 두부, 콩류, 그릭요거트" 
+            },
+            "지방": { 
+                title: "🥑 3. 지방 (Fat)", 
+                desc: "• 주요 기능: 1g당 약 9kcal의 고효율 에너지 저장고. 체온 유지, 장기 보호, 지용성 비타민(A, D, E, K)의 흡수를 도모.\n• 종류: 불포화 지방산(오메가3·6 등)은 혈관 건강에 이롭고, 트랜스 지방 및 과도한 포화 지방은 섭취를 제한하는 것이 좋음.\n• 대표 식품: 올리브유, 아보카도, 등푸른생선, 아몬드, 호두, 치아씨드" 
+            },
+            "비타민": { 
+                title: "💊 4. 비타민 (13종 종합 백과)", 
+                desc: "• 수용성 비타민 (9종): 비타민 B군(B1, B2, B3, B5, B6, B7, B9 엽산, B12)과 비타민 C. 에너지 대사, 피로 회복, 항산화 작용을 하며 매일 꾸준한 섭취 필요.\n• 지용성 비타민 (4종): 비타민 A(시력·피부), 비타민 D(칼슘 흡수·면역), 비타민 E(항산화), 비타민 K(혈액 응고).\n• 대표 식품: 파프리카, 브로콜리, 감귤류, 시금치, 당근, 견과류" 
+            },
+            "무기질": { 
+                title: "⚖ 5. 무기질 / 미네랄 (15가지 종합 백과)", 
+                desc: "• 다량 무기질 (7가지): 칼슘(뼈·치아), 인(에너지 대사), 칼륨(혈압 조절), 나트륨(체액 균형), 마그네슘(근육·신경 안정), 염소, 황.\n• 미량 무기질 (8가지): 철분(산소 운반), 아연(면역·세포분열), 요오드(갑상선), 셀레늄(항산화), 구리, 망간, 몰리브덴, 크롬.\n• 대표 식품: 우유, 멸치, 미역, 굴, 소고기, 견과류, 바나나, 시금치" 
+            },
+            "필수아미노산": { 
+                title: "🧬 6. 필수 아미노산 (9가지 핵심)", 
+                desc: "• 종류 (9종): 류신, 이소류신, 발린(BCAA 3종), 라이신, 메티오닌, 페닐알라닌, 트레오닌, 트립토판, 히스티딘.\n• 주요 기능: 체내에서 합성되지 않아 반드시 음식으로 섭취해야 하며, 근육 합성 촉진, 뇌 신경전달물질 생성, 수면 질 개선에 필수적임.\n• 대표 식품: 닭가슴살, 달걀, 소고기, 대두(콩), 우유 및 유제품" 
+            },
+            "물": { 
+                title: "💧 7. 물 (수분)", 
+                desc: "• 주요 기능: 인체의 약 60~70%를 차지. 영양소 운반, 체온 조절, 노폐물 배출(신장 해독), 관절 윤활 작용.\n• 권장 섭취: 성인 기준 하루 약 1.5~2리터 이상의 생수 섭취 권장.\n• 주요 식품: 생수, 오이, 수박, 토마토 등 수분이 풍부한 채소·과일" 
+            },
+            "칼슘": { 
+                title: "🦴 칼슘 (Calcium)", 
+                desc: "• 기능: 뼈와 치아의 단단한 구조 형성, 근육 수축·이완 및 신경 전달 조절.\n• 결핍 시: 골다공증 위험 증가, 근육 경련.\n• 식품: 우유, 치즈, 멸치, 두부, 케일" 
+            },
+            "마그네슘": { 
+                title: "⚡ 마그네슘 (Magnesium)", 
+                desc: "• 기능: 천연의 신경 안정제. 눈밑 떨림 방지, 에너지 생성, 근육 경련 이완 및 혈압 안정.\n• 식품: 아몬드, 호박씨, 현미, 시금치, 바나나" 
+            },
+            "철분": { 
+                title: "🩸 철분 (Iron)", 
+                desc: "• 기능: 적혈구의 헤모글로빈을 구성하여 온몸에 산소를 운반하고 피로 예방 및 면역력 유지.\n• 식품: 소고기 우둔살, 바지락, 굴, 렌틸콩, 시금치" 
+            },
+            "아연": { 
+                title: "🛡 아연 (Zinc)", 
+                desc: "• 기능: 정상적인 면역 반응 및 세포 분열, 상처 치유, 미각 및 후각 유지.\n• 식품: 굴, 소고기, 호박씨, 게" 
+            },
+            "칼륨": { 
+                title: "🍌 칼륨 (Potassium)", 
+                desc: "• 기능: 체내 나트륨을 배출하여 혈압을 조절하고 세포 내외 수분 평형 유지.\n• 식품: 바나나, 감자, 고구마, 아보카도, 콩" 
+            }
         };
 
         const bodyCareDb = {
