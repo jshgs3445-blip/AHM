@@ -677,17 +677,18 @@
             </div>
         </div>
 
-        <!-- 백과사전 모달 -->
+        <!-- 백과사전 모달 (🚀 칼슘, 마그네슘, 철분, 망간 등 전체 영양소 태그 탑재) -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>📚 AI 영양 가이드 (6대 영양소)</h3>
+                    <h3>📚 AI 영양 가이드 (전체 영양소)</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
                     <p style="color: #64748b; font-size: 12px;">버튼을 누르거나 검색하여 상세 정보를 확인하세요.</p>
                     
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 110px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 180px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
+                        <!-- 기존 주요 버튼 -->
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">① 탄수화물</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">② 단백질</span>
                         <span class="dict-tag" onclick="quickSelectDict('지방')">③ 지방</span>
@@ -695,14 +696,24 @@
                         <span class="dict-tag" onclick="quickSelectDict('무기질')">⚖ 무기질(15가지)</span>
                         <span class="dict-tag" onclick="quickSelectDict('물')">⑥ 물(수분)</span>
                         <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산(9종)</span>
+                        <!-- 🚀 숨어있던 무기질 및 세부 성분 버튼들 추가 -->
+                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">🦴 칼슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">⚡ 마그네슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('철분')">🩸 철분</span>
+                        <span class="dict-tag" onclick="quickSelectDict('망간')">🌱 망간</span>
+                        <span class="dict-tag" onclick="quickSelectDict('아연')">🛡 아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼륨')">🍌 칼륨</span>
+                        <span class="dict-tag" onclick="quickSelectDict('나트륨')">🧂 나트륨</span>
+                        <span class="dict-tag" onclick="quickSelectDict('셀레늄')">🌰 셀레늄</span>
+                        <span class="dict-tag" onclick="quickSelectDict('요오드')">🌊 요오드</span>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색 (예: 탄수화물, 단백질, 지방)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="영양소 검색 (예: 마그네슘, 칼슘, 철분)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
-                    <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 270px; overflow-y: auto;">
+                    <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 220px; overflow-y: auto;">
                         <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1e293b;"></h4>
                         <p id="resultDesc" style="font-size: 12px; color: #475569; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
@@ -894,7 +905,7 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
-        // 🚀 탄수화물, 단백질 및 수현님이 보내주신 상세한 지방 내용 반영
+        // 🚀 탄수화물, 단백질, 지방 및 마그네슘, 칼슘, 철분, 망간 등 상세 무기질 백과사전 데이터
         const encyclopediaDb = {
             "탄수화물": {
                 title: "① 탄수화물 (Carbohydrate) - 6대 영양소",
@@ -906,15 +917,51 @@
             },
             "지방": {
                 title: "③ 지방 (Fat) - 6대 영양소",
-                desc: "【1. 기능과 효과】\n• 에너지 공급·저장: 1g당 약 9kcal, 남은 에너지는 체지방으로 저장\n• 세포막 구성: 신체 세포막을 만드는 주요 재료\n• 비타민 흡수 지원: 지용성 비타민(A·D·E·K) 흡수 촉진\n• 필수지방산 공급: 체내 합성 불가한 리놀레산, 알파리놀렌산 공급\n• 체온 유지·장기 보호: 피하지방(열 손실 감소), 장기 주변(충격 완화)\n• 몸의 조절 작용: 염증 반응 및 혈액 응고 조절 물질 재료\n\n【2. 동물성 지방의 종류와 대표 식품】\n• 육류 및 지방: 삼겹살, 소갈비, 오리고기, 돼지기름, 소기름 (포화/불포화 혼합)\n• 가금류 껍질: 닭 껍질, 오리 껍질 (지방 집중)\n• 생선류: 고등어, 연어, 정어리, 꽁치 (오메가3 EPA·DHA 함유)\n• 알류: 달걀노른자, 메추리알 (지방 및 인지질)\n• 우유·유제품: 전지우유, 치즈, 생크림, 버터, 기버터\n\n【3. 식물성 지방의 종류와 대표 식품】\n• 올리브·아보카도류: 올리브유, 아보카도 (단일불포화지방 풍부)\n• 콩·곡물 기름: 콩기름, 옥수수유, 쌀겨유\n• 씨앗 기름: 들기름, 참기름, 카놀라유, 해바라기유, 아마씨유 (알파리놀렌산)\n• 견과류: 호두, 아몬드, 땅콩, 피스타치오, 캐슈너트\n• 씨앗류: 참깨, 들깨, 호박씨, 해바라기씨, 치아씨드\n• 열대 식물성 지방: 코코넛오일, 팜유 (포화지방 비율 높음)\n\n【4. 출처와 성질의 구분】\n• 출처별: 동물성 (생선기름 등) / 식물성 (올리브유 등)\n• 지방산 구성별: 포화지방 / 불포화지방 / 트랜스지방 (버터, 부분경화유 가공식품 등)"
+                desc: "【1. 기능과 효과】\n• 에너지 공급·저장: 1g당 약 9kcal, 남은 에너지는 체지방으로 저장\n• 세포막 구성: 신체 세포막을 만드는 주요 재료\n• 비타민 흡수 지원: 지용성 비타민(A·D·E·K) 흡수 촉진\n• 필수지방산 공급: 체내 합성 불가한 리놀레산, 알파리놀렌산 공급\n• 체온 유지·장기 보호: 피하지방(열 손실 감소), 장기 주변(충격 완화)\n• 몸의 조절 작용: 염증 반응 및 혈액 응고 조절 물질 재료\n\n【2. 동물성 지방의 종류와 대표 식품】\n• 육류 및 지방: 삼겹살, 소갈비, 오리고기, 돼지기름, 소기름\n• 가금류 껍질: 닭 껍질, 오리 껍질\n• 생선류: 고등어, 연어, 정어리, 꽁치 (오메가3 EPA·DHA 함유)\n• 알류: 달걀노른자, 메추리알\n• 우유·유제품: 전지우유, 치즈, 생크림, 버터, 기버터\n\n【3. 식물성 지방의 종류와 대표 식품】\n• 올리브·아보카도류: 올리브유, 아보카도\n• 콩·곡물 기름: 콩기름, 옥수수유, 쌀겨유\n• 씨앗 기름: 들기름, 참기름, 카놀라유, 해바라기유, 아마씨유\n• 견과류: 호두, 아몬드, 땅콩, 피스타치오, 캐슈너트\n• 씨앗류: 참깨, 들깨, 호박씨, 해바라기씨, 치아씨드\n• 열대 식물성 지방: 코코넛오일, 팜유"
             },
             "비타민": {
                 title: "④ 비타민 (Vitamin - 총 13종) - 6대 영양소",
                 desc: "【지용성 비타민 (4가지)】\n1. 비타민 A: 시력 보호 및 피부 건강 (당근, 시금치, 달걀노른자)\n2. 비타민 D: 칼슘 흡수 및 뼈 건강 (연어, 고등어, 햇빛)\n3. 비타민 E: 항산화 및 세포 보호 (아몬드, 해바라기씨)\n4. 비타민 K: 혈액 응고 및 골밀도 유지 (시금치, 케일, 브로콜리)\n\n【수용성 비타민 (9가지)】\n5. 비타민 C: 항산화 및 피로 회복 (레몬, 오렌지, 키위, 파프리카)\n6. 비타민 B1 (티아민): 탄수화물 대사 (통곡물, 돼지고기)\n7. 비타민 B2 (리보플라빈): 에너지 생성 (우유, 달걀)\n8. 비타민 B3 (나이아신): 피부 및 신경 건강 (닭가슴살, 땅콩)\n9. 비타민 B5 (판토텐산): 호르몬 합성 (아보카도, 고구마)\n10. 비타민 B6 (피리독신): 단백질 대사 (바나나, 현미)\n11. 비타민 B7 (비오틴): 모발 및 손톱 강화 (달걀노른자, 견과류)\n12. 비타민 B9 (엽산): 적혈구 생성 (시금치, 렌틸콩)\n13. 비타민 B12 (코발라민): 신경계 및 빈혈 예방 (조개류, 소고기)"
             },
             "무기질": {
-                title: "⑤ 무기질 (Mineral - 15가지) - 6대 영양소",
-                desc: "1. 칼슘 ㅡ 우유, 요구르트, 치즈, 뼈째 먹는 멸치, 칼슘 응고제로 만든 두부\n2. 인 ㅡ 육류, 생선, 달걀, 우유, 치즈, 콩\n3. 나트륨 ㅡ 소금, 간장, 된장, 김치, 젓갈\n4. 염소 — 염화물 형태 소금, 간장, 소금으로 절인 식품\n5. 칼륨 ㅡ 감자, 고구마, 바나나, 토마토, 콩, 시금치\n6. 마그네슘 ㅡ 호박씨, 아몬드, 땅콩, 현미, 콩, 시금치\n7. 철 ㅡ 소고기, 간, 조개류, 렌틸콩, 대두\n8. 아연 ㅡ 굴, 소고기, 돼지고기, 치즈, 호박씨\n9. 구리 ㅡ 간, 굴, 캐슈너트, 참깨, 코코아\n10. 불소 ㅡ 녹차·홍차 등 차, 일부 생선·해산물, 불소가 함유된 음용수\n11. 망간 ㅡ 현미, 귀리, 견과류, 콩, 차\n12. 요오드 ㅡ 미역, 다시마, 김, 생선, 우유, 달걀\n13. 셀레늄 ㅡ 생선, 육류, 달걀, 브라질너트\n14. 몰리브덴 ㅡ 대두, 강낭콩, 렌틸콩, 통곡물, 간\n15. 크롬 ㅡ 육류, 통곡물, 브로콜리, 포도주스"
+                title: "⑤ 무기질 (Mineral - 15가지 개요) - 6대 영양소",
+                desc: "무기질은 뼈와 치아 구성, 체액 평형 유지, 생리 조절에 필수적인 성분입니다.\n• 주요 15가지: 칼슘, 인, 나트륨, 염소, 칼륨, 마그네슘, 철, 아연, 구리, 불소, 망간, 요오드, 셀레늄, 몰리브덴, 크롬\n*(위 버튼에서 칼슘, 마그네슘, 철분, 망간 등을 터치하면 개별 상세 정보를 보실 수 있습니다)*"
+            },
+            "칼슘": {
+                title: "🦴 칼슘 (Calcium) - 핵심 무기질",
+                desc: "• 주요 기능: 뼈와 치아의 강한 구조 형성, 근육 수축·이완 조절, 신경 전달, 혈액 응고\n• 주요 식품: 우유, 요구르트, 치즈, 뼈째 먹는 멸치, 칼슘 응고제로 만든 두부, 케일, 브로콜리"
+            },
+            "마그네슘": {
+                title: "⚡ 마그네슘 (Magnesium) - 천연 진정제",
+                desc: "• 주요 기능: 에너지 생성, 신경 및 근육 기능 정상 유지, 눈밑 떨림 방지, 뼈 건강\n• 주요 식품: 호박씨, 아몬드, 땅콩, 현미, 콩류, 시금치, 다크초콜릿"
+            },
+            "철분": {
+                title: "🩸 철분 (Iron) - 산소 운반",
+                desc: "• 주요 기능: 적혈구의 헤모글로빈 구성 및 온몸에 산소 공급, 빈혈 예방, 에너지 대사\n• 주요 식품: 소고기, 돼지고기, 소 간, 조개류(바지락, 굴), 렌틸콩, 시금치, 대두"
+            },
+            "망간": {
+                title: "🌱 망간 (Manganese) - 항산화 및 대사",
+                desc: "• 주요 기능: 뼈 형성, 탄수화물·단백질·지방 대사 보조, 항산화 효소(SOD)의 구성 성분\n• 주요 식품: 현미, 귀리 등 통곡물, 견과류, 콩류, 차(녹차·홍차), 파인애플"
+            },
+            "아연": {
+                title: "🛡 아연 (Zinc) - 면역력과 세포 분열",
+                desc: "• 주요 기능: 정상적인 면역 기능 및 세포 분열, 상처 회복, 미각 유지\n• 주요 식품: 굴, 소고기, 돼지고기, 치즈, 호박씨, 게"
+            },
+            "칼륨": {
+                title: "🍌 칼륨 (Potassium) - 나트륨 배출",
+                desc: "• 주요 기능: 체내 나트륨 배출 및 혈압 조절, 근육 수축 및 신경 전달\n• 주요 식품: 감자, 고구마, 바나나, 토마토, 콩, 시금치, 아보카도"
+            },
+            "나트륨": {
+                title: "🧂 나트륨 (Sodium) - 체액 조절",
+                desc: "• 주요 기능: 체액의 삼투압 조절, 수분 균형 유지, 신경 및 근육 기능 보조\n• 주요 식품: 소금, 간장, 된장, 김치, 젓갈 (적정 섭취 중요)"
+            },
+            "셀레늄": {
+                title: "🌰 셀레늄 (Selenium) - 강력한 항산화",
+                desc: "• 주요 기능: 강력한 항산화 작용으로 세포 손상 방지, 면역력 강화, 갑상선 기능 유지\n• 주요 식품: 브라질너트, 생선류, 육류, 달걀, 통곡물"
+            },
+            "요오드": {
+                title: "🌊 요오드 (Iodine) - 갑상선 호르몬",
+                desc: "• 주요 기능: 갑상선 호르몬(티록신) 합성, 신진대사 조절 및 체온 유지\n• 주요 식품: 미역, 다시마, 김, 생선, 우유, 달걀"
             },
             "물": {
                 title: "⑥ 물 (Water / 수분) - 6대 영양소",
@@ -1214,24 +1261,7 @@
             resultArea.style.display = 'block';
             let cleanQuery = query.toLowerCase().replace(/\s+/g, '');
 
-            let matchedKey = null;
-            if (cleanQuery.includes('탄수화물')) {
-                matchedKey = '탄수화물';
-            } else if (cleanQuery.includes('단백질')) {
-                matchedKey = '단백질';
-            } else if (cleanQuery.includes('지방')) {
-                matchedKey = '지방';
-            } else if (cleanQuery.includes('비타민')) {
-                matchedKey = '비타민';
-            } else if (cleanQuery.includes('무기질') || cleanQuery.includes('미네랄')) {
-                matchedKey = '무기질';
-            } else if (cleanQuery === '물' || cleanQuery.includes('수분')) {
-                matchedKey = '물';
-            } else if (cleanQuery.includes('아미노산')) {
-                matchedKey = '필수아미노산';
-            } else {
-                matchedKey = Object.keys(encyclopediaDb).find(k => cleanQuery.includes(k.toLowerCase()) || k.toLowerCase().includes(cleanQuery));
-            }
+            let matchedKey = Object.keys(encyclopediaDb).find(k => cleanQuery.includes(k.toLowerCase()) || k.toLowerCase().includes(cleanQuery));
 
             if(matchedKey && encyclopediaDb[matchedKey]) {
                 const info = encyclopediaDb[matchedKey];
