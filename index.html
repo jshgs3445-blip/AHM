@@ -234,16 +234,18 @@
             margin-bottom: 14px;
         }
 
-        .grid-3 {
+        /* 🚀 3분할 레이아웃 스타일 */
+        .grid-3-col {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
+            margin-bottom: 14px;
         }
 
         .top-action-card {
             background: #ffffff;
-            border-radius: 20px;
-            padding: 16px 14px;
+            border-radius: 16px;
+            padding: 14px 10px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
             cursor: pointer;
@@ -465,29 +467,29 @@
             </div>
     
             <div class="app-content">
-                <!-- 1. 최상단 2분할 (AI 영양 가이드) -->
+                <!-- 1. 최상단 2분할 (AI 영양 가이드 & 복용약 추가) -->
                 <div class="grid-2">
                     <div class="top-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <div>
-                            <div style="font-size: 14px; font-weight: 700; color: #e11d48; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                            <div style="font-size: 13px; font-weight: 700; color: #e11d48; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
                                 <i class="fa-solid fa-book-medical"></i> AI 영양 가이드
                             </div>
-                            <p style="font-size: 11px; color: #9f1239; line-height: 1.4;">18대 영양소 및 주요 미네랄 완벽 검색</p>
+                            <p style="font-size: 10px; color: #9f1239; line-height: 1.3;">18대 영양소 완벽 검색</p>
                         </div>
-                        <div style="font-size: 11px; color: #e11d48; font-weight: 700; margin-top: 10px; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
-                            열기 <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+                        <div style="font-size: 10px; color: #e11d48; font-weight: 700; margin-top: 6px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            열기 <i class="fa-solid fa-chevron-right" style="font-size: 9px;"></i>
                         </div>
                     </div>
 
                     <div class="top-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('addModal')">
                         <div>
-                            <div style="font-size: 14px; font-weight: 700; color: #7e22ce; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                            <div style="font-size: 13px; font-weight: 700; color: #7e22ce; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
                                 <i class="fa-solid fa-circle-plus"></i> 복용약 추가
                             </div>
-                            <p style="font-size: 11px; color: #6b21a8; line-height: 1.4;">새로운 영양제 및 복용약 간편 등록</p>
+                            <p style="font-size: 10px; color: #6b21a8; line-height: 1.3;">영양제 간편 등록</p>
                         </div>
-                        <div style="font-size: 11px; color: #7e22ce; font-weight: 700; margin-top: 10px; display: flex; align-items: center; justify-content: flex-end; gap: 4px;">
-                            추가 <i class="fa-solid fa-chevron-right" style="font-size: 10px;"></i>
+                        <div style="font-size: 10px; color: #7e22ce; font-weight: 700; margin-top: 6px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            추가 <i class="fa-solid fa-chevron-right" style="font-size: 9px;"></i>
                         </div>
                     </div>
                 </div>
@@ -508,33 +510,46 @@
                     <p style="font-size: 13px; color: #713f12; line-height: 1.5;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
 
-                <!-- 🚀 3. [병원·진료과 길잡이] 코너 (신규 배치) -->
-                <div class="card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; cursor: pointer;" onclick="openModal('hospitalGuideModal')">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                <!-- 🚀 3. 3분할 나란히 배치 코너 ([병원·진료과 길잡이] | [AI 인체 기능 맵] | [AI 맞춤 운동 처방]) -->
+                <div class="grid-3-col">
+                    <div class="top-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe;" onclick="openModal('hospitalGuideModal')">
                         <div>
-                            <div class="card-title" style="color: #1d4ed8; margin-bottom: 4px;"><i class="fa-solid fa-hospital-user"></i> [병원·진료과 길잡이]</div>
-                            <p style="font-size: 12px; color: #1e40af;">어디로 가야 할지 모를 때, 증상별 맞춤 진료과 찾기</p>
+                            <div style="font-size: 12px; font-weight: 700; color: #1d4ed8; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+                                <i class="fa-solid fa-hospital-user"></i> 병원 길잡이
+                            </div>
+                            <p style="font-size: 9px; color: #1e40af; line-height: 1.3;">증상별 맞춤 진료과 찾기</p>
                         </div>
-                        <div style="font-size: 13px; color: #1d4ed8; font-weight: 700; white-space: nowrap;">
-                            찾아보기 <i class="fa-solid fa-chevron-right" style="font-size: 11px;"></i>
+                        <div style="font-size: 9px; color: #1d4ed8; font-weight: 700; margin-top: 8px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            찾기 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
                         </div>
                     </div>
-                </div>
 
-                <!-- 4. AI 신체 기능 & 운동 처방전 코너 -->
-                <div class="card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; cursor: pointer;" onclick="openModal('bodyCareModal')">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="top-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0;" onclick="openModal('bodyMapModal')">
                         <div>
-                            <div class="card-title" style="color: #0b6623; margin-bottom: 4px;"><i class="fa-solid fa-heart-pulse"></i> AI 신체 기능 & 운동 처방전</div>
-                            <p style="font-size: 12px; color: #166534;">신체 부위별 아이콘 맵 및 AI 맞춤 컨디션 처방</p>
+                            <div style="font-size: 12px; font-weight: 700; color: #0b6623; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+                                <i class="fa-solid fa-brain"></i> 인체 기능 맵
+                            </div>
+                            <p style="font-size: 9px; color: #166534; line-height: 1.3;">부위별 영양 가이드 확인</p>
                         </div>
-                        <div style="font-size: 13px; color: #0b6623; font-weight: 700; white-space: nowrap;">
-                            확인하기 <i class="fa-solid fa-chevron-right" style="font-size: 11px;"></i>
+                        <div style="font-size: 9px; color: #0b6623; font-weight: 700; margin-top: 8px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            확인 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
+                        </div>
+                    </div>
+
+                    <div class="top-action-card" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fde68a;" onclick="openModal('exerciseModal')">
+                        <div>
+                            <div style="font-size: 12px; font-weight: 700; color: #b45309; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
+                                <i class="fa-solid fa-dumbbell"></i> 맞춤 운동
+                            </div>
+                            <p style="font-size: 9px; color: #92400e; line-height: 1.3;">컨디션별 운동 솔루션</p>
+                        </div>
+                        <div style="font-size: 9px; color: #b45309; font-weight: 700; margin-top: 8px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
+                            처방 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
                         </div>
                     </div>
                 </div>
     
-                <!-- 5. AI 맞춤 추천 영역 -->
+                <!-- 4. AI 맞춤 추천 영역 -->
                 <div class="ai-recommend-section">
                     <div class="ai-section-title">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천
@@ -559,7 +574,7 @@
                     </div>
                 </div>
     
-                <!-- 6. 통계 및 알림 -->
+                <!-- 5. 통계 및 알림 -->
                 <div class="grid-2">
                     <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer;" onclick="openModal('statModal')">
                         <div class="card-title" style="color: #0b6623; margin-bottom: 4px; font-size: 13px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
@@ -572,7 +587,7 @@
                 </div>
                 <div style="height: 14px;"></div>
     
-                <!-- 7. 일상 기록 및 타이머 -->
+                <!-- 6. 일상 기록 및 타이머 -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #0b6623;"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
@@ -591,7 +606,7 @@
                     </div>
                 </div>
     
-                <!-- 8. 스마트 관리 도구 -->
+                <!-- 7. 스마트 관리 도구 -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-toolbox" style="color: #3182ce;"></i> 스마트 관리 도구</div>
                     <div class="grid-3">
@@ -610,7 +625,7 @@
                     </div>
                 </div>
     
-                <!-- 9. 건강 상식 코너 -->
+                <!-- 8. 건강 상식 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
@@ -703,7 +718,7 @@
             </div>
         </div>
 
-        <!-- 🚀 [병원·진료과 길잡이] 모달 -->
+        <!-- [병원·진료과 길잡이] 모달 -->
         <div id="hospitalGuideModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -719,9 +734,6 @@
                         <span class="dict-tag" onclick="quickSelectHospital('소화불량')">🍽 속쓰림·소화불량 (소화기내과)</span>
                         <span class="dict-tag" onclick="quickSelectHospital('기침목')">🗣 기침·목감기 (이비인후과)</span>
                         <span class="dict-tag" onclick="quickSelectHospital('관절통증')">🦴 관절·허리 쑤심 (정형외과)</span>
-                        <span class="dict-tag" onclick="quickSelectTagSearch('피부 가려움 발진', '피부과')">✨ 피부 가려움 (피부과)</span>
-                        <span class="dict-tag" onclick="quickSelectTagSearch('소변 볼 때 통증', '비뇨의학과')">💧 소변 통증 (비뇨의학과)</span>
-                        <span class="dict-tag" onclick="quickSelectTagSearch('불면증 우울 불안', '정신건강의학과')">🌙 불면·우울 (정신건강의학과)</span>
                     </div>
 
                     <div style="display: flex; gap: 6px; margin-top: 4px;">
@@ -737,36 +749,53 @@
             </div>
         </div>
 
-        <!-- AI 신체 기능 & 운동 처방전 모달 -->
-        <div id="bodyCareModal" class="custom-modal">
+        <!-- [AI 인체 기능 맵] 모달 -->
+        <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>🫀 AI 신체 기능 & 운동 처방전</h3>
-                    <button type="button" class="close-modal-btn" onclick="closeModal('bodyCareModal')">&times;</button>
+                    <h3>🧠 AI 인체 기능 맵</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('bodyMapModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <div>
-                        <p style="color: #64748b; font-size: 12px; margin-bottom: 6px;">📍 신체 부위별 아이콘 맵 선택:</p>
-                        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-                            <span class="dict-tag" onclick="quickSelectBody('뇌신경계')">🧠 뇌·신경</span>
-                            <span class="dict-tag" onclick="quickSelectBody('심혈관계')">❤️ 심혈관</span>
-                            <span class="dict-tag" onclick="quickSelectBody('근골격계')">🦴 관절·뼈</span>
-                            <span class="dict-tag" onclick="quickSelectBody('소화면역계')">🛡 소화·면역</span>
-                            <span class="dict-tag" onclick="quickSelectBody('대사해독계')">⚡ 대사·해독</span>
-                        </div>
+                    <p style="color: #64748b; font-size: 12px;">신체 부위별 아이콘을 터치하여 맞춤 영양 가이드를 확인하세요.</p>
+                    
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                        <span class="dict-tag" onclick="quickSelectBody('뇌신경계')">🧠 뇌·신경</span>
+                        <span class="dict-tag" onclick="quickSelectBody('심혈관계')">❤️ 심혈관</span>
+                        <span class="dict-tag" onclick="quickSelectBody('근골격계')">🦴 관절·뼈</span>
+                        <span class="dict-tag" onclick="quickSelectBody('소화면역계')">🛡 소화·면역</span>
+                        <span class="dict-tag" onclick="quickSelectBody('대사해독계')">⚡ 대사·해독</span>
                     </div>
 
-                    <div style="background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                        <p style="color: #0b6623; font-weight: 700; font-size: 12px; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 맞춤 컨디션 처방</p>
-                        <div style="display: flex; gap: 6px;">
-                            <input type="text" id="inputUserCondition" placeholder="예: 피곤해요, 소화가 안 돼요, 잠이 안 와요" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; outline: none;">
-                            <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="generateAiConditionPrescription()">처방받기</button>
-                        </div>
-                    </div>
-
-                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 200px; overflow-y: auto;">
+                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 220px; overflow-y: auto;">
                         <h4 id="bodyResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0b6623;"></h4>
                         <p id="bodyResultDesc" style="font-size: 12px; color: #166534; line-height: 1.6; white-space: pre-line;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- [AI 맞춤 운동 처방] 모달 -->
+        <div id="exerciseModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>💪 AI 맞춤 운동 처방</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('exerciseModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <p style="color: #64748b; font-size: 12px;">오늘의 컨디션이나 고민을 입력하고 AI 맞춤 운동 처방을 받으세요.</p>
+                    
+                    <div style="background: #fffbeb; padding: 12px; border-radius: 12px; border: 1px solid #fde68a;">
+                        <p style="color: #b45309; font-weight: 700; font-size: 12px; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 컨디션 운동 매칭</p>
+                        <div style="display: flex; gap: 6px;">
+                            <input type="text" id="inputUserCondition" placeholder="예: 피곤해요, 소화가 안 돼요, 잠이 안 와요" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; outline: none;">
+                            <button type="button" style="background: #b45309; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="generateAiConditionPrescription()">운동 처방받기</button>
+                        </div>
+                    </div>
+
+                    <div id="exerciseResultArea" style="padding: 14px; border-radius: 12px; background: #fffbeb; border: 1px solid #fde68a; display: none; max-height: 220px; overflow-y: auto;">
+                        <h4 id="exerciseResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #b45309;"></h4>
+                        <p id="exerciseResultDesc" style="font-size: 12px; color: #92400e; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
                 </div>
             </div>
@@ -1040,7 +1069,6 @@
             }
         };
 
-        // 🏥 [병원·진료과 길잡이] 데이터베이스
         const hospitalDb = {
             "두통": {
                 title: "🧠 추천 진료과: 신경과",
@@ -1360,17 +1388,6 @@
             }
         }
 
-        function quickSelectTagSearch(symptom, dept) {
-            const area = document.getElementById('hospitalResultArea');
-            const titleEl = document.getElementById('hospitalResultTitle');
-            const descEl = document.getElementById('hospitalResultDesc');
-
-            area.style.display = 'block';
-            titleEl.textContent = `🏥 추천 진료과: ${dept}`;
-            descEl.textContent = `• 관련 증상: "${symptom}"\n• 방문 팁: 해당 증상이 지속되거나 불편감이 클 때 ${dept} 전문의와 상담하세요.`;
-            showToast(`🏥 ${dept} 안내를 불러왔습니다.`);
-        }
-
         function searchHospitalAI() {
             const query = document.getElementById('inputHospitalSearch').value.trim();
             const area = document.getElementById('hospitalResultArea');
@@ -1409,9 +1426,9 @@
 
         function generateAiConditionPrescription() {
             const inputVal = document.getElementById('inputUserCondition').value.trim();
-            const area = document.getElementById('bodyResultArea');
-            const titleEl = document.getElementById('bodyResultTitle');
-            const descEl = document.getElementById('bodyResultDesc');
+            const area = document.getElementById('exerciseResultArea');
+            const titleEl = document.getElementById('exerciseResultTitle');
+            const descEl = document.getElementById('exerciseResultDesc');
 
             if(!inputVal) {
                 showToast('⚠ 오늘 컨디션이나 고민을 입력해 주세요.');
@@ -1422,19 +1439,19 @@
             let clean = inputVal.toLowerCase();
 
             if(clean.includes('피곤') || clean.includes('지쳐') || clean.includes('피로')) {
-                titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 회복 솔루션`;
-                descEl.textContent = `• 추천 식품: 레몬(비타민C), 부추, 견과류(마그네슘), 충분한 수분\n• 추천 운동: 림프 순환 스트레칭 및 가벼운 산책\n• AI 코멘트: 에너지 대사를 돕는 비타민 B군과 수분 보충이 필수적입니다.`;
+                titleEl.textContent = `🤖 AI 운동 처방: "${inputVal}" 회복 루틴`;
+                descEl.textContent = `• 추천 운동: 림프 순환 스트레칭 및 가벼운 산책 (20분)\n• 추천 식품 연계: 레몬수, 견과류(마그네슘)\n• AI 코멘트: 무리한 근력 운동보다는 가벼운 유산소와 호흡 위주로 진행하세요.`;
             } else if(clean.includes('소화') || clean.includes('더부룩') || clean.includes('체했')) {
-                titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 완화 솔루션`;
-                descEl.textContent = `• 추천 식품: 무, 매실차, 그릭요거트(유산균), 따뜻한 생강차\n• 추천 운동: 복부 시계방향 마사지 및 가벼운 실내 걷기\n• AI 코멘트: 과식을 피하고 소화 효소 분비를 돕는 발효 식품을 섭취하세요.`;
+                titleEl.textContent = `🤖 AI 운동 처방: "${inputVal}" 완화 루틴`;
+                descEl.textContent = `• 추천 운동: 복부 마사지 및 실내 가벼운 걷기 운동 (15분)\n• 추천 식품 연계: 매실차, 따뜻한 생강차\n• AI 코멘트: 식후 바로 눕지 말고 가벼운 산책으로 장 연동 운동을 도와주세요.`;
             } else if(clean.includes('잠') || clean.includes('불면')) {
-                titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 수면 케어 솔루션`;
-                descEl.textContent = `• 추천 식품: 따뜻한 우유, 바나나(트립토판·마그네슘), 캐모마일 티\n• 추천 운동: 취침 전 가벼운 스트레칭 및 복식 호흡\n• AI 코멘트: 신경을 안정시키는 마그네슘과 트립토판 섭취가 도움을 줍니다.`;
+                titleEl.textContent = `🤖 AI 운동 처방: "${inputVal}" 수면 유도 루틴`;
+                descEl.textContent = `• 추천 운동: 취침 전 전신 스트레칭 및 복식 호흡 (10분)\n• 추천 식품 연계: 따뜻한 우유, 캐모마일 티\n• AI 코멘트: 과도한 야간 운동은 체온을 높이므로 가벼운 스트레칭이 좋습니다.`;
             } else {
-                titleEl.textContent = `🤖 AI 맞춤 처방: "${inputVal}" 통합 건강 솔루션`;
-                descEl.textContent = `• 추천 식품: 신선한 채소와 과일, 양질의 단백질(두부·살코기), 충분한 물\n• 추천 운동: 인터벌 워킹 및 전신 스트레칭\n• AI 코멘트: 규칙적인 식습관과 균형 잡힌 6대 영양소 섭취를 유지하세요.`;
+                titleEl.textContent = `🤖 AI 운동 처방: "${inputVal}" 맞춤 솔루션`;
+                descEl.textContent = `• 추천 운동: 인터벌 워킹 (빠른 걸음 3분 + 보통 걸음 3분 반복)\n• 추천 식품 연계: 신선한 채소와 단백질\n• AI 코멘트: 꾸준한 유산소와 코어 안정화 운동을 병행하세요.`;
             }
-            showToast(`✨ AI 맞춤 처방이 생성되었습니다!`);
+            showToast(`✨ AI 맞춤 운동 처방이 생성되었습니다!`);
         }
 
         function searchSupplementCompatibilityTextInput() {
@@ -1489,8 +1506,10 @@
             if(id === 'compatibilityModal') {
                 document.getElementById('inputSearchQueryText').value = '';
                 document.getElementById('searchResultArea').style.display = 'none';
-            } else if(id === 'bodyCareModal') {
+            } else if(id === 'bodyMapModal') {
                 document.getElementById('bodyResultArea').style.display = 'none';
+            } else if(id === 'exerciseModal') {
+                document.getElementById('exerciseResultArea').style.display = 'none';
                 document.getElementById('inputUserCondition').value = '';
             } else if(id === 'hospitalGuideModal') {
                 document.getElementById('hospitalResultArea').style.display = 'none';
