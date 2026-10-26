@@ -631,7 +631,7 @@
                     </div>
                 </div>
     
-                <!-- 8. 건강 상식 코너 (득템 영상 반영 완료) -->
+                <!-- 8. 건강 상식 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 8px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
@@ -818,22 +818,24 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <p style="color: #64748b; font-size: 12px;">버튼을 터치하여 상세 기능과 대표 식품을 확인하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 종류·기능·대표식품을 확인하세요.</p>
                     
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 190px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
                         <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
                         <span class="dict-tag" onclick="quickSelectDict('물')">💧 물 (수분)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산9종')">🧬 필수아미노산 9종</span>
                         <span class="dict-tag" onclick="quickSelectDict('비타민20종')">💊 비타민 20종 통합</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('철')">철</span>
+                        <span class="dict-tag" onclick="quickSelectDict('무직질15가지')">⚖ 무기질 15가지(미네랄) 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산9종')">🧬 필수아미노산 9종</span>
+                        <span class="dict-tag" onclick="quickSelectDict('글루코시놀레이트')">🥦 글루코시놀레이트</span>
+                        <span class="dict-tag" onclick="quickSelectDict('글루타티온')">✨ 글루타티온</span>
+                        <span class="dict-tag" onclick="quickSelectDict('루틴')">🌿 루틴</span>
+                        <span class="dict-tag" onclick="quickSelectDict('알로에베라')">🌵 알로에베라</span>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 탄수화물, 지방, 단백질)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 탄수화물, 무기질, 비타민)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
@@ -1029,7 +1031,7 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
-        // 📚 AI 영양 가이드 백과사전
+        // 📚 AI 영양 가이드 백과사전 (풍부하고 상세한 원문 전체 복원)
         const encyclopediaDb = {
             "탄수화물": { 
                 title: "🍞 탄수화물 (Carbohydrate)", 
@@ -1039,19 +1041,42 @@
                 title: "🥩 단백질 (Protein)", 
                 desc: "① 동물성 단백질 식품\n• 육류, 생선류, 달걀, 우유 및 유제품\n\n② 식물성 단백질 식품\n• 콩류(두부, 낫토), 견과류, 씨앗류" 
             },
-            "필수아미노산9종": {
-                title: "🧬 필수 아미노산 9가지",
-                desc: "1. 히스티딘: 소고기, 닭고기, 참치, 우유, 대두\n2. 이소류신: 닭고기, 생선, 달걀, 치즈, 두부\n3. 류신: 소고기, 닭고기, 우유, 달걀, 대두\n4. 라이신: 육류, 생선, 치즈, 렌틸콩\n5. 메티오닌: 달걀, 생선, 참깨, 브라질너트\n6. 페닐알라닌: 육류, 생선, 달걀, 우유, 대두\n7. 트레오닌: 달걀, 닭고기, 생선, 콩\n8. 트립토판: 달걀, 우유, 대두, 호박씨\n9. 발린: 소고기, 생선, 우유, 달걀, 대두"
-            },
             "지방": { 
                 title: "🥑 지방 (Fat)", 
                 desc: "① 지방의 기능과 효과: 에너지 공급·저장, 세포막 구성, 비타민 흡수 지원\n② 동물성/식물성 지방 대표 식품: 삼겹살, 생선(오메가3), 올리브유, 들기름" 
             },
-            "물": { title: "💧 물 (수분)", desc: "• 영양소 운반, 체온 조절, 노폐물 배출 (생수, 오이, 토마토)" },
-            "비타민20종": { title: "💊 비타민 20종", desc: "• 신체 대사 조절 및 면역 체계 강화 (파프리카, 브로콜리, 시금치)" },
-            "칼슘": { title: "🦴 칼슘", desc: "• 뼈와 치아 형성, 근육 수축 (우유, 치즈, 멸치)" },
-            "마그네슘": { title: "⚡ 마그네슘", desc: "• 신경 안정, 근육 이완 (아몬드, 호박씨, 시금치)" },
-            "철": { title: "🩸 철", desc: "• 적혈구 헤모글로빈 구성 및 산소 운반 (소고기, 굴, 시금치)" }
+            "물": { 
+                title: "💧 물 (수분)", 
+                desc: "• 영양소 운반, 체온 조절, 노폐물 배출 (생수, 오이, 토마토)" 
+            },
+            "비타민20종": { 
+                title: "💊 비타민 20종 통합 백과", 
+                desc: "• [종류]: 비타민 A, B1, B2, B3(나이아신), B5(판토텐산), B6, B7(비오틴), B9(엽산), B12, C, D, E, K 등 주요 20여 종\n• [기능]: 신체 대사 조절, 항산화 작용, 면역 체계 강화, 에너지 생성 및 세포 보호\n• [대표 식품]: 파프리카, 브로콜리, 시금치, 당근, 감귤류, 견과류, 달걀" 
+            },
+            "무직질15가지": { 
+                title: "⚖ 무기질 15가지 (미네랄 통합 백과)", 
+                desc: "• [종류 (15가지 이상 주요 미네랄)]: 칼슘, 칼륨, 마그네슘, 인, 나트륨, 황(S), 염소, 붕소, 코발트, 크롬, 구리, 불소, 철, 게르마늄, 요오드, 망간, 셀레늄, 규소, 바나듐, 아연, 니켈, 바륨\n• [기능]: 뼈와 치아 구조 형성(칼슘, 인), 체액 및 혈압 균형(나트륨, 칼륨, 염소), 산소 운반(철), 면역 및 효소 활성화(아연, 셀레늄, 망간 등)\n• [대표 식품]: 우유, 멸치, 미역, 굴, 소고기, 견과류, 바나나, 시금치, 해조류" 
+            },
+            "필수아미노산9종": {
+                title: "🧬 필수 아미노산 9가지",
+                desc: "1. 히스티딘: 소고기, 닭고기, 참치, 우유, 대두\n2. 이소류신: 닭고기, 생선, 달걀, 치즈, 두부\n3. 류신: 소고기, 닭고기, 우유, 달걀, 대두\n4. 라이신: 육류, 생선, 치즈, 렌틸콩\n5. 메티오닌: 달걀, 생선, 참깨, 브라질너트\n6. 페닐알라닌: 육류, 생선, 달걀, 우유, 대두\n7. 트레오닌: 달걀, 닭고기, 생선, 콩\n8. 트립토판: 달걀, 우유, 대두, 호박씨\n9. 발린: 소고기, 생선, 우유, 달걀, 대두"
+            },
+            "글루코시놀레이트": {
+                title: "🥦 글루코시놀레이트 (Glucosinolate)",
+                desc: "• [기능]: 십자가과 채소에 풍부한 파이토케미컬로, 강력한 항산화 및 해독 효소 활성화 지원\n• [대표 식품]: 브로콜리, 양배추, 케일, 청경채, 콜리플라워"
+            },
+            "글루타티온": {
+                title: "✨ 글루타티온 (Glutathione)",
+                desc: "• [기능]: 세포의 강력한 항산화 방어, 간 해독 작용 지원 및 면역력 유지\n• [대표 식품]: 시금치, 아보카도, 마늘, 양파, 브로콜리"
+            },
+            "루틴": {
+                title: "🌿 루틴 (Rutin)",
+                desc: "• [기능]: 플라보노이드 일종으로 모세혈관을 강화하고 혈관 건강 및 항산화 작용에 도움\n• [대표 식품]: 메밀, 퀴노아, 사과, 감귤류 껍질"
+            },
+            "알로에베라": {
+                title: "🌵 알로에베라 (Aloe Vera)",
+                desc: "• [기능]: 장 건강 지원, 면역 다당체 함유 및 피부 진정·보습 작용\n• [대표 식품]: 알로에 겔 음료, 생잎 겔"
+            }
         };
 
         // 🧠 인체 기능 맵 8가지 항목 완전 풍부한 원문 복원
