@@ -480,7 +480,7 @@
                             <div style="font-size: 12px; font-weight: 700; color: #e11d48; margin-bottom: 3px; display: flex; align-items: center; gap: 4px;">
                                 <i class="fa-solid fa-book-medical"></i> 영양 가이드
                             </div>
-                            <p style="font-size: 9px; color: #9f1239; line-height: 1.2;">6대 영양소 및 비타민 20종·무기질 백과</p>
+                            <p style="font-size: 9px; color: #9f1239; line-height: 1.2;">비타민 20종·무기질·필수아미노산 완벽 백과</p>
                         </div>
                         <div style="font-size: 9px; color: #e11d48; font-weight: 700; margin-top: 4px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
                             열기 <i class="fa-solid fa-chevron-right" style="font-size: 8px;"></i>
@@ -807,7 +807,7 @@
             </div>
         </div>
 
-        <!-- AI 영양 가이드 (비타민 20종 + 완벽 백과사전) 모달 -->
+        <!-- AI 영양 가이드 (메인 영양소 + 비타민 20종 + 무기질 + 필수아미노산 + 파이토케미컬) 모달 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -815,33 +815,24 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 풍부한 영양소 정보를 확인하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 종류·기능·대표식품을 확인하세요.</p>
                     
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 180px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
                         <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민 총정리 (20종)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('무기질')">⚖ 무기질 15가지 통합</span>
-                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산 9종</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민A')">비타민 A</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민B1')">비타민 B1</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민B2')">비타민 B2</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민B3')">비타민 B3(나이아신)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민B5')">비타민 B5(판토텐산)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민B6')">비타민 B6</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민C')">비타민 C</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민D')">비타민 D</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민E')">비타민 E</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민K')">비타민 K</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">칼슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">마그네슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('철분')">철분</span>
-                        <span class="dict-tag" onclick="quickSelectDict('아연')">아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('물')">💧 물 (수분)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민20종')">💊 비타민 20종 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('무기질15가지')">⚖ 무기질 15가지(미네랄) 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산9종')">🧬 필수아미노산 9종</span>
+                        <span class="dict-tag" onclick="quickSelectDict('글루코시놀레잇')">🥦 글루코시놀레잇</span>
+                        <span class="dict-tag" onclick="quickSelectDict('글루타타이언')">✨ 글루타타이언</span>
+                        <span class="dict-tag" onclick="quickSelectDict('루틴')">🌿 루틴</span>
+                        <span class="dict-tag" onclick="quickSelectDict('알로에베라')">🌵 알로에베라</span>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 비타민C, 마그네슘, 필수아미노산)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 비타민20종, 무기질15가지, 글루타타이언)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
@@ -1037,61 +1028,52 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
-        // 🚀 비타민 20종 및 탄단지, 무기질, 필수아미노산 완벽 포함 백과사전 데이터베이스
+        // 🚀 요청사항 완벽 반영: [종류], [기능], [대표식품]이 각각 구분되는 종합 백과사전 데이터베이스
         const encyclopediaDb = {
             "탄수화물": { 
-                title: "🍞 1. 탄수화물 (Carbohydrate)", 
-                desc: "• 주요 기능: 신체와 두뇌의 주된 에너지원 (1g당 약 4kcal). 포도당을 공급하여 뇌 기능을 유지하고 근육 글리코겐을 저장함.\n• 복합 vs 단순: 현미·통곡물·채소 등의 복합 탄수화물은 혈당을 서서히 올려 건강에 이롭고, 단순당은 피로 회복에 즉각적이나 과다 시 체지방으로 축적됨.\n• 대표 식품: 현미밥, 귀리, 고구마, 감자, 통밀빵, 바나나, 콩류" 
+                title: "🍞 탄수화물 (Carbohydrate)", 
+                desc: "• [종류]: 복합 탄수화물 (현미, 귀리, 고구마, 통밀), 단순 탄수화물 (설탕, 백미, 시럽)\n• [기능]: 신체와 두뇌의 주된 에너지원 공급(1g당 약 4kcal), 뇌 기능 유지 및 근육 글리코겐 저장\n• [대표 식품]: 현미밥, 귀리, 고구마, 감자, 통밀빵, 바나나, 콩류" 
             },
             "단백질": { 
-                title: "🥩 2. 단백질 (Protein)", 
-                desc: "• 주요 기능: 근육, 피부, 장기 등 신체 조직 구성 및 손상 회복. 효소, 호르몬, 항체를 생성하여 면역 체계를 지탱하고 체액 균형 유지.\n• 구성: 20가지 아미노산으로 이루어져 있으며, 필수 아미노산은 외부 식단을 통해 반드시 섭취해야 함.\n• 대표 식품: 닭가슴살, 소고기 우둔살, 달걀, 생선, 두부, 콩류, 그릭요거트" 
+                title: "🥩 단백질 (Protein)", 
+                desc: "• [종류]: 동물성 단백질 (육류, 생선, 달걀, 유제품), 식물성 단백질 (두부, 콩류, 렌틸콩, 견과류)\n• [기능]: 근육·피부·장기 등 신체 조직 구성 및 손상 회복, 효소·호르몬·항체 생성으로 면역 체계 지탱\n• [대표 식품]: 닭가슴살, 소고기 우둔살, 달걀, 생선, 두부, 콩류, 그릭요거트" 
             },
             "지방": { 
-                title: "🥑 3. 지방 (Fat)", 
-                desc: "• 주요 기능: 1g당 약 9kcal의 고효율 에너지 저장고. 체온 유지, 장기 보호, 지용성 비타민(A, D, E, K)의 흡수를 도모.\n• 종류: 불포화 지방산(오메가3·6 등)은 혈관 건강에 이롭고, 트랜스 지방 및 과도한 포화 지방은 섭취를 제한하는 것이 좋음.\n• 대표 식품: 올리브유, 아보카도, 등푸른생선, 아몬드, 호두, 치아씨드" 
-            },
-            "비타민": { 
-                title: "💊 4. 비타민 총정리 (20종 상세 가이드)", 
-                desc: "• 수용성 & 지용성 종합: 인체의 대사와 생리 조절을 담당하는 필수 성분들입니다. 아래 개별 항목에서 비타민 A부터 U까지 상세 확인이 가능합니다.\n• 대표 식품: 파프리카, 브로콜리, 감귤류, 시금치, 당근, 견과류" 
-            },
-            "무기질": { 
-                title: "⚖ 5. 무기질 / 미네랄 (15가지 종합 백과)", 
-                desc: "• 다량 무기질 (7가지): 칼슘(뼈·치아), 인(에너지 대사), 칼륨(혈압 조절), 나트륨(체액 균형), 마그네슘(근육·신경 안정), 염소, 황.\n• 미량 무기질 (8가지): 철분(산소 운반), 아연(면역·세포분열), 요오드(갑상선), 셀레늄(항산화), 구리, 망간, 몰리브덴, 크롬.\n• 대표 식품: 우유, 멸치, 미역, 굴, 소고기, 견과류, 바나나, 시금치" 
-            },
-            "필수아미노산": { 
-                title: "🧬 6. 필수 아미노산 (9가지 핵심)", 
-                desc: "• 종류 (9종): 류신, 이소류신, 발린(BCAA 3종), 라이신, 메티오닌, 페닐알라닌, 트레오닌, 트립토판, 히스티딘.\n• 주요 기능: 체내에서 합성되지 않아 반드시 음식으로 섭취해야 하며, 근육 합성 촉진, 뇌 신경전달물질 생성, 수면 질 개선에 필수적임.\n• 대표 식품: 닭가슴살, 달걀, 소고기, 대두(콩), 우유 및 유제품" 
+                title: "🥑 지방 (Fat)", 
+                desc: "• [종류]: 불포화 지방산(오메가3·6, 올레산), 포화 지방산, 트랜스 지방\n• [기능]: 고효율 에너지 저장(1g당 약 9kcal), 체온 유지, 장기 보호 및 지용성 비타민(A, D, E, K) 흡수 촉진\n• [대표 식품]: 올리브유, 아보카도, 등푸른생선(연고, 고등어), 아몬드, 호두, 치아씨드" 
             },
             "물": { 
-                title: "💧 7. 물 (수분)", 
-                desc: "• 주요 기능: 인체의 약 60~70%를 차지. 영양소 운반, 체온 조절, 노폐물 배출(신장 해독), 관절 윤활 작용.\n• 권장 섭취: 성인 기준 하루 약 1.5~2리터 이상의 생수 섭취 권장." 
+                title: "💧 물 (수분 / Water)", 
+                desc: "• [종류]: 생수, 이온음료, 허브티, 수분 풍부 채소 과일\n• [기능]: 인체의 약 60~70% 구성, 영양소 운반, 체온 조절, 노폐물 배출(신장 해독), 관절 윤활 작용\n• [대표 식품]: 생수, 오이, 수박, 토마토, 셀러리" 
             },
-            // 상세 비타민 20종 데이터 (사용자 참고 표 완벽 반영)[cite: 8, 9]
-            "비타민A": { title: "🥕 비타민 A (레티놀 / Retinol)", desc: "• 성질: 지용성\n• 기능: 성장 촉진, 정상 시력 유지, 피부 건강, 시력 유지, 세포 분화에 필수, 신경계와 생식기 기능 유지, 골격 성장[cite: 9]\n• 결핍 시: 야맹증, 안구 건조, 피부 이상, 성장 부진, 면역 기능 악화, 성기능 장애[cite: 9]\n• 과잉 시: 태아기형, 두통, 피로, 피부 건조, 만성두통, 관절통[cite: 9]" },
-            "비타민B1": { title: "⚡ 비타민 B1 (티아민 / Thiamine)", desc: "• 성질: 수용성\n• 기능: 신경 조절, 식욕 증진, 당질대사에 관여하여 소화액 촉진, 각기병 예방, 신경계 기능 유지, 멀미 예방, 성장 촉진[cite: 9]\n• 결핍 시: 각기병, 식욕 부진, 피로, 권태, 다리 감각 상실, 보행 불능, 심부전증, 부종[cite: 9]" },
-            "비타민B2": { title: "⚡ 비타민 B2 (리보플라빈 / Riboflavin)", desc: "• 성질: 수용성\n• 기능: 발육, 점막 보호, 지방 분해, 신체의 성장 촉진, 건강한 피부, 탄력 있는 피부 유지, 항산화 작용, 두뇌 활동 도움[cite: 9]\n• 결핍 시: 리보플라빈 결핍증, 구수구각염, 안질, 설염, 구내염, 구순염, 눈부심[cite: 9]" },
-            "비타민B3": { title: "⚡ 비타민 B3 (나이아신 / Niacin)", desc: "• 성질: 수용성\n• 기능: 당대사 촉진, 에너지 합성, 지방 합성, 지방 분해, 건망증, 신경과민, 불면증 개선, 만성두통 및 편두통 예방[cite: 9]\n• 결핍 시: 펠라그라, 니코틴산 결핍증후군, 체중 감소, 설사, 피부염, 치매, 흥분, 정신이상, 설염[cite: 9]" },
-            "비타민B4": { title: "⚡ 비타민 B4 (카르니틴 / Carnitine)", desc: "• 성질: 수용성\n• 기능: 심장병과 피부병 예방, 면역기능 강화, 빈혈과 고지혈증 예방, 간경변 개선, 근육 활동 증진[cite: 9]\n• 결핍 시: 심장 통증, 근무력증, 비만, 빈혈, 피부병, 면역 기능 약화[cite: 9]" },
-            "비타민B5": { title: "⚡ 비타민 B5 (판토텐산 / Pantothenic Acid)", desc: "• 성질: 수용성\n• 기능: CoA의 생화학적 역할, 지방 합성, 지방 분해, 상처 치유 촉진, 수술 후 쇼크 완화, 독소로부터 신체 보호, 방사선 피해 보호[cite: 9]\n• 결핍 시: 성장 정지, 체중 감소, 피로, 무관심, 두통, 불면증, 구토, 복통[cite: 9]" },
-            "비타민B6": { title: "⚡ 비타민 B6 (피리독신 / Pyridoxine)", desc: "• 성질: 수용성\n• 기능: 아미노산의 이용에 도움, 효소 작용 도움, 신경을 지킴, 신경전달물질 합성, 단백질과 지방의 체내 이용 향상[cite: 9]\n• 결핍 시: 피부병, 저혈소송 빈혈, 피부염, 발작, 두통, 구토[cite: 9]" },
-            "비타민B9": { title: "⚡ 비타민 B9 (엽산 / Folic Acid)", desc: "• 성질: 수용성\n• 기능: 적혈구, 핵산 합성에 관여, 위장, 입 안의 점막 보호, 아미노산 합성, 적혈구의 성숙, DNA와 RNA 합성[cite: 9]\n• 결핍 시: 적혈구 감소, 빈혈, 설사, 위장염, 설염, 구내염, 성장 장애, 정신질환, 신경관 결함[cite: 9]" },
-            "비타민B12": { title: "⚡ 비타민 B12 (코발라민 / Cobalamin)", desc: "• 성질: 수용성\n• 기능: 효소의 조효소로 작용, 엽산 대사 과정 관여, 면역기능 증진, 암 예방에 기여, 신경 기능 유지, 조혈 작용에 관여[cite: 9]\n• 결핍 시: 악성빈혈, 신경계 손상 초래, 피부 발진, 기억력 감퇴, 소화불량, 발육 부진[cite: 9]" },
-            "비타민B13": { title: "⚡ 비타민 B13 (오로틴산 / Orotic Acid)", desc: "• 성질: 수용성\n• 기능: 세포 재생 도와줌, 간 기능 개선, 백혈병 예방과 치료, 핵산 합성에 기여, 세포 노화 방지, 중독성 간 장애 회복에 기여[cite: 9]\n• 결핍 시: 간장 장애, 다발성경화증 유발, 세포 노화 촉진, 산소증[cite: 9]" },
-            "비타민B15": { title: "💊 비타민 B15 (판가민산 / Pangamic Acid)", desc: "• 성질: 수용성\n• 기능: 항산화 작용에 기여, 알코올 중독과 약물 중독 예방, 근육 피로 감소, 일산화탄소 중독 예방, 간 보호, 간경변 예방[cite: 8]\n• 결핍 시: 심장병, 조로, 천식, 만성피로, 녹내장, 두통, 간기능 장애, 신경조직 장애 유발[cite: 8]" },
-            "비타민B17": { title: "💊 비타민 B17 (아미그달린 / Amygdalin)", desc: "• 성질: 수용성\n• 기능: 혈압 정상화, 식욕 증진, 암세포 죽이는 데 기여, 빈혈 예방, 체력 저하 막아줌[cite: 8]\n• 결핍 시: 빈혈, 체력 저하, 암 발생 여건 조성[cite: 8]" },
-            "비타민C": { title: "🍋 비타민 C (아스코르브산 / Ascorbic Acid)", desc: "• 성질: 수용성\n• 기능: 인터페론을 유발, 콜라겐 생성, 호르몬 합성에 관여, 해독 기능 강화, 항산화제, 혈관 유지, 면역 기능 향상[cite: 8]\n• 결핍 시: 괴혈병, 피하 출혈, 체중 감소, 식욕 감퇴, 상처 치유 지연, 잇몸 출혈[cite: 8]" },
-            "비타민D": { title: "☀️ 비타민 D (칼시페롤 / Calciferol)", desc: "• 성질: 지용성\n• 기능: 혈중 인의 양을 일정하게 함, 뼈와 치아의 형성과 성장 촉진, 모발 재생, 면역 기능 증강, 암 예방, 혈압 조절에 관여[cite: 8]\n• 결핍 시: 구루병, 골연화증, 골다공증, 인슐린 분비와 당대사에 악영향, 다리의 기형[cite: 8]" },
-            "비타민E": { title: "🌰 비타민 E (토코페롤 / Tocopherol)", desc: "• 성질: 지용성\n• 기능: 몸의 산화 방지, 혈관 보호, 근육의 기능 정상화 유지, 생식 기능 강화, 리포푸신의 축적 방지, 백내장 예방, 심장병과 당뇨병 예방[cite: 8]\n• 결핍 시: 노화성, 불임증, 적혈구 용혈, 빈혈, 신경 파괴[cite: 8]" },
-            "비타민F": { title: "💊 비타민 F (리놀레산 / Linolic Acid)", desc: "• 성질: 지용성\n• 기능: 고지혈증, 고혈압, 동맥경화 예방, 당뇨병, 협심증, 비만증 예방, 노화 예방, 근육 강화, 갱년기 장애와 생리불순 개선[cite: 8]\n• 결핍 시: 피부 질환, 습진, 여드름, 거친 피부, 담석, 발육 불량, 전립선 장애, 월경 장애[cite: 8]" },
-            "비타민H": { title: "💊 비타민 H (비오틴 / Biotine)", desc: "• 성질: 수용성\n• 기능: 지방산, 단백질, 핵산 합성, 당의 대사, 지방산 합성, 이산화탄소 운반, 피부염 예방, 성장 정지 예방, 탈모 방지[cite: 8]\n• 결핍 시: 피부염, 성장 정지, 빈혈, 식욕 감퇴, 구토, 설염, 근육통, 피부 건조증[cite: 8]" },
-            "비타민K": { title: "🥬 비타민 K (메나디온 / Menadione)", desc: "• 성질: 지용성\n• 기능: 혈액 응고에 관여, 뼈의 형성과 유지, 관절염 예방과 치료, 간 기능 도와줌, 위장질환과 암의 예방과 치료[cite: 8]\n• 결핍 시: 혈액 응고 지연, 신생아 출혈, 내출혈, 출혈이 쉽게 멎지 않음, 뇌출혈 증가[cite: 8]" },
-            "비타민P": { title: "💊 비타민 P (바이오플라보노이드 / Bioflavonoids)", desc: "• 성질: 수용성\n• 기능: 항균 기능, 항염 기능, 심혈관 질환, 암 발병률 감소, 당뇨병 발병률 감소, 비타민C 작용을 강화, 모세혈관 강화, 생리적 기능 개선, 자반병 치료, 출혈성 질병 예방[cite: 8]\n• 결핍 시: 출혈, 잇몸 출혈, 망막 출혈, 멍이 잘 듦, 류마티즘 질환[cite: 8]" },
-            "비타민U": { title: "💊 비타민 U (항궤양성 비타민)", desc: "• 성질: 지용성\n• 기능: 위 점막 보호, 소화성 궤양 예방과 치료, 지방간 개선, 동맥경화 예방, 항암 작용, 십이지장 궤양 회복, 점막 재생, 해독 작용을 도움[cite: 8]\n• 결핍 시: 소화성 궤양, 각종 성인병, 지방간, 위염, 위 점막 궤양, 상처 잘 낫지 않음[cite: 8]" },
-            "칼슘": { title: "🦴 칼슘 (Calcium)", desc: "• 기능: 뼈와 치아의 단단한 구조 형성, 근육 수축·이완 및 신경 전달 조절.\n• 결핍 시: 골다공증 위험 증가, 근육 경련.\n• 식품: 우유, 치즈, 멸치, 두부, 케일" },
-            "마그네슘": { title: "⚡ 마그네슘 (Magnesium)", desc: "• 기능: 천연의 신경 안정제. 눈밑 떨림 방지, 에너지 생성, 근육 경련 이완 및 혈압 안정.\n• 식품: 아몬드, 호박씨, 현미, 시금치, 바나나" },
-            "철분": { title: "🩸 철분 (Iron)", desc: "• 기능: 적혈구의 헤모글로빈을 구성하여 온몸에 산소를 운반하고 피로 예방 및 면역력 유지.\n• 식품: 소고기 우둔살, 바지락, 굴, 렌틸콩, 시금치" },
-            "아연": { title: "🛡 아연 (Zinc)", desc: "• 기능: 정상적인 면역 반응 및 세포 분열, 상처 치유, 미각 및 후각 유지.\n• 식품: 굴, 소고기, 호박씨, 게" }
+            "비타민20종": { 
+                title: "💊 비타민 20종 통합 백과사전", 
+                desc: "• [종류 (20종)]: 비타민 A, B1, B2, B3(나이아신), B4(카르니틴), B5(판토텐산), B6, B9(엽산), B12, B13(오로틴산), B15(판가민산), B17(아미그달린), C, D, E, F(리놀레산), H(비오틴), K, P(바이오플라보노이드), U\n• [기능]: 각 비타민은 세포 대사, 에너지 생성, 면역 강화, 항산화 작용, 시력 및 뼈 건강 등 생리 기능의 필수 조절자 역할 담당\n• [대표 식품]: 파프리카, 브로콜리, 감귤류, 시금치, 당근, 견과류, 육류, 달걀" 
+            },
+            "무기질15가지": { 
+                title: "⚖ 무기질 15가지 (미네랄 통합 백과)", 
+                desc: "• [종류 (15가지 이상 주요 미네랄)]: 칼슘, 칼륨, 마그네슘, 인, 나트륨, 황(S), 염소, 붕소, 코발트, 크롬, 구리, 불소, 철, 게르마늄, 요오드, 망간, 셀레늄, 규소, 바나듐, 아연, 니켈, 바륨\n• [기능]: 뼈와 치아 구조 형성(칼슘, 인), 체액 및 혈압 균형(나트륨, 칼륨, 염소), 산소 운반(철), 면역 및 효소 활성화(아연, 셀레늄, 망간 등)\n• [대표 식품]: 우유, 멸치, 미역, 굴, 소고기, 견과류, 바나나, 시금치, 해조류" 
+            },
+            "필수아미노산9종": { 
+                title: "🧬 필수 아미노산 9종", 
+                desc: "• [종류 (9종)]: 류신, 이소류신, 발린 (이상 BCAA 3종), 라이신, 메티오닌, 페닐알라닌, 트레오닌, 트립토판, 히스티딘\n• [기능]: 체내에서 자체 합성되지 않아 반드시 식단으로 섭취해야 하며, 근육 단백질 합성 촉진, 뇌 신경전달물질 생성, 수면 및 기분 조절에 필수적임\n• [대표 식품]: 닭가슴살, 달걀, 소고기, 대두(콩), 우유 및 유제품, 퀴노아" 
+            },
+            "글루코시놀레잇": {
+                title: "🥦 글루코시놀레잇 (Glucosinolates)",
+                desc: "• [종류 / 성분]: 십자가과 채소에 풍부한 파이토케미컬 성분\n• [기능]: 강력한 해독 작용 및 세포 보호, 항암 및 항산화 효과로 체내 유해 물질 배출 도움\n• [대표 식품]: 브로콜리, 양배추, 케일, 콜리플라워, 무, 청경채"
+            },
+            "글루타타이언": {
+                title: "✨ 글루타타이언 (Glutathione)",
+                desc: "• [종류 / 성분]: 시스테인, 글루탐산, 글리신 3가지 아미노산으로 이루어진 강력한 항산화 물질\n• [기능]: 간 해독 작용 촉진, 활성산소 제거, 면역력 강화, 피부 미백 및 세포 노화 방지\n• [대표 식품]: 아스파라거스, 시금치, 아보카도, 마늘, 브로콜리"
+            },
+            "루틴": {
+                title: "🌿 루틴 (Rutin / 플라보노이드)",
+                desc: "• [종류 / 성분]: 감귤류 및 메밀에 다량 함유된 생체 유익 플라보노이드 성분\n• [기능]: 모세혈관을 튼튼하게 강화하고 혈액 순환을 원활하게 하며, 고혈압 및 동맥경화 예방에 기여\n• [대표 식품]: 메밀, 쓴메밀, 사과껍질, 양파, 감귤류 과일"
+            },
+            "알로에베라": {
+                title: "🌵 알로에베라 (Aloe Vera)",
+                desc: "• [종류 / 성분]: 다육식물 알로에의 젤리질 추출물 (다당류 및 아미노산 풍부)\n• [기능]: 위장 점막 보호 및 소화 기능 개선, 피부 진정 및 보습, 면역력 증진에 기여\n• [대표 식품]: 알로에베라 겔, 알로에 주스, 신선한 알로에 잎 속살"
+            }
         };
 
         const bodyCareDb = {
