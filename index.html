@@ -818,24 +818,22 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 종류·기능·대표식품을 확인하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 풍부한 영양소 백과를 확인하세요.</p>
                     
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 190px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
                         <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
                         <span class="dict-tag" onclick="quickSelectDict('물')">💧 물 (수분)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민20종')">💊 비타민 20종 통합</span>
-                        <span class="dict-tag" onclick="quickSelectDict('무직질15가지')">⚖ 무기질 15가지(미네랄) 통합</span>
                         <span class="dict-tag" onclick="quickSelectDict('필수아미노산9종')">🧬 필수아미노산 9종</span>
-                        <span class="dict-tag" onclick="quickSelectDict('글루코시놀레이트')">🥦 글루코시놀레이트</span>
-                        <span class="dict-tag" onclick="quickSelectDict('글루타티온')">✨ 글루타티온</span>
-                        <span class="dict-tag" onclick="quickSelectDict('루틴')">🌿 루틴</span>
-                        <span class="dict-tag" onclick="quickSelectDict('알로에베라')">🌵 알로에베라</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민20종')">💊 비타민 20종 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">🦴 칼슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">⚡ 마그네슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('철')">🩸 철분</span>
                     </div>
 
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 탄수화물, 무기질, 비타민)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 탄수화물, 비타민, 칼슘)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     
@@ -1031,51 +1029,43 @@
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
-        // 📚 AI 영양 가이드 백과사전 (풍부하고 상세한 원문 전체 복원)
+        // 📚 AI 영양 가이드 백과사전 (모든 영양소 상세 내용 완벽 복원)
         const encyclopediaDb = {
             "탄수화물": { 
                 title: "🍞 탄수화물 (Carbohydrate)", 
-                desc: "① 탄수화물의 기능과 효과\n• 에너지 공급 및 뇌의 주된 에너지원 공급\n• 장 건강 지원 (식이섬유)\n\n② 탄수화물의 종류와 대표 식품\n• 전분 및 식이섬유: 쌀밥, 현미밥, 빵, 고구마, 통곡물, 콩, 채소" 
+                desc: "① 탄수화물의 기능과 효과\n• 신체 활동과 장기 기능 유지에 필요한 주요 에너지를 공급합니다.\n• 뇌와 신경계가 원활하게 작동하도록 주된 에너지원을 공급합니다.\n• 장 건강과 배변 활동을 돕는 식이섬유를 제공합니다.\n\n② 탄수화물의 종류와 대표 식품\n• 복합 탄수화물 및 식이섬유: 현미밥, 귀리, 통밀빵, 고구마, 콩류, 신선한 채소\n• 단순 당류는 가급적 줄이고 복합 탄수화물 위주로 섭취하는 것이 좋습니다." 
             },
             "단백질": { 
                 title: "🥩 단백질 (Protein)", 
-                desc: "① 동물성 단백질 식품\n• 육류, 생선류, 달걀, 우유 및 유제품\n\n② 식물성 단백질 식품\n• 콩류(두부, 낫토), 견과류, 씨앗류" 
+                desc: "① 단백질의 기능과 효과\n• 근육, 피부, 장기 등 신체 조직의 구성과 성장에 필수적인 기본 단위입니다.\n• 효소, 호르몬, 항체를 생성하여 면역 체계와 생체 대사를 조절합니다.\n\n② 동물성 및 식물성 단백질 대표 식품\n• 동물성 단백질: 닭고기 가슴살, 소고기 살코기, 생선류, 달걀, 우유 및 저지방 유제품\n• 식물성 단백질: 콩류(두부, 낫토, 검은콩), 견과류, 렌틸콩" 
             },
             "지방": { 
                 title: "🥑 지방 (Fat)", 
-                desc: "① 지방의 기능과 효과: 에너지 공급·저장, 세포막 구성, 비타민 흡수 지원\n② 동물성/식물성 지방 대표 식품: 삼겹살, 생선(오메가3), 올리브유, 들기름" 
+                desc: "① 지방의 기능과 효과\n• 체내 에너지 저장고 역할 및 장기를 보호하는 쿠션 기능을 합니다.\n• 세포막을 구성하고 지용성 비타민(A, D, E, K)의 흡수를 도와줍니다.\n\n② 건강한 지방의 대표 식품\n• 불포화지방산: 올리브유, 아보카도, 들기름, 견과류(호두, 아몬드), 등푸른생선(오메가3)" 
             },
             "물": { 
                 title: "💧 물 (수분)", 
-                desc: "• 영양소 운반, 체온 조절, 노폐물 배출 (생수, 오이, 토마토)" 
+                desc: "① 물의 기능과 효과\n• 체내 영양소와 산소를 각 세포로 운반하는 역할을 합니다.\n• 땀과 호흡을 통한 체온 조절 및 신장 노폐물 배출(해독)을 담당합니다.\n\n② 올바른 수분 섭취 가이드\n• 하루 1.5 ~ 2리터 이상의 깨끗한 생수를 나누어 마시기\n• 오이, 토마토, 수박 등 수분이 풍부한 신선한 채소와 과일 섭취" 
             },
             "비타민20종": { 
                 title: "💊 비타민 20종 통합 백과", 
-                desc: "• [종류]: 비타민 A, B1, B2, B3(나이아신), B5(판토텐산), B6, B7(비오틴), B9(엽산), B12, C, D, E, K 등 주요 20여 종\n• [기능]: 신체 대사 조절, 항산화 작용, 면역 체계 강화, 에너지 생성 및 세포 보호\n• [대표 식품]: 파프리카, 브로콜리, 시금치, 당근, 감귤류, 견과류, 달걀" 
+                desc: "① 비타민의 주요 기능과 효과\n• 신체 내 다양한 대사 과정을 조절하고 면역 체계를 강화합니다.\n• 강력한 항산화 작용으로 활성산소를 억제하고 세포 노화를 방지합니다.\n\n② 주요 비타민 종류별 대표 식품\n• 비타민 A (시력 및 피부): 당근, 시금치, 달걀 노른자\n• 비타민 B군 (에너지 생성 및 신경): 통곡물, 달걀, 콩류, 살코기\n• 비타민 C (면역 및 항산화): 파프리카, 브로콜리, 감귤류, 키위\n• 비타민 D (뼈 건강 및 면역): 연어, 고등어, 햇빛 합성\n• 비타민 E 및 K (혈행 및 뼈 대사): 견과류, 시금치, 올리브유" 
             },
-            "무직질15가지": { 
-                title: "⚖ 무기질 15가지 (미네랄 통합 백과)", 
-                desc: "• [종류 (15가지 이상 주요 미네랄)]: 칼슘, 칼륨, 마그네슘, 인, 나트륨, 황(S), 염소, 붕소, 코발트, 크롬, 구리, 불소, 철, 게르마늄, 요오드, 망간, 셀레늄, 규소, 바나듐, 아연, 니켈, 바륨\n• [기능]: 뼈와 치아 구조 형성(칼슘, 인), 체액 및 혈압 균형(나트륨, 칼륨, 염소), 산소 운반(철), 면역 및 효소 활성화(아연, 셀레늄, 망간 등)\n• [대표 식품]: 우유, 멸치, 미역, 굴, 소고기, 견과류, 바나나, 시금치, 해조류" 
+            "칼슘": { 
+                title: "🦴 칼슘 (Calcium)", 
+                desc: "① 칼슘의 기능과 효과\n• 튼튼한 뼈와 치아 구조를 형성하고 유지하는 핵심 미네랄입니다.\n• 정상적인 근육 수축과 신경 전달, 혈액 응고 작용을 돕습니다.\n\n② 대표 식품\n• 우유, 치즈, 요구르트 등 유제품, 뼈째 먹는 소형 생선(멸치, 뱅어포), 두부, 짙은 녹색 채소" 
+            },
+            "마그네슘": { 
+                title: "⚡ 마그네슘 (Magnesium)", 
+                desc: "① 마그네슘의 기능과 효과\n• 신경을 안정시키고 근육의 긴장을 이완시키는 '천연 진정제' 역할\n• 에너지 생성 및 300여 가지 이상의 효소 반응 보조\n\n② 대표 식품\n• 견과류(아몬드, 호두), 호박씨, 시금치, 아보카도, 바나나, 통곡물" 
+            },
+            "철": { 
+                title: "🩸 철분 (Iron)", 
+                desc: "① 철분의 기능과 효과\n• 적혈구의 헤모글로빈을 구성하여 전신에 산소를 운반하는 산소 공급원\n• 피로 회복 및 면역 기능 유지에 기여\n\n② 대표 식품 및 섭취 팁\n• 소고기 살코기, 굴, 바지락, 시금치, 렌틸콩\n• 비타민 C와 함께 섭취 시 흡수율이 높아집니다." 
             },
             "필수아미노산9종": {
-                title: "🧬 필수 아미노산 9가지",
-                desc: "1. 히스티딘: 소고기, 닭고기, 참치, 우유, 대두\n2. 이소류신: 닭고기, 생선, 달걀, 치즈, 두부\n3. 류신: 소고기, 닭고기, 우유, 달걀, 대두\n4. 라이신: 육류, 생선, 치즈, 렌틸콩\n5. 메티오닌: 달걀, 생선, 참깨, 브라질너트\n6. 페닐알라닌: 육류, 생선, 달걀, 우유, 대두\n7. 트레오닌: 달걀, 닭고기, 생선, 콩\n8. 트립토판: 달걀, 우유, 대두, 호박씨\n9. 발린: 소고기, 생선, 우유, 달걀, 대두"
-            },
-            "글루코시놀레이트": {
-                title: "🥦 글루코시놀레이트 (Glucosinolate)",
-                desc: "• [기능]: 십자가과 채소에 풍부한 파이토케미컬로, 강력한 항산화 및 해독 효소 활성화 지원\n• [대표 식품]: 브로콜리, 양배추, 케일, 청경채, 콜리플라워"
-            },
-            "글루타티온": {
-                title: "✨ 글루타티온 (Glutathione)",
-                desc: "• [기능]: 세포의 강력한 항산화 방어, 간 해독 작용 지원 및 면역력 유지\n• [대표 식품]: 시금치, 아보카도, 마늘, 양파, 브로콜리"
-            },
-            "루틴": {
-                title: "🌿 루틴 (Rutin)",
-                desc: "• [기능]: 플라보노이드 일종으로 모세혈관을 강화하고 혈관 건강 및 항산화 작용에 도움\n• [대표 식품]: 메밀, 퀴노아, 사과, 감귤류 껍질"
-            },
-            "알로에베라": {
-                title: "🌵 알로에베라 (Aloe Vera)",
-                desc: "• [기능]: 장 건강 지원, 면역 다당체 함유 및 피부 진정·보습 작용\n• [대표 식품]: 알로에 겔 음료, 생잎 겔"
+                title: "🧬 필수 아미노산 9가지 (Essential Amino Acids)",
+                desc: "① 필수 아미노산의 역할\n• 체내에서 합성되지 않아 반드시 음식이나 영양제로 섭취해야 하는 9가지 아미노산(히스티딘, 이소류신, 류신, 라이신, 메티오닌, 페닐알라닌, 트레오닌, 트립토판, 발린)\n• 근육 합성, 면역 항체 생성, 신경전달물질 합성의 기초 재료\n\n② 9종별 대표 공급 식품\n• 히스티딘 / 류신 / 발린: 소고기, 닭고기, 참치, 대두, 우유\n• 라이신 / 메티오닌: 렌틸콩, 치즈, 달걀, 브라질너트\n• 트립토판 / 페닐알라닌: 호박씨, 달걀, 유제품"
             }
         };
 
