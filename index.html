@@ -851,7 +851,7 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 영양소 백과 원문을 확인하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하여 영양소 백과 원문을 확인하세요.</p>
                     
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 190px; overflow-y: auto; padding-right: 4px;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
@@ -1498,13 +1498,8 @@
         function openModal(id) { 
             const modal = document.getElementById(id);
             modal.classList.add('active'); 
-            
-            setTimeout(() => {
-                const firstInput = modal.querySelector('input[type="text"], textarea, input[type="time"]');
-                if(firstInput) {
-                    firstInput.focus();
-                }
-            }, 100);
+
+            // (수정됨) 영양 가이드 모달 오픈 시 검색창 포커스 코드를 제거하여 키보드가 올라오지 않도록 함
 
             if(id === 'compatibilityModal') {
                 document.getElementById('inputSearchQueryText').value = '';
