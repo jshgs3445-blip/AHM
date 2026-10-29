@@ -508,7 +508,6 @@
                         </div>
                     </div>
 
-                    <!-- 인체 기능 맵: 더 연한 파스텔 연두색 적용 -->
                     <div class="top-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0;" onclick="openModal('bodyMapModal')">
                         <div>
                             <div style="font-size: 11px; font-weight: 700; color: #0b6623; margin-bottom: 3px; display: flex; align-items: center; gap: 3px;">
@@ -534,7 +533,7 @@
                     </div>
                 </div>
 
-                <!-- 3. 스마트 관리 도구 (각각에 연한 파스텔 컬러 적용) -->
+                <!-- 3. 스마트 관리 도구 -->
                 <div class="card">
                     <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
                     <div class="grid-3">
@@ -576,8 +575,27 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 5. 일상 기록 및 타이머 (위치 이동 및 각 아이콘별 연한 파스텔 컬러 적용) -->
+                <div class="card">
+                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
+                    <div class="grid-3">
+                        <div class="sub-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe;" onclick="openModal('voiceModal')">
+                            <i class="fa-solid fa-microphone" style="color: #1d4ed8;"></i>
+                            <span style="color: #1e40af;">음성 로깅</span>
+                        </div>
+                        <div class="sub-card" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-color: #7dd3fc;" onclick="openModal('waterModal')">
+                            <i class="fa-solid fa-glass-water" style="color: #0284c7;"></i>
+                            <span style="color: #0369a1;">물 섭취</span>
+                        </div>
+                        <div class="sub-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('pedometerModal')">
+                            <i class="fa-solid fa-person-walking" style="color: #7e22ce;"></i>
+                            <span style="color: #6b21a8;">만보기</span>
+                        </div>
+                    </div>
+                </div>
     
-                <!-- 5. 통계 및 알림 -->
+                <!-- 6. 통계 및 알림 -->
                 <div class="grid-2">
                     <div class="card" style="margin-bottom: 0; background: #eff6ff; border-color: #bfdbfe; cursor: pointer; padding: 12px;" onclick="openModal('statModal')">
                         <div class="card-title" style="color: #1d4ed8; margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
@@ -589,25 +607,6 @@
                     </div>
                 </div>
                 <div style="height: 12px;"></div>
-    
-                <!-- 6. 일상 기록 및 타이머 -->
-                <div class="card">
-                    <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #1d4ed8;"></i> 일상 기록 및 타이머</div>
-                    <div class="grid-3">
-                        <div class="sub-card" onclick="openModal('voiceModal')">
-                            <i class="fa-solid fa-microphone"></i>
-                            <span>음성 로깅</span>
-                        </div>
-                        <div class="sub-card" onclick="openModal('waterModal')">
-                            <i class="fa-solid fa-glass-water"></i>
-                            <span>물 섭취</span>
-                        </div>
-                        <div class="sub-card" onclick="openModal('pedometerModal')">
-                            <i class="fa-solid fa-person-walking"></i>
-                            <span>만보기</span>
-                        </div>
-                    </div>
-                </div>
     
                 <!-- 7. 건강 상식 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
@@ -645,20 +644,20 @@
                     </div>
                 </div>
 
-                <!-- 8. 오늘의 말씀 영역 -->
-                <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
+                <!-- 8. 오늘의 말씀 영역 (연한 보라색 배경으로 변경) -->
+                <div class="card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <div style="font-size: 13px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 5px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #7e22ce; display: flex; align-items: center; gap: 5px;">
                             <i class="fa-solid fa-book-bible"></i> <span id="displayBibleTitle">오늘의 말씀 (요일 5:14)</span>
                         </div>
                         <div style="display: flex; gap: 4px; align-items: center;">
-                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
+                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #7e22ce; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
                             <span id="adminBibleBtnWrap" style="display: none;">
-                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">✍ 등록</button>
+                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #6b21a8; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">✍ 등록</button>
                             </span>
                         </div>
                     </div>
-                    <p style="font-size: 12px; color: #713f12; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
+                    <p style="font-size: 12px; color: #6b21a8; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
     
                 <!-- 9. 건강보험 바로 연결 -->
@@ -1255,8 +1254,8 @@
             let html = '';
             history.forEach(item => {
                 html += `<div style="background: #f8fafc; padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0;">
-                    <div style="font-size: 12px; font-weight: 700; color: #854d0e;">${item.title} <span style="font-size:10px; color:#94a3b8; float:right;">${item.date}</span></div>
-                    <p style="font-size: 12px; color: #475569; margin-top:2px;">${item.desc}</p>
+                    <div style="font-size: 12px; font-weight: 700; color: #7e22ce;">${item.title} <span style="font-size:10px; color:#94a3b8; float:right;">${item.date}</span></div>
+                    <p style="font-size: 12px; color: #6b21a8; margin-top:2px;">${item.desc}</p>
                 </div>`;
             });
             listEl.innerHTML = html;
