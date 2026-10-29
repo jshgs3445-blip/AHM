@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="AHM">
-    <meta name="theme-color" content="#0b6623">
+    <meta name="theme-color" content="#1d4ed8">
     
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,8 +18,9 @@
     
     <style>
         :root {
-            --primary-color: #0b6623;
-            --secondary-color: #138833;
+            /* 상단 바 컬러를 병원 길잡이 블루 계열로 변경 */
+            --primary-color: #1d4ed8;
+            --secondary-color: #3b82f6;
             --bg-color: #f4f6f4;
             --card-bg: #ffffff;
             --text-color: #2d3748;
@@ -76,7 +77,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #e6f4ea, #f0f7f4);
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
             text-align: center;
             width: 100%;
             height: 100%;
@@ -93,7 +94,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(11, 102, 35, 0.15);
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.15);
         }
     
         .login-title {
@@ -144,7 +145,7 @@
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(11, 102, 35, 0.3);
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -280,7 +281,7 @@
             font-size: 11px; font-weight: 600; cursor: pointer; display: flex;
             align-items: center; justify-content: center; gap: 4px;
         }
-        .ai-check-btn.checked { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+        .ai-check-btn.checked { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
     
         .sub-card {
             background: #ffffff;
@@ -488,20 +489,23 @@
                     </div>
                 </div>
 
-                <!-- 2. 오늘의 말씀 영역 -->
-                <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <div style="font-size: 13px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 5px;">
-                            <i class="fa-solid fa-book-bible"></i> <span id="displayBibleTitle">오늘의 말씀 (요일 5:14)</span>
+                <!-- 2. 스마트 관리 도구 (위치 변경됨: 오늘의 말씀과 맞교환) -->
+                <div class="card">
+                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
+                    <div class="grid-3">
+                        <div class="sub-card" onclick="openModal('expiryModal')">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>유통기한</span>
                         </div>
-                        <div style="display: flex; gap: 4px; align-items: center;">
-                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
-                            <span id="adminBibleBtnWrap" style="display: none;">
-                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">✍ 등록</button>
-                            </span>
+                        <div class="sub-card" onclick="openModal('bpModal')">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            <span>혈압·당뇨</span>
+                        </div>
+                        <div class="sub-card" onclick="openModal('weightModal')">
+                            <i class="fa-solid fa-weight-scale"></i>
+                            <span>체중 관리</span>
                         </div>
                     </div>
-                    <p style="font-size: 12px; color: #713f12; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
 
                 <!-- 3. 3분할 나란히 배치 코너 -->
@@ -569,12 +573,12 @@
     
                 <!-- 5. 통계 및 알림 -->
                 <div class="grid-2">
-                    <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; padding: 12px;" onclick="openModal('statModal')">
-                        <div class="card-title" style="color: #0b6623; margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
-                        <p style="font-size: 14px; font-weight: 700; color: #15803d;">85% <i class="fa-solid fa-chevron-right" style="font-size: 10px; float: right;"></i></p>
+                    <div class="card" style="margin-bottom: 0; background: #eff6ff; border-color: #bfdbfe; cursor: pointer; padding: 12px;" onclick="openModal('statModal')">
+                        <div class="card-title" style="color: #1d4ed8; margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
+                        <p style="font-size: 14px; font-weight: 700; color: #2563eb;">85% <i class="fa-solid fa-chevron-right" style="font-size: 10px; float: right;"></i></p>
                     </div>
-                    <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; padding: 12px;" onclick="openModal('alarmModal')">
-                        <div class="card-title" style="color: #0b6623; margin-bottom: 2px; font-size: 12px;"><i class="fa-regular fa-clock"></i> 푸시 복용 알림</div>
+                    <div class="card" style="margin-bottom: 0; background: #eff6ff; border-color: #bfdbfe; cursor: pointer; padding: 12px;" onclick="openModal('alarmModal')">
+                        <div class="card-title" style="color: #1d4ed8; margin-bottom: 2px; font-size: 12px;"><i class="fa-regular fa-clock"></i> 푸시 복용 알림</div>
                         <p style="font-size: 10.5px; color: #475569;" id="displayAlarmTimes">아침/점심/저녁 설정</p>
                     </div>
                 </div>
@@ -582,7 +586,7 @@
     
                 <!-- 6. 일상 기록 및 타이머 -->
                 <div class="card">
-                    <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #0b6623;"></i> 일상 기록 및 타이머</div>
+                    <div class="card-title"><i class="fa-solid fa-calendar-days" style="color: #1d4ed8;"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
                         <div class="sub-card" onclick="openModal('voiceModal')">
                             <i class="fa-solid fa-microphone"></i>
@@ -599,23 +603,20 @@
                     </div>
                 </div>
     
-                <!-- 7. 스마트 관리 도구 -->
-                <div class="card">
-                    <div class="card-title"><i class="fa-solid fa-toolbox" style="color: #3182ce;"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
-                    <div class="grid-3">
-                        <div class="sub-card" onclick="openModal('expiryModal')">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                            <span>유통기한</span>
+                <!-- 7. 오늘의 말씀 영역 (위치 변경됨: 스마트 관리 도구 자리로 이동) -->
+                <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 5px;">
+                            <i class="fa-solid fa-book-bible"></i> <span id="displayBibleTitle">오늘의 말씀 (요일 5:14)</span>
                         </div>
-                        <div class="sub-card" onclick="openModal('bpModal')">
-                            <i class="fa-solid fa-heart-pulse"></i>
-                            <span>혈압·당뇨</span>
-                        </div>
-                        <div class="sub-card" onclick="openModal('weightModal')">
-                            <i class="fa-solid fa-weight-scale"></i>
-                            <span>체중 관리</span>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
+                            <span id="adminBibleBtnWrap" style="display: none;">
+                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">✍ 등록</button>
+                            </span>
                         </div>
                     </div>
+                    <p style="font-size: 12px; color: #713f12; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
     
                 <!-- 8. 건강 상식 코너 -->
@@ -691,9 +692,9 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('dashboardModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <div style="background: #f0fdf4; padding: 10px; border-radius: 10px; border: 1px solid #bbf7d0;">
+                    <div style="background: #eff6ff; padding: 10px; border-radius: 10px; border: 1px solid #bfdbfe;">
                         <b>✨ 오늘의 건강 요약 (수현님)</b>
-                        <p style="margin-top: 4px; font-size: 12px; color: #166534;">• 복용 달성률: 85% 우수<br>• 물 섭취량: <span id="dashWaterDisplay">500</span> ml<br>• 만보기 걸음: <span id="dashStepDisplay">0</span> 걸음</p>
+                        <p style="margin-top: 4px; font-size: 12px; color: #1e40af;">• 복용 달성률: 85% 우수<br>• 물 섭취량: <span id="dashWaterDisplay">500</span> ml<br>• 만보기 걸음: <span id="dashStepDisplay">0</span> 걸음</p>
                     </div>
                     <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1;">
                         <b>📈 최근 체중 및 혈압 추이 그래프</b>
@@ -785,9 +786,9 @@
                         <span class="dict-tag" onclick="quickSelectBody('당뇨')">🩺 당뇨 관리</span>
                     </div>
 
-                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 220px; overflow-y: auto;">
-                        <h4 id="bodyResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0b6623;"></h4>
-                        <p id="bodyResultDesc" style="font-size: 12px; color: #166534; line-height: 1.6; white-space: pre-line;"></p>
+                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; display: none; max-height: 220px; overflow-y: auto;">
+                        <h4 id="bodyResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1d4ed8;"></h4>
+                        <p id="bodyResultDesc" style="font-size: 12px; color: #1e40af; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
                 </div>
             </div>
@@ -803,17 +804,17 @@
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
                     <p style="color: #64748b; font-size: 12px;">오늘의 컨디션이나 고민을 입력하고 AI 맞춤 운동 처방을 받으세요.</p>
                     
-                    <div style="background: #fffbeb; padding: 12px; border-radius: 12px; border: 1px solid #fde68a;">
-                        <p style="color: #b45309; font-weight: 700; font-size: 12px; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 컨디션 운동 매칭</p>
+                    <div style="background: #eff6ff; padding: 12px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                        <p style="color: #1d4ed8; font-weight: 700; font-size: 12px; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 컨디션 운동 매칭</p>
                         <div style="display: flex; gap: 6px;">
                             <input type="text" id="inputUserCondition" placeholder="예: 피곤해요, 소화가 안 돼요, 잠이 안 와요" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; outline: none;">
-                            <button type="button" style="background: #b45309; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="generateAiConditionPrescription()">운동 처방받기</button>
+                            <button type="button" style="background: #1d4ed8; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="generateAiConditionPrescription()">운동 처방받기</button>
                         </div>
                     </div>
 
-                    <div id="exerciseResultArea" style="padding: 14px; border-radius: 12px; background: #fffbeb; border: 1px solid #fde68a; display: none; max-height: 220px; overflow-y: auto;">
-                        <h4 id="exerciseResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #b45309;"></h4>
-                        <p id="exerciseResultDesc" style="font-size: 12px; color: #92400e; line-height: 1.6; white-space: pre-line;"></p>
+                    <div id="exerciseResultArea" style="padding: 14px; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; display: none; max-height: 220px; overflow-y: auto;">
+                        <h4 id="exerciseResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1d4ed8;"></h4>
+                        <p id="exerciseResultDesc" style="font-size: 12px; color: #1e40af; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
                 </div>
             </div>
@@ -874,7 +875,7 @@
                     <button type="button" class="action-btn" onclick="saveNewMedicineRecord()">복용약 등록하기</button>
 
                     <div style="margin-top: 8px; border-top: 1px solid #e2e8f0; padding-top: 10px;">
-                        <b style="font-size: 12px; color: #7e22ce;">📋 내가 등록한 복용약 리스트</b>
+                        <b style="font-size: 12px; color: #1d4ed8;">📋 내가 등록한 복용약 리스트</b>
                         <div id="medicineListContainer" style="margin-top: 6px; max-height: 120px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;">
                             <p style="font-size: 11px; color: #94a3b8;">등록된 복용약이 없습니다.</p>
                         </div>
@@ -1089,7 +1090,6 @@
         };
 
         function initAllCharts() {
-            // 체중 그래프
             const weightCtx = document.getElementById('weightChart').getContext('2d');
             weightChartInstance = new Chart(weightCtx, {
                 type: 'line',
@@ -1098,8 +1098,8 @@
                     datasets: [{
                         label: '체중 (kg)',
                         data: [67.0, 66.5, 66.2, 65.8, 65.5],
-                        borderColor: '#0b6623',
-                        backgroundColor: 'rgba(11, 102, 35, 0.1)',
+                        borderColor: '#1d4ed8',
+                        backgroundColor: 'rgba(29, 78, 216, 0.1)',
                         borderWidth: 2,
                         tension: 0.3,
                         fill: true
@@ -1108,7 +1108,6 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
-            // 혈압 그래프
             const bpCtx = document.getElementById('bpChart').getContext('2d');
             bpChartInstance = new Chart(bpCtx, {
                 type: 'line',
@@ -1125,7 +1124,6 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
-            // 대시보드 요약 그래프
             const dashCtx = document.getElementById('dashboardTrendChart').getContext('2d');
             dashChartInstance = new Chart(dashCtx, {
                 type: 'line',
@@ -1134,7 +1132,7 @@
                     datasets: [{
                         label: '체중 추이',
                         data: [67.0, 66.2, 65.8, 65.5],
-                        borderColor: '#0b6623',
+                        borderColor: '#1d4ed8',
                         borderWidth: 2,
                         tension: 0.3
                     }]
@@ -1410,7 +1408,6 @@
 
         function saveAlarmTimes() { showToast("🔔 알림 시간이 저장되었습니다."); closeModal('alarmModal'); }
 
-        // 복용약 추가 및 리스트 관리
         function saveNewMedicineRecord() {
             const name = document.getElementById('inputNewMedicineNameText').value.trim();
             const time = document.getElementById('inputNewMedicineTime').value;
@@ -1456,7 +1453,6 @@
             setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        // 입력창 클릭 직후 바로 써지도록 강제 focus 부여
         function openModal(id) { 
             const modal = document.getElementById(id);
             modal.classList.add('active'); 
