@@ -445,7 +445,6 @@
                     ⚖ 면책 조항: 본 앱의 건강 가이드 및 성분 정보는 참고용이며, 정확한 진단은 전문 의사 및 약사와 상담하세요.
                 </div>
 
-                <!-- ID/비밀번호 찾기 및 앱 소개 링크 추가 -->
                 <div style="margin-top: 14px; font-size: 12px;">
                     <a href="javascript:void(0);" onclick="showFindAccountModal()" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">ID/비밀번호 찾기</a>
                     <span style="color: #cbd5e1; margin: 0 8px;">|</span>
@@ -609,23 +608,7 @@
                     </div>
                 </div>
     
-                <!-- 7. 오늘의 말씀 영역 -->
-                <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                        <div style="font-size: 13px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 5px;">
-                            <i class="fa-solid fa-book-bible"></i> <span id="displayBibleTitle">오늘의 말씀 (요일 5:14)</span>
-                        </div>
-                        <div style="display: flex; gap: 4px; align-items: center;">
-                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
-                            <span id="adminBibleBtnWrap" style="display: none;">
-                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">✍ 등록</button>
-                            </span>
-                        </div>
-                    </div>
-                    <p style="font-size: 12px; color: #713f12; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
-                </div>
-    
-                <!-- 8. 건강 상식 코너 -->
+                <!-- 7. 건강 상식 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 8px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
@@ -660,8 +643,25 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 8. 오늘의 말씀 영역 (건강보험 바로 위로 이동됨) -->
+                <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 5px;">
+                            <i class="fa-solid fa-book-bible"></i> <span id="displayBibleTitle">오늘의 말씀 (요일 5:14)</span>
+                        </div>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #ca8a04; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
+                            <span id="adminBibleBtnWrap" style="display: none;">
+                                <button type="button" onclick="openModal('adminBibleModal')" style="background: #a16207; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">✍ 등록</button>
+                            </span>
+                        </div>
+                    </div>
+                    <p style="font-size: 12px; color: #713f12; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
+                </div>
     
-                <div class="card" style="background: #f0f9ff; border-color: #bae6fd; padding: 12px;">
+                <!-- 9. 건강보험 바로 연결 -->
+                <div class="card" style="background: #f0f9ff; border-color: #bae6fd; padding: 12px; margin-bottom: 0;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <div class="card-title" style="color: #0369a1; margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-file-medical"></i> 건강보험 정보 및 검진 안내</div>
