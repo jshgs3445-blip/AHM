@@ -494,26 +494,7 @@
                     </div>
                 </div>
 
-                <!-- 2. 스마트 관리 도구 -->
-                <div class="card">
-                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
-                    <div class="grid-3">
-                        <div class="sub-card" onclick="openModal('expiryModal')">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                            <span>유통기한</span>
-                        </div>
-                        <div class="sub-card" onclick="openModal('bpModal')">
-                            <i class="fa-solid fa-heart-pulse"></i>
-                            <span>혈압·당뇨</span>
-                        </div>
-                        <div class="sub-card" onclick="openModal('weightModal')">
-                            <i class="fa-solid fa-weight-scale"></i>
-                            <span>체중 관리</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. 3분할 나란히 배치 코너 -->
+                <!-- 2. 3분할 나란히 배치 코너 (병원 길잡이, 인체 기능 맵, 맞춤 운동) -->
                 <div class="grid-3-col">
                     <div class="top-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe;" onclick="openModal('hospitalGuideModal')">
                         <div>
@@ -527,6 +508,7 @@
                         </div>
                     </div>
 
+                    <!-- 인체 기능 맵: 더 연한 파스텔 연두색 적용 -->
                     <div class="top-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0;" onclick="openModal('bodyMapModal')">
                         <div>
                             <div style="font-size: 11px; font-weight: 700; color: #0b6623; margin-bottom: 3px; display: flex; align-items: center; gap: 3px;">
@@ -548,6 +530,25 @@
                         </div>
                         <div style="font-size: 8.5px; color: #b45309; font-weight: 700; margin-top: 4px; display: flex; align-items: center; justify-content: flex-end; gap: 2px;">
                             처방 <i class="fa-solid fa-chevron-right" style="font-size: 7px;"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 스마트 관리 도구 (각각에 연한 파스텔 컬러 적용) -->
+                <div class="card">
+                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
+                    <div class="grid-3">
+                        <div class="sub-card" style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-color: #cbd5e1;" onclick="openModal('expiryModal')">
+                            <i class="fa-solid fa-clock-rotate-left" style="color: #475569;"></i>
+                            <span style="color: #334155;">유통기한</span>
+                        </div>
+                        <div class="sub-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('bpModal')">
+                            <i class="fa-solid fa-heart-pulse" style="color: #e11d48;"></i>
+                            <span style="color: #9f1239;">혈압·당뇨</span>
+                        </div>
+                        <div class="sub-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0;" onclick="openModal('weightModal')">
+                            <i class="fa-solid fa-weight-scale" style="color: #16a34a;"></i>
+                            <span style="color: #166534;">체중 관리</span>
                         </div>
                     </div>
                 </div>
@@ -644,7 +645,7 @@
                     </div>
                 </div>
 
-                <!-- 8. 오늘의 말씀 영역 (건강보험 바로 위로 이동됨) -->
+                <!-- 8. 오늘의 말씀 영역 -->
                 <div class="card" style="background: linear-gradient(135deg, #fefce8, #fef9c3); border-color: #fde047;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <div style="font-size: 13px; font-weight: 700; color: #854d0e; display: flex; align-items: center; gap: 5px;">
