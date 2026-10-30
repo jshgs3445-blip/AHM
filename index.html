@@ -396,7 +396,7 @@
 <body>
     
     <div class="phone-frame">
-        <!-- 로그인 화면 -->
+        <!-- 로그인 화면 (기본 활성화) -->
         <div id="loginScreen" class="screen active">
             <div class="login-container">
                 <div class="login-shield"><i class="fa-solid fa-shield-halved" style="color:#0b6623;"></i></div>
@@ -405,14 +405,14 @@
                 
                 <div class="login-input-group">
                     <label>이메일 주소 (ID)</label>
-                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력">
+                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력" value="jshgs3445@gmail.com">
                 </div>
                 <div class="login-input-group">
                     <label>비밀번호</label>
-                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력">
+                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력" value="••••••••">
                 </div>
 
-                <div class="auto-login-wrap">
+                <div class="auto-login-wrap" onclick="toggleAutoLogin()">
                     <input type="checkbox" id="autoLoginCheck" style="width: 16px; height: 16px; cursor: pointer;">
                     <label for="autoLoginCheck" style="cursor: pointer; margin-bottom: 0; font-weight: 600;">자동 로그인 유지</label>
                 </div>
@@ -1026,7 +1026,7 @@
             </div>
         </div>
 
-        <!-- 혈압·당뇨 모달 (혈압 + 혈당 입력 및 그래프 완벽 탑재) -->
+        <!-- 혈압·당뇨 모달 -->
         <div id="bpModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header"><h3>❤ 혈압·당뇨 기록</h3><button type="button" class="close-modal-btn" onclick="closeModal('bpModal')">&times;</button></div>
@@ -1054,7 +1054,7 @@
             <div class="modal-content">
                 <div class="modal-header"><h3>⚖ 체중 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('weightModal')">&times;</button></div>
                 <div style="font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
-                    <label>현재 체중 (kg): <input type="text" id="weightInput" placeholder="65.5" style="width:100%; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
+                    <label>현재 체중 (kg): <input type="text" id="weightInput" placeholder="65.5" style="width:100%; margin-top:3px; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
                     <button type="button" class="action-btn" onclick="saveWeightRecordBtn()">체중 기록하기</button>
                     <div style="margin-top: 6px; background: #f8fafc; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1;">
                         <div style="height: 120px;"><canvas id="weightChart"></canvas></div>
@@ -1150,8 +1150,26 @@
             renderMedicineList();
             renderExpiryList();
             initAllCharts();
-            enterMainScreen("정수현", "정수현 관리자");
+            
+            // [수정 포인트] 자동 로그인 체크 여부에 따라 로그인 화면 또는 메인 화면 표시
+            const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
+            if (autoLoginSaved) {
+                document.getElementById('autoLoginCheck').checked = true;
+                enterMainScreen("정수현", "정수현 관리자");
+            } else {
+                // 로그인 화면 유지
+                document.getElementById('mainScreen').classList.remove('active');
+                document.getElementById('mainScreen').style.display = 'none';
+                document.getElementById('loginScreen').classList.add('active');
+                document.getElementById('loginScreen').style.display = 'flex';
+            }
         };
+
+        function toggleAutoLogin() {
+            const chk = document.getElementById('autoLoginCheck');
+            chk.checked = !chk.checked;
+            localStorage.setItem('ahm_auto_login', chk.checked);
+        }
 
         function initAllCharts() {
             const weightCtx = document.getElementById('weightChart').getContext('2d');
@@ -1204,8 +1222,16 @@
             closeModal('signupModal');
         }
 
-        function executeLogin() { enterMainScreen("정수현", "정수현 관리자"); }
-        function executeLoginGuest() { enterMainScreen("체험 유저", "비회원 체험 모드"); }
+        function executeLogin() { 
+            const isAuto = document.getElementById('autoLoginCheck').checked;
+            localStorage.setItem('ahm_auto_login', isAuto);
+            enterMainScreen("정수현", "정수현 관리자"); 
+        }
+
+        function executeLoginGuest() { 
+            localStorage.setItem('ahm_auto_login', 'false');
+            enterMainScreen("체험 유저", "비회원 체험 모드"); 
+        }
 
         function enterMainScreen(nickname, roleText) {
             document.getElementById('loginScreen').classList.remove('active');
@@ -1218,6 +1244,8 @@
         }
 
         function executeLogout() {
+            localStorage.setItem('ahm_auto_login', 'false');
+            document.getElementById('autoLoginCheck').checked = false;
             document.getElementById('mainScreen').classList.remove('active');
             document.getElementById('mainScreen').style.display = 'none';
             document.getElementById('loginScreen').classList.add('active');
@@ -1580,74 +1608,4 @@
             localStorage.setItem('ahm_expiry_list', JSON.stringify(list));
 
             document.getElementById('inputExpiryName').value = '';
-            document.getElementById('inputExpiryDate').value = '';
-            renderExpiryList();
-            showToast(`📦 "${name}" 유통기한 등록 완료!`);
-        }
-
-        function renderExpiryList() {
-            const container = document.getElementById('expiryListContainer');
-            let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
-            if(list.length === 0) {
-                container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">등록된 영양제가 없습니다.</p>`;
-                return;
-            }
-            let html = '';
-            list.forEach((item, index) => {
-                html += `<div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px;">
-                    <span><b>${item.name}</b>: ~ ${item.date}</span>
-                    <button type="button" onclick="deleteExpiryItem(${index})" style="background: #ef4444; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer;">삭제</button>
-                </div>`;
-            });
-            container.innerHTML = html;
-        }
-
-        function deleteExpiryItem(index) {
-            let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
-            list.splice(index, 1);
-            localStorage.setItem('ahm_expiry_list', JSON.stringify(list));
-            renderExpiryList();
-            showToast("🗑 유통기한 항목이 삭제되었습니다.");
-        }
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg; t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3000);
-        }
-
-        function openModal(id) { 
-            const modal = document.getElementById(id);
-            modal.classList.add('active'); 
-
-            if(id === 'compatibilityModal') {
-                document.getElementById('inputSearchQueryText').value = '';
-                document.getElementById('searchResultArea').style.display = 'none';
-            } else if(id === 'bodyMapModal') {
-                document.getElementById('bodyResultArea').style.display = 'none';
-            } else if(id === 'exerciseModal') {
-                document.getElementById('exerciseResultArea').style.display = 'none';
-                document.getElementById('inputUserCondition').value = '';
-            } else if(id === 'hospitalGuideModal') {
-                document.getElementById('hospitalResultArea').style.display = 'none';
-                document.getElementById('inputHospitalSearch').value = '';
-            } else if(id === 'pedometerModal') {
-                updateStepDisplay(stepCount);
-            } else if(id === 'addModal') {
-                renderMedicineList();
-            } else if(id === 'expiryModal') {
-                renderExpiryList();
-            } else if(id === 'dashboardModal') {
-                if(dashChartInstance) dashChartInstance.update();
-            } else if(id === 'bpModal') {
-                if(bpChartInstance) bpChartInstance.update();
-                if(bsChartInstance) bsChartInstance.update();
-            }
-        }
-
-        function closeModal(id) { 
-            document.getElementById(id).classList.remove('active'); 
-        }
-    </script>
-</body>
-</html>
+            document.getElementById('inputExpiry
