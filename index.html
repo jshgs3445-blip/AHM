@@ -479,7 +479,26 @@
                     </div>
                 </div>
 
-                <!-- 3. 스마트 관리 도구 -->
+                <!-- 3. 일상 기록 및 타이머 (스마트 관리 도구 위로 이동 완료) -->
+                <div class="card">
+                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
+                    <div class="grid-3">
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; min-height: 95px; padding: 12px 6px;" onclick="openModal('voiceModal')">
+                            <i class="fa-solid fa-microphone" style="color: #1d4ed8; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e40af; font-size: 11.5px;">음성 로깅</span>
+                        </div>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-color: #7dd3fc; min-height: 95px; padding: 12px 6px;" onclick="openModal('waterModal')">
+                            <i class="fa-solid fa-glass-water" style="color: #0284c7; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #0369a1; font-size: 11.5px;">물 섭취</span>
+                        </div>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff; min-height: 95px; padding: 12px 6px;" onclick="openModal('pedometerModal')">
+                            <i class="fa-solid fa-person-walking" style="color: #7e22ce; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #6b21a8; font-size: 11.5px;">만보기</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. 스마트 관리 도구 -->
                 <div class="card">
                     <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
                     <div class="grid-3">
@@ -498,7 +517,7 @@
                     </div>
                 </div>
     
-                <!-- 4. AI 맞춤 추천 영역 -->
+                <!-- 5. AI 맞춤 추천 영역 -->
                 <div class="card">
                     <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천</div>
                     <div class="grid-3">
@@ -516,25 +535,6 @@
                             <i class="fa-regular fa-moon" style="color: #475569; font-size: 22px; margin-bottom: 6px;"></i>
                             <span style="color: #1e293b; font-size: 11.5px;">오메가3</span>
                             <button type="button" id="btnEvening" class="ai-check-btn" style="padding: 2px 4px; font-size: 9.5px; margin-top: 4px;">먹었어요</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. 일상 기록 및 타이머 -->
-                <div class="card">
-                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
-                    <div class="grid-3">
-                        <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; min-height: 95px; padding: 12px 6px;" onclick="openModal('voiceModal')">
-                            <i class="fa-solid fa-microphone" style="color: #1d4ed8; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e40af; font-size: 11.5px;">음성 로깅</span>
-                        </div>
-                        <div class="big-action-card" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-color: #7dd3fc; min-height: 95px; padding: 12px 6px;" onclick="openModal('waterModal')">
-                            <i class="fa-solid fa-glass-water" style="color: #0284c7; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #0369a1; font-size: 11.5px;">물 섭취</span>
-                        </div>
-                        <div class="big-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff; min-height: 95px; padding: 12px 6px;" onclick="openModal('pedometerModal')">
-                            <i class="fa-solid fa-person-walking" style="color: #7e22ce; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #6b21a8; font-size: 11.5px;">만보기</span>
                         </div>
                     </div>
                 </div>
@@ -1328,7 +1328,6 @@
             if(dashStep) dashStep.textContent = formatted;
         }
 
-        // 음성 인식 스마트 연동 로직
         function startRealVoiceRecognition() {
             const statusEl = document.getElementById('voiceStatus');
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -1344,7 +1343,6 @@
                 const text = e.results[0][0].transcript;
                 statusEl.textContent = `인식됨: "${text}"`;
                 
-                // 음성 내용 스마트 키워드 분석 및 앱 기능 연동
                 if(text.includes('물') || text.includes('수분')) {
                     let amount = 250;
                     if(text.includes('500')) amount = 500;
