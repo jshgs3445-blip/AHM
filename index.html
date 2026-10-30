@@ -412,7 +412,6 @@
                     <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력">
                 </div>
 
-                <!-- 자동 로그인 체크박스 추가 -->
                 <div class="auto-login-wrap">
                     <input type="checkbox" id="autoLoginCheck" style="width: 16px; height: 16px; cursor: pointer;">
                     <label for="autoLoginCheck" style="cursor: pointer; margin-bottom: 0; font-weight: 600;">자동 로그인 유지</label>
@@ -1074,15 +1073,14 @@
             initStepCounter();
             renderMedicineList();
             initAllCharts();
-            checkAutoLogin(); // 자동 로그인 체크 실행
+            checkAutoLogin();
         };
 
         function checkAutoLogin() {
             const savedEmail = localStorage.getItem('ahm_autologin_email');
             if(savedEmail) {
-                // 저장된 이메일이 있다면 자동 로그인 처리
                 if(savedEmail === "jshgs3445@gmail.com") {
-                    enterMainScreen("정수현 관리자", "👑 최고 관리자 모드");
+                    enterMainScreen("관리자", "관리자");
                 } else {
                     let users = JSON.parse(localStorage.getItem('ahm_users') || '[]');
                     let found = users.find(u => u.email === savedEmail);
@@ -1164,7 +1162,7 @@
                 if(isAutoLogin) {
                     localStorage.setItem('ahm_autologin_email', email);
                 }
-                enterMainScreen("정수현 관리자", "👑 최고 관리자 모드");
+                enterMainScreen("관리자", "관리자");
                 return;
             }
 
@@ -1210,7 +1208,7 @@
         }
 
         function executeLogout() {
-            localStorage.removeItem('ahm_autologin_email'); // 로그아웃 시 자동 로그인 정보 삭제
+            localStorage.removeItem('ahm_autologin_email');
             document.getElementById('mainScreen').classList.remove('active');
             document.getElementById('mainScreen').style.display = 'none';
             document.getElementById('loginScreen').classList.add('active');
