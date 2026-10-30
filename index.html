@@ -536,7 +536,7 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 7. 건강 상식 코너 (1번 사진 스타일: 메인 타이틀 + 서브 텍스트 완벽 복원) -->
+                <!-- 7. 건강 상식 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
@@ -871,7 +871,7 @@
             </div>
         </div>
 
-        <!-- 콘텐츠 조회 모달 (링크 자동 하이퍼링크 변환 적용) -->
+        <!-- 콘텐츠 조회 모달 -->
         <div id="contentViewModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -884,6 +884,7 @@
             </div>
         </div>
     
+        <!-- 앱 소개 및 도움말 모달 (조합된 소개글 반영 완료) -->
         <div id="helpModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -891,7 +892,7 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('helpModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; line-height: 1.6;">
-                    <p><b>AI Health Manager</b>는 수현님이 설계한 맞춤형 건강 관리 플랫폼입니다.</p>
+                    <p><b>AI Health Manager</b>는 영양 가이드부터 복용약 관리, 일상 건강까지 스마트하게 케어하는 수현님의 맞춤형 스마트 건강 관리 플랫폼이자 든든한 AI 건강 비서입니다. 건강한 하루와 활기찬 세컨드 라이프를 지원합니다.</p>
                 </div>
             </div>
         </div>
@@ -1332,9 +1333,7 @@
             
             if(saved) {
                 const data = JSON.parse(saved);
-                // 링크가 포함되어 있다면 자동으로 하이퍼링크(<a> 태그)로 변환해주는 로직
                 let formattedDesc = data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: #1d4ed8; text-decoration: underline;">$1</a>');
-                
                 bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date}</span>`;
             } else {
                 const defaultDescs = {
