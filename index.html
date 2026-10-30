@@ -241,7 +241,7 @@
         .big-action-card {
             background: #ffffff;
             border-radius: 18px;
-            padding: 18px 12px;
+            padding: 16px 12px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
             cursor: pointer;
@@ -258,8 +258,8 @@
             transform: translateY(-2px);
         }
         .big-action-card i {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 26px;
+            margin-bottom: 6px;
         }
         .big-action-card span {
             font-size: 13px;
@@ -536,7 +536,7 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 7. 건강 상식 코너 (최신 뉴스, 득템 영상, 공지사항, 게시판 활성화 연결) -->
+                <!-- 7. 건강 상식 코너 (1번 사진 스타일: 메인 타이틀 + 서브 텍스트 완벽 복원) -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
@@ -546,24 +546,28 @@
                     </div>
                     
                     <div class="grid-2" style="margin-bottom: 10px;">
-                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('news')">
-                            <i class="fa-solid fa-globe" style="color: #2563eb; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;" id="previewNews">최신 뉴스</span>
+                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 100px; padding: 12px 6px;" onclick="showPostContent('news')">
+                            <i class="fa-solid fa-globe" style="color: #2563eb; font-size: 22px; margin-bottom: 4px;"></i>
+                            <span style="color: #1e293b; font-size: 12px; font-weight: 700;">최신 뉴스</span>
+                            <span style="color: #64748b; font-size: 10px; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" id="previewNews">등록된 뉴스가 없습니다.</span>
                         </div>
-                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('video')">
-                            <i class="fa-solid fa-gift" style="color: #dc2626; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;" id="previewVideo">득템 영상</span>
+                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 100px; padding: 12px 6px;" onclick="showPostContent('video')">
+                            <i class="fa-solid fa-gift" style="color: #dc2626; font-size: 22px; margin-bottom: 4px;"></i>
+                            <span style="color: #1e293b; font-size: 12px; font-weight: 700;">득템 영상</span>
+                            <span style="color: #64748b; font-size: 10px; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" id="previewVideo">등록된 영상이 없습니다.</span>
                         </div>
                     </div>
 
                     <div class="grid-2" style="margin-bottom: 0;">
-                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('notice')">
-                            <i class="fa-solid fa-bullhorn" style="color: #d97706; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;" id="previewNotice">공지사항</span>
+                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 100px; padding: 12px 6px;" onclick="showPostContent('notice')">
+                            <i class="fa-solid fa-bullhorn" style="color: #d97706; font-size: 22px; margin-bottom: 4px;"></i>
+                            <span style="color: #1e293b; font-size: 12px; font-weight: 700;">공지사항</span>
+                            <span style="color: #64748b; font-size: 10px; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" id="previewNotice">관리자 공지사항 확인하기</span>
                         </div>
-                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('board')">
-                            <i class="fa-solid fa-comments" style="color: #059669; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;" id="previewBoard">게시판</span>
+                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 100px; padding: 12px 6px;" onclick="showPostContent('board')">
+                            <i class="fa-solid fa-comments" style="color: #059669; font-size: 22px; margin-bottom: 4px;"></i>
+                            <span style="color: #1e293b; font-size: 12px; font-weight: 700;">게시판</span>
+                            <span style="color: #64748b; font-size: 10px; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" id="previewBoard">회원 소통 게시판</span>
                         </div>
                     </div>
                 </div>
@@ -867,7 +871,7 @@
             </div>
         </div>
 
-        <!-- 콘텐츠 조회 모달 -->
+        <!-- 콘텐츠 조회 모달 (링크 자동 하이퍼링크 변환 적용) -->
         <div id="contentViewModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1304,9 +1308,19 @@
         }
 
         function loadSavedContent() {
+            const defaults = {
+                news: { title: "등록된 뉴스가 없습니다." },
+                video: { title: "등록된 영상이 없습니다." },
+                notice: { title: "관리자 공지사항 확인하기" },
+                board: { title: "회원 소통 게시판" }
+            };
             ['news', 'video', 'notice', 'board'].forEach(cat => {
                 const saved = localStorage.getItem('ahm_post_' + cat);
-                if(saved) updatePostPreview(cat, JSON.parse(saved).title);
+                if(saved) {
+                    updatePostPreview(cat, JSON.parse(saved).title);
+                } else {
+                    updatePostPreview(cat, defaults[cat].title);
+                }
             });
         }
 
@@ -1315,11 +1329,21 @@
             const titles = { news: '최신 뉴스', video: '득템 영상', notice: '공지사항', board: '게시판' };
             document.getElementById('viewModalTitle').textContent = titles[cat];
             const bodyEl = document.getElementById('viewModalBody');
+            
             if(saved) {
                 const data = JSON.parse(saved);
-                bodyEl.innerHTML = `<b>${data.title}</b><p style="margin-top:8px; color:#475569; white-space:pre-line;">${data.desc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:10px;">등록일: ${data.date}</span>`;
+                // 링크가 포함되어 있다면 자동으로 하이퍼링크(<a> 태그)로 변환해주는 로직
+                let formattedDesc = data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: #1d4ed8; text-decoration: underline;">$1</a>');
+                
+                bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date}</span>`;
             } else {
-                bodyEl.textContent = "등록된 내용이 없습니다. 관리자 메뉴에서 콘텐츠를 등록해 보세요!";
+                const defaultDescs = {
+                    news: "등록된 최신 뉴스 내용이 없습니다. 관리자 메뉴에서 등록해 보세요.",
+                    video: "등록된 득템 영상 링크가 없습니다. 관리자 메뉴에서 등록해 보세요.",
+                    notice: "등록된 공지사항 내용이 없습니다.",
+                    board: "자유롭게 소통하는 회원 게시판입니다."
+                };
+                bodyEl.innerHTML = `<p style="color:#64748b;">${defaultDescs[cat]}</p>`;
             }
             openModal('contentViewModal');
         }
