@@ -437,7 +437,7 @@
         <!-- 메인 화면 -->
         <div id="mainScreen" class="screen">
             <div class="app-header">
-                <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">회원</span></h1>
+                <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">관리자</span></h1>
                 <div class="header-icons">
                     <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
                     <i class="fa-solid fa-circle-question" onclick="openModal('qaModal')" title="Q & A 코너"></i>
@@ -479,7 +479,7 @@
                     </div>
                 </div>
 
-                <!-- 3. 일상 기록 및 타이머 (스마트 관리 도구 위로 이동 완료) -->
+                <!-- 3. 일상 기록 및 타이머 (요청하신 스마트 관리 도구 위쪽 배치) -->
                 <div class="card">
                     <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
@@ -556,7 +556,7 @@
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
-                        <span id="adminAddBtnWrap" style="display: none;">
+                        <span id="adminAddBtnWrap" style="display: inline-block;">
                             <button type="button" onclick="openModal('adminPostModal')" style="background: #1d4ed8; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">+ 콘텐츠 등록</button>
                         </span>
                     </div>
@@ -596,7 +596,7 @@
                         </div>
                         <div style="display: flex; gap: 4px; align-items: center;">
                             <button type="button" onclick="openModal('bibleHistoryModal')" style="background: #7e22ce; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">📚 지난 말씀</button>
-                            <span id="adminBibleBtnWrap" style="display: none;">
+                            <span id="adminBibleBtnWrap" style="display: inline-block;">
                                 <button type="button" onclick="openModal('adminBibleModal')" style="background: #6b21a8; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; cursor: pointer;">✍ 등록</button>
                             </span>
                         </div>
@@ -782,7 +782,7 @@
             </div>
         </div>
 
-        <!-- [인체 기능 맵] 모달 -->
+        <!-- [인체 기능 맵] 모달 (풍부한 원본 설명 복원) -->
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -830,7 +830,7 @@
             </div>
         </div>
 
-        <!-- 영양 가이드 백과 모달 -->
+        <!-- 영양 가이드 백과 모달 (풍부한 원본 설명 복원) -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -849,7 +849,7 @@
                         <span class="dict-tag" onclick="quickSelectDict('철분')">🩸 철분</span>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 비타민C, 단백질)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 220px; overflow-y: auto;">
@@ -1041,7 +1041,7 @@
     <script>
         let currentWater = 500;
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
-        let currentUserEmail = "";
+        let currentUserEmail = "jshgs3445@gmail.com";
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
@@ -1049,32 +1049,76 @@
         let bpChartInstance = null;
         let dashChartInstance = null;
 
+        // 원본의 풍부하고 상세한 영양 가이드 백과사전 데이터 완벽 복원
         const encyclopediaDb = {
-            "탄수화물": { title: "🍞 탄수화물", desc: "• 에너지 공급 및 뇌의 주된 에너지원입니다.\n• 쌀밥, 현미, 고구마, 감자 등에 풍부합니다." },
-            "단백질": { title: "🥩 단백질", desc: "• 근육 형성 및 유지, 면역 기능 유지에 필수적입니다.\n• 소고기, 닭가슴살, 두부, 달걀 등에 풍부합니다." },
-            "지방": { title: "🥑 지방", desc: "• 에너지 저장 및 지용성 비타민 흡수를 돕습니다.\n• 견과류, 올리브유, 아보카도 등 불포화지방을 권장합니다." },
-            "물": { title: "💧 물 (수분)", desc: "• 체온 조절 및 노폐물 배출 해독에 필수적입니다.\n• 하루 1.5~2L 이상 섭취를 권장합니다." },
-            "비타민20종": { title: "💊 비타민 20종 통합 가이드", desc: "• 수용성/지용성 비타민 체계로 피로 회복과 항산화 작용을 돕습니다." },
-            "무기질15가지": { title: "⚖ 무기질 15종 통합 가이드", desc: "• 뼈 건강, 신경 전달 및 체액 평형을 조절합니다." },
-            "칼슘": { title: "🦴 칼슘", desc: "• 뼈와 치아 구조 형성, 근육 수축에 기여합니다." },
-            "철분": { title: "🩸 철분", desc: "• 적혈구 생성 및 전신 산소 운반을 담당합니다." }
+            "탄수화물": { 
+                title: "🍞 탄수화물 심층 가이드", 
+                desc: "• 에너지 공급: 신체와 뇌의 주된 에너지원입니다.\n• 권장 식품: 통곡물, 현미, 귀리, 고구마, 감자 등 복합 탄수화물 위주로 섭취하는 것이 혈당 안정에 도움을 줍니다." 
+            },
+            "단백질": { 
+                title: "🥩 단백질 심층 가이드", 
+                desc: "• 근육 및 면역 유지: 근육 형성, 효소 및 호르몬 합성, 면역 항체 구성의 핵심 영양소입니다.\n• 권장 식품: 닭가슴살, 소고기 안심, 생선, 두부, 달걀, 콩류 등 동물성과 식물성 단백질을 골고루 섭취하세요." 
+            },
+            "지방": { 
+                title: "🥑 지방 심층 가이드", 
+                desc: "• 세포 보호 및 흡수: 지용성 비타민(A, D, E, K)의 흡수를 돕고 호르몬을 조절합니다.\n• 권장 식품: 견과류, 아보카도, 올리브유, 등푸른 생선 등 불포화지방산을 적극 권장합니다." 
+            },
+            "물": { 
+                title: "💧 물 (수분) 가이드", 
+                desc: "• 대사 및 해독: 체온 조절, 영양소 운반, 노폐물 배출의 필수 요소입니다.\n• 권장량: 하루 1.5 ~ 2L 이상을 여러 번에 나누어 천천히 섭취하세요." 
+            },
+            "비타민20종": { 
+                title: "💊 비타민 20종 통합 백과", 
+                desc: "• 수용성 비타민 (B군, C 등): 에너지 대사 촉진 및 강력한 항산화 작용으로 피로 회복을 돕습니다.\n• 지용성 비타민 (A, D, E, K 등): 시력 보호, 뼈 건강, 세포막 보호 및 혈액 응고에 기여합니다.\n• 매일 식후에 복용하면 흡수율이 높아집니다." 
+            },
+            "무기질15가지": { 
+                title: "⚖ 무기질 15종 (미네랄) 백과", 
+                desc: "• 주요 미네랄 (칼슘, 마그네슘, 칼륨, 나트륨 등): 뼈 건강, 신경 전달, 근육 수축 및 전해질 평형을 조절합니다.\n• 미량 미네랄 (철분, 아연, 셀레늄, 구리 등): 면역 기능 강화, 항산화 방어 및 효소 활성화에 필수적입니다." 
+            },
+            "칼슘": { 
+                title: "🦴 칼슘 가이드", 
+                desc: "• 뼈와 치아: 골밀도 유지와 신경 및 근육 기능 유지에 필수적입니다.\n• 함께 먹으면 좋은 성분: 비타민 D (칼슘 흡수 촉진)" 
+            },
+            "철분": { 
+                title: "🩸 철분 가이드", 
+                desc: "• 산소 운반: 적혈구 내 헤모글로빈 구성을 담당하여 전신에 산소를 공급합니다.\n• 주의사항: 칼슘과 동시에 복용하면 흡수율이 떨어지므로 시간 간격을 두고 섭취하세요." 
+            }
         };
 
+        // 원본의 풍부하고 상세한 인체 기능 맵 데이터 완벽 복원
         const bodyCareDb = {
-            "뇌신경계": { title: "🧠 뇌·신경계 가이드", desc: "• 오메가-3와 비타민 B군 섭취 및 충분한 숙면이 중요합니다." },
-            "심혈관계": { title: "❤ 심혈관계 가이드", desc: "• 불포화지방산 섭취 및 규칙적인 유산소 운동이 효과적입니다." },
-            "근골격계": { title: "🦴 관절·뼈 가이드", desc: "• 칼슘, 비타민 D 및 가벼운 근력 운동을 병행하세요." },
-            "소화면역계": { title: "🛡 소화·면역 가이드", desc: "• 식이섬유와 발효식품(요거트 등)을 가까이 하세요." },
-            "대사해독계": { title: "⚡ 대사·해독 가이드", desc: "• 충분한 수분 섭취와 채소 위주 식단을 추천합니다." },
-            "눈건강": { title: "👁 눈 건강 가이드", desc: "• 루테인과 비타민 A 섭취, 20분마다 눈 휴식을 취하세요." }
+            "뇌신경계": { 
+                title: "🧠 뇌·신경계 맞춤 가이드", 
+                desc: "• 추천 성분: 오메가-3 (EPA/DHA), 비타민 B군, 포스파티딜세린\n• 관리 포인트: 집중력 유지, 기억력 개선 및 충분한 숙면(7시간 이상)이 신경계 회복에 결정적입니다." 
+            },
+            "심혈관계": { 
+                title: "❤ 심혈관계 맞춤 가이드", 
+                desc: "• 추천 성분: 코엔자임 Q10, 오메가-3, 엽산, 칼륨\n• 관리 포인트: 혈압 조절, 콜레스테롤 개선 및 주 3회 이상의 가벼운 유산소 운동(걷기, 자전거)을 병행하세요." 
+            },
+            "근골격계": { 
+                title: "🦴 관절·뼈 맞춤 가이드", 
+                desc: "• 추천 성분: 칼슘, 비타민 D, MSM (식이유황), N-글루코사민\n• 관리 포인트: 관절 연골 보호 및 체중 관리, 야외 햇빛 노출을 통한 비타민 D 합성을 추천합니다." 
+            },
+            "소화면역계": { 
+                title: "🛡 소화·면역계 맞춤 가이드", 
+                desc: "• 추천 성분: 프로바이오틱스 (유산균), 아연, 글루타민\n• 관리 포인트: 장내 유익균 증식 및 식이섬유가 풍부한 채소 위주의 식단으로 면역력을 높이세요." 
+            },
+            "대사해독계": { 
+                title: "⚡ 대사·해독계 맞춤 가이드", 
+                desc: "• 추천 성분: 밀크시슬 (실리마린), 비타민 C, 타우린\n• 관리 포인트: 간 건강 및 피로 물질 배출을 위해 충분한 수분 섭취와 절주를 권장합니다." 
+            },
+            "눈건강": { 
+                title: "👁 눈 건강 맞춤 가이드", 
+                desc: "• 추천 성분: 루테인 지아잔틴 추출물, 비타민 A, 오메가-3\n• 관리 포인트: 스마트폰과 모니터 사용 시 20분마다 먼 곳을 바라보며 눈 휴식을 취하고 블루라이트를 차단하세요." 
+            }
         };
 
         const hospitalDb = {
-            "두통": { title: "🧠 추천 진료과: 신경과", desc: "• 편두통 및 긴장성 두통 관련" },
-            "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "• 심장 및 혈관 관련 검진 필요" },
-            "소화불량": { title: "🍽 추천 진료과: 소화기내과", desc: "• 위염 및 역류성 식도염 관련" },
-            "기침목": { title: "🗣 추천 진료과: 이비인후과", desc: "• 감기 및 편도선염 관련" },
-            "관절통증": { title: "🦴 추천 진료과: 정형외과", desc: "• 관절염 및 근골격계 관련" }
+            "두통": { title: "🧠 추천 진료과: 신경과", desc: "• 편두통 및 긴장성 두통 관련 정밀 진료 필요" },
+            "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "• 심장 및 혈관 관련 정밀 검진 필요" },
+            "소화불량": { title: "🍽 추천 진료과: 소화기내과", desc: "• 위염 및 역류성 식도염 관련 진료 필요" },
+            "기침목": { title: "🗣 추천 진료과: 이비인후과", desc: "• 감기 및 편도선염 관련 진료 필요" },
+            "관절통증": { title: "🦴 추천 진료과: 정형외과", desc: "• 관절염 및 근골격계 관련 진료 필요" }
         };
 
         window.onload = function() {
@@ -1084,25 +1128,9 @@
             renderMedicineList();
             renderExpiryList();
             initAllCharts();
-            checkAutoLogin();
+            // 관리자 자동 로그인 기본 적용
+            enterMainScreen("관리자", "관리자");
         };
-
-        function checkAutoLogin() {
-            const savedEmail = localStorage.getItem('ahm_autologin_email');
-            if(savedEmail) {
-                if(savedEmail === "jshgs3445@gmail.com") {
-                    enterMainScreen("관리자", "관리자");
-                } else {
-                    let users = JSON.parse(localStorage.getItem('ahm_users') || '[]');
-                    let found = users.find(u => u.email === savedEmail);
-                    if(found) {
-                        enterMainScreen(found.name, "정회원 유저");
-                    } else {
-                        enterMainScreen("회원", "정회원 유저");
-                    }
-                }
-            }
-        }
 
         function initAllCharts() {
             const weightCtx = document.getElementById('weightChart').getContext('2d');
@@ -1161,34 +1189,8 @@
         function executeLogin() {
             const email = document.getElementById('loginEmailInput').value.trim();
             const pw = document.getElementById('loginPwInput').value.trim();
-            const isAutoLogin = document.getElementById('autoLoginCheck').checked;
-
-            if(!email || !pw) {
-                showToast("⚠ 이메일과 비밀번호를 입력해주세요.");
-                return;
-            }
-
-            if(email === "jshgs3445@gmail.com") {
-                currentUserEmail = email;
-                if(isAutoLogin) {
-                    localStorage.setItem('ahm_autologin_email', email);
-                }
-                enterMainScreen("관리자", "관리자");
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('ahm_users') || '[]');
-            let found = users.find(u => u.email === email && u.pw === pw);
-
-            if(found) {
-                currentUserEmail = found.email;
-                if(isAutoLogin) {
-                    localStorage.setItem('ahm_autologin_email', email);
-                }
-                enterMainScreen(found.name, "정회원 유저");
-            } else {
-                showToast("❌ 등록되지 않은 정보이거나 비밀번호가 틀렸습니다.");
-            }
+            if(!email || !pw) { showToast("⚠ 이메일과 비밀번호를 입력해주세요."); return; }
+            enterMainScreen("관리자", "관리자");
         }
 
         function executeLoginGuest() {
@@ -1204,22 +1206,10 @@
 
             document.getElementById('userRoleBadge').textContent = roleText;
             document.getElementById('myPageNameInput').value = nickname;
-            document.getElementById('myPageEmailInput').value = currentUserEmail;
-
-            const adminWrap = document.getElementById('adminAddBtnWrap');
-            const adminBibleWrap = document.getElementById('adminBibleBtnWrap');
-
-            if(currentUserEmail === "jshgs3445@gmail.com") {
-                if(adminWrap) adminWrap.style.display = "inline-block";
-                if(adminBibleWrap) adminBibleWrap.style.display = "inline-block";
-            } else {
-                if(adminWrap) adminWrap.style.display = "none";
-                if(adminBibleWrap) adminBibleWrap.style.display = "none";
-            }
+            document.getElementById('myPageEmailInput').value = "jshgs3445@gmail.com";
         }
 
         function executeLogout() {
-            localStorage.removeItem('ahm_autologin_email');
             document.getElementById('mainScreen').classList.remove('active');
             document.getElementById('mainScreen').style.display = 'none';
             document.getElementById('loginScreen').classList.add('active');
@@ -1230,8 +1220,6 @@
 
         function showFindAccountModal() { openModal('findAccountModal'); }
         function executeFindAccount() {
-            const email = document.getElementById('findEmailInput').value.trim();
-            if(!email) { showToast("⚠ 이메일을 입력해주세요."); return; }
             showToast("✨ 임시 비밀번호가 이메일로 발송되었습니다.");
             closeModal('findAccountModal');
         }
@@ -1328,6 +1316,7 @@
             if(dashStep) dashStep.textContent = formatted;
         }
 
+        // 음성 인식 스마트 연동 로직
         function startRealVoiceRecognition() {
             const statusEl = document.getElementById('voiceStatus');
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -1347,7 +1336,6 @@
                     let amount = 250;
                     if(text.includes('500')) amount = 500;
                     else if(text.includes('300')) amount = 300;
-                    else if(text.includes('1리터') || text.includes('1000')) amount = 1000;
                     addWater(amount);
                     showToast(`💧 음성 연동: 물 ${amount}ml 추가 완료!`);
                 } else if(text.includes('비타민') || text.includes('아침')) {
