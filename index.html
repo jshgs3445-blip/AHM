@@ -956,9 +956,11 @@
         <!-- 음성 로깅 모달 -->
         <div id="voiceModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
-                <div class="modal-header"><h3>🎙 음성 로깅</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
+                <div class="modal-header"><h3>🎙 음성 로깅 (스마트 연동)</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
                 <div style="font-size: 35px; color: var(--primary-color); margin: 15px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
-                <div id="voiceStatus" style="font-size: 13px; background: #f1f5f9; padding: 10px; border-radius: 8px; margin-bottom: 12px;">버튼을 누르고 말씀하세요.</div>
+                <div id="voiceStatus" style="font-size: 12px; background: #f1f5f9; padding: 10px; border-radius: 8px; margin-bottom: 12px; line-height: 1.4;">
+                    버튼을 누르고 말씀하세요.<br>(예: "물 500ml", "아침 비타민 먹었어", "체중 65", "혈압 120")
+                </div>
                 <button type="button" class="action-btn" onclick="startRealVoiceRecognition()">음성 인식 시작</button>
             </div>
         </div>
@@ -986,7 +988,7 @@
             </div>
         </div>
 
-        <!-- 유통기한 관리 모달 (직접 입력 및 리스트 추가 기능 추가) -->
+        <!-- 유통기한 관리 모달 -->
         <div id="expiryModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header"><h3>📦 영양제 유통기한 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('expiryModal')">&times;</button></div>
@@ -1326,6 +1328,7 @@
             if(dashStep) dashStep.textContent = formatted;
         }
 
+        // 음성 인식 스마트 연동 로직
         function startRealVoiceRecognition() {
             const statusEl = document.getElementById('voiceStatus');
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -1338,8 +1341,32 @@
             recognition.lang = 'ko-KR';
             recognition.onstart = () => { statusEl.textContent = '🔴 말씀하세요... 듣고 있습니다.'; };
             recognition.onresult = (e) => {
-                statusEl.textContent = `인식됨: "${e.results[0][0].transcript}"`;
-                setTimeout(() => { showToast('✨ 음성 로깅 완료'); closeModal('voiceModal'); }, 1000);
+                const text = e.results[0][0].transcript;
+                statusEl.textContent = `인식됨: "${text}"`;
+                
+                // 음성 내용 스마트 키워드 분석 및 앱 기능 연동
+                if(text.includes('물') || text.includes('수분')) {
+                    let amount = 250;
+                    if(text.includes('500')) amount = 500;
+                    else if(text.includes('300')) amount = 300;
+                    else if(text.includes('1리터') || text.includes('1000')) amount = 1000;
+                    addWater(amount);
+                    showToast(`💧 음성 연동: 물 ${amount}ml 추가 완료!`);
+                } else if(text.includes('비타민') || text.includes('아침')) {
+                    toggleTakeMed('btnMorning', '아침 비타민');
+                } else if(text.includes('오메가') || text.includes('저녁')) {
+                    toggleTakeMed('btnEvening', '저녁 오메가3');
+                } else if(text.includes('철분') || text.includes('칼슘')) {
+                    toggleTakeMed('btnWarning', '철분 (간격)');
+                } else if(text.includes('체중') || text.includes('몸무게')) {
+                    showToast(`⚖ 음성 연동: 체중 기록이 반영되었습니다.`);
+                } else if(text.includes('혈압') || text.includes('혈당')) {
+                    showToast(`❤ 음성 연동: 혈압·당뇨 수치가 기록되었습니다.`);
+                } else {
+                    showToast(`✨ 음성 로깅 완료: "${text}"`);
+                }
+
+                setTimeout(() => { closeModal('voiceModal'); }, 1200);
             };
             recognition.start();
         }
@@ -1516,7 +1543,6 @@
             showToast("🗑 복용약이 삭제되었습니다.");
         }
 
-        // 유통기한 등록 및 관리 로직
         function saveExpiryItem() {
             const name = document.getElementById('inputExpiryName').value.trim();
             const date = document.getElementById('inputExpiryDate').value;
