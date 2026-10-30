@@ -238,7 +238,7 @@
             margin-bottom: 12px;
         }
 
-        /* 체크(✔)된 상단 카드 5개용 스타일 (아이콘과 타이틀만 크게 배치) */
+        /* 2번 사진 스타일의 큼직한 아이콘 + 타이틀 전용 카드 공통 클래스 */
         .big-action-card {
             background: #ffffff;
             border-radius: 18px;
@@ -267,35 +267,6 @@
             font-weight: 700;
         }
 
-        /* 동그라미로 표시된 스마트 관리 도구 3개용 스타일 (아이콘과 타이틀만 크게 배치) */
-        .tool-action-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 16px 8px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            min-height: 100px;
-        }
-        .tool-action-card:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-        .tool-action-card i {
-            font-size: 26px;
-            margin-bottom: 6px;
-        }
-        .tool-action-card span {
-            font-size: 12px;
-            font-weight: 700;
-        }
-    
         .ai-recommend-section {
             background: #ffffff;
             border-radius: 20px;
@@ -322,27 +293,6 @@
             align-items: center; justify-content: center; gap: 4px;
         }
         .ai-check-btn.checked { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
-    
-        .sub-card {
-            background: #ffffff;
-            padding: 12px 6px;
-            border-radius: 14px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-    
-        .sub-card:hover {
-            border-color: var(--primary-color);
-        }
-    
-        .sub-card span {
-            font-size: 11px;
-            font-weight: 700;
-            color: #334155;
-            display: block;
-        }
     
         .custom-modal {
             position: absolute;
@@ -502,7 +452,7 @@
             </div>
     
             <div class="app-content">
-                <!-- 1. 최상단 2분할 (영양 가이드 & 복용약 추가) - 아이콘/타이틀 확대 및 부가 설명 삭제 -->
+                <!-- 1. 영양 가이드 & 복용약 추가 -->
                 <div class="grid-2">
                     <div class="big-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <i class="fa-solid fa-book-medical" style="color: #e11d48;"></i>
@@ -515,7 +465,7 @@
                     </div>
                 </div>
 
-                <!-- 2. 3분할 코너 (병원 길잡이, 인체 기능 맵, 맞춤 운동) - 아이콘/타이틀 확대 및 부가 설명 삭제 -->
+                <!-- 2. 병원 길잡이, 인체 기능 맵, 맞춤 운동 -->
                 <div class="grid-3-col">
                     <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; padding: 16px 6px;" onclick="openModal('hospitalGuideModal')">
                         <i class="fa-solid fa-hospital-user" style="color: #1d4ed8;"></i>
@@ -533,64 +483,62 @@
                     </div>
                 </div>
 
-                <!-- 3. 스마트 관리 도구 (유통기한, 혈압·당뇨, 체중 관리) - 아이콘/타이틀 확대 -->
+                <!-- 3. 스마트 관리 도구 (유통기한, 혈압·당뇨, 체중 관리) -->
                 <div class="card">
                     <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
                     <div class="grid-3">
-                        <div class="tool-action-card" style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-color: #cbd5e1;" onclick="openModal('expiryModal')">
-                            <i class="fa-solid fa-clock-rotate-left" style="color: #475569;"></i>
-                            <span style="color: #334155;">유통기한</span>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="openModal('expiryModal')">
+                            <i class="fa-solid fa-clock-rotate-left" style="color: #475569; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #334155; font-size: 11.5px;">유통기한</span>
                         </div>
-                        <div class="tool-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('bpModal')">
-                            <i class="fa-solid fa-heart-pulse" style="color: #e11d48;"></i>
-                            <span style="color: #9f1239;">혈압·당뇨</span>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3; min-height: 95px; padding: 12px 6px;" onclick="openModal('bpModal')">
+                            <i class="fa-solid fa-heart-pulse" style="color: #e11d48; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #9f1239; font-size: 11.5px;">혈압·당뇨</span>
                         </div>
-                        <div class="tool-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0;" onclick="openModal('weightModal')">
-                            <i class="fa-solid fa-weight-scale" style="color: #16a34a;"></i>
-                            <span style="color: #166534;">체중 관리</span>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; min-height: 95px; padding: 12px 6px;" onclick="openModal('weightModal')">
+                            <i class="fa-solid fa-weight-scale" style="color: #16a34a; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #166534; font-size: 11.5px;">체중 관리</span>
                         </div>
                     </div>
                 </div>
     
-                <!-- 4. AI 맞춤 추천 영역 -->
-                <div class="ai-recommend-section">
-                    <div class="ai-section-title">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천
-                    </div>
-                    <div class="grid-3" style="gap: 6px;">
-                        <div class="sub-card" style="background: #f8fafc; padding: 8px 4px;" onclick="toggleTakeMed('btnMorning', '아침 비타민')">
-                            <span style="font-size: 10px; color: #64748b; font-weight: 600;"><i class="fa-regular fa-sun"></i> 아침 식후</span>
-                            <span style="font-size: 11px; color: #1e293b; margin-top: 3px; font-weight: 700;">비타민 B&C</span>
-                            <button type="button" id="btnMorning" class="ai-check-btn" style="padding: 3px; font-size: 10px; margin-top: 4px;">먹었어요</button>
+                <!-- 4. AI 맞춤 추천 영역 (2번 사진 스타일로 통일) -->
+                <div class="card">
+                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천</div>
+                    <div class="grid-3">
+                        <div class="big-action-card" style="background: #f8fafc; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="toggleTakeMed('btnMorning', '아침 비타민')">
+                            <i class="fa-regular fa-sun" style="color: #eab308; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">아침 비타민</span>
+                            <button type="button" id="btnMorning" class="ai-check-btn" style="padding: 2px 4px; font-size: 9.5px; margin-top: 4px;">먹었어요</button>
                         </div>
-                        <div class="sub-card" style="background: #fff5f5; border-color: #fed7d7; padding: 8px 4px;" onclick="toggleTakeMed('btnWarning', '칼슘/철분 분리')">
-                            <span style="font-size: 10px; color: #b91c1c; font-weight: 600;"><i class="fa-solid fa-triangle-exclamation"></i> 점심 추천</span>
-                            <span style="font-size: 11px; color: #991b1b; margin-top: 3px; font-weight: 700;">철분 (간격)</span>
-                            <button type="button" id="btnWarning" class="ai-check-btn" style="padding: 3px; font-size: 10px; margin-top: 4px; border-color:#b91c1c; color:#b91c1c;">확인완료</button>
+                        <div class="big-action-card" style="background: #fff5f5; border-color: #fed7d7; min-height: 95px; padding: 12px 6px;" onclick="toggleTakeMed('btnWarning', '칼슘/철분 분리')">
+                            <i class="fa-solid fa-triangle-exclamation" style="color: #b91c1c; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #991b1b; font-size: 11.5px;">철분 (간격)</span>
+                            <button type="button" id="btnWarning" class="ai-check-btn" style="padding: 2px 4px; font-size: 9.5px; margin-top: 4px; border-color:#b91c1c; color:#b91c1c;">확인완료</button>
                         </div>
-                        <div class="sub-card" style="background: #f8fafc; padding: 8px 4px;" onclick="toggleTakeMed('btnEvening', '저녁 오메가3')">
-                            <span style="font-size: 10px; color: #64748b; font-weight: 600;"><i class="fa-regular fa-moon"></i> 저녁</span>
-                            <span style="font-size: 11px; color: #1e293b; margin-top: 3px; font-weight: 700;">오메가3</span>
-                            <button type="button" id="btnEvening" class="ai-check-btn" style="padding: 3px; font-size: 10px; margin-top: 4px;">먹었어요</button>
+                        <div class="big-action-card" style="background: #f8fafc; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="toggleTakeMed('btnEvening', '저녁 오메가3')">
+                            <i class="fa-regular fa-moon" style="color: #475569; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">오메가3</span>
+                            <button type="button" id="btnEvening" class="ai-check-btn" style="padding: 2px 4px; font-size: 9.5px; margin-top: 4px;">먹었어요</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- 5. 일상 기록 및 타이머 -->
+                <!-- 5. 일상 기록 및 타이머 (2번 사진 스타일로 통일) -->
                 <div class="card">
                     <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
-                        <div class="sub-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe;" onclick="openModal('voiceModal')">
-                            <i class="fa-solid fa-microphone" style="color: #1d4ed8;"></i>
-                            <span style="color: #1e40af;">음성 로깅</span>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; min-height: 95px; padding: 12px 6px;" onclick="openModal('voiceModal')">
+                            <i class="fa-solid fa-microphone" style="color: #1d4ed8; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e40af; font-size: 11.5px;">음성 로깅</span>
                         </div>
-                        <div class="sub-card" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-color: #7dd3fc;" onclick="openModal('waterModal')">
-                            <i class="fa-solid fa-glass-water" style="color: #0284c7;"></i>
-                            <span style="color: #0369a1;">물 섭취</span>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-color: #7dd3fc; min-height: 95px; padding: 12px 6px;" onclick="openModal('waterModal')">
+                            <i class="fa-solid fa-glass-water" style="color: #0284c7; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #0369a1; font-size: 11.5px;">물 섭취</span>
                         </div>
-                        <div class="sub-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('pedometerModal')">
-                            <i class="fa-solid fa-person-walking" style="color: #7e22ce;"></i>
-                            <span style="color: #6b21a8;">만보기</span>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff; min-height: 95px; padding: 12px 6px;" onclick="openModal('pedometerModal')">
+                            <i class="fa-solid fa-person-walking" style="color: #7e22ce; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #6b21a8; font-size: 11.5px;">만보기</span>
                         </div>
                     </div>
                 </div>
@@ -608,38 +556,34 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 7. 건강 상식 코너 -->
+                <!-- 7. 건강 상식 코너 (2번 사진 스타일로 통일) -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
-                    <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 8px;">
+                    <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
                         <span id="adminAddBtnWrap" style="display: none;">
                             <button type="button" onclick="openModal('adminPostModal')" style="background: #1d4ed8; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">+ 콘텐츠 등록</button>
                         </span>
                     </div>
                     
-                    <div class="grid-2" style="margin-bottom: 8px;">
-                        <div class="sub-card" style="background: white; text-align: left; padding: 8px;" onclick="showPostContent('news')">
-                            <i class="fa-solid fa-globe" style="font-size: 14px;"></i>
-                            <span style="font-size: 12px; font-weight: 700; color: #1e293b;">최신 뉴스</span>
-                            <p style="font-size: 9px; color: #64748b; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="previewNews">등록된 뉴스가 없습니다.</p>
+                    <div class="grid-2" style="margin-bottom: 10px;">
+                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('news')">
+                            <i class="fa-solid fa-globe" style="color: #2563eb; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">최신 뉴스</span>
                         </div>
-                        <div class="sub-card" style="background: white; text-align: left; padding: 8px;" onclick="showPostContent('video')">
-                            <i class="fa-solid fa-gift" style="font-size: 14px; color: #dc2626;"></i>
-                            <span style="font-size: 12px; font-weight: 700; color: #1e293b;">득템 영상</span>
-                            <p style="font-size: 9px; color: #64748b; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="previewVideo">등록된 영상이 없습니다.</p>
+                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('video')">
+                            <i class="fa-solid fa-gift" style="color: #dc2626; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">득템 영상</span>
                         </div>
                     </div>
 
                     <div class="grid-2" style="margin-bottom: 0;">
-                        <div class="sub-card" style="background: white; text-align: left; padding: 8px;" onclick="showPostContent('notice')">
-                            <i class="fa-solid fa-bullhorn" style="font-size: 14px; color: #d97706;"></i>
-                            <span style="font-size: 12px; font-weight: 700; color: #1e293b;">공지사항</span>
-                            <p style="font-size: 9px; color: #64748b; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="previewNotice">관리자 공지사항 확인하기</p>
+                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('notice')">
+                            <i class="fa-solid fa-bullhorn" style="color: #d97706; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">공지사항</span>
                         </div>
-                        <div class="sub-card" style="background: white; text-align: left; padding: 8px;" onclick="showPostContent('board')">
-                            <i class="fa-solid fa-comments" style="font-size: 14px; color: #059669;"></i>
-                            <span style="font-size: 12px; font-weight: 700; color: #1e293b;">게시판</span>
-                            <p style="font-size: 9px; color: #64748b; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" id="previewBoard">회원 소통 게시판</p>
+                        <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('board')">
+                            <i class="fa-solid fa-comments" style="color: #059669; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">게시판</span>
                         </div>
                     </div>
                 </div>
