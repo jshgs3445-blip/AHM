@@ -129,6 +129,18 @@
             outline: none;
             background: #ffffff;
         }
+
+        .auto-login-wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #475569;
+            margin-bottom: 10px;
+            padding-left: 2px;
+            cursor: pointer;
+        }
     
         .login-btn {
             display: block;
@@ -142,7 +154,7 @@
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
-            margin-top: 10px;
+            margin-top: 4px;
             margin-bottom: 8px;
         }
     
@@ -399,11 +411,17 @@
                     <label>비밀번호</label>
                     <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력">
                 </div>
+
+                <!-- 자동 로그인 체크박스 추가 -->
+                <div class="auto-login-wrap">
+                    <input type="checkbox" id="autoLoginCheck" style="width: 16px; height: 16px; cursor: pointer;">
+                    <label for="autoLoginCheck" style="cursor: pointer; margin-bottom: 0; font-weight: 600;">자동 로그인 유지</label>
+                </div>
                 
                 <button type="button" class="login-btn" onclick="executeLogin()">로그인</button>
                 <button type="button" class="guest-btn" onclick="executeLoginGuest()">👀 비회원으로 둘러보기</button>
                 
-                <div style="background: #ffffff; padding: 10px; border-radius: 10px; font-size: 11px; color: #64748b; border: 1px solid #e2e8f0; line-height: 1.4; margin-top: 6px;">
+                <div style="background: #ffffff; padding: 10px; border-radius: 10px; font-size: 11px; color: #64748b; border: 1px solid #e2e8f0; line-height: 1.4; margin-top: 4px;">
                     ⚖ 본 앱의 건강 가이드는 참고용이며, 정확한 진단은 전문 의사와 상담하세요.
                 </div>
 
@@ -616,7 +634,7 @@
             </div>
         </div>
 
-        <!-- Q & A 모달 (물음표 버튼 연동) -->
+        <!-- Q & A 모달 -->
         <div id="qaModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -632,7 +650,6 @@
                         <b>Q. 영양 가이드는 어디서 보나요?</b>
                         <p style="font-size: 12px; color: #64748b; margin-top: 2px;">A. 메인 화면의 '영양 가이드' 카드를 누르시면 백과사전 원문을 보실 수 있습니다.</p>
                     </div>
-                    
                     <div style="border-top: 1px solid #e2e8f0; padding-top: 10px; margin-top: 4px;">
                         <b>📝 관리자에게 1:1 질문 남기기</b>
                         <textarea id="qaQuestionInput" placeholder="궁금하신 점을 적어주세요." style="width:100%; height:60px; margin-top:6px; padding:8px; border-radius:8px; border:1px solid #cbd5e1; font-size:12px; outline:none;"></textarea>
@@ -642,7 +659,7 @@
             </div>
         </div>
 
-        <!-- 앱 소개 및 도움말 모달 (로그인 화면 하단 연동) -->
+        <!-- 앱 소개 및 도움말 모달 -->
         <div id="helpModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -663,8 +680,8 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('myPageModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <label>닉네임 / 성함: <input type="text" id="myPageNameInput" value="정수현" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
-                    <label>이메일 (ID): <input type="text" id="myPageEmailInput" value="jshgs3445@gmail.com" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
+                    <label>닉네임 / 성함: <input type="text" id="myPageNameInput" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
+                    <label>이메일 (ID): <input type="text" id="myPageEmailInput" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
                     <button type="button" class="action-btn" onclick="saveMyPageInfo()">정보 수정 저장하기</button>
                     <button type="button" style="background: #ef4444; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 4px;" onclick="executeLogout()">로그아웃</button>
                 </div>
@@ -714,7 +731,7 @@
         <div id="adminBibleModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>✍ 오늘의 말씀 등록 (24시간 유지)</h3>
+                    <h3>✍ 오늘의 말씀 등록</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('adminBibleModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
@@ -1057,7 +1074,26 @@
             initStepCounter();
             renderMedicineList();
             initAllCharts();
+            checkAutoLogin(); // 자동 로그인 체크 실행
         };
+
+        function checkAutoLogin() {
+            const savedEmail = localStorage.getItem('ahm_autologin_email');
+            if(savedEmail) {
+                // 저장된 이메일이 있다면 자동 로그인 처리
+                if(savedEmail === "jshgs3445@gmail.com") {
+                    enterMainScreen("정수현 관리자", "👑 최고 관리자 모드");
+                } else {
+                    let users = JSON.parse(localStorage.getItem('ahm_users') || '[]');
+                    let found = users.find(u => u.email === savedEmail);
+                    if(found) {
+                        enterMainScreen(found.name, "정회원 유저");
+                    } else {
+                        enterMainScreen("회원", "정회원 유저");
+                    }
+                }
+            }
+        }
 
         function initAllCharts() {
             const weightCtx = document.getElementById('weightChart').getContext('2d');
@@ -1091,7 +1127,6 @@
             });
         }
 
-        // 회원가입 실행 로직
         function executeSignup() {
             const name = document.getElementById('signupNameInput').value.trim();
             const email = document.getElementById('signupEmailInput').value.trim();
@@ -1103,7 +1138,6 @@
             }
 
             let users = JSON.parse(localStorage.getItem('ahm_users') || '[]');
-            // 중복 이메일 체크
             if(users.some(u => u.email === email)) {
                 showToast("⚠ 이미 가입된 이메일 주소입니다.");
                 return;
@@ -1115,29 +1149,33 @@
             closeModal('signupModal');
         }
 
-        // 로그인 실행 로직
         function executeLogin() {
             const email = document.getElementById('loginEmailInput').value.trim();
             const pw = document.getElementById('loginPwInput').value.trim();
+            const isAutoLogin = document.getElementById('autoLoginCheck').checked;
 
             if(!email || !pw) {
                 showToast("⚠ 이메일과 비밀번호를 입력해주세요.");
                 return;
             }
 
-            // 관리자 계정 체크
             if(email === "jshgs3445@gmail.com") {
                 currentUserEmail = email;
+                if(isAutoLogin) {
+                    localStorage.setItem('ahm_autologin_email', email);
+                }
                 enterMainScreen("정수현 관리자", "👑 최고 관리자 모드");
                 return;
             }
 
-            // 가입된 회원 확인
             let users = JSON.parse(localStorage.getItem('ahm_users') || '[]');
             let found = users.find(u => u.email === email && u.pw === pw);
 
             if(found) {
                 currentUserEmail = found.email;
+                if(isAutoLogin) {
+                    localStorage.setItem('ahm_autologin_email', email);
+                }
                 enterMainScreen(found.name, "정회원 유저");
             } else {
                 showToast("❌ 등록되지 않은 정보이거나 비밀번호가 틀렸습니다.");
@@ -1165,15 +1203,14 @@
             if(currentUserEmail === "jshgs3445@gmail.com") {
                 if(adminWrap) adminWrap.style.display = "inline-block";
                 if(adminBibleWrap) adminBibleWrap.style.display = "inline-block";
-                showToast("👑 관리자 권한으로 로그인되었습니다.");
             } else {
                 if(adminWrap) adminWrap.style.display = "none";
                 if(adminBibleWrap) adminBibleWrap.style.display = "none";
-                showToast(`👋 환영합니다, ${nickname}님!`);
             }
         }
 
         function executeLogout() {
+            localStorage.removeItem('ahm_autologin_email'); // 로그아웃 시 자동 로그인 정보 삭제
             document.getElementById('mainScreen').classList.remove('active');
             document.getElementById('mainScreen').style.display = 'none';
             document.getElementById('loginScreen').classList.add('active');
