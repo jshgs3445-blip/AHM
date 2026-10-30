@@ -986,13 +986,21 @@
             </div>
         </div>
 
-        <!-- 유통기한 모달 -->
+        <!-- 유통기한 관리 모달 (직접 입력 및 리스트 추가 기능 추가) -->
         <div id="expiryModal" class="custom-modal">
             <div class="modal-content">
-                <div class="modal-header"><h3>📦 영양제 유통기한</h3><button type="button" class="close-modal-btn" onclick="closeModal('expiryModal')">&times;</button></div>
-                <div style="font-size: 13px; line-height: 1.6;">
-                    <p><b>비타민 C:</b> ~ 2027.05.12 (여유)</p>
-                    <p><b>오메가3:</b> ~ 2026.11.30 (임박!)</p>
+                <div class="modal-header"><h3>📦 영양제 유통기한 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('expiryModal')">&times;</button></div>
+                <div style="font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
+                    <label>영양제 이름: <input type="text" id="inputExpiryName" placeholder="예: 비타민 C" style="width:100%; margin-top:3px; padding:8px; border-radius:8px; border:1px solid #cbd5e1; outline:none;"></label>
+                    <label>유통기한 날짜: <input type="date" id="inputExpiryDate" style="width:100%; margin-top:3px; padding:8px; border-radius:8px; border:1px solid #cbd5e1; outline:none;"></label>
+                    <button type="button" class="action-btn" onclick="saveExpiryItem()">유통기한 등록하기</button>
+                    
+                    <div style="margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
+                        <b style="font-size: 12px; color: #1d4ed8;">📋 등록된 유통기한 리스트</b>
+                        <div id="expiryListContainer" style="margin-top: 6px; max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;">
+                            <p style="font-size: 11px; color: #94a3b8;">등록된 영양제가 없습니다.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1072,6 +1080,7 @@
             loadSavedBible24h();
             initStepCounter();
             renderMedicineList();
+            renderExpiryList();
             initAllCharts();
             checkAutoLogin();
         };
@@ -1507,6 +1516,47 @@
             showToast("🗑 복용약이 삭제되었습니다.");
         }
 
+        // 유통기한 등록 및 관리 로직
+        function saveExpiryItem() {
+            const name = document.getElementById('inputExpiryName').value.trim();
+            const date = document.getElementById('inputExpiryDate').value;
+            if(!name || !date) { showToast("⚠ 영양제 이름과 유통기한 날짜를 입력해주세요."); return; }
+
+            let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
+            list.push({ name, date });
+            localStorage.setItem('ahm_expiry_list', JSON.stringify(list));
+
+            document.getElementById('inputExpiryName').value = '';
+            document.getElementById('inputExpiryDate').value = '';
+            renderExpiryList();
+            showToast(`📦 "${name}" 유통기한 등록 완료!`);
+        }
+
+        function renderExpiryList() {
+            const container = document.getElementById('expiryListContainer');
+            let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
+            if(list.length === 0) {
+                container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">등록된 영양제가 없습니다.</p>`;
+                return;
+            }
+            let html = '';
+            list.forEach((item, index) => {
+                html += `<div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px;">
+                    <span><b>${item.name}</b>: ~ ${item.date}</span>
+                    <button type="button" onclick="deleteExpiryItem(${index})" style="background: #ef4444; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer;">삭제</button>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function deleteExpiryItem(index) {
+            let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
+            list.splice(index, 1);
+            localStorage.setItem('ahm_expiry_list', JSON.stringify(list));
+            renderExpiryList();
+            showToast("🗑 유통기한 항목이 삭제되었습니다.");
+        }
+
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg; t.classList.add('show');
@@ -1532,6 +1582,8 @@
                 updateStepDisplay(stepCount);
             } else if(id === 'addModal') {
                 renderMedicineList();
+            } else if(id === 'expiryModal') {
+                renderExpiryList();
             } else if(id === 'dashboardModal') {
                 if(dashChartInstance) dashChartInstance.update();
             }
