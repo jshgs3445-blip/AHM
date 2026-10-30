@@ -173,7 +173,7 @@
         }
     
         .app-header {
-            background: var(--primary-color);
+            background: #0b6623;
             color: white;
             padding: 14px 16px;
             display: flex;
@@ -263,7 +263,7 @@
             min-height: 110px;
         }
         .big-action-card:hover {
-            border-color: var(--primary-color);
+            border-color: #0b6623;
             transform: translateY(-2px);
         }
         .big-action-card i {
@@ -276,12 +276,12 @@
         }
     
         .ai-check-btn {
-            width: 100%; background: #ffffff; color: var(--primary-color);
-            border: 1px solid var(--primary-color); padding: 6px 4px; border-radius: 8px;
+            width: 100%; background: #ffffff; color: #0b6623;
+            border: 1px solid #0b6623; padding: 6px 4px; border-radius: 8px;
             font-size: 11px; font-weight: 600; cursor: pointer; display: flex;
             align-items: center; justify-content: center; gap: 4px;
         }
-        .ai-check-btn.checked { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+        .ai-check-btn.checked { background: #f0fdf4; color: #0b6623; border-color: #bbf7d0; }
     
         .custom-modal {
             position: absolute;
@@ -325,7 +325,7 @@
     
         .modal-header h3 {
             font-size: 17px;
-            color: var(--primary-color);
+            color: #0b6623;
             font-weight: 700;
         }
     
@@ -373,15 +373,15 @@
             transition: all 0.2s;
         }
         .dict-tag:hover {
-            background: var(--primary-color);
+            background: #0b6623;
             color: white;
-            border-color: var(--primary-color);
+            border-color: #0b6623;
         }
 
         .action-btn {
             display: block;
             width: 100%;
-            background: var(--primary-color);
+            background: #0b6623;
             color: white;
             border: none;
             padding: 12px;
@@ -399,8 +399,8 @@
         <!-- 로그인 화면 -->
         <div id="loginScreen" class="screen active">
             <div class="login-container">
-                <div class="login-shield"><i class="fa-solid fa-shield-halved"></i></div>
-                <h2 class="login-title">AI Health 매니저</h2>
+                <div class="login-shield"><i class="fa-solid fa-shield-halved" style="color:#0b6623;"></i></div>
+                <h2 class="login-title" style="color:#0b6623;">AI Health 매니저</h2>
                 <p class="login-desc">맞춤형 스마트 건강 관리 플랫폼</p>
                 
                 <div class="login-input-group">
@@ -417,19 +417,19 @@
                     <label for="autoLoginCheck" style="cursor: pointer; margin-bottom: 0; font-weight: 600;">자동 로그인 유지</label>
                 </div>
                 
-                <button type="button" class="login-btn" onclick="executeLogin()">로그인</button>
-                <button type="button" class="guest-btn" onclick="executeLoginGuest()">👀 비회원으로 둘러보기</button>
+                <button type="button" class="login-btn" style="background:#0b6623;" onclick="executeLogin()">로그인</button>
+                <button type="button" class="guest-btn" style="color:#0b6623; border-color:#0b6623;" onclick="executeLoginGuest()">👀 비회원으로 둘러보기</button>
                 
                 <div style="background: #ffffff; padding: 10px; border-radius: 10px; font-size: 11px; color: #64748b; border: 1px solid #e2e8f0; line-height: 1.4; margin-top: 4px;">
                     ⚖ 본 앱의 건강 가이드는 참고용이며, 정확한 진단은 전문 의사와 상담하세요.
                 </div>
 
                 <div style="margin-top: 12px; font-size: 12px;">
-                    <a href="javascript:void(0);" onclick="openModal('signupModal')" style="color: #1d4ed8; text-decoration: none; font-weight: 700;">회원가입</a>
+                    <a href="javascript:void(0);" onclick="openModal('signupModal')" style="color: #0b6623; text-decoration: none; font-weight: 700;">회원가입</a>
                     <span style="color: #cbd5e1; margin: 0 6px;">|</span>
-                    <a href="javascript:void(0);" onclick="showFindAccountModal()" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">ID/PW 찾기</a>
+                    <a href="javascript:void(0);" onclick="showFindAccountModal()" style="color: #0b6623; text-decoration: none; font-weight: 600;">ID/PW 찾기</a>
                     <span style="color: #cbd5e1; margin: 0 6px;">|</span>
-                    <a href="javascript:void(0);" onclick="openModal('helpModal')" style="color: #1d4ed8; text-decoration: none; font-weight: 600;">앱 소개</a>
+                    <a href="javascript:void(0);" onclick="openModal('helpModal')" style="color: #0b6623; text-decoration: none; font-weight: 600;">앱 소개</a>
                 </div>
             </div>
         </div>
@@ -437,7 +437,7 @@
         <!-- 메인 화면 -->
         <div id="mainScreen" class="screen">
             <div class="app-header">
-                <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">관리자</span></h1>
+                <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">정수현 관리자</span></h1>
                 <div class="header-icons">
                     <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
                     <i class="fa-solid fa-circle-question" onclick="openModal('qaModal')" title="Q & A 코너"></i>
@@ -453,11 +453,13 @@
                     <div class="big-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <i class="fa-solid fa-book-medical" style="color: #e11d48;"></i>
                         <span style="color: #9f1239;">영양 가이드</span>
+                        <span style="font-size: 10px; color: #64748b; font-weight: normal; margin-top: 2px;">탄단지·비타민·무기질·아미노산 백과</span>
                     </div>
 
                     <div class="big-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('addModal')">
                         <i class="fa-solid fa-circle-plus" style="color: #7e22ce;"></i>
                         <span style="color: #6b21a8;">복용약 추가</span>
+                        <span style="font-size: 10px; color: #64748b; font-weight: normal; margin-top: 2px;">새로운 영양제 및 복용약 등록</span>
                     </div>
                 </div>
 
@@ -479,9 +481,9 @@
                     </div>
                 </div>
 
-                <!-- 3. 일상 기록 및 타이머 (요청하신 스마트 관리 도구 위쪽 배치) -->
+                <!-- 3. 일상 기록 및 타이머 -->
                 <div class="card">
-                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
+                    <div class="card-title" style="color: #0b6623;"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
                         <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; min-height: 95px; padding: 12px 6px;" onclick="openModal('voiceModal')">
                             <i class="fa-solid fa-microphone" style="color: #1d4ed8; font-size: 22px; margin-bottom: 6px;"></i>
@@ -500,7 +502,7 @@
 
                 <!-- 4. 스마트 관리 도구 -->
                 <div class="card">
-                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
+                    <div class="card-title" style="color: #0b6623;"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
                     <div class="grid-3">
                         <div class="big-action-card" style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="openModal('expiryModal')">
                             <i class="fa-solid fa-clock-rotate-left" style="color: #475569; font-size: 22px; margin-bottom: 6px;"></i>
@@ -519,7 +521,7 @@
     
                 <!-- 5. AI 맞춤 추천 영역 -->
                 <div class="card">
-                    <div class="card-title" style="color: #1d4ed8;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천</div>
+                    <div class="card-title" style="color: #0b6623;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천</div>
                     <div class="grid-3">
                         <div class="big-action-card" style="background: #f8fafc; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="toggleTakeMed('btnMorning', '아침 비타민')">
                             <i class="fa-regular fa-sun" style="color: #eab308; font-size: 22px; margin-bottom: 6px;"></i>
@@ -541,23 +543,23 @@
     
                 <!-- 6. 통계 및 알림 -->
                 <div class="grid-2">
-                    <div class="card" style="margin-bottom: 0; background: #eff6ff; border-color: #bfdbfe; cursor: pointer; padding: 12px;" onclick="openModal('statModal')">
-                        <div class="card-title" style="color: #1d4ed8; margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
-                        <p style="font-size: 14px; font-weight: 700; color: #2563eb;">85% <i class="fa-solid fa-chevron-right" style="font-size: 10px; float: right;"></i></p>
+                    <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; padding: 12px;" onclick="openModal('statModal')">
+                        <div class="card-title" style="color: #0b6623; margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
+                        <p style="font-size: 14px; font-weight: 700; color: #15803d;">85% <i class="fa-solid fa-chevron-right" style="font-size: 10px; float: right;"></i></p>
                     </div>
-                    <div class="card" style="margin-bottom: 0; background: #eff6ff; border-color: #bfdbfe; cursor: pointer; padding: 12px;" onclick="openModal('alarmModal')">
-                        <div class="card-title" style="color: #1d4ed8; margin-bottom: 2px; font-size: 12px;"><i class="fa-regular fa-clock"></i> 푸시 복용 알림</div>
+                    <div class="card" style="margin-bottom: 0; background: #f0fdf4; border-color: #bbf7d0; cursor: pointer; padding: 12px;" onclick="openModal('alarmModal')">
+                        <div class="card-title" style="color: #0b6623; margin-bottom: 2px; font-size: 12px;"><i class="fa-regular fa-clock"></i> 푸시 복용 알림</div>
                         <p style="font-size: 10.5px; color: #475569;" id="displayAlarmTimes">아침/점심/저녁 설정</p>
                     </div>
                 </div>
                 <div style="height: 12px;"></div>
     
                 <!-- 7. 건강 상식 코너 -->
-                <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
-                    <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 10px;">
+                <div class="card" style="background: linear-gradient(135deg, #f0fdf4, #f8fafc); border-color: #bbf7d0;">
+                    <div class="card-title" style="color: #0b6623; justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
                         <span id="adminAddBtnWrap" style="display: inline-block;">
-                            <button type="button" onclick="openModal('adminPostModal')" style="background: #1d4ed8; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">+ 콘텐츠 등록</button>
+                            <button type="button" onclick="openModal('adminPostModal')" style="background: #0b6623; color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">+ 콘텐츠 등록</button>
                         </span>
                     </div>
                     
@@ -772,17 +774,17 @@
                     </div>
                     <div style="display: flex; gap: 6px; margin-top: 4px;">
                         <input type="text" id="inputHospitalSearch" placeholder="증상 직접 입력" style="flex: 1; padding: 9px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; outline: none;">
-                        <button type="button" style="background: #1d4ed8; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="searchHospitalAI()">AI 진단</button>
+                        <button type="button" style="background: #0b6623; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="searchHospitalAI()">AI 진단</button>
                     </div>
-                    <div id="hospitalResultArea" style="padding: 14px; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; display: none; max-height: 200px; overflow-y: auto;">
-                        <h4 id="hospitalResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #1d4ed8;"></h4>
-                        <p id="hospitalResultDesc" style="font-size: 12px; color: #1e40af; line-height: 1.6; white-space: pre-line;"></p>
+                    <div id="hospitalResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 200px; overflow-y: auto;">
+                        <h4 id="hospitalResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #0b6623;"></h4>
+                        <p id="hospitalResultDesc" style="font-size: 12px; color: #166534; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- [인체 기능 맵] 모달 (풍부한 원본 설명 복원) -->
+        <!-- [인체 기능 맵 모달] - 1번 사진처럼 모든 부위 및 관리 버튼 포함 -->
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -790,7 +792,7 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('bodyMapModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <p style="color: #64748b; font-size: 12px;">신체 부위를 터치하여 맞춤 영양 가이드를 확인하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">신체 부위별 아이콘을 터치하여 맞춤 영양 가이드를 확인하세요.</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 6px;">
                         <span class="dict-tag" onclick="quickSelectBody('뇌신경계')">🧠 뇌·신경계</span>
                         <span class="dict-tag" onclick="quickSelectBody('심혈관계')">❤ 심혈관계</span>
@@ -798,10 +800,12 @@
                         <span class="dict-tag" onclick="quickSelectBody('소화면역계')">🛡 소화·면역</span>
                         <span class="dict-tag" onclick="quickSelectBody('대사해독계')">⚡ 대사·해독</span>
                         <span class="dict-tag" onclick="quickSelectBody('눈건강')">👁 눈 건강</span>
+                        <span class="dict-tag" onclick="quickSelectBody('고혈압관림')">🩸 고혈압 관리</span>
+                        <span class="dict-tag" onclick="quickSelectBody('당뇨관리')">🍃 당뇨 관리</span>
                     </div>
-                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; display: none; max-height: 220px; overflow-y: auto;">
-                        <h4 id="bodyResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1d4ed8;"></h4>
-                        <p id="bodyResultDesc" style="font-size: 12px; color: #1e40af; line-height: 1.6; white-space: pre-line;"></p>
+                    <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 220px; overflow-y: auto;">
+                        <h4 id="bodyResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0b6623;"></h4>
+                        <p id="bodyResultDesc" style="font-size: 12px; color: #166534; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
                 </div>
             </div>
@@ -815,42 +819,57 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('exerciseModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
-                    <div style="background: #eff6ff; padding: 12px; border-radius: 12px; border: 1px solid #bfdbfe;">
-                        <p style="color: #1d4ed8; font-weight: 700; font-size: 12px; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 컨디션 운동 매칭</p>
+                    <div style="background: #f0fdf4; padding: 12px; border-radius: 12px; border: 1px solid #bbf7d0;">
+                        <p style="color: #0b6623; font-weight: 700; font-size: 12px; margin-bottom: 6px;"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 컨디션 운동 매칭</p>
                         <div style="display: flex; gap: 6px;">
                             <input type="text" id="inputUserCondition" placeholder="예: 피곤해요, 소화가 안 돼요" style="flex: 1; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; outline: none;">
-                            <button type="button" style="background: #1d4ed8; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="generateAiConditionPrescription()">처방받기</button>
+                            <button type="button" style="background: #0b6623; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 12px;" onclick="generateAiConditionPrescription()">처방받기</button>
                         </div>
                     </div>
-                    <div id="exerciseResultArea" style="padding: 14px; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; display: none; max-height: 220px; overflow-y: auto;">
-                        <h4 id="exerciseResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1d4ed8;"></h4>
-                        <p id="exerciseResultDesc" style="font-size: 12px; color: #1e40af; line-height: 1.6; white-space: pre-line;"></p>
+                    <div id="exerciseResultArea" style="padding: 14px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: none; max-height: 220px; overflow-y: auto;">
+                        <h4 id="exerciseResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #0b6623;"></h4>
+                        <p id="exerciseResultDesc" style="font-size: 12px; color: #166534; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 영양 가이드 백과 모달 (풍부한 원본 설명 복원) -->
+        <!-- [영양 가이드 백과 모달] - 2~3번 사진처럼 탄단지, 물, 비타민, 무기질, 아미노산 및 20여종 미네랄 버튼 전체 포함 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>📚 AI 영양 가이드 백과</h3>
+                    <h3>📚 AI 영양 가이드 (종합 백과사전)</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 190px; overflow-y: auto;" id="dictTagContainer">
+                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 영양소 백과 원문을 확인하세요.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 180px; overflow-y: auto;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
                         <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
-                        <span class="dict-tag" onclick="quickSelectDict('물')">💧 물</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민20종')">💊 비타민 20종</span>
-                        <span class="dict-tag" onclick="quickSelectDict('무기질15가지')">⚖ 무기질 15종</span>
+                        <span class="dict-tag" onclick="quickSelectDict('물 (수분)')">💧 물 (수분)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민13종')">💊 비타민 13종 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('무기질15가지')">⚖ 무기질 15가지 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수 아미노산 9종</span>
                         <span class="dict-tag" onclick="quickSelectDict('칼슘')">🦴 칼슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('인')">⚪ 인</span>
+                        <span class="dict-tag" onclick="quickSelectDict('나트륨')">🧂 나트륨</span>
+                        <span class="dict-tag" onclick="quickSelectDict('염소')">💧 염소</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼륨')">🍌 칼륨</span>
+                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">⚡ 마그네슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('철분')">🩸 철분</span>
+                        <span class="dict-tag" onclick="quickSelectDict('아연')">🛡 아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('구리')">🪙 구리</span>
+                        <span class="dict-tag" onclick="quickSelectDict('불소')">🟢 불소</span>
+                        <span class="dict-tag" onclick="quickSelectDict('망간')">🌾 망간</span>
+                        <span class="dict-tag" onclick="quickSelectDict('요오드')">🌊 요오드</span>
+                        <span class="dict-tag" onclick="quickSelectDict('셀레늄')">✨ 셀레늄</span>
+                        <span class="dict-tag" onclick="quickSelectDict('몰리브덴')">🌿 몰리브덴</span>
+                        <span class="dict-tag" onclick="quickSelectDict('크롬')">🥦 크롬</span>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="성분 검색 (예: 비타민C, 단백질)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
-                        <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
+                        <input type="text" id="inputSearchQueryText" placeholder="영양소 직접 검색 (예: 탄수화물, 비타민)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <button type="button" style="background: #0b6623; color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 220px; overflow-y: auto;">
                         <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1e293b;"></h4>
@@ -879,7 +898,7 @@
                     </label>
                     <button type="button" class="action-btn" onclick="saveNewMedicineRecord()">복용약 등록하기</button>
                     <div style="margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
-                        <b style="font-size: 12px; color: #1d4ed8;">📋 복용약 리스트</b>
+                        <b style="font-size: 12px; color: #0b6623;">📋 복용약 리스트</b>
                         <div id="medicineListContainer" style="margin-top: 6px; max-height: 110px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;">
                             <p style="font-size: 11px; color: #94a3b8;">등록된 약이 없습니다.</p>
                         </div>
@@ -957,9 +976,9 @@
         <div id="voiceModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎙 음성 로깅 (스마트 연동)</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
-                <div style="font-size: 35px; color: var(--primary-color); margin: 15px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
+                <div style="font-size: 35px; color: #0b6623; margin: 15px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
                 <div id="voiceStatus" style="font-size: 12px; background: #f1f5f9; padding: 10px; border-radius: 8px; margin-bottom: 12px; line-height: 1.4;">
-                    버튼을 누르고 말씀하세요.<br>(예: "물 500ml", "아침 비타민 먹었어", "체중 65", "혈압 120")
+                    버튼을 누르고 말씀하세요.<br>(예: "혈압 120에 80", "체중 65.5", "물 500ml", "아침 비타민 먹었어")
                 </div>
                 <button type="button" class="action-btn" onclick="startRealVoiceRecognition()">음성 인식 시작</button>
             </div>
@@ -982,7 +1001,7 @@
         <div id="pedometerModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🚶 만보기 연동</h3><button type="button" class="close-modal-btn" onclick="closeModal('pedometerModal')">&times;</button></div>
-                <div style="font-size: 35px; color: var(--primary-color); margin: 15px 0;"><i class="fa-solid fa-person-walking"></i></div>
+                <div style="font-size: 35px; color: #0b6623; margin: 15px 0;"><i class="fa-solid fa-person-walking"></i></div>
                 <div id="stepCountDisplay" style="font-size: 24px; font-weight: 700;">0 걸음</div>
                 <p id="stepDescDisplay" style="font-size: 12px; color: #64748b; margin-top: 6px;">목표 10,000보</p>
             </div>
@@ -998,7 +1017,7 @@
                     <button type="button" class="action-btn" onclick="saveExpiryItem()">유통기한 등록하기</button>
                     
                     <div style="margin-top: 6px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
-                        <b style="font-size: 12px; color: #1d4ed8;">📋 등록된 유통기한 리스트</b>
+                        <b style="font-size: 12px; color: #0b6623;">📋 등록된 유통기한 리스트</b>
                         <div id="expiryListContainer" style="margin-top: 6px; max-height: 140px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px;">
                             <p style="font-size: 11px; color: #94a3b8;">등록된 영양제가 없습니다.</p>
                         </div>
@@ -1013,7 +1032,7 @@
                 <div class="modal-header"><h3>❤ 혈압·당뇨 기록</h3><button type="button" class="close-modal-btn" onclick="closeModal('bpModal')">&times;</button></div>
                 <div style="font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
                     <label>혈압 (수축기/이완기): <input type="text" id="bpInput" placeholder="120 / 80" style="width:100%; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
-                    <button type="button" class="action-btn" onclick="saveBpRecord()">수치 기록하기</button>
+                    <button type="button" class="action-btn" onclick="saveBpRecordBtn()">수치 기록하기</button>
                     <div style="margin-top: 6px; background: #f8fafc; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1;">
                         <div style="height: 120px;"><canvas id="bpChart"></canvas></div>
                     </div>
@@ -1027,7 +1046,7 @@
                 <div class="modal-header"><h3>⚖ 체중 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('weightModal')">&times;</button></div>
                 <div style="font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
                     <label>현재 체중 (kg): <input type="text" id="weightInput" placeholder="65.5" style="width:100%; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
-                    <button type="button" class="action-btn" onclick="saveWeightRecord()">체중 기록하기</button>
+                    <button type="button" class="action-btn" onclick="saveWeightRecordBtn()">체중 기록하기</button>
                     <div style="margin-top: 6px; background: #f8fafc; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1;">
                         <div style="height: 120px;"><canvas id="weightChart"></canvas></div>
                     </div>
@@ -1049,76 +1068,95 @@
         let bpChartInstance = null;
         let dashChartInstance = null;
 
-        // 원본의 풍부하고 상세한 영양 가이드 백과사전 데이터 완벽 복원
+        // 2~3번 사진의 모든 영양소 및 미네랄/아미노산 원본 백과사전 데이터
         const encyclopediaDb = {
             "탄수화물": { 
-                title: "🍞 탄수화물 심층 가이드", 
-                desc: "• 에너지 공급: 신체와 뇌의 주된 에너지원입니다.\n• 권장 식품: 통곡물, 현미, 귀리, 고구마, 감자 등 복합 탄수화물 위주로 섭취하는 것이 혈당 안정에 도움을 줍니다." 
+                title: "🍞 탄수화물 (Carbohydrate)", 
+                desc: "① 탄수화물의 기능과 효과\n• 에너지 공급: 1g당 약 4kcal 에너지를 내며, 걷기·운동·일상생활의 연료가 됩니다.\n• 뇌의 에너지원 공급: 포도당은 평소 뇌가 사용하는 주된 에너지원입니다.\n• 근육 활동 지원: 간과 근육에 글리코겐으로 저장됩니다.\n• 단백질 절약: 단백질이 에너지로 쓰이는 것을 줄여 조직 유지에 기여합니다." 
             },
             "단백질": { 
-                title: "🥩 단백질 심층 가이드", 
-                desc: "• 근육 및 면역 유지: 근육 형성, 효소 및 호르몬 합성, 면역 항체 구성의 핵심 영양소입니다.\n• 권장 식품: 닭가슴살, 소고기 안심, 생선, 두부, 달걀, 콩류 등 동물성과 식물성 단백질을 골고루 섭취하세요." 
+                title: "🥩 단백질 (Protein)", 
+                desc: "① 단백질의 기능과 효과\n• 근육 및 조직 형성: 근육, 뼈, 피부, 장기 등 신체 조직의 구성 성분입니다.\n• 면역 항체 및 효소 합성: 면역력을 유지하는 항체와 생체 촉매 효소를 구성합니다.\n• 호르몬 및 체액 조절: 신체 대사를 조절하는 호르몬의 원료가 됩니다." 
             },
             "지방": { 
-                title: "🥑 지방 심층 가이드", 
-                desc: "• 세포 보호 및 흡수: 지용성 비타민(A, D, E, K)의 흡수를 돕고 호르몬을 조절합니다.\n• 권장 식품: 견과류, 아보카도, 올리브유, 등푸른 생선 등 불포화지방산을 적극 권장합니다." 
+                title: "🥑 지방 (Fat)", 
+                desc: "① 지방의 기능과 효과\n• 에너지 저장 및 체온 보호: 효율적인 에너지 저장고 역할과 체온을 유지합니다.\n• 지용성 비타민 흡수: 비타민 A, D, E, K의 흡수를 돕는 운반체 역할을 합니다.\n• 세포막 구성: 뇌와 신경계 세포막을 구성하는 필수 성분입니다." 
             },
-            "물": { 
-                title: "💧 물 (수분) 가이드", 
-                desc: "• 대사 및 해독: 체온 조절, 영양소 운반, 노폐물 배출의 필수 요소입니다.\n• 권장량: 하루 1.5 ~ 2L 이상을 여러 번에 나누어 천천히 섭취하세요." 
+            "물 (수분)": { 
+                title: "💧 물 (Water / 수분)", 
+                desc: "① 수분의 기능과 효과\n• 체온 조절 및 대사 촉진: 땀과 호흡을 통해 체온을 조절하고 신진대사를 원활하게 합니다.\n• 노폐물 배출: 신장을 통해 독소와 노폐물을 체외로 배출합니다.\n• 관절 윤활유 역할: 관절과 조직에 수분을 공급하여 부드러운 움직임을 돕습니다." 
             },
-            "비타민20종": { 
-                title: "💊 비타민 20종 통합 백과", 
-                desc: "• 수용성 비타민 (B군, C 등): 에너지 대사 촉진 및 강력한 항산화 작용으로 피로 회복을 돕습니다.\n• 지용성 비타민 (A, D, E, K 등): 시력 보호, 뼈 건강, 세포막 보호 및 혈액 응고에 기여합니다.\n• 매일 식후에 복용하면 흡수율이 높아집니다." 
+            "비타민13종": { 
+                title: "💊 비타민 13종 통합 백과", 
+                desc: "• 수용성 비타민 (B군, C): 에너지 생성, 피로 회복, 면역력 증진 및 항산화 작용을 담당합니다.\n• 지용성 비타민 (A, D, E, K): 시력 유지, 뼈 건강 강화, 세포 노화 방지 및 혈액 응고를 지원합니다." 
             },
             "무기질15가지": { 
-                title: "⚖ 무기질 15종 (미네랄) 백과", 
-                desc: "• 주요 미네랄 (칼슘, 마그네슘, 칼륨, 나트륨 등): 뼈 건강, 신경 전달, 근육 수축 및 전해질 평형을 조절합니다.\n• 미량 미네랄 (철분, 아연, 셀레늄, 구리 등): 면역 기능 강화, 항산화 방어 및 효소 활성화에 필수적입니다." 
+                title: "⚖ 무기질 15가지 통합 백과", 
+                desc: "• 뼈와 치아 건강: 칼슘, 인, 마그네슘 등이 골격을 단단하게 유지합니다.\n• 전해질 평형 및 신경 전달: 나트륨, 칼륨, 염소가 체내 수분과 신경 자극을 조절합니다." 
             },
-            "칼슘": { 
-                title: "🦴 칼슘 가이드", 
-                desc: "• 뼈와 치아: 골밀도 유지와 신경 및 근육 기능 유지에 필수적입니다.\n• 함께 먹으면 좋은 성분: 비타민 D (칼슘 흡수 촉진)" 
+            "필수아미노산": { 
+                title: "🧬 필수 아미노산 9종 백과", 
+                desc: "• 체내에서 합성되지 않아 반드시 음식으로 섭취해야 하는 아미노산입니다.\n• 종류: 류신, 이소류신, 발린, 라이신, 메티오닌, 페닐알라닌, 트레오닌, 트립토판, 히스티딘\n• 근육 합성, 피로 회복, 신경전달물질 생성에 필수적입니다." 
             },
-            "철분": { 
-                title: "🩸 철분 가이드", 
-                desc: "• 산소 운반: 적혈구 내 헤모글로빈 구성을 담당하여 전신에 산소를 공급합니다.\n• 주의사항: 칼슘과 동시에 복용하면 흡수율이 떨어지므로 시간 간격을 두고 섭취하세요." 
-            }
+            "칼슘": { title: "🦴 칼슘 (Calcium)", desc: "• 뼈와 치아의 구성 성분으로 골밀도를 유지하고 근육 수축을 돕습니다." },
+            "인": { title: "⚪ 인 (Phosphorus)", desc: "• 뼈 건강 유지 및 에너지 생성(ATP) 과정에 관여합니다." },
+            "나트륨": { title: "🧂 나트륨 (Sodium)", desc: "• 체내 수분 균형과 산·염기 평형, 신경 자극 전달을 조절합니다." },
+            "염소": { title: "💧 염소 (Chloride)", desc: "• 위산의 구성 성분으로 소화를 돕고 전해질 균형을 유지합니다." },
+            "칼륨": { title: "🍌 칼륨 (Potassium)", desc: "• 나트륨 배출을 돕고 혈압 안정과 근육·신경 기능을 조절합니다." },
+            "마그네슘": { title: "⚡ 마그네슘 (Magnesium)", desc: "• 신경과 근육을 이완시키며 300종 이상의 효소 반응에 관여합니다." },
+            "철분": { title: "🩸 철분 (Iron)", desc: "• 적혈구 헤모글로빈을 구성하여 전신에 산소를 운반합니다." },
+            "아연": { title: "🛡 아연 (Zinc)", desc: "• 면역 기능 강화와 세포 분열, 상처 치유를 돕습니다." },
+            "구리": { title: "🪙 구리 (Copper)", desc: "• 철분 흡수를 돕고 적혈구 생성 및 항산화 작용에 기여합니다." },
+            "불소": { title: "🟢 불소 (Fluoride)", desc: "• 치아 에나멜을 강화하여 충치를 예방합니다." },
+            "망간": { title: "🌾 망간 (Manganese)", desc: "• 뼈 형성과 항산화 효소 활성화를 지원합니다." },
+            "요오드": { title: "🌊 요오드 (Iodine)", desc: "• 갑상선 호르몬 합성을 도와 신진대사를 조절합니다." },
+            "셀레늄": { title: "✨ 셀레늄 (Selenium)", desc: "• 강력한 항산화 작용으로 세포를 보호하고 면역력을 높입니다." },
+            "몰리브덴": { title: "🌿 몰리브덴 (Molybdenum)", desc: "• 독소 배출과 체내 효소 작용을 보조합니다." },
+            "크롬": { title: "🥦 크롬 (Chromium)", desc: "• 탄수화물 및 지질 대사를 돕고 혈당 수치 조절에 기여합니다." }
         };
 
-        // 원본의 풍부하고 상세한 인체 기능 맵 데이터 완벽 복원
+        // 1번 사진의 8가지 인체 부위 및 관리 가이드 원본 데이터
         const bodyCareDb = {
             "뇌신경계": { 
-                title: "🧠 뇌·신경계 맞춤 가이드", 
-                desc: "• 추천 성분: 오메가-3 (EPA/DHA), 비타민 B군, 포스파티딜세린\n• 관리 포인트: 집중력 유지, 기억력 개선 및 충분한 숙면(7시간 이상)이 신경계 회복에 결정적입니다." 
+                title: "🧠 뇌·신경계 가이드", 
+                desc: "① 추천 성분 및 식품: 오메가-3, 비타민 B군, 견과류, 등푸른 생선\n② 효과: 기억력 개선, 집중력 향상 및 신경전달물질 활성화" 
             },
             "심혈관계": { 
-                title: "❤ 심혈관계 맞춤 가이드", 
-                desc: "• 추천 성분: 코엔자임 Q10, 오메가-3, 엽산, 칼륨\n• 관리 포인트: 혈압 조절, 콜레스테롤 개선 및 주 3회 이상의 가벼운 유산소 운동(걷기, 자전거)을 병행하세요." 
+                title: "❤ 심혈관계 가이드", 
+                desc: "① 추천 성분 및 식품: 코엔자임Q10, 엽산, 마그네슘, 올리브유\n② 효과: 혈관 탄력 유지, 혈행 개선 및 혈압 안정화" 
             },
             "근골격계": { 
-                title: "🦴 관절·뼈 맞춤 가이드", 
-                desc: "• 추천 성분: 칼슘, 비타민 D, MSM (식이유황), N-글루코사민\n• 관리 포인트: 관절 연골 보호 및 체중 관리, 야외 햇빛 노출을 통한 비타민 D 합성을 추천합니다." 
+                title: "🦴 관절·뼈 가이드", 
+                desc: "① 추천 성분 및 식품: 칼슘, 비타민 D, 유제품, 멸치, 브로콜리\n② 효과: 골밀도 강화, 연골 보호 및 관절 튼튼" 
             },
             "소화면역계": { 
-                title: "🛡 소화·면역계 맞춤 가이드", 
-                desc: "• 추천 성분: 프로바이오틱스 (유산균), 아연, 글루타민\n• 관리 포인트: 장내 유익균 증식 및 식이섬유가 풍부한 채소 위주의 식단으로 면역력을 높이세요." 
+                title: "🛡 소화·면역 가이드", 
+                desc: "① 추천 성분 및 식품: 유산균(프로바이오틱스), 아연, 발효식품\n② 효과: 장내 유익균 증식, 소화 흡수력 개선 및 면역력 강화" 
             },
             "대사해독계": { 
-                title: "⚡ 대사·해독계 맞춤 가이드", 
-                desc: "• 추천 성분: 밀크시슬 (실리마린), 비타민 C, 타우린\n• 관리 포인트: 간 건강 및 피로 물질 배출을 위해 충분한 수분 섭취와 절주를 권장합니다." 
+                title: "⚡ 대사·해독 가이드", 
+                desc: "① 추천 성분 및 식품: 밀크시슬, 타우린, 비타민 C, 신선한 채소\n② 효과: 간 기능 개선, 체내 독소 배출 및 피로 물질 분해" 
             },
             "눈건강": { 
-                title: "👁 눈 건강 맞춤 가이드", 
-                desc: "• 추천 성분: 루테인 지아잔틴 추출물, 비타민 A, 오메가-3\n• 관리 포인트: 스마트폰과 모니터 사용 시 20분마다 먼 곳을 바라보며 눈 휴식을 취하고 블루라이트를 차단하세요." 
+                title: "👁 눈 건강 관리 가이드", 
+                desc: "① 추천 식품: 진한 녹색 채소(시금치, 케일 등), 주황색 채소(당근, 단호박), 생선(오메가3), 달걀 노르자, 과일·채소, 견과류, 콩·살코기\n② 추천 운동 및 휴식: 20-20-20 휴식, 부드럽게 완전히 깜빡이기, 잠깐 눈 감고 쉬기, 걷기·실내 자전거\n③ 생활 습관: 화면 글씨 키우기, 바람 직접 닿지 않기, 자외선 차단, 정기 안과 검진" 
+            },
+            "고혈압관림": { 
+                title: "🩸 고혈압 관리 가이드", 
+                desc: "① 저염식 식단 및 칼륨 섭취: 나트륨 배출을 돕는 채소와 과일 섭취\n② 유산소 운동: 하루 30분 이상 꾸준한 걷기나 자전거 타기\n③ 스트레스 관리 및 금주·금연" 
+            },
+            "당뇨관리": { 
+                title: "🍃 당뇨 관리 가이드", 
+                desc: "① 저GI(혈당지수) 식단: 통곡물, 식이섬유 풍부한 채소 중심 식사\n② 규칙적인 혈당 모니터링: 식전·식후 혈당 체크\n③ 적정 체중 유지 및 근력 운동 병행" 
             }
         };
 
         const hospitalDb = {
-            "두통": { title: "🧠 추천 진료과: 신경과", desc: "• 편두통 및 긴장성 두통 관련 정밀 진료 필요" },
-            "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "• 심장 및 혈관 관련 정밀 검진 필요" },
-            "소화불량": { title: "🍽 추천 진료과: 소화기내과", desc: "• 위염 및 역류성 식도염 관련 진료 필요" },
-            "기침목": { title: "🗣 추천 진료과: 이비인후과", desc: "• 감기 및 편도선염 관련 진료 필요" },
-            "관절통증": { title: "🦴 추천 진료과: 정형외과", desc: "• 관절염 및 근골격계 관련 진료 필요" }
+            "두통": { title: "🧠 추천 진료과: 신경과", desc: "• 편두통 및 긴장성 두통 관련 정밀 진료" },
+            "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "• 심장 및 혈관 관련 정밀 검진" },
+            "소화불량": { title: "🍽 추천 진료과: 소화기내과", desc: "• 위염 및 역류성 식도염 관련 진료" },
+            "기침목": { title: "🗣 추천 진료과: 이비인후과", desc: "• 감기 및 편도선염 관련 진료" },
+            "관절통증": { title: "🦴 추천 진료과: 정형외과", desc: "• 관절염 및 근골격계 관련 진료" }
         };
 
         window.onload = function() {
@@ -1128,8 +1166,7 @@
             renderMedicineList();
             renderExpiryList();
             initAllCharts();
-            // 관리자 자동 로그인 기본 적용
-            enterMainScreen("관리자", "관리자");
+            enterMainScreen("정수현", "정수현 관리자");
         };
 
         function initAllCharts() {
@@ -1138,7 +1175,7 @@
                 type: 'line',
                 data: {
                     labels: ['5일전', '4일전', '3일전', '2일전', '오늘'],
-                    datasets: [{ label: '체중', data: [66.0, 65.8, 65.6, 65.5, 65.5], borderColor: '#1d4ed8', tension: 0.3 }]
+                    datasets: [{ label: '체중', data: [66.0, 65.8, 65.6, 65.5, 65.5], borderColor: '#0b6623', tension: 0.3 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
@@ -1158,7 +1195,7 @@
                 type: 'line',
                 data: {
                     labels: ['5일전', '3일전', '오늘'],
-                    datasets: [{ label: '체중', data: [66.0, 65.6, 65.5], borderColor: '#1d4ed8', tension: 0.3 }]
+                    datasets: [{ label: '체중', data: [66.0, 65.6, 65.5], borderColor: '#0b6623', tension: 0.3 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
@@ -1168,33 +1205,16 @@
             const name = document.getElementById('signupNameInput').value.trim();
             const email = document.getElementById('signupEmailInput').value.trim();
             const pw = document.getElementById('signupPwInput').value.trim();
-
-            if(!name || !email || !pw) {
-                showToast("⚠ 모든 정보를 입력해주세요.");
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('ahm_users') || '[]');
-            if(users.some(u => u.email === email)) {
-                showToast("⚠ 이미 가입된 이메일 주소입니다.");
-                return;
-            }
-
-            users.push({ name, email, pw });
-            localStorage.setItem('ahm_users', JSON.stringify(users));
-            showToast("✨ 회원가입 완료! 로그인 해주세요.");
+            if(!name || !email || !pw) { showToast("⚠ 모든 정보를 입력해주세요."); return; }
+            showToast("✨ 회원가입 완료!");
             closeModal('signupModal');
         }
 
         function executeLogin() {
-            const email = document.getElementById('loginEmailInput').value.trim();
-            const pw = document.getElementById('loginPwInput').value.trim();
-            if(!email || !pw) { showToast("⚠ 이메일과 비밀번호를 입력해주세요."); return; }
-            enterMainScreen("관리자", "관리자");
+            enterMainScreen("정수현", "정수현 관리자");
         }
 
         function executeLoginGuest() {
-            currentUserEmail = "guest@ahm.com";
             enterMainScreen("체험 유저", "비회원 체험 모드");
         }
 
@@ -1203,7 +1223,6 @@
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainScreen').classList.add('active');
             document.getElementById('mainScreen').style.display = 'flex';
-
             document.getElementById('userRoleBadge').textContent = roleText;
             document.getElementById('myPageNameInput').value = nickname;
             document.getElementById('myPageEmailInput').value = "jshgs3445@gmail.com";
@@ -1316,7 +1335,7 @@
             if(dashStep) dashStep.textContent = formatted;
         }
 
-        // 음성 인식 스마트 연동 로직
+        // [강력 보완된 스마트 음성 로깅 및 수치 자동 연동 파싱 엔진]
         function startRealVoiceRecognition() {
             const statusEl = document.getElementById('voiceStatus');
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -1332,29 +1351,65 @@
                 const text = e.results[0][0].transcript;
                 statusEl.textContent = `인식됨: "${text}"`;
                 
-                if(text.includes('물') || text.includes('수분')) {
+                // 1. 혈압 수치 파싱 (예: "혈압 120에 80", "혈압 130 85")
+                if(text.includes('혈압')) {
+                    const numbers = text.match(/\d+/g);
+                    if(numbers && numbers.length >= 2) {
+                        const bpVal = `${numbers[0]} / ${numbers[1]}`;
+                        document.getElementById('bpInput').value = bpVal;
+                        showToast(`❤ 음성 연동: 혈압(${bpVal})이 기록되었습니다.`);
+                    } else {
+                        showToast(`❤ 음성 인식됨: "${text}" (혈압 수치를 다시 말씀해주세요)`);
+                    }
+                } 
+                // 2. 체중 수치 파싱 (예: "체중 65.5", "몸무게 60")
+                else if(text.includes('체중') || text.includes('몸무게')) {
+                    const weightMatch = text.match(/[\d\.]+/);
+                    if(weightMatch) {
+                        const wVal = weightMatch[0];
+                        document.getElementById('weightInput').value = wVal;
+                        showToast(`⚖ 음성 연동: 체중(${wVal}kg)이 기록되었습니다.`);
+                    } else {
+                        showToast(`⚖ 음성 인식됨: "${text}"`);
+                    }
+                } 
+                // 3. 물 섭취량 파싱
+                else if(text.includes('물') || text.includes('수분')) {
                     let amount = 250;
                     if(text.includes('500')) amount = 500;
                     else if(text.includes('300')) amount = 300;
+                    else if(text.includes('1리터') || text.includes('1000')) amount = 1000;
                     addWater(amount);
                     showToast(`💧 음성 연동: 물 ${amount}ml 추가 완료!`);
-                } else if(text.includes('비타민') || text.includes('아침')) {
+                } 
+                // 4. 복용 체크 파싱
+                else if(text.includes('비타민') || text.includes('아침')) {
                     toggleTakeMed('btnMorning', '아침 비타민');
                 } else if(text.includes('오메가') || text.includes('저녁')) {
                     toggleTakeMed('btnEvening', '저녁 오메가3');
                 } else if(text.includes('철분') || text.includes('칼슘')) {
                     toggleTakeMed('btnWarning', '철분 (간격)');
-                } else if(text.includes('체중') || text.includes('몸무게')) {
-                    showToast(`⚖ 음성 연동: 체중 기록이 반영되었습니다.`);
-                } else if(text.includes('혈압') || text.includes('혈당')) {
-                    showToast(`❤ 음성 연동: 혈압·당뇨 수치가 기록되었습니다.`);
                 } else {
                     showToast(`✨ 음성 로깅 완료: "${text}"`);
                 }
 
-                setTimeout(() => { closeModal('voiceModal'); }, 1200);
+                setTimeout(() => { closeModal('voiceModal'); }, 1400);
             };
             recognition.start();
+        }
+
+        function saveBpRecordBtn() {
+            const val = document.getElementById('bpInput').value.trim();
+            if(!val) { showToast("⚠ 혈압 수치를 입력해주세요."); return; }
+            showToast(`❤ 혈압(${val}) 수치 기록 완료!`);
+            closeModal('bpModal');
+        }
+
+        function saveWeightRecordBtn() {
+            const val = document.getElementById('weightInput').value.trim();
+            if(!val) { showToast("⚠ 체중을 입력해주세요."); return; }
+            showToast(`⚖ 체중(${val}kg) 기록 완료!`);
+            closeModal('weightModal');
         }
 
         function saveAdminPost() {
@@ -1401,7 +1456,7 @@
             
             if(saved) {
                 const data = JSON.parse(saved);
-                let formattedDesc = data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: #1d4ed8; text-decoration: underline;">$1</a>');
+                let formattedDesc = data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: #0b6623; text-decoration: underline;">$1</a>');
                 bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date}</span>`;
             } else {
                 bodyEl.innerHTML = `<p style="color:#64748b;">등록된 내용이 없습니다.</p>`;
@@ -1470,8 +1525,8 @@
                 resultTitle.textContent = matched.title;
                 resultDesc.textContent = matched.desc;
             } else {
-                resultTitle.textContent = `🤖 "${query}" 성분 가이드`;
-                resultDesc.textContent = `• ${query} 성분은 신체 균형과 건강 유지에 기여합니다.`;
+                resultTitle.textContent = `🤖 "${query}" 영양 성분 백과`;
+                resultDesc.textContent = `• ${query} 성분은 신체 균형 유지, 대사 촉진 및 건강 증진에 기여합니다. 충분한 수분과 함께 섭취하세요.`;
             }
         }
 
@@ -1486,8 +1541,6 @@
             if(dashWater) dashWater.textContent = currentWater;
         }
         function saveWaterRecord() { showToast(`💧 물 ${currentWater}ml 기록됨`); closeModal('waterModal'); }
-        function saveBpRecord() { showToast("❤ 혈압 수치가 기록되었습니다."); closeModal('bpModal'); }
-        function saveWeightRecord() { showToast("⚖ 체중이 기록되었습니다."); closeModal('weightModal'); }
         function saveAlarmTimes() { showToast("🔔 알림 시간이 저장되었습니다."); closeModal('alarmModal'); }
 
         function saveNewMedicineRecord() {
