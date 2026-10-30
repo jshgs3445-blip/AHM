@@ -266,25 +266,6 @@
             font-weight: 700;
         }
     
-        .ai-recommend-section {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-    
-        .ai-section-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-    
         .ai-check-btn {
             width: 100%; background: #ffffff; color: var(--primary-color);
             border: 1px solid var(--primary-color); padding: 6px 4px; border-radius: 8px;
@@ -555,7 +536,7 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 7. 건강 상식 코너 -->
+                <!-- 7. 건강 상식 코너 (최신 뉴스, 득템 영상, 공지사항, 게시판 활성화 연결) -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: #1d4ed8; justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
@@ -567,22 +548,22 @@
                     <div class="grid-2" style="margin-bottom: 10px;">
                         <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('news')">
                             <i class="fa-solid fa-globe" style="color: #2563eb; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;">최신 뉴스</span>
+                            <span style="color: #1e293b; font-size: 11.5px;" id="previewNews">최신 뉴스</span>
                         </div>
                         <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('video')">
                             <i class="fa-solid fa-gift" style="color: #dc2626; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;">득템 영상</span>
+                            <span style="color: #1e293b; font-size: 11.5px;" id="previewVideo">득템 영상</span>
                         </div>
                     </div>
 
                     <div class="grid-2" style="margin-bottom: 0;">
                         <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('notice')">
                             <i class="fa-solid fa-bullhorn" style="color: #d97706; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;">공지사항</span>
+                            <span style="color: #1e293b; font-size: 11.5px;" id="previewNotice">공지사항</span>
                         </div>
                         <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 95px; padding: 12px 6px;" onclick="showPostContent('board')">
                             <i class="fa-solid fa-comments" style="color: #059669; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;">게시판</span>
+                            <span style="color: #1e293b; font-size: 11.5px;" id="previewBoard">게시판</span>
                         </div>
                     </div>
                 </div>
@@ -731,7 +712,7 @@
             </div>
         </div>
 
-        <!-- [인체 기능 맵] 모달 (풍부한 내용 복원) -->
+        <!-- [인체 기능 맵] 모달 -->
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -786,7 +767,7 @@
             </div>
         </div>
 
-        <!-- AI 영양 가이드 모달 (메인 창 모든 영양소/무기질 칩 꽉 채우기 복원) -->
+        <!-- AI 영양 가이드 모달 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1050,7 +1031,7 @@
             "망간": { title: "🌾 망간 (Manganese)", desc: "• 기능: 뼈 형성, 단백질 및 탄수화물 대사, 항산화 효소 구성\n• 대표 식품: 통곡물, 견과류, 콩류, 차" },
             "요오드": { title: "🌊 요오드 (Iodine)", desc: "• 기능: 갑상선 호르몬 생성 및 신진대사 조절\n• 대표 식품: 미역, 다시마, 김 등 해조류, 유제품, 달걀" },
             "셀레늄": { title: "✨ 셀레늄 (Selenium)", desc: "• 기능: 강력한 항산화 작용으로 세포 보호 및 면역력 증진\n• 대표 식품: 브라질너트, 달걀, 참치, 통곡물" },
-            "몰리브덴": { title: "🌿 몰리브덴 (Molybdenum)", desc: "• 기능: 체내 유해 독소 및 아황산염 해독 보조, 효소 활성화\n• 대표 식품: 콩류,  lentils, 통곡물, 잎채소" },
+            "몰리브덴": { title: "🌿 몰리브덴 (Molybdenum)", desc: "• 기능: 체내 유해 독소 및 아황산염 해독 보조, 효소 활성화\n• 대표 식품: 콩류, 통곡물, 잎채소" },
             "크롬": { title: "🥦 크롬 (Chromium)", desc: "• 기능: 인슐린 작용을 도와 혈당 및 탄수화물 대사 조절 지원\n• 대표 식품: 브로콜리, 통곡물, 육류, 견과류" }
         };
 
@@ -1338,7 +1319,7 @@
                 const data = JSON.parse(saved);
                 bodyEl.innerHTML = `<b>${data.title}</b><p style="margin-top:8px; color:#475569; white-space:pre-line;">${data.desc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:10px;">등록일: ${data.date}</span>`;
             } else {
-                bodyEl.textContent = "등록된 내용이 없습니다.";
+                bodyEl.textContent = "등록된 내용이 없습니다. 관리자 메뉴에서 콘텐츠를 등록해 보세요!";
             }
             openModal('contentViewModal');
         }
