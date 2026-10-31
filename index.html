@@ -396,7 +396,7 @@
 <body>
     
     <div class="phone-frame">
-        <!-- 로그인 화면 (기본 활성화) -->
+        <!-- 로그인 화면 -->
         <div id="loginScreen" class="screen active">
             <div class="login-container">
                 <div class="login-shield"><i class="fa-solid fa-shield-halved" style="color:#0b6623;"></i></div>
@@ -405,14 +405,14 @@
                 
                 <div class="login-input-group">
                     <label>이메일 주소 (ID)</label>
-                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력" value="jshgs3445@gmail.com">
+                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력">
                 </div>
                 <div class="login-input-group">
                     <label>비밀번호</label>
-                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력" value="••••••••">
+                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력">
                 </div>
 
-                <div class="auto-login-wrap" onclick="toggleAutoLogin()">
+                <div class="auto-login-wrap">
                     <input type="checkbox" id="autoLoginCheck" style="width: 16px; height: 16px; cursor: pointer;">
                     <label for="autoLoginCheck" style="cursor: pointer; margin-bottom: 0; font-weight: 600;">자동 로그인 유지</label>
                 </div>
@@ -834,7 +834,7 @@
             </div>
         </div>
 
-        <!-- [영양 가이드 백과 모달] -->
+        <!-- [영양 가이드 백과 모달] - 탄단지(식물성/동물성), 무기질 15종, 비타민 20종, 필수아미노산 9종 풍부한 원본 데이터 완벽 탑재 -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -978,7 +978,7 @@
                 <div class="modal-header"><h3>🎙 음성 로깅 (스마트 연동)</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
                 <div style="font-size: 35px; color: #0b6623; margin: 15px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
                 <div id="voiceStatus" style="font-size: 12px; background: #f1f5f9; padding: 10px; border-radius: 8px; margin-bottom: 12px; line-height: 1.4;">
-                    버튼을 누르고 말씀하세요.<br>(예: "혈압 120에 80", "혈당 110", "체중 65.5", "물 500ml")
+                    버튼을 누르고 말씀하세요.<br>(예: "혈압 120에 80", "체중 65.5", "물 500ml", "아침 비타민 먹었어")
                 </div>
                 <button type="button" class="action-btn" onclick="startRealVoiceRecognition()">음성 인식 시작</button>
             </div>
@@ -1031,19 +1031,10 @@
             <div class="modal-content">
                 <div class="modal-header"><h3>❤ 혈압·당뇨 기록</h3><button type="button" class="close-modal-btn" onclick="closeModal('bpModal')">&times;</button></div>
                 <div style="font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
-                    <label>혈압 (수축기/이완기): <input type="text" id="bpInput" placeholder="120 / 80" style="width:100%; margin-top:3px; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
-                    <label>혈당 (mg/dL): <input type="text" id="bsInput" placeholder="예: 100 (공복/식후)" style="width:100%; margin-top:3px; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
-                    <button type="button" class="action-btn" onclick="saveBpRecordBtn()">혈압·당뇨 수치 기록하기</button>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
-                        <div style="background: #f8fafc; padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1;">
-                            <div style="font-size: 11px; font-weight: 700; color: #e11d48; margin-bottom: 2px;">혈압 추이</div>
-                            <div style="height: 100px;"><canvas id="bpChart"></canvas></div>
-                        </div>
-                        <div style="background: #f8fafc; padding: 6px; border-radius: 8px; border: 1px solid #cbd5e1;">
-                            <div style="font-size: 11px; font-weight: 700; color: #0284c7; margin-bottom: 2px;">혈당 추이</div>
-                            <div style="height: 100px;"><canvas id="bsChart"></canvas></div>
-                        </div>
+                    <label>혈압 (수축기/이완기): <input type="text" id="bpInput" placeholder="120 / 80" style="width:100%; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
+                    <button type="button" class="action-btn" onclick="saveBpRecordBtn()">수치 기록하기</button>
+                    <div style="margin-top: 6px; background: #f8fafc; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                        <div style="height: 120px;"><canvas id="bpChart"></canvas></div>
                     </div>
                 </div>
             </div>
@@ -1075,9 +1066,9 @@
         
         let weightChartInstance = null;
         let bpChartInstance = null;
-        let bsChartInstance = null;
         let dashChartInstance = null;
 
+        // [수현님이 공들여 작성하신 모든 영양소 원본 데이터베이스 (식물성/동물성, 무기질 15종, 비타민 20종, 필수아미노산 9종 완벽 포함)]
         const encyclopediaDb = {
             "탄수화물": { 
                 title: "🍞 탄수화물 (Carbohydrate)", 
@@ -1150,24 +1141,8 @@
             renderMedicineList();
             renderExpiryList();
             initAllCharts();
-            
-            const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
-            if (autoLoginSaved) {
-                document.getElementById('autoLoginCheck').checked = true;
-                enterMainScreen("정수현", "정수현 관리자");
-            } else {
-                document.getElementById('mainScreen').classList.remove('active');
-                document.getElementById('mainScreen').style.display = 'none';
-                document.getElementById('loginScreen').classList.add('active');
-                document.getElementById('loginScreen').style.display = 'flex';
-            }
+            enterMainScreen("정수현", "정수현 관리자");
         };
-
-        function toggleAutoLogin() {
-            const chk = document.getElementById('autoLoginCheck');
-            chk.checked = !chk.checked;
-            localStorage.setItem('ahm_auto_login', chk.checked);
-        }
 
         function initAllCharts() {
             const weightCtx = document.getElementById('weightChart').getContext('2d');
@@ -1185,17 +1160,7 @@
                 type: 'line',
                 data: {
                     labels: ['5일전', '4일전', '3일전', '2일전', '오늘'],
-                    datasets: [{ label: '혈압', data: [125, 124, 122, 120, 120], borderColor: '#e11d48', tension: 0.3 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-
-            const bsCtx = document.getElementById('bsChart').getContext('2d');
-            bsChartInstance = new Chart(bsCtx, {
-                type: 'line',
-                data: {
-                    labels: ['5일전', '4일전', '3일전', '2일전', '오늘'],
-                    datasets: [{ label: '혈당', data: [115, 112, 110, 108, 105], borderColor: '#0284c7', tension: 0.3 }]
+                    datasets: [{ label: '혈압', data: [125, 124, 122, 120, 120], borderColor: '#dc2626', tension: 0.3 }]
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
@@ -1220,18 +1185,8 @@
             closeModal('signupModal');
         }
 
-        function executeLogin() { 
-            const isAuto = document.getElementById('autoLoginCheck').checked;
-            localStorage.setItem('ahm_auto_login', isAuto);
-            enterMainScreen("정수현", "정수현 관리자"); 
-            showToast("✨ 환영합니다, 수현님!");
-        }
-
-        function executeLoginGuest() { 
-            localStorage.setItem('ahm_auto_login', 'false');
-            enterMainScreen("체험 유저", "비회원 체험 모드"); 
-            showToast("👀 비회원 모드로 접속합니다.");
-        }
+        function executeLogin() { enterMainScreen("정수현", "정수현 관리자"); }
+        function executeLoginGuest() { enterMainScreen("체험 유저", "비회원 체험 모드"); }
 
         function enterMainScreen(nickname, roleText) {
             document.getElementById('loginScreen').classList.remove('active');
@@ -1244,8 +1199,6 @@
         }
 
         function executeLogout() {
-            localStorage.setItem('ahm_auto_login', 'false');
-            document.getElementById('autoLoginCheck').checked = false;
             document.getElementById('mainScreen').classList.remove('active');
             document.getElementById('mainScreen').style.display = 'none';
             document.getElementById('loginScreen').classList.add('active');
@@ -1376,15 +1329,6 @@
                     } else {
                         showToast(`❤ 음성 인식됨: "${text}"`);
                     }
-                } else if(text.includes('혈당')) {
-                    const bsMatch = text.match(/\d+/);
-                    if(bsMatch) {
-                        const bsVal = bsMatch[0];
-                        document.getElementById('bsInput').value = bsVal;
-                        showToast(`🍃 음성 연동: 혈당(${bsVal} mg/dL) 기록 완료.`);
-                    } else {
-                        showToast(`🍃 음성 인식됨: "${text}"`);
-                    }
                 } else if(text.includes('체중') || text.includes('몸무게')) {
                     const weightMatch = text.match(/[\d\.]+/);
                     if(weightMatch) {
@@ -1414,10 +1358,9 @@
         }
 
         function saveBpRecordBtn() {
-            const bpVal = document.getElementById('bpInput').value.trim();
-            const bsVal = document.getElementById('bsInput').value.trim();
-            if(!bpVal && !bsVal) { showToast("⚠ 혈압 또는 혈당 수치를 입력해주세요."); return; }
-            showToast(`❤ 혈압(${bpVal || '미입력'}) / 혈당(${bsVal || '미입력'}) 기록 완료!`);
+            const val = document.getElementById('bpInput').value.trim();
+            if(!val) { showToast("⚠ 혈압 수치를 입력해주세요."); return; }
+            showToast(`❤ 혈압(${val}) 수치 기록 완료!`);
             closeModal('bpModal');
         }
 
@@ -1667,9 +1610,6 @@
                 renderExpiryList();
             } else if(id === 'dashboardModal') {
                 if(dashChartInstance) dashChartInstance.update();
-            } else if(id === 'bpModal') {
-                if(bpChartInstance) bpChartInstance.update();
-                if(bsChartInstance) bsChartInstance.update();
             }
         }
 
