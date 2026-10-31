@@ -396,7 +396,7 @@
 <body>
     
     <div class="phone-frame">
-        <!-- 로그인 화면 -->
+        <!-- 로그인 화면 (이메일/비밀번호 칸 빈 상태로 시작) -->
         <div id="loginScreen" class="screen active">
             <div class="login-container">
                 <div class="login-shield"><i class="fa-solid fa-shield-halved" style="color:var(--primary-color);"></i></div>
@@ -405,11 +405,11 @@
                 
                 <div class="login-input-group">
                     <label>이메일 주소 (ID)</label>
-                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력" value="jshgs3445@gmail.com">
+                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력" value="">
                 </div>
                 <div class="login-input-group">
                     <label>비밀번호</label>
-                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력" value="••••••••">
+                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력" value="">
                 </div>
 
                 <div class="auto-login-wrap" onclick="toggleAutoLogin()">
@@ -1220,10 +1220,14 @@
         }
 
         function executeLogin() { 
+            const email = document.getElementById('loginEmailInput').value.trim();
+            const pw = document.getElementById('loginPwInput').value.trim();
+            if(!email || !pw) { showToast("⚠ 이메일과 비밀번호를 입력해주세요."); return; }
+
             const isAuto = document.getElementById('autoLoginCheck').checked;
             localStorage.setItem('ahm_auto_login', isAuto);
-            enterMainScreen("관리자", "관리자"); 
-            showToast("✨ 환영합니다, 관리자님!");
+            enterMainScreen(email, "회원"); 
+            showToast("✨ 환영합니다!");
         }
 
         function executeLoginGuest() { 
