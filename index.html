@@ -396,7 +396,7 @@
 <body>
     
     <div class="phone-frame">
-        <!-- 로그인 화면 (이메일/비밀번호 칸 빈 상태로 시작) -->
+        <!-- 로그인 화면 -->
         <div id="loginScreen" class="screen active">
             <div class="login-container">
                 <div class="login-shield"><i class="fa-solid fa-shield-halved" style="color:var(--primary-color);"></i></div>
@@ -437,7 +437,7 @@
         <!-- 메인 화면 -->
         <div id="mainScreen" class="screen">
             <div class="app-header">
-                <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">관리자</span></h1>
+                <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">회원</span></h1>
                 <div class="header-icons">
                     <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
                     <i class="fa-solid fa-circle-question" onclick="openModal('qaModal')" title="Q & A 코너"></i>
@@ -448,7 +448,7 @@
             </div>
     
             <div class="app-content">
-                <!-- 1. 영양 가이드 & 복용약 추가 (설명글 삭제, 아이콘과 타이틀만 유지) -->
+                <!-- 1. 영양 가이드 & 복용약 추가 -->
                 <div class="grid-2">
                     <div class="big-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <i class="fa-solid fa-book-medical" style="color: #e11d48;"></i>
@@ -782,7 +782,7 @@
             </div>
         </div>
 
-        <!-- [인체 기능 맵 모달 - 100% 원문 축약 없음] -->
+        <!-- [인체 기능 맵 모달] -->
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -832,7 +832,7 @@
             </div>
         </div>
 
-        <!-- [영양 가이드 백과 모달 - 100% 원문 축약 없음] -->
+        <!-- [영양 가이드 백과 모달] -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1075,7 +1075,6 @@
         let bsChartInstance = null;
         let dashChartInstance = null;
 
-        // 영양 가이드 백과사전 DB (100% 원문 그대로 유지 - 축약 없음)
         const encyclopediaDb = {
             "탄수화물": { 
                 title: "🍞 탄수화물 (Carbohydrate)", 
@@ -1122,7 +1121,6 @@
             "크롬": { title: "🥦 크롬 (Chromium)", desc: "• 기능: 탄수화물 및 지질 대사 촉진, 혈당 수치 조절 보조.\n• 대표 식품: 브로콜리, 통곡물, 육류, 맥주효모" }
         };
 
-        // 인체 기능 맵 DB (100% 원문 그대로 유지 - 축약 없음)
         const bodyCareDb = {
             "뇌신경계": { title: "🧠 뇌·신경계 가이드", desc: "① 추천 성분 및 식품: 오메가-3, 비타민 B군, 견과류, 등푸른 생선\n② 효과: 기억력 개선, 집중력 향상 및 신경전달물질 활성화" },
             "심혈관계": { title: "❤ 심혈관계 가이드", desc: "① 추천 성분 및 식품: 코엔자임Q10, 엽산, 마그네슘, 올리브유\n② 효과: 혈관 탄력 유지, 혈행 개선 및 혈압 안정화" },
@@ -1153,7 +1151,9 @@
             const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
             if (autoLoginSaved) {
                 document.getElementById('autoLoginCheck').checked = true;
-                enterMainScreen("관리자", "관리자");
+                const savedRole = localStorage.getItem('ahm_user_role') || '회원';
+                const savedNick = localStorage.getItem('ahm_user_nick') || (savedRole === '관리자' ? '관리자' : '체험 유저');
+                enterMainScreen(savedNick, savedRole);
             } else {
                 document.getElementById('mainScreen').classList.remove('active');
                 document.getElementById('mainScreen').style.display = 'none';
@@ -1215,8 +1215,13 @@
             const email = document.getElementById('signupEmailInput').value.trim();
             const pw = document.getElementById('signupPwInput').value.trim();
             if(!name || !email || !pw) { showToast("⚠ 모든 정보를 입력해주세요."); return; }
-            showToast("✨ 회원가입 완료!");
+            
+            // 회원가입 시 항상 '회원' 권한으로 자동 로그인 처리 또는 가입 완료
+            localStorage.setItem('ahm_user_role', '회원');
+            localStorage.setItem('ahm_user_nick', name);
+            showToast("✨ 회원가입 완료! 회원으로 로그인합니다.");
             closeModal('signupModal');
+            enterMainScreen(name, "회원");
         }
 
         function executeLogin() { 
@@ -1224,16 +1229,32 @@
             const pw = document.getElementById('loginPwInput').value.trim();
             if(!email || !pw) { showToast("⚠ 이메일과 비밀번호를 입력해주세요."); return; }
 
+            // [수현님 전용 이메일 구별 로직] 수현님 이메일일 때만 관리자, 그 외에는 일반 회원으로 지정
+            let role = "회원";
+            let nickname = email.split('@')[0];
+
+            // 수현님의 대표 이메일 또는 아이디인 경우 관리자로 부여 (예시: jshgs3445@gmail.com 또는 관리자 계정)
+            if (email === "jshgs3445@gmail.com" || email === "관리자" || email === "admin") {
+                role = "관리자";
+                nickname = "관리자";
+            }
+
+            localStorage.setItem('ahm_user_role', role);
+            localStorage.setItem('ahm_user_nick', nickname);
+            
             const isAuto = document.getElementById('autoLoginCheck').checked;
             localStorage.setItem('ahm_auto_login', isAuto);
-            enterMainScreen(email, "회원"); 
-            showToast("✨ 환영합니다!");
+            
+            enterMainScreen(nickname, role); 
+            showToast(`✨ 환영합니다! (${role} 모드)`);
         }
 
         function executeLoginGuest() { 
+            localStorage.setItem('ahm_user_role', '회원');
+            localStorage.setItem('ahm_user_nick', '체험 유저');
             localStorage.setItem('ahm_auto_login', 'false');
-            enterMainScreen("체험 유저", "비회원 모드"); 
-            showToast("👀 비회원 모드로 접속합니다.");
+            enterMainScreen("체험 유저", "회원"); 
+            showToast("👀 비회원 회원 모드로 접속합니다.");
         }
 
         function enterMainScreen(nickname, roleText) {
@@ -1243,11 +1264,24 @@
             document.getElementById('mainScreen').style.display = 'flex';
             document.getElementById('userRoleBadge').textContent = roleText;
             document.getElementById('myPageNameInput').value = nickname;
-            document.getElementById('myPageEmailInput').value = "jshgs3445@gmail.com";
+            document.getElementById('myPageEmailInput').value = document.getElementById('loginEmailInput').value || "jshgs3445@gmail.com";
+
+            // 관리자 여부에 따라 등록 버튼 노출 제어 (원하시면 유지)
+            const adminWrap1 = document.getElementById('adminAddBtnWrap');
+            const adminWrap2 = document.getElementById('adminBibleBtnWrap');
+            if(roleText === '관리자') {
+                if(adminWrap1) adminWrap1.style.display = 'inline-block';
+                if(adminWrap2) adminWrap2.style.display = 'inline-block';
+            } else {
+                if(adminWrap1) adminWrap1.style.display = 'none';
+                if(adminWrap2) adminWrap2.style.display = 'none';
+            }
         }
 
         function executeLogout() {
             localStorage.setItem('ahm_auto_login', 'false');
+            localStorage.removeItem('ahm_user_role');
+            localStorage.removeItem('ahm_user_nick');
             document.getElementById('autoLoginCheck').checked = false;
             document.getElementById('mainScreen').classList.remove('active');
             document.getElementById('mainScreen').style.display = 'none';
