@@ -344,15 +344,18 @@
             transform: translateX(-50%) translateY(-50px);
             background: rgba(30, 41, 59, 0.95);
             color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 14px;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 600;
             transition: transform 0.3s ease, opacity 0.3s ease;
             opacity: 0;
             pointer-events: none;
             box-shadow: 0 5px 20px rgba(0,0,0,0.25);
             z-index: 500;
+            max-width: 340px;
+            text-align: center;
+            line-height: 1.4;
         }
     
         .toast.show {
@@ -517,7 +520,7 @@
                     </div>
                 </div>
     
-                <!-- 5. AI 맞춤 추천 영역 -->
+                <!-- 5. AI 맞춤 추천 영역 (AI 응원 메시지 연동) -->
                 <div class="card">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천</div>
                     <div class="grid-3">
@@ -1075,6 +1078,20 @@
         let bsChartInstance = null;
         let dashChartInstance = null;
 
+        // 회원별 맞춤 AI 응원 메시지 풀 (비용 0원, 정서적 보상)
+        const aiEncourageMessages = [
+            "오늘도 건강 습관을 지켜내셨군요! 정말 멋져요.",
+            "작은 실천이 모여 큰 건강을 만듭니다. 오늘도 화이팅이에요!",
+            "내 몸을 아끼는 가장 현명한 방법, 오늘도 완벽하게 해내셨네요!",
+            "규칙적인 기록과 케어, AI 매니저가 늘 응원합니다!",
+            "건강해지는 소리가 여기까지 들려요! 최고예요!"
+        ];
+
+        function getRandomAiMessage() {
+            const randomIndex = Math.floor(Math.random() * aiEncourageMessages.length);
+            return aiEncourageMessages[randomIndex];
+        }
+
         const encyclopediaDb = {
             "탄수화물": { 
                 title: "🍞 탄수화물 (Carbohydrate)", 
@@ -1216,7 +1233,6 @@
             const pw = document.getElementById('signupPwInput').value.trim();
             if(!name || !email || !pw) { showToast("⚠ 모든 정보를 입력해주세요."); return; }
             
-            // 회원가입 시 항상 '회원' 권한으로 자동 로그인 처리 또는 가입 완료
             localStorage.setItem('ahm_user_role', '회원');
             localStorage.setItem('ahm_user_nick', name);
             showToast("✨ 회원가입 완료! 회원으로 로그인합니다.");
@@ -1229,11 +1245,9 @@
             const pw = document.getElementById('loginPwInput').value.trim();
             if(!email || !pw) { showToast("⚠ 이메일과 비밀번호를 입력해주세요."); return; }
 
-            // [수현님 전용 이메일 구별 로직] 수현님 이메일일 때만 관리자, 그 외에는 일반 회원으로 지정
             let role = "회원";
             let nickname = email.split('@')[0];
 
-            // 수현님의 대표 이메일 또는 아이디인 경우 관리자로 부여 (예시: jshgs3445@gmail.com 또는 관리자 계정)
             if (email === "jshgs3445@gmail.com" || email === "관리자" || email === "admin") {
                 role = "관리자";
                 nickname = "관리자";
@@ -1246,7 +1260,7 @@
             localStorage.setItem('ahm_auto_login', isAuto);
             
             enterMainScreen(nickname, role); 
-            showToast(`✨ 환영합니다! (${role} 모드)`);
+            showToast(`✨ 환영합니다 수현님! (${role} 모드)`);
         }
 
         function executeLoginGuest() { 
@@ -1254,7 +1268,7 @@
             localStorage.setItem('ahm_user_nick', '체험 유저');
             localStorage.setItem('ahm_auto_login', 'false');
             enterMainScreen("체험 유저", "회원"); 
-            showToast("👀 비회원 회원 모드로 접속합니다.");
+            showToast("👀 비회원 모드로 접속합니다.");
         }
 
         function enterMainScreen(nickname, roleText) {
@@ -1266,7 +1280,6 @@
             document.getElementById('myPageNameInput').value = nickname;
             document.getElementById('myPageEmailInput').value = document.getElementById('loginEmailInput').value || "jshgs3445@gmail.com";
 
-            // 관리자 여부에 따라 등록 버튼 노출 제어 (원하시면 유지)
             const adminWrap1 = document.getElementById('adminAddBtnWrap');
             const adminWrap2 = document.getElementById('adminBibleBtnWrap');
             if(roleText === '관리자') {
@@ -1404,12 +1417,13 @@
                 const text = e.results[0][0].transcript;
                 statusEl.textContent = `인식됨: "${text}"`;
                 
+                const aiCheers = getRandomAiMessage();
                 if(text.includes('혈압')) {
                     const numbers = text.match(/\d+/g);
                     if(numbers && numbers.length >= 2) {
                         const bpVal = `${numbers[0]} / ${numbers[1]}`;
                         document.getElementById('bpInput').value = bpVal;
-                        showToast(`❤ 음성 연동: 혈압(${bpVal}) 기록 완료.`);
+                        showToast(`❤ 혈압(${bpVal}) 기록 완료! ${aiCheers}`);
                     } else {
                         showToast(`❤ 음성 인식됨: "${text}"`);
                     }
@@ -1418,7 +1432,7 @@
                     if(bsMatch) {
                         const bsVal = bsMatch[0];
                         document.getElementById('bsInput').value = bsVal;
-                        showToast(`🍃 음성 연동: 혈당(${bsVal} mg/dL) 기록 완료.`);
+                        showToast(`🍃 혈당(${bsVal} mg/dL) 기록 완료! ${aiCheers}`);
                     } else {
                         showToast(`🍃 음성 인식됨: "${text}"`);
                     }
@@ -1427,7 +1441,7 @@
                     if(weightMatch) {
                         const wVal = weightMatch[0];
                         document.getElementById('weightInput').value = wVal;
-                        showToast(`⚖ 음성 연동: 체중(${wVal}kg) 기록 완료.`);
+                        showToast(`⚖ 체중(${wVal}kg) 기록 완료! ${aiCheers}`);
                     } else {
                         showToast(`⚖ 음성 인식됨: "${text}"`);
                     }
@@ -1436,13 +1450,9 @@
                     if(text.includes('500')) amount = 500;
                     else if(text.includes('1리터') || text.includes('1000')) amount = 1000;
                     addWater(amount);
-                    showToast(`💧 음성 연동: 물 ${amount}ml 추가 완료!`);
-                } else if(text.includes('비타민') || text.includes('아침')) {
-                    toggleTakeMed('btnMorning', '아침 비타민');
-                } else if(text.includes('오메가') || text.includes('저녁')) {
-                    toggleTakeMed('btnEvening', '저녁 오메가3');
+                    showToast(`💧 물 ${amount}ml 추가 완료! ${aiCheers}`);
                 } else {
-                    showToast(`✨ 음성 로깅 완료: "${text}"`);
+                    showToast(`✨ 음성 로깅 완료: "${text}" ${aiCheers}`);
                 }
 
                 setTimeout(() => { closeModal('voiceModal'); }, 1400);
@@ -1454,14 +1464,16 @@
             const bpVal = document.getElementById('bpInput').value.trim();
             const bsVal = document.getElementById('bsInput').value.trim();
             if(!bpVal && !bsVal) { showToast("⚠ 혈압 또는 혈당 수치를 입력해주세요."); return; }
-            showToast(`❤ 혈압(${bpVal || '미입력'}) / 혈당(${bsVal || '미입력'}) 기록 완료!`);
+            const aiCheers = getRandomAiMessage();
+            showToast(`❤ 수치 기록 완료! ${aiCheers}`);
             closeModal('bpModal');
         }
 
         function saveWeightRecordBtn() {
             const val = document.getElementById('weightInput').value.trim();
             if(!val) { showToast("⚠ 체중을 입력해주세요."); return; }
-            showToast(`⚖ 체중(${val}kg) 기록 완료!`);
+            const aiCheers = getRandomAiMessage();
+            showToast(`⚖ 체중(${val}kg) 기록 완료! ${aiCheers}`);
             closeModal('weightModal');
         }
 
@@ -1517,16 +1529,20 @@
             openModal('contentViewModal');
         }
 
+        // 🌟 [AI 맞춤형 칭찬 및 응원 메시지 연동 함수]
         function toggleTakeMed(btnId, name) {
             const btn = document.getElementById(btnId);
             if(btn.classList.contains('checked')) {
                 btn.classList.remove('checked');
                 btn.textContent = "먹었어요";
-                showToast(`${name} 취소됨`);
+                showToast(`${name} 기록이 취소되었습니다.`);
             } else {
                 btn.classList.add('checked');
                 btn.textContent = "완료!";
-                showToast(`✨ ${name} 복용 완료!`);
+                
+                // AI 비서 응원 메시지 호출
+                const aiCheers = getRandomAiMessage();
+                showToast(`✨ [AI 비서] "${name} 완료! ${aiCheers}"`);
             }
         }
 
@@ -1593,7 +1609,14 @@
             const dashWater = document.getElementById('dashWaterDisplay');
             if(dashWater) dashWater.textContent = currentWater;
         }
-        function saveWaterRecord() { showToast(`💧 물 ${currentWater}ml 기록됨`); closeModal('waterModal'); }
+
+        // 🌟 물 섭취 완료 시 AI 응원 멘트 연동
+        function saveWaterRecord() { 
+            const aiCheers = getRandomAiMessage();
+            showToast(`💧 물 ${currentWater}ml 기록 완료! ${aiCheers}`); 
+            closeModal('waterModal'); 
+        }
+
         function saveAlarmTimes() { showToast("🔔 알림 시간이 저장되었습니다."); closeModal('alarmModal'); }
 
         function saveNewMedicineRecord() {
@@ -1607,7 +1630,9 @@
             
             document.getElementById('inputNewMedicineNameText').value = '';
             renderMedicineList();
-            showToast(`💊 "${name}"(${time}) 복용약 등록 완료!`);
+            
+            const aiCheers = getRandomAiMessage();
+            showToast(`💊 "${name}" 등록 완료! ${aiCheers}`);
         }
 
         function renderMedicineList() {
@@ -1678,7 +1703,7 @@
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg; t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 3000);
+            setTimeout(() => t.classList.remove('show'), 3500);
         }
 
         function openModal(id) { 
