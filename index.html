@@ -442,15 +442,30 @@
             <div class="app-header">
                 <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">회원</span></h1>
                 <div class="header-icons">
+                    <i class="fa-solid fa-coins" style="color: #fbbf24;" onclick="openModal('rewardModal')" title="포인트 보관함"></i>
                     <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
                     <i class="fa-solid fa-circle-question" onclick="openModal('qaModal')" title="Q & A 코너"></i>
                     <i class="fa-solid fa-circle-plus" onclick="openModal('addModal')" title="추가"></i>
-                    <i class="fa-solid fa-bell" onclick="openModal('alarmModal')" title="알림"></i>
                     <i class="fa-solid fa-user-gear" onclick="openModal('myPageModal')" title="마이페이지"></i>
                 </div>
             </div>
     
             <div class="app-content">
+                <!-- 🌟 [신규 추가] 오늘의 건강 퀴즈 & 럭키 룰렛 배너 카드 -->
+                <div class="grid-2">
+                    <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #93c5fd;" onclick="openModal('quizModal')">
+                        <i class="fa-solid fa-brain" style="color: #2563eb;"></i>
+                        <span style="color: #1e40af;">오늘의 건강 퀴즈</span>
+                        <span style="font-size: 10px; color: #3b82f6; font-weight: normal; margin-top: 2px;">+100P 적립</span>
+                    </div>
+
+                    <div class="big-action-card" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #fcd34d;" onclick="openModal('rouletteModal')">
+                        <i class="fa-solid fa-dharmachakra" style="color: #d97706;"></i>
+                        <span style="color: #92400e;">행운의 룰렛</span>
+                        <span style="font-size: 10px; color: #b45309; font-weight: normal; margin-top: 2px;">매일 1회 무료</span>
+                    </div>
+                </div>
+
                 <!-- 1. 영양 가이드 & 복용약 추가 -->
                 <div class="grid-2">
                     <div class="big-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
@@ -472,7 +487,7 @@
                     </div>
 
                     <div class="big-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; padding: 16px 6px;" onclick="openModal('bodyMapModal')">
-                        <i class="fa-solid fa-brain" style="color: #0b6623;"></i>
+                        <i class="fa-solid fa-notes-medical" style="color: #0b6623;"></i>
                         <span style="color: #166534; font-size: 11.5px;">인체 기능 맵</span>
                     </div>
 
@@ -707,7 +722,61 @@
             </div>
         </div>
 
-        <!-- 전체 대시보드 요약 모달 (1개월 월간 리포트 버튼 추가) -->
+        <!-- 🌟 [신규 모달] 오늘의 건강 퀴즈 모달 -->
+        <div id="quizModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🧠 오늘의 건강 퀴즈 (+100P)</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('quizModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <div style="background: #eff6ff; padding: 14px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                        <b style="color: var(--primary-color);">Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 대표적인 영양제(또는 미네랄)는 무엇일까요?</b>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;" id="quizOptionsArea">
+                        <button type="button" onclick="answerQuiz(false)" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">1. 물 (수분)</button>
+                        <button type="button" onclick="answerQuiz(true)" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">2. 철분 (또는 종합비타민)</button>
+                        <button type="button" onclick="answerQuiz(false)" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">3. 일반 생수</button>
+                    </div>
+                    <p id="quizResultMsg" style="font-size: 12px; color: #1e40af; font-weight: 700; text-align: center; margin-top: 4px;"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🌟 [신규 모달] 행운의 룰렛 모달 -->
+        <div id="rouletteModal" class="custom-modal">
+            <div class="modal-content" style="text-align: center;">
+                <div class="modal-header"><h3>🎡 행운의 룰렛 돌리기</h3><button type="button" class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button></div>
+                <div style="font-size: 45px; color: #d97706; margin: 15px 0;"><i class="fa-solid fa-dharmachakra fa-spin" style="animation-duration: 4s;"></i></div>
+                <div id="rouletteResultBox" style="font-size: 14px; font-weight: 700; background: #fef3c7; color: #92400e; padding: 12px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #fde68a;">
+                    버튼을 눌러 오늘의 행운 포인트를 뽑아보세요!
+                </div>
+                <button type="button" class="action-btn" style="background: #d97706;" onclick="spinRoulette()">룰렛 돌리기 START!</button>
+            </div>
+        </div>
+
+        <!-- 🌟 [신규 모달] 포인트 보관함 모달 -->
+        <div id="rewardModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>💰 내 건강 포인트 보관함</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('rewardModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px; text-align: center;">
+                    <div style="background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px; border-radius: 16px; border: 1px solid #bfdbfe;">
+                        <span style="font-size: 12px; color: #1e40af; font-weight: 600;">현재 보유 포인트</span>
+                        <h2 style="font-size: 32px; color: var(--primary-color); margin-top: 4px;"><span id="totalPointDisplay">0</span> P</h2>
+                    </div>
+                    <p style="font-size: 12px; color: #64748b; line-height: 1.5;">
+                        • 퀴즈 참여: 회당 +100P<br>
+                        • 룰렛 당첨: 최대 +500P<br>
+                        • 포인트는 추후 영양제 할인 쿠폰으로 교환됩니다!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 전체 대시보드 요약 모달 -->
         <div id="dashboardModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1105,6 +1174,7 @@
     <script>
         let currentWater = 500;
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
+        let userPoints = parseInt(localStorage.getItem('ahm_points') || '300');
         
         let latestWeight = localStorage.getItem('ahm_latest_weight') || '65.5';
         let latestBp = localStorage.getItem('ahm_latest_bp') || '120 / 80';
@@ -1156,7 +1226,8 @@
             renderExpiryList();
             initAllCharts();
             updateDashboardValues();
-            saveDailyRecordToMonthly(); // 오늘 날짜 기록 자동 백업/갱신
+            saveDailyRecordToMonthly();
+            updatePointDisplay();
             
             history.pushState(null, null, location.href);
             window.onpopstate = function() {
@@ -1177,7 +1248,42 @@
             }
         };
 
-        // 🌟 1개월 누적 데이터 저장 및 불러오기 함수
+        function updatePointDisplay() {
+            const pointEl = document.getElementById('totalPointDisplay');
+            if(pointEl) pointEl.textContent = userPoints.toLocaleString();
+            localStorage.setItem('ahm_points', userPoints);
+        }
+
+        // 🌟 [신규 추가] 퀴즈 정답 맞추기 로직
+        function answerQuiz(isCorrect) {
+            const msgEl = document.getElementById('quizResultMsg');
+            if(isCorrect) {
+                userPoints += 100;
+                updatePointDisplay();
+                msgEl.style.color = '#16a34a';
+                msgEl.textContent = "🎉 정답입니다! +100 포인트가 적립되었습니다.";
+                showToast("✨ 퀴즈 정답! +100P 적립 완료");
+            } else {
+                msgEl.style.color = '#dc2626';
+                msgEl.textContent = "❌ 아쉽네요! 정답은 2번 철분(종합비타민)입니다.";
+            }
+        }
+
+        // 🌟 [신규 추가] 룰렛 돌리기 로직
+        function spinRoulette() {
+            const rewards = [50, 100, 200, 300, 500];
+            const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
+            userPoints += randomReward;
+            updatePointDisplay();
+            
+            const box = document.getElementById('rouletteResultBox');
+            box.style.background = '#dcfce7';
+            box.style.color = '#166534';
+            box.style.borderColor = '#bbf7d0';
+            box.innerHTML = `🎉 축하합니다! <b>+${randomReward} 포인트</b> 당첨!`;
+            showToast(`🎡 룰렛 당첨! +${randomReward}P 획득`);
+        }
+
         function saveDailyRecordToMonthly() {
             let history = JSON.parse(localStorage.getItem('ahm_monthly_history') || '[]');
             const now = new Date();
@@ -1192,7 +1298,6 @@
                 steps: stepCount
             };
 
-            // 오늘 날짜 기록이 이미 있으면 갱신, 없으면 추가
             const existingIndex = history.findIndex(item => item.date === dateStr);
             if(existingIndex >= 0) {
                 history[existingIndex] = todayData;
@@ -1200,7 +1305,6 @@
                 history.unshift(todayData);
             }
 
-            // 최근 30일치만 유지
             if(history.length > 30) history = history.slice(0, 30);
             localStorage.setItem('ahm_monthly_history', JSON.stringify(history));
             renderMonthlyReportUI(history);
@@ -1778,6 +1882,8 @@
             } else if(id === 'monthlyReportModal') {
                 const history = JSON.parse(localStorage.getItem('ahm_monthly_history') || '[]');
                 renderMonthlyReportUI(history);
+            } else if(id === 'rewardModal') {
+                updatePointDisplay();
             } else if(id === 'bpModal') {
                 if(bpChartInstance) bpChartInstance.update();
                 if(bsChartInstance) bsChartInstance.update();
