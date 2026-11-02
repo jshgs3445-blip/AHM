@@ -707,7 +707,7 @@
             </div>
         </div>
 
-        <!-- 전체 대시보드 요약 모달 -->
+        <!-- 전체 대시보드 요약 모달 (체중·혈압·혈당 추가) -->
         <div id="dashboardModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -715,13 +715,20 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('dashboardModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <div style="background: #eff6ff; padding: 10px; border-radius: 10px; border: 1px solid #bfdbfe;">
+                    <div style="background: #eff6ff; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe;">
                         <b>✨ 오늘의 건강 요약</b>
-                        <p style="margin-top: 4px; font-size: 12px; color: #1e40af;">• 복용 달성률: 85% 우수<br>• 물 섭취량: <span id="dashWaterDisplay">500</span> ml<br>• 만보기 걸음: <span id="dashStepDisplay">0</span> 걸음</p>
+                        <p style="margin-top: 6px; font-size: 12px; color: #1e40af; line-height: 1.5;">
+                            • 복용 달성률: 85% 우수<br>
+                            • 물 섭취량: <span id="dashWaterDisplay">500</span> ml<br>
+                            • 만보기 걸음: <span id="dashStepDisplay">0</span> 걸음<br>
+                            • 최근 체중: <span id="dashWeightDisplay">65.5</span> kg<br>
+                            • 최근 혈압: <span id="dashBpDisplay">120 / 80</span> mmHg<br>
+                            • 최근 혈당: <span id="dashBsDisplay">105</span> mg/dL
+                        </p>
                     </div>
                     <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1;">
                         <b>📈 최근 체중 추이 그래프</b>
-                        <div style="height: 140px; margin-top: 6px;">
+                        <div style="height: 120px; margin-top: 6px;">
                             <canvas id="dashboardTrendChart"></canvas>
                         </div>
                     </div>
@@ -1070,6 +1077,12 @@
     <script>
         let currentWater = 500;
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
+        
+        // 최근 건강 수치 저장 변수 (대시보드 실시간 연동용)
+        let latestWeight = localStorage.getItem('ahm_latest_weight') || '65.5';
+        let latestBp = localStorage.getItem('ahm_latest_bp') || '120 / 80';
+        let latestBs = localStorage.getItem('ahm_latest_bs') || '105';
+
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
@@ -1115,6 +1128,7 @@
             renderMedicineList();
             renderExpiryList();
             initAllCharts();
+            updateDashboardValues();
             
             // 🌟 [뒤로가기 방지 및 브라우저 히스토리 고정 로직]
             history.pushState(null, null, location.href);
@@ -1136,6 +1150,14 @@
             }
         };
 
+        function updateDashboardValues() {
+            document.getElementById('dashWaterDisplay').textContent = currentWater;
+            document.getElementById('dashStepDisplay').textContent = stepCount.toLocaleString();
+            document.getElementById('dashWeightDisplay').textContent = latestWeight;
+            document.getElementById('dashBpDisplay').textContent = latestBp;
+            document.getElementById('dashBsDisplay').textContent = latestBs;
+        }
+
         function toggleAutoLogin() {
             const chk = document.getElementById('autoLoginCheck');
             chk.checked = !chk.checked;
@@ -1146,7 +1168,7 @@
             const weightCtx = document.getElementById('weightChart').getContext('2d');
             weightChartInstance = new Chart(weightCtx, {
                 type: 'line',
-                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, 65.5], borderColor: '#1d4ed8', tension: 0.3 }] },
+                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, parseFloat(latestWeight)], borderColor: '#1d4ed8', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
@@ -1160,14 +1182,14 @@
             const bsCtx = document.getElementById('bsChart').getContext('2d');
             bsChartInstance = new Chart(bsCtx, {
                 type: 'line',
-                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈당', data: [115, 110, 105], borderColor: '#0284c7', tension: 0.3 }] },
+                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈당', data: [115, 110, parseInt(latestBs) || 105], borderColor: '#0284c7', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
             const dashCtx = document.getElementById('dashboardTrendChart').getContext('2d');
             dashChartInstance = new Chart(dashCtx, {
                 type: 'line',
-                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, 65.5], borderColor: '#1d4ed8', tension: 0.3 }] },
+                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, parseFloat(latestWeight)], borderColor: '#1d4ed8', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
@@ -1361,6 +1383,29 @@
             recognition.onresult = (e) => {
                 const text = e.results[0][0].transcript;
                 statusEl.textContent = `인식됨: "${text}"`;
+                
+                // 음성 인식 키워드 자동 판별 및 저장 연동
+                if(text.includes('체중')) {
+                    const nums = text.match(/[\d.]+/);
+                    if(nums) {
+                        latestWeight = nums[0];
+                        localStorage.setItem('ahm_latest_weight', latestWeight);
+                    }
+                } else if(text.includes('혈압')) {
+                    latestBp = text.replace(/[^0-9/]/g, '') || '120/80';
+                    localStorage.setItem('ahm_latest_bp', latestBp);
+                } else if(text.includes('혈당')) {
+                    const nums = text.match(/\d+/);
+                    if(nums) {
+                        latestBs = nums[0];
+                        localStorage.setItem('ahm_latest_bs', latestBs);
+                    }
+                } else if(text.includes('물')) {
+                    const nums = text.match(/\d+/);
+                    if(nums) addWater(parseInt(nums[0]));
+                }
+                
+                updateDashboardValues();
                 const aiCheers = getRandomAiMessage();
                 showToast(`✨ 음성 로깅 완료: "${text}" ${aiCheers}`);
                 setTimeout(() => { closeModal('voiceModal'); }, 1400);
@@ -1372,6 +1417,11 @@
             const bpVal = document.getElementById('bpInput').value.trim();
             const bsVal = document.getElementById('bsInput').value.trim();
             if(!bpVal && !bsVal) { showToast("⚠ 수치를 입력해주세요."); return; }
+            
+            if(bpVal) { latestBp = bpVal; localStorage.setItem('ahm_latest_bp', bpVal); }
+            if(bsVal) { latestBs = bsVal; localStorage.setItem('ahm_latest_bs', bsVal); }
+            updateDashboardValues();
+
             const aiCheers = getRandomAiMessage();
             showToast(`❤ 수치 기록 완료! ${aiCheers}`);
             closeModal('bpModal');
@@ -1380,6 +1430,11 @@
         function saveWeightRecordBtn() {
             const val = document.getElementById('weightInput').value.trim();
             if(!val) { showToast("⚠ 체중을 입력해주세요."); return; }
+            
+            latestWeight = val;
+            localStorage.setItem('ahm_latest_weight', val);
+            updateDashboardValues();
+
             const aiCheers = getRandomAiMessage();
             showToast(`⚖ 체중(${val}kg) 기록 완료! ${aiCheers}`);
             closeModal('weightModal');
@@ -1509,9 +1564,7 @@
 
         function addWater(a) { 
             currentWater += a; 
-            document.getElementById('waterAmount').textContent = currentWater; 
-            const dashWater = document.getElementById('dashWaterDisplay');
-            if(dashWater) dashWater.textContent = currentWater;
+            updateDashboardValues();
         }
 
         function saveWaterRecord() { 
@@ -1630,6 +1683,7 @@
             } else if(id === 'expiryModal') {
                 renderExpiryList();
             } else if(id === 'dashboardModal') {
+                updateDashboardValues();
                 if(dashChartInstance) dashChartInstance.update();
             } else if(id === 'bpModal') {
                 if(bpChartInstance) bpChartInstance.update();
