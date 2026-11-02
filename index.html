@@ -520,7 +520,7 @@
                     </div>
                 </div>
     
-                <!-- 5. AI 맞춤 추천 영역 (AI 응원 메시지 연동) -->
+                <!-- 5. AI 맞춤 추천 영역 -->
                 <div class="card">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-wand-magic-sparkles"></i> AI의 오늘 맞춤 추천</div>
                     <div class="grid-3">
@@ -1078,7 +1078,6 @@
         let bsChartInstance = null;
         let dashChartInstance = null;
 
-        // 회원별 맞춤 AI 응원 메시지 풀 (비용 0원, 정서적 보상)
         const aiEncourageMessages = [
             "오늘도 건강 습관을 지켜내셨군요! 정말 멋져요.",
             "작은 실천이 모여 큰 건강을 만듭니다. 오늘도 화이팅이에요!",
@@ -1093,68 +1092,20 @@
         }
 
         const encyclopediaDb = {
-            "탄수화물": { 
-                title: "🍞 탄수화물 (Carbohydrate)", 
-                desc: "① 탄수화물의 기능과 효과\n• 에너지 공급: 1g당 약 4kcal 에너지를 내며, 걷기·운동·일상생활의 연료가 됩니다.\n• 뇌의 에너지원 공급: 포도당은 평소 뇌가 사용하는 주된 에너지원입니다.\n• 근육 활동 지원: 간과 근육에 글리코겐으로 저장됩니다.\n• 단백질 절약: 단백질이 에너지로 쓰이는 것을 줄여 조직 유지에 기여합니다.\n② 대표 식품: 쌀, 현미, 고구마, 감자, 통밀빵, 오트밀" 
-            },
-            "단백질": { 
-                title: "🥩 단백질 (Protein - 동물성 및 식물성)", 
-                desc: "① 동물성 단백질 (Complete Protein)\n• 종류 및 특징: 필수 아미노산을 모두 함유한 고품질 단백질로 흡수율이 높습니다.\n• 대표 식품: 닭가슴살, 소고기, 돼지고기 안심, 계란, 생선류, 우유 및 유제품\n② 식물성 단백질 (Plant-based Protein)\n• 종류 및 특징: 포화지방이 적고 식이섬유와 항산화 물질이 풍부합니다.\n• 대표 식품: 콩, 두부, 템페, 렌틸콩, 병아리콩, 견과류, 퀴노아" 
-            },
-            "지방": { 
-                title: "🥑 지방 (Fat - 동물성 및 식물성)", 
-                desc: "① 동물성 지방 (Saturated/Trans 등)\n• 특징: 체온 유지와 에너지를 공급하지만 과다 섭취 시 주의가 필요합니다.\n• 대표 식품: 버터, 육류의 지방, 치즈\n② 식물성 지방 (Unsaturated Fat - 불포화지방산)\n• 특징: 혈관 건강을 돕고 콜레스테롤 수치 개선에 기여합니다.\n• 대표 식품: 올리브유, 아보카도, 견과류(아몬드, 호두), 등푸른 생선(오메가3)" 
-            },
-            "물 (수분)": { 
-                title: "💧 물 (Water / 수분)", 
-                desc: "① 수분의 기능과 효과\n• 체온 조절 및 대사 촉진: 땀과 호흡을 통해 체온을 조절하고 신진대사를 원활하게 합니다.\n• 노폐물 배출: 신장을 통해 독소와 노폐물을 체외로 배출합니다.\n• 관절 윤활유 역할: 관절과 조직에 수분을 공급하여 부드러운 움직임을 돕습니다.\n② 대표 음용: 생선 섭취, 신선한 채소 및 과일, 순수한 물 (하루 1.5~2L 권장)" 
-            },
-            "비타민13종": { 
-                title: "💊 비타민 20종 통합 백과사전", 
-                desc: "① 수용성 비타민 (비타민 B군, C 등)\n• 기능: 에너지 대사 생성, 피로 회복, 신경계 정상 유지 및 강력한 항산화 작용.\n• 대표 식품: 신선한 과일(레몬, 오렌지), 녹색 채소, 통곡물, 달걀\n② 지용성 비타민 (비타민 A, D, E, K 등)\n• 기능: 시력 보호, 칼슘 흡수 및 뼈 강화, 세포 노화 방지, 혈액 정상 응고.\n• 대표 식품: 당근, 시금치, 연어, 견과류, 식물성 기름" 
-            },
-            "무기질15가지": { 
-                title: "⚖ 무기질 15가지 통합 백과사전", 
-                desc: "• 골격 형성 및 유지: 칼슘, 인, 마그네슘 (뼈와 치아를 튼튼하게 유지)\n• 전해질 및 수분 평형: 나트륨, 칼륨, 염소 (신경 자극 및 세포 내외 수분 조절)\n• 산소 운반 및 면역: 철분(헤모글로빈), 아연(면역세포 활성), 구리, 요오드, 셀레늄, 망간, 불소, 몰리브덴, 크롬 등 15가지 필수 미네랄이 생체 대사를 조절합니다." 
-            },
-            "필수아미노산": { 
-                title: "🧬 필수 아미노산 9종 백과사전", 
-                desc: "• 정의: 체내에서 합성되지 않아 반드시 음식으로 섭취해야 하는 9가지 아미노산입니다.\n• 9종 종류: 류신(Leucine), 이소류신(Isoleucine), 발린(Valine) [BCAA], 라이신(Lysine), 메티오닌(Methionine), 페닐알라닌(Phenylalanine), 트레오닌(Threonine), 트립토판(Tryptophan), 히스티딘(Histidine)\n• 기능 및 대표 식품: 근육 단백질 합성 촉진, 피로 회복, 신경전달물질 생성에 필수적이며 육류, 계란, 콩류, 유제품에 풍부합니다." 
-            },
-            "칼슘": { title: "🦴 칼슘 (Calcium)", desc: "• 기능: 뼈와 치아의 주된 구성 성분, 근육 수축 및 신경 전달 조절.\n• 대표 식품: 우유, 치즈, 멸치, 브로콜리, 두부" },
-            "인": { title: "⚪ 인 (Phosphorus)", desc: "• 기능: 뼈 형성, 세포 에너지 생성(ATP) 및 pH 균형 유지.\n• 대표 식품: 육류, 가금류, 생선, 달걀, 곡류" },
-            "나트륨": { title: "🧂 나트륨 (Sodium)", desc: "• 기능: 체내 수분 평형 유지, 산·염기 조절 및 신경 자극 전달.\n• 대표 식품: 소금, 간장, 된장, 가공식품" },
-            "염소": { title: "💧 염소 (Chloride)", desc: "• 기능: 위산(HCL)의 구성 성분으로 소화 촉진 및 체내 전해질 균형.\n• 대표 식품: 소금, 해조류, 토마토" },
-            "칼륨": { title: "🍌 칼륨 (Potassium)", desc: "• 기능: 나트륨 배출 유도, 혈압 안정 및 근육·신경 정상 기능 조절.\n• 대표 식품: 바나나, 시금치, 감자, 아보카도, 콩류" },
-            "마그네슘": { title: "⚡ 마그네슘 (Magnesium - 천연 진정제)", desc: "• 기능: 신경 및 근육 이완, 300종 이상의 효소 반응 보조.\n• 대표 식품: 견과류(아몬드, 캐슈넛), 통곡물, 녹색 잎채소" },
-            "철분": { title: "🩸 철분 (Iron)", desc: "• 기능: 적혈구의 헤모글로빈을 구성하여 전신에 산소 공급.\n• 대표 식품: 소고기, 간, 달걀 노른자, 시금치, 렌틸콩" },
-            "아연": { title: "🛡 아연 (Zinc)", desc: "• 기능: 면역력 강화, 세포 분열 및 상처 치유 촉진.\n• 대표 식품: 굴, 소고기, 호박씨, 퀴노아" },
-            "구리": { title: "🪙 구리 (Copper)", desc: "• 기능: 철분 흡수 보조, 적혈구 생성 및 항산화 작용.\n• 대표 식품: 동물의 간, 견과류, 씨앗류, 코코아" },
-            "불소": { title: "🟢 불소 (Fluoride)", desc: "• 기능: 치아 에나멜(법랑질) 강화 및 충치 예방.\n• 대표 식품: 불소 처리된 식수, 해산물, 차(Tea)" },
-            "망간": { title: "🌾 망간 (Manganese)", desc: "• 기능: 뼈 형성, 단백질 대사 및 항산화 효소 활성화.\n• 대표 식품: 통곡물, 견과류, 차, 잎채소" },
-            "요오드": { title: "🌊 요오드 (Iodine)", desc: "• 기능: 갑상선 호르몬(티록신) 합성을 통한 신진대사 조절.\n• 대표 식품: 미역, 김, 다시마 등 해조류, 천일염" },
-            "셀레늄": { title: "✨ 셀레늄 (Selenium)", desc: "• 기능: 강력한 항산화 작용으로 세포 보호 및 면역력 증진.\n• 대표 식품: 브라질너트, 달걀, 참치, 통곡물" },
-            "몰리브덴": { title: "🌿 몰리브덴 (Molybdenum)", desc: "• 기능: 유해 물질 해독 및 체내 효소 작용 보조.\n• 대표 식품: 콩류, 곡류, 잎채소" },
-            "크롬": { title: "🥦 크롬 (Chromium)", desc: "• 기능: 탄수화물 및 지질 대사 촉진, 혈당 수치 조절 보조.\n• 대표 식품: 브로콜리, 통곡물, 육류, 맥주효모" }
+            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate)", desc: "① 에너지 공급 및 뇌 활동 지원\n② 대표 식품: 쌀, 현미, 고구마, 감자, 오트밀" },
+            "단백질": { title: "🥩 단백질 (Protein)", desc: "① 근육 합성 및 면역 체계 유지\n② 대표 식품: 닭가슴살, 소고기, 계란, 두부, 콩" },
+            "지방": { title: "🥑 지방 (Fat)", desc: "① 체온 유지 및 불포화지방산 공급\n② 대표 식품: 올리브유, 아보카도, 견과류" },
+            "물 (수분)": { title: "💧 물 (Water / 수분)", desc: "① 체온 조절 및 노폐물 배출\n② 권장량: 하루 1.5~2L" }
         };
 
         const bodyCareDb = {
-            "뇌신경계": { title: "🧠 뇌·신경계 가이드", desc: "① 추천 성분 및 식품: 오메가-3, 비타민 B군, 견과류, 등푸른 생선\n② 효과: 기억력 개선, 집중력 향상 및 신경전달물질 활성화" },
-            "심혈관계": { title: "❤ 심혈관계 가이드", desc: "① 추천 성분 및 식품: 코엔자임Q10, 엽산, 마그네슘, 올리브유\n② 효과: 혈관 탄력 유지, 혈행 개선 및 혈압 안정화" },
-            "근골격계": { title: "🦴 관절·뼈 가이드", desc: "① 추천 성분 및 식품: 칼슘, 비타민 D, 유제품, 멸치, 브로콜리\n② 효과: 골밀도 강화, 연골 보호 및 관절 튼튼" },
-            "소화면역계": { title: "🛡 소화·면역 가이드", desc: "① 추천 성분 및 식품: 유산균(프로바이오틱스), 아연, 발효식품\n② 효과: 장내 유익균 증식, 소화 흡수력 개선 및 면역력 강화" },
-            "대사해독계": { title: "⚡ 대사·해독 가이드", desc: "① 추천 성분 및 식품: 밀크시슬, 타우린, 비타민 C, 신선한 채소\n② 효과: 간 기능 개선, 체내 독소 배출 및 피로 물질 분해" },
-            "눈건강": { title: "👁 눈 건강 관리 가이드", desc: "① 추천 식품: 진한 녹색 채소(시금치, 케일 등), 주황색 채소(당근, 단호박), 생선(오메가3), 달걀 노르자, 과일·채소, 견과류, 콩·살코기\n② 추천 운동 및 휴식: 20-20-20 휴식, 부드럽게 완전히 깜빡이기, 잠깐 눈 감고 쉬기, 걷기·실내 자전거\n③ 생활 습관: 화면 글씨 키우기, 바람 직접 닿지 않기, 자외선 차단, 정기 안과 검진" },
-            "고혈압관림": { title: "🩸 고혈압 관리 가이드", desc: "① 저염식 식단 및 칼륨 섭취: 나트륨 배출을 돕는 채소와 과일 섭취\n② 유산소 운동: 하루 30분 이상 꾸준한 걷기나 자전거 타기\n③ 스트레스 관리 및 금주·금연" },
-            "당뇨관리": { title: "🍃 당뇨 관리 가이드", desc: "① 저GI(혈당지수) 식단: 통곡물, 식이섬유 풍부한 채소 중심 식사\n② 규칙적인 혈당 모니터링: 식전·식후 혈당 체크\n③ 적정 체중 유지 및 근력 운동 병행" }
+            "뇌신경계": { title: "🧠 뇌·신경계 가이드", desc: "추천 성분: 오메가-3, 비타민 B군" },
+            "심혈관계": { title: "❤ 심혈관계 가이드", desc: "추천 성분: 코엔자임Q10, 마그네슘" }
         };
 
         const hospitalDb = {
-            "두통": { title: "🧠 추천 진료과: 신경과", desc: "• 편두통 및 긴장성 두통 관련 정밀 진료" },
-            "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "• 심장 및 혈관 관련 정밀 검진" },
-            "소화불량": { title: "🍽 추천 진료과: 소화기내과", desc: "• 위염 및 역류성 식도염 관련 진료" },
-            "기침목": { title: "🗣 추천 진료과: 이비인후과", desc: "• 감기 및 편도선염 관련 진료" },
-            "관절통증": { title: "🦴 추천 진료과: 정형외과", desc: "• 관절염 및 근골격계 관련 진료" }
+            "두통": { title: "🧠 추천 진료과: 신경과", desc: "편두통 및 긴장성 두통 진료" },
+            "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "심장 및 혈관 정밀 검진" }
         };
 
         window.onload = function() {
@@ -1165,6 +1116,12 @@
             renderExpiryList();
             initAllCharts();
             
+            // 🌟 [뒤로가기 방지 및 브라우저 히스토리 고정 로직]
+            history.pushState(null, null, location.href);
+            window.onpopstate = function() {
+                history.go(1); // 뒤로가기를 눌러도 로그아웃되지 않고 현재 화면에 머물도록 강제 고정
+            };
+
             const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
             if (autoLoginSaved) {
                 document.getElementById('autoLoginCheck').checked = true;
@@ -1189,40 +1146,28 @@
             const weightCtx = document.getElementById('weightChart').getContext('2d');
             weightChartInstance = new Chart(weightCtx, {
                 type: 'line',
-                data: {
-                    labels: ['5일전', '4일전', '3일전', '2일전', '오늘'],
-                    datasets: [{ label: '체중', data: [66.0, 65.8, 65.6, 65.5, 65.5], borderColor: '#1d4ed8', tension: 0.3 }]
-                },
+                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, 65.5], borderColor: '#1d4ed8', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
             const bpCtx = document.getElementById('bpChart').getContext('2d');
             bpChartInstance = new Chart(bpCtx, {
                 type: 'line',
-                data: {
-                    labels: ['5일전', '4일전', '3일전', '2일전', '오늘'],
-                    datasets: [{ label: '혈압', data: [125, 124, 122, 120, 120], borderColor: '#e11d48', tension: 0.3 }]
-                },
+                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈압', data: [125, 122, 120], borderColor: '#e11d48', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
             const bsCtx = document.getElementById('bsChart').getContext('2d');
             bsChartInstance = new Chart(bsCtx, {
                 type: 'line',
-                data: {
-                    labels: ['5일전', '4일전', '3일전', '2일전', '오늘'],
-                    datasets: [{ label: '혈당', data: [115, 112, 110, 108, 105], borderColor: '#0284c7', tension: 0.3 }]
-                },
+                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈당', data: [115, 110, 105], borderColor: '#0284c7', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
             const dashCtx = document.getElementById('dashboardTrendChart').getContext('2d');
             dashChartInstance = new Chart(dashCtx, {
                 type: 'line',
-                data: {
-                    labels: ['5일전', '3일전', '오늘'],
-                    datasets: [{ label: '체중', data: [66.0, 65.6, 65.5], borderColor: '#1d4ed8', tension: 0.3 }]
-                },
+                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, 65.5], borderColor: '#1d4ed8', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
@@ -1416,45 +1361,8 @@
             recognition.onresult = (e) => {
                 const text = e.results[0][0].transcript;
                 statusEl.textContent = `인식됨: "${text}"`;
-                
                 const aiCheers = getRandomAiMessage();
-                if(text.includes('혈압')) {
-                    const numbers = text.match(/\d+/g);
-                    if(numbers && numbers.length >= 2) {
-                        const bpVal = `${numbers[0]} / ${numbers[1]}`;
-                        document.getElementById('bpInput').value = bpVal;
-                        showToast(`❤ 혈압(${bpVal}) 기록 완료! ${aiCheers}`);
-                    } else {
-                        showToast(`❤ 음성 인식됨: "${text}"`);
-                    }
-                } else if(text.includes('혈당')) {
-                    const bsMatch = text.match(/\d+/);
-                    if(bsMatch) {
-                        const bsVal = bsMatch[0];
-                        document.getElementById('bsInput').value = bsVal;
-                        showToast(`🍃 혈당(${bsVal} mg/dL) 기록 완료! ${aiCheers}`);
-                    } else {
-                        showToast(`🍃 음성 인식됨: "${text}"`);
-                    }
-                } else if(text.includes('체중') || text.includes('몸무게')) {
-                    const weightMatch = text.match(/[\d\.]+/);
-                    if(weightMatch) {
-                        const wVal = weightMatch[0];
-                        document.getElementById('weightInput').value = wVal;
-                        showToast(`⚖ 체중(${wVal}kg) 기록 완료! ${aiCheers}`);
-                    } else {
-                        showToast(`⚖ 음성 인식됨: "${text}"`);
-                    }
-                } else if(text.includes('물') || text.includes('수분')) {
-                    let amount = 250;
-                    if(text.includes('500')) amount = 500;
-                    else if(text.includes('1리터') || text.includes('1000')) amount = 1000;
-                    addWater(amount);
-                    showToast(`💧 물 ${amount}ml 추가 완료! ${aiCheers}`);
-                } else {
-                    showToast(`✨ 음성 로깅 완료: "${text}" ${aiCheers}`);
-                }
-
+                showToast(`✨ 음성 로깅 완료: "${text}" ${aiCheers}`);
                 setTimeout(() => { closeModal('voiceModal'); }, 1400);
             };
             recognition.start();
@@ -1463,7 +1371,7 @@
         function saveBpRecordBtn() {
             const bpVal = document.getElementById('bpInput').value.trim();
             const bsVal = document.getElementById('bsInput').value.trim();
-            if(!bpVal && !bsVal) { showToast("⚠ 혈압 또는 혈당 수치를 입력해주세요."); return; }
+            if(!bpVal && !bsVal) { showToast("⚠ 수치를 입력해주세요."); return; }
             const aiCheers = getRandomAiMessage();
             showToast(`❤ 수치 기록 완료! ${aiCheers}`);
             closeModal('bpModal');
@@ -1482,7 +1390,6 @@
             const title = document.getElementById('adminPostTitle').value.trim();
             const desc = document.getElementById('adminPostDesc').value.trim();
             if(!title) { showToast("⚠ 제목을 입력해주세요."); return; }
-            
             localStorage.setItem('ahm_post_' + cat, JSON.stringify({ title, desc, date: new Date().toLocaleDateString() }));
             updatePostPreview(cat, title);
             showToast("✨ 콘텐츠 등록 완료!");
@@ -1529,18 +1436,15 @@
             openModal('contentViewModal');
         }
 
-        // 🌟 [AI 맞춤형 칭찬 및 응원 메시지 연동 함수]
         function toggleTakeMed(btnId, name) {
             const btn = document.getElementById(btnId);
             if(btn.classList.contains('checked')) {
                 btn.classList.remove('checked');
                 btn.textContent = "먹었어요";
-                showToast(`${name} 기록이 취소되었습니다.`);
+                showToast(`${name} 취소됨`);
             } else {
                 btn.classList.add('checked');
                 btn.textContent = "완료!";
-                
-                // AI 비서 응원 메시지 호출
                 const aiCheers = getRandomAiMessage();
                 showToast(`✨ [AI 비서] "${name} 완료! ${aiCheers}"`);
             }
@@ -1595,7 +1499,7 @@
                 resultDesc.textContent = matched.desc;
             } else {
                 resultTitle.textContent = `🤖 "${query}" 영양 성분 백과`;
-                resultDesc.textContent = `• ${query} 성분은 신체 균형 유지, 대사 촉진 및 건강 증진에 기여합니다. 충분한 수분과 함께 섭취하세요.`;
+                resultDesc.textContent = `• ${query} 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
             }
         }
 
@@ -1610,7 +1514,6 @@
             if(dashWater) dashWater.textContent = currentWater;
         }
 
-        // 🌟 물 섭취 완료 시 AI 응원 멘트 연동
         function saveWaterRecord() { 
             const aiCheers = getRandomAiMessage();
             showToast(`💧 물 ${currentWater}ml 기록 완료! ${aiCheers}`); 
@@ -1630,7 +1533,6 @@
             
             document.getElementById('inputNewMedicineNameText').value = '';
             renderMedicineList();
-            
             const aiCheers = getRandomAiMessage();
             showToast(`💊 "${name}" 등록 완료! ${aiCheers}`);
         }
