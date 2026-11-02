@@ -707,7 +707,7 @@
             </div>
         </div>
 
-        <!-- 전체 대시보드 요약 모달 -->
+        <!-- 전체 대시보드 요약 모달 (1개월 월간 리포트 버튼 추가) -->
         <div id="dashboardModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -726,10 +726,38 @@
                             • 최근 혈당: <span id="dashBsDisplay">105</span> mg/dL
                         </p>
                     </div>
+                    <button type="button" class="action-btn" style="background: #7e22ce; font-size: 13px; padding: 10px;" onclick="openModal('monthlyReportModal')">📅 1개월 월간 누적 리포트 보기</button>
                     <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1;">
                         <b>📈 최근 체중 추이 그래프</b>
                         <div style="height: 120px; margin-top: 6px;">
                             <canvas id="dashboardTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1개월 월간 리포트 모달 -->
+        <div id="monthlyReportModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📅 최근 30일(1개월) 건강 누적 리포트</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('monthlyReportModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="background: #faf5ff; padding: 12px; border-radius: 10px; border: 1px solid #e9d5ff;">
+                        <b style="color: #7e22ce;">✨ 1개월 토탈 누적 요약</b>
+                        <p style="margin-top: 6px; font-size: 12px; color: #6b21a8; line-height: 1.5;" id="monthlySummaryText">
+                            • 총 기록일수: 1일<br>
+                            • 평균 물 섭취량: 500 ml<br>
+                            • 평균 체중: 65.5 kg<br>
+                            • 평균 혈당: 105 mg/dL
+                        </p>
+                    </div>
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; max-height: 180px; overflow-y: auto;">
+                        <b style="font-size: 12px; color: #334155;">📋 일자별 기록 히스토리</b>
+                        <div id="monthlyHistoryList" style="margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+                            <p style="font-size: 11px; color: #94a3b8;">저장된 기록이 없습니다.</p>
                         </div>
                     </div>
                 </div>
@@ -1128,6 +1156,7 @@
             renderExpiryList();
             initAllCharts();
             updateDashboardValues();
+            saveDailyRecordToMonthly(); // 오늘 날짜 기록 자동 백업/갱신
             
             history.pushState(null, null, location.href);
             window.onpopstate = function() {
@@ -1148,6 +1177,66 @@
             }
         };
 
+        // 🌟 1개월 누적 데이터 저장 및 불러오기 함수
+        function saveDailyRecordToMonthly() {
+            let history = JSON.parse(localStorage.getItem('ahm_monthly_history') || '[]');
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+            
+            const todayData = {
+                date: dateStr,
+                water: currentWater,
+                weight: latestWeight,
+                bp: latestBp,
+                bs: latestBs,
+                steps: stepCount
+            };
+
+            // 오늘 날짜 기록이 이미 있으면 갱신, 없으면 추가
+            const existingIndex = history.findIndex(item => item.date === dateStr);
+            if(existingIndex >= 0) {
+                history[existingIndex] = todayData;
+            } else {
+                history.unshift(todayData);
+            }
+
+            // 최근 30일치만 유지
+            if(history.length > 30) history = history.slice(0, 30);
+            localStorage.setItem('ahm_monthly_history', JSON.stringify(history));
+            renderMonthlyReportUI(history);
+        }
+
+        function renderMonthlyReportUI(history) {
+            if(!history || history.length === 0) return;
+            
+            let totalWater = 0, totalWeight = 0, totalBs = 0;
+            let html = '';
+            
+            history.forEach(item => {
+                totalWater += Number(item.water) || 0;
+                totalWeight += parseFloat(item.weight) || 0;
+                totalBs += parseInt(item.bs) || 0;
+                
+                html += `<div style="background: white; padding: 8px 10px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px;">
+                    <span><b>${item.date}</b></span>
+                    <span style="color: #475569;">물 ${item.water}ml | 체중 ${item.weight}kg | 혈당 ${item.bs}</span>
+                </div>`;
+            });
+
+            const count = history.length;
+            const avgWater = Math.round(totalWater / count);
+            const avgWeight = (totalWeight / count).toFixed(1);
+            const avgBs = Math.round(totalBs / count);
+
+            document.getElementById('monthlySummaryText').innerHTML = `
+                • 총 기록일수: ${count}일<br>
+                • 평균 물 섭취량: ${avgWater} ml<br>
+                • 평균 체중: ${avgWeight} kg<br>
+                • 평균 혈당: ${avgBs} mg/dL
+            `;
+            document.getElementById('monthlyHistoryList').innerHTML = html;
+        }
+
         function updateDashboardValues() {
             document.getElementById('waterAmount').textContent = currentWater;
             document.getElementById('dashWaterDisplay').textContent = currentWater;
@@ -1155,6 +1244,7 @@
             document.getElementById('dashWeightDisplay').textContent = latestWeight;
             document.getElementById('dashBpDisplay').textContent = latestBp;
             document.getElementById('dashBsDisplay').textContent = latestBs;
+            saveDailyRecordToMonthly();
         }
 
         function toggleAutoLogin() {
@@ -1562,7 +1652,7 @@
 
         function addWater(a) { 
             currentWater += a; 
-            updateDashboardValues(); // 🌟 화면의 물 수치(UI)가 실시간으로 갱신되도록 수정됨
+            updateDashboardValues();
         }
 
         function saveWaterRecord() { 
@@ -1677,7 +1767,7 @@
             } else if(id === 'pedometerModal') {
                 updateStepDisplay(stepCount);
             } else if(id === 'waterModal') {
-                updateDashboardValues(); // 🌟 물 모달을 열 때 현재 누적된 수치 반영
+                updateDashboardValues();
             } else if(id === 'addModal') {
                 renderMedicineList();
             } else if(id === 'expiryModal') {
@@ -1685,6 +1775,9 @@
             } else if(id === 'dashboardModal') {
                 updateDashboardValues();
                 if(dashChartInstance) dashChartInstance.update();
+            } else if(id === 'monthlyReportModal') {
+                const history = JSON.parse(localStorage.getItem('ahm_monthly_history') || '[]');
+                renderMonthlyReportUI(history);
             } else if(id === 'bpModal') {
                 if(bpChartInstance) bpChartInstance.update();
                 if(bsChartInstance) bsChartInstance.update();
