@@ -573,10 +573,10 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 7. 건강 상식 코너 -->
+                <!-- 🌟 7. [건강 핫플 & 정보광장] 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: var(--primary-color); justify-content: space-between; margin-bottom: 10px;">
-                        <span><i class="fa-solid fa-newspaper"></i> 건강 상식 코너</span>
+                        <span><i class="fa-solid fa-newspaper"></i> 건강 핫플 & 정보광장</span>
                         <span id="adminAddBtnWrap" style="display: inline-block;">
                             <button type="button" onclick="openModal('adminPostModal')" style="background: var(--primary-color); color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">+ 콘텐츠 등록</button>
                         </span>
@@ -725,7 +725,7 @@
             </div>
         </div>
 
-        <!-- 🌟 [업그레이드] 날짜별 자동 변경 퀴즈 모달 -->
+        <!-- 🌟 날짜별 자동 변경 퀴즈 모달 -->
         <div id="quizModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -744,7 +744,7 @@
             </div>
         </div>
 
-        <!-- 🌟 [업그레이드] 1일 1회 제한 룰렛 모달 -->
+        <!-- 🌟 1일 1회 제한 룰렛 모달 -->
         <div id="rouletteModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎡 행운의 룰렛 돌리기</h3><button type="button" class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button></div>
@@ -756,7 +756,7 @@
             </div>
         </div>
 
-        <!-- 🌟 [신규 모달] 포인트 보관함 및 쿠폰 교환소 -->
+        <!-- 포인트 보관함 및 쿠폰 교환소 -->
         <div id="rewardModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1219,7 +1219,6 @@
             "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "심장 및 혈관 정밀 검진" }
         };
 
-        // 🌟 [업그레이드] 날짜별로 자동 변경되는 건강 퀴즈 풀 (Pool)
         const dailyQuizPool = [
             { q: "Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?", options: ["1. 물 (수분)", "2. 철분 (또는 종합비타민)", "3. 일반 생수"], answer: 1 },
             { q: "Q. 체온 조절과 노폐물 배출을 위해 하루 권장되는 기본 수분 섭취량은?", options: ["1. 0.5 리터", "2. 1.5 ~ 2 리터", "3. 5 리터 이상"], answer: 1 },
@@ -1265,7 +1264,6 @@
             localStorage.setItem('ahm_points', userPoints);
         }
 
-        // 🌟 [업그레이드] 날짜에 따라 퀴즈 자동 변경 로직
         function loadDailyQuiz() {
             const now = new Date();
             const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
@@ -1306,7 +1304,6 @@
             }
         }
 
-        // 🌟 [업그레이드] 1일 1회 제한 룰렛 로직
         function spinRoulette() {
             const nowStr = new Date().toLocaleDateString();
             const lastSpinDate = localStorage.getItem('ahm_last_spin_date');
