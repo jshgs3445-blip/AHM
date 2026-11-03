@@ -573,7 +573,7 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 🌟 7. [건강 핫플 & 정보광장] 코너 -->
+                <!-- 7. [건강 핫플 & 정보광장] 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: var(--primary-color); justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 핫플 & 정보광장</span>
@@ -692,7 +692,7 @@
             </div>
         </div>
     
-        <!-- 마이페이지 모달 -->
+        <!-- 🌟 [업그레이드] 데이터 백업/복원 기능이 추가된 마이페이지 모달 -->
         <div id="myPageModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -703,7 +703,20 @@
                     <label>닉네임 / 성함: <input type="text" id="myPageNameInput" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
                     <label>이메일 (ID): <input type="text" id="myPageEmailInput" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
                     <button type="button" class="action-btn" onclick="saveMyPageInfo()">정보 수정 저장하기</button>
-                    <button type="button" style="background: #ef4444; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 4px;" onclick="executeLogout()">로그아웃</button>
+
+                    <!-- 데이터 백업 및 복원 영역 -->
+                    <div style="border-top: 1px solid #e2e8f0; padding-top: 10px; margin-top: 2px;">
+                        <b style="font-size: 12px; color: var(--primary-color);">💾 건강 데이터 백업 및 복원</b>
+                        <div style="display: flex; gap: 8px; margin-top: 6px;">
+                            <button type="button" class="action-btn" style="background: #0284c7; font-size: 11.5px; padding: 8px;" onclick="exportHealthData()">데이터 백업 (JSON)</button>
+                            <label style="flex: 1; background: #059669; color: white; border-radius: 8px; font-size: 11.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 8px; text-align: center;">
+                                데이터 복원
+                                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importHealthData(event)">
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="button" style="background: #ef4444; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 2px;" onclick="executeLogout()">로그아웃</button>
                 </div>
             </div>
         </div>
@@ -725,7 +738,7 @@
             </div>
         </div>
 
-        <!-- 🌟 날짜별 자동 변경 퀴즈 모달 -->
+        <!-- 날짜별 자동 변경 퀴즈 모달 -->
         <div id="quizModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -744,7 +757,7 @@
             </div>
         </div>
 
-        <!-- 🌟 1일 1회 제한 룰렛 모달 -->
+        <!-- 1일 1회 제한 룰렛 모달 -->
         <div id="rouletteModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎡 행운의 룰렛 돌리기</h3><button type="button" class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button></div>
@@ -1257,6 +1270,47 @@
                 document.getElementById('loginScreen').style.display = 'flex';
             }
         };
+
+        // 🌟 [추가 기능] 건강 데이터 JSON 백업 내보내기 함수
+        function exportHealthData() {
+            const backupData = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('ahm_')) {
+                    backupData[key] = localStorage.getItem(key);
+                }
+            }
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "ahm_health_backup.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("✨ 건강 데이터 백업 파일이 다운로드되었습니다.");
+        }
+
+        // 🌟 [추가 기능] 건강 데이터 JSON 파일 복원 가져오기 함수
+        function importHealthData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    for (const key in importedData) {
+                        if (key.startsWith('ahm_')) {
+                            localStorage.setItem(key, importedData[key]);
+                        }
+                    }
+                    showToast("✨ 데이터 복원이 완료되었습니다. 앱을 새로고침합니다.");
+                    setTimeout(() => { location.reload(); }, 1500);
+                } catch (err) {
+                    showToast("⚠ 올바른 백업 파일이 아닙니다.");
+                }
+            };
+            reader.readAsText(file);
+        }
 
         function updatePointDisplay() {
             const pointEl = document.getElementById('totalPointDisplay');
