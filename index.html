@@ -451,7 +451,8 @@
             </div>
     
             <div class="app-content">
-                <!-- 🌟 [신규 추가] 오늘의 건강 퀴즈 & 럭키 룰렛 배너 카드 -->
+                <!-- 🌟 [섹션 1] [데일리 리워드] -->
+                <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px;"><i class="fa-solid fa-gift" style="color:#2563eb;"></i> [데일리 리워드]</div>
                 <div class="grid-2">
                     <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #93c5fd;" onclick="openModal('quizModal')">
                         <i class="fa-solid fa-brain" style="color: #2563eb;"></i>
@@ -466,7 +467,8 @@
                     </div>
                 </div>
 
-                <!-- 1. 영양 가이드 & 복용약 추가 -->
+                <!-- 🌟 [섹션 2] [스마트 영양] -->
+                <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-pills" style="color:#e11d48;"></i> [스마트 영양]</div>
                 <div class="grid-2">
                     <div class="big-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <i class="fa-solid fa-book-medical" style="color: #e11d48;"></i>
@@ -479,7 +481,8 @@
                     </div>
                 </div>
 
-                <!-- 2. 병원 길잡이, 인체 기능 맵, 맞춤 운동 -->
+                <!-- 🌟 [섹션 3] [1:1 건강 솔루션] -->
+                <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-stethoscope" style="color:#1d4ed8;"></i> [1:1 건강 솔루션]</div>
                 <div class="grid-3-col">
                     <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; padding: 16px 6px;" onclick="openModal('hospitalGuideModal')">
                         <i class="fa-solid fa-hospital-user" style="color: #1d4ed8;"></i>
@@ -722,7 +725,7 @@
             </div>
         </div>
 
-        <!-- 🌟 [신규 모달] 오늘의 건강 퀴즈 모달 -->
+        <!-- 🌟 [업그레이드] 날짜별 자동 변경 퀴즈 모달 -->
         <div id="quizModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -731,31 +734,29 @@
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
                     <div style="background: #eff6ff; padding: 14px; border-radius: 12px; border: 1px solid #bfdbfe;">
-                        <b style="color: var(--primary-color);">Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 대표적인 영양제(또는 미네랄)는 무엇일까요?</b>
+                        <b style="color: var(--primary-color);" id="quizQuestionText">Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?</b>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 8px;" id="quizOptionsArea">
-                        <button type="button" onclick="answerQuiz(false)" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">1. 물 (수분)</button>
-                        <button type="button" onclick="answerQuiz(true)" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">2. 철분 (또는 종합비타민)</button>
-                        <button type="button" onclick="answerQuiz(false)" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">3. 일반 생수</button>
+                        <!-- 동적 생성 -->
                     </div>
                     <p id="quizResultMsg" style="font-size: 12px; color: #1e40af; font-weight: 700; text-align: center; margin-top: 4px;"></p>
                 </div>
             </div>
         </div>
 
-        <!-- 🌟 [신규 모달] 행운의 룰렛 모달 -->
+        <!-- 🌟 [업그레이드] 1일 1회 제한 룰렛 모달 -->
         <div id="rouletteModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎡 행운의 룰렛 돌리기</h3><button type="button" class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button></div>
                 <div style="font-size: 45px; color: #d97706; margin: 15px 0;"><i class="fa-solid fa-dharmachakra fa-spin" style="animation-duration: 4s;"></i></div>
                 <div id="rouletteResultBox" style="font-size: 14px; font-weight: 700; background: #fef3c7; color: #92400e; padding: 12px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #fde68a;">
-                    버튼을 눌러 오늘의 행운 포인트를 뽑아보세요!
+                    매일 딱 1번! 오늘의 행운 포인트를 뽑아보세요.
                 </div>
-                <button type="button" class="action-btn" style="background: #d97706;" onclick="spinRoulette()">룰렛 돌리기 START!</button>
+                <button type="button" id="rouletteBtn" class="action-btn" style="background: #d97706;" onclick="spinRoulette()">룰렛 돌리기 START!</button>
             </div>
         </div>
 
-        <!-- 🌟 [신규 모달] 포인트 보관함 모달 -->
+        <!-- 🌟 [신규 모달] 포인트 보관함 및 쿠폰 교환소 -->
         <div id="rewardModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -763,15 +764,15 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('rewardModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px; text-align: center;">
-                    <div style="background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 20px; border-radius: 16px; border: 1px solid #bfdbfe;">
+                    <div style="background: linear-gradient(135deg, #eff6ff, #dbeafe); padding: 18px; border-radius: 16px; border: 1px solid #bfdbfe;">
                         <span style="font-size: 12px; color: #1e40af; font-weight: 600;">현재 보유 포인트</span>
-                        <h2 style="font-size: 32px; color: var(--primary-color); margin-top: 4px;"><span id="totalPointDisplay">0</span> P</h2>
+                        <h2 style="font-size: 32px; color: var(--primary-color); margin-top: 4px;"><span id="totalPointDisplay">300</span> P</h2>
                     </div>
-                    <p style="font-size: 12px; color: #64748b; line-height: 1.5;">
-                        • 퀴즈 참여: 회당 +100P<br>
-                        • 룰렛 당첨: 최대 +500P<br>
-                        • 포인트는 추후 영양제 할인 쿠폰으로 교환됩니다!
-                    </p>
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; text-align: left;">
+                        <b style="font-size: 12px; color: #334155;"><i class="fa-solid fa-ticket" style="color:#7e22ce;"></i> 쿠폰 교환소</b>
+                        <p style="font-size: 11.5px; color: #64748b; margin-top: 4px;">• 영양제 3,000원 할인 쿠폰 (1,000P 차감)</p>
+                        <button type="button" class="action-btn" style="background: #7e22ce; margin-top: 8px; font-size: 12px; padding: 8px;" onclick="exchangeCoupon()">쿠폰 교환하기</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1218,6 +1219,15 @@
             "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "심장 및 혈관 정밀 검진" }
         };
 
+        // 🌟 [업그레이드] 날짜별로 자동 변경되는 건강 퀴즈 풀 (Pool)
+        const dailyQuizPool = [
+            { q: "Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?", options: ["1. 물 (수분)", "2. 철분 (또는 종합비타민)", "3. 일반 생수"], answer: 1 },
+            { q: "Q. 체온 조절과 노폐물 배출을 위해 하루 권장되는 기본 수분 섭취량은?", options: ["1. 0.5 리터", "2. 1.5 ~ 2 리터", "3. 5 리터 이상"], answer: 1 },
+            { q: "Q. 뼈와 관절 건강에 도움을 주며 햇볕을 통해 우리 몸에서 자연 합성되는 비타민은?", options: ["1. 비타민 A", "2. 비타민 C", "3. 비타민 D"], answer: 2 },
+            { q: "Q. 눈 건강(황반색소 유지)에 도움을 주는 대표적인 영양 성분은?", options: ["1. 루테인", "2. 나트륨", "3. 카페인"], answer: 0 },
+            { q: "Q. 칼슘의 흡수를 돕고 면역력 증진에 기여하는 대표적인 미네랄은?", options: ["1. 설탕", "2. 아연", "3. 식초"], answer: 1 }
+        ];
+
         window.onload = function() {
             loadSavedContent();
             loadSavedBible24h();
@@ -1228,6 +1238,7 @@
             updateDashboardValues();
             saveDailyRecordToMonthly();
             updatePointDisplay();
+            loadDailyQuiz();
             
             history.pushState(null, null, location.href);
             window.onpopstate = function() {
@@ -1254,34 +1265,79 @@
             localStorage.setItem('ahm_points', userPoints);
         }
 
-        // 🌟 [신규 추가] 퀴즈 정답 맞추기 로직
+        // 🌟 [업그레이드] 날짜에 따라 퀴즈 자동 변경 로직
+        function loadDailyQuiz() {
+            const now = new Date();
+            const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+            const quizIndex = dayOfYear % dailyQuizPool.length;
+            const currentQuiz = dailyQuizPool[quizIndex];
+
+            document.getElementById('quizQuestionText').textContent = currentQuiz.q;
+            const optionsArea = document.getElementById('quizOptionsArea');
+            let html = '';
+            
+            currentQuiz.options.forEach((opt, idx) => {
+                const isCorrect = (idx === currentQuiz.answer);
+                html += `<button type="button" onclick="answerQuiz(${isCorrect})" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">${opt}</button>`;
+            });
+            optionsArea.innerHTML = html;
+            document.getElementById('quizResultMsg').textContent = '';
+        }
+
         function answerQuiz(isCorrect) {
             const msgEl = document.getElementById('quizResultMsg');
+            const quizDateKey = 'ahm_quiz_done_' + new Date().toLocaleDateString();
+            
+            if(localStorage.getItem(quizDateKey) === 'true') {
+                showToast("⚠ 오늘은 이미 퀴즈를 풀셨습니다! 내일 다시 도전해 주세요.");
+                return;
+            }
+
             if(isCorrect) {
                 userPoints += 100;
                 updatePointDisplay();
+                localStorage.setItem(quizDateKey, 'true');
                 msgEl.style.color = '#16a34a';
                 msgEl.textContent = "🎉 정답입니다! +100 포인트가 적립되었습니다.";
                 showToast("✨ 퀴즈 정답! +100P 적립 완료");
             } else {
                 msgEl.style.color = '#dc2626';
-                msgEl.textContent = "❌ 아쉽네요! 정답은 2번 철분(종합비타민)입니다.";
+                msgEl.textContent = "❌ 아쉽네요! 정답이 아닙니다. 내일 다시 도전해보세요!";
             }
         }
 
-        // 🌟 [신규 추가] 룰렛 돌리기 로직
+        // 🌟 [업그레이드] 1일 1회 제한 룰렛 로직
         function spinRoulette() {
+            const nowStr = new Date().toLocaleDateString();
+            const lastSpinDate = localStorage.getItem('ahm_last_spin_date');
+
+            if(lastSpinDate === nowStr) {
+                showToast("⚠ 오늘은 이미 룰렛을 돌리셨습니다! 내일 다시 참여해 주세요.");
+                return;
+            }
+
             const rewards = [50, 100, 200, 300, 500];
             const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
             userPoints += randomReward;
             updatePointDisplay();
-            
+            localStorage.setItem('ahm_last_spin_date', nowStr);
+
             const box = document.getElementById('rouletteResultBox');
             box.style.background = '#dcfce7';
             box.style.color = '#166534';
             box.style.borderColor = '#bbf7d0';
-            box.innerHTML = `🎉 축하합니다! <b>+${randomReward} 포인트</b> 당첨!`;
+            box.innerHTML = `🎉 축하합니다 오늘 당첨! <b>+${randomReward} 포인트</b> 획득!`;
             showToast(`🎡 룰렛 당첨! +${randomReward}P 획득`);
+        }
+
+        function exchangeCoupon() {
+            if(userPoints >= 1000) {
+                userPoints -= 1000;
+                updatePointDisplay();
+                showToast("🎁 영양제 할인 쿠폰이 성공적으로 발급되었습니다!");
+            } else {
+                showToast("⚠ 포인트가 부족합니다! (필요: 1,000P)");
+            }
         }
 
         function saveDailyRecordToMonthly() {
