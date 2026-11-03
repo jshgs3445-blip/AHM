@@ -17,11 +17,11 @@
         :root {
             --primary-color: #1d4ed8;
             --secondary-color: #3b82f6;
-            --bg-color: #f8fafc;
+            --bg-color: #f4f6f4;
             --card-bg: #ffffff;
             --text-color: #2d3748;
             --sub-text: #64748b;
-            --border-color: #e2e8f0;
+            --border-color: #cbd5e1;
             --modal-bg: #ffffff;
         }
 
@@ -36,7 +36,12 @@
             --modal-bg: #1e293b;
         }
     
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', sans-serif; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', sans-serif;
+        }
     
         body {
             background: #e2e8f0;
@@ -62,97 +67,349 @@
             transition: background 0.3s ease;
         }
     
-        .screen { display: none !important; flex: 1; flex-direction: column; overflow-y: auto; background: var(--bg-color); width: 100%; height: 100%; }
-        .screen.active { display: flex !important; }
+        .screen {
+            display: none !important;
+            flex: 1;
+            flex-direction: column;
+            overflow-y: auto;
+            background: var(--bg-color);
+            width: 100%;
+            height: 100%;
+        }
+    
+        .screen.active {
+            display: flex !important;
+        }
     
         .login-container {
-            flex: 1; padding: 30px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: linear-gradient(135deg, #eff6ff, #dbeafe); text-align: center; width: 100%; height: 100%;
+            flex: 1;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            text-align: center;
+            width: 100%;
+            height: 100%;
         }
     
         .login-shield {
-            font-size: 50px; color: var(--primary-color); margin-bottom: 12px; background: var(--card-bg); width: 80px; height: 80px;
-            display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 4px 15px rgba(29, 78, 216, 0.15);
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            background: var(--card-bg);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(29, 78, 216, 0.15);
         }
     
-        .login-title { font-size: 22px; font-weight: 700; color: var(--primary-color); margin-bottom: 4px; }
-        .login-desc { font-size: 13px; color: var(--sub-text); margin-bottom: 24px; }
-        .login-input-group { width: 100%; text-align: left; margin-bottom: 12px; }
-        .login-input-group label { font-size: 12px; font-weight: 600; color: var(--sub-text); margin-bottom: 4px; display: block; }
-        .login-input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 14px; outline: none; background: var(--card-bg); color: var(--text-color); }
-
-        .auto-login-wrap { width: 100%; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--sub-text); margin-bottom: 10px; padding-left: 2px; cursor: pointer; }
+        .login-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+    
+        .login-desc {
+            font-size: 13px;
+            color: var(--sub-text);
+            margin-bottom: 24px;
+        }
+    
+        .login-input-group {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 12px;
+        }
+    
+        .login-input-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--sub-text);
+            margin-bottom: 4px;
+            display: block;
+        }
+    
+        .login-input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+            outline: none;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+        .auto-login-wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--sub-text);
+            margin-bottom: 10px;
+            padding-left: 2px;
+            cursor: pointer;
+        }
     
         .login-btn {
-            display: block; width: 100%; background: var(--primary-color); color: white; border: none; padding: 14px;
-            border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3); margin-top: 4px; margin-bottom: 8px;
+            display: block;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+            margin-top: 4px;
+            margin-bottom: 8px;
         }
     
         .guest-btn {
-            display: block; width: 100%; background: var(--card-bg); color: var(--primary-color); border: 2px solid var(--primary-color);
-            padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 16px;
+            display: block;
+            width: 100%;
+            background: var(--card-bg);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 16px;
         }
     
         .app-header {
-            background: var(--primary-color); color: white; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background: var(--primary-color);
+            color: white;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
     
-        .app-header h1 { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
-        .header-icons { display: flex; gap: 12px; align-items: center; font-size: 16px; }
-        .header-icons i { cursor: pointer; transition: opacity 0.2s; }
+        .app-header h1 {
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
     
-        .app-content { flex: 1; padding: 16px; overflow-y: auto; }
+        .header-icons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 16px;
+        }
+    
+        .header-icons i {
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+    
+        .app-content {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
     
         .card {
-            background: var(--card-bg); border-radius: 20px; padding: 16px; margin-bottom: 12px;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04); border: 1px solid var(--border-color); transition: background 0.3s, border-color 0.3s;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--border-color);
+            transition: background 0.3s, border-color 0.3s;
         }
     
-        .card-title { font-size: 14px; font-weight: 700; color: var(--text-color); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-        .grid-3-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-
-        .big-action-card {
-            background: var(--card-bg); border-radius: 18px; padding: 16px 12px; border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); cursor: pointer; transition: all 0.2s;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 110px;
+        .card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-
-        .big-action-card:hover { border-color: var(--primary-color); transform: translateY(-2px); }
-        .big-action-card i { font-size: 26px; margin-bottom: 6px; }
-        .big-action-card span { font-size: 13px; font-weight: 700; color: var(--text-color); }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .big-action-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 16px 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 110px;
+        }
+        .big-action-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        .big-action-card i {
+            font-size: 26px;
+            margin-bottom: 6px;
+        }
+        .big-action-card span {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+    
+        .ai-check-btn {
+            width: 100%; background: var(--card-bg); color: var(--primary-color);
+            border: 1px solid var(--primary-color); padding: 6px 4px; border-radius: 8px;
+            font-size: 11px; font-weight: 600; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; gap: 4px;
+        }
+        .ai-check-btn.checked { background: #eff6ff; color: var(--primary-color); border-color: #93c5fd; }
     
         .custom-modal {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);
-            display: none; justify-content: center; align-items: center; padding: 20px; z-index: 300;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 300;
         }
-        .custom-modal.active { display: flex !important; }
+    
+        .custom-modal.active {
+            display: flex !important;
+        }
     
         .modal-content {
-            background: var(--modal-bg); color: var(--text-color); width: 100%; max-width: 350px;
-            border-radius: 24px; padding: 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            display: flex; flex-direction: column; max-height: 88vh; overflow-y: auto; border: 1px solid var(--border-color);
+            background: var(--modal-bg);
+            color: var(--text-color);
+            width: 100%;
+            max-width: 350px;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            max-height: 88vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
         }
     
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
-        .modal-header h3 { font-size: 17px; color: var(--primary-color); font-weight: 700; }
-        .close-modal-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--sub-text); }
-
-        .action-btn { display: block; width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; }
-
-        .toast {
-            position: absolute; top: 80px; left: 50%; transform: translateX(-50%) translateY(-50px);
-            background: rgba(30, 41, 59, 0.95); color: white; padding: 12px 20px; border-radius: 20px;
-            font-size: 13px; font-weight: 600; transition: transform 0.3s ease, opacity 0.3s ease;
-            opacity: 0; pointer-events: none; box-shadow: 0 5px 20px rgba(0,0,0,0.25); z-index: 500; max-width: 340px; text-align: center; line-height: 1.4;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
         }
-        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    
+        .modal-header h3 {
+            font-size: 17px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+    
+        .close-modal-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--sub-text);
+        }
+    
+        .toast {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50px);
+            background: rgba(30, 41, 59, 0.95);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+            z-index: 500;
+            max-width: 340px;
+            text-align: center;
+            line-height: 1.4;
+        }
+    
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .dict-tag {
+            display: inline-block;
+            background: var(--bg-color);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+        .dict-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .action-btn {
+            display: block;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+        }
     </style>
 </head>
-<body id="appBody">
-    
+<body>
     <div class="phone-frame">
         <!-- 로그인 화면 -->
         <div id="loginScreen" class="screen active">
@@ -163,11 +420,11 @@
                 
                 <div class="login-input-group">
                     <label>이메일 주소 (ID)</label>
-                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력">
+                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력" value="">
                 </div>
                 <div class="login-input-group">
                     <label>비밀번호</label>
-                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력">
+                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력" value="">
                 </div>
                 <div class="auto-login-wrap" onclick="toggleAutoLogin()">
                     <input type="checkbox" id="autoLoginCheck" style="width: 16px; height: 16px; cursor: pointer;">
@@ -176,73 +433,19 @@
                 
                 <button type="button" class="login-btn" onclick="executeLogin()">로그인</button>
                 <button type="button" class="guest-btn" onclick="executeLoginGuest()">👀 비회원으로 둘러보기</button>
-                
-                <div style="background: var(--card-bg); padding: 10px; border-radius: 10px; font-size: 11px; color: var(--sub-text); border: 1px solid var(--border-color); line-height: 1.4; margin-top: 4px;">
-                    ⚖ 본 앱의 건강 가이드는 참고용이며, 정확한 진단은 전문 의사와 상담하세요.
-                </div>
             </div>
         </div>
-    
         <!-- 메인 화면 -->
         <div id="mainScreen" class="screen">
             <div class="app-header">
-                <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">회원</span></h1>
+                <h1>AI Health 매니저</h1>
                 <div class="header-icons">
-                    <i class="fa-solid fa-moon" id="darkModeIcon" onclick="toggleDarkMode()" title="다크 모드 전환"></i>
-                    <i class="fa-solid fa-coins" style="color: #fbbf24;" onclick="openModal('rewardModal')" title="포인트 보관함"></i>
-                    <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
-                    <i class="fa-solid fa-circle-plus" onclick="openModal('addModal')" title="추가"></i>
+                    <i class="fa-solid fa-moon" id="darkModeIcon" onclick="toggleDarkMode()" title="다크 모드 전환" style="cursor:pointer;"></i>
                     <i class="fa-solid fa-user-gear" onclick="openModal('myPageModal')" title="마이페이지"></i>
                 </div>
             </div>
-    
             <div class="app-content">
-                <!-- 🌟 [섹션 1] [데일리 리워드] -->
-                <div style="font-size: 12.5px; font-weight: 700; color: var(--sub-text); margin-bottom: 6px; margin-left: 4px;"><i class="fa-solid fa-gift" style="color:#2563eb;"></i> [데일리 리워드]</div>
-                <div class="grid-2">
-                    <div class="big-action-card" onclick="openModal('quizModal')">
-                        <i class="fa-solid fa-brain" style="color: #2563eb;"></i>
-                        <span>오늘의 건강 퀴즈</span>
-                        <span style="font-size: 10px; color: var(--secondary-color); font-weight: normal; margin-top: 2px;">+100P 적립</span>
-                    </div>
-                    <div class="big-action-card" onclick="openModal('rouletteModal')">
-                        <i class="fa-solid fa-dharmachakra" style="color: #d97706;"></i>
-                        <span>행운의 룰렛</span>
-                        <span style="font-size: 10px; color: #d97706; font-weight: normal; margin-top: 2px;">매일 1회 무료</span>
-                    </div>
-                </div>
-
-                <!-- 🌟 [섹션 2] [스마트 영양] -->
-                <div style="font-size: 12.5px; font-weight: 700; color: var(--sub-text); margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-pills" style="color:#e11d48;"></i> [스마트 영양]</div>
-                <div class="grid-2">
-                    <div class="big-action-card" onclick="openModal('compatibilityModal')">
-                        <i class="fa-solid fa-book-medical" style="color: #e11d48;"></i>
-                        <span>영양 가이드</span>
-                    </div>
-                    <div class="big-action-card" onclick="openModal('addModal')">
-                        <i class="fa-solid fa-circle-plus" style="color: #7e22ce;"></i>
-                        <span>복용약 추가</span>
-                    </div>
-                </div>
-
-                <!-- 🌟 [섹션 3] [1:1 건강 솔루션] -->
-                <div style="font-size: 12.5px; font-weight: 700; color: var(--sub-text); margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-stethoscope" style="color:#1d4ed8;"></i> [1:1 건강 솔루션]</div>
-                <div class="grid-3-col">
-                    <div class="big-action-card" style="padding: 16px 6px;" onclick="openModal('hospitalGuideModal')">
-                        <i class="fa-solid fa-hospital-user" style="color: #1d4ed8;"></i>
-                        <span style="font-size: 11.5px;">병원 길잡이</span>
-                    </div>
-                    <div class="big-action-card" style="padding: 16px 6px;" onclick="openModal('bodyMapModal')">
-                        <i class="fa-solid fa-notes-medical" style="color: #0b6623;"></i>
-                        <span style="font-size: 11.5px;">인체 기능 맵</span>
-                    </div>
-                    <div class="big-action-card" style="padding: 16px 6px;" onclick="openModal('exerciseModal')">
-                        <i class="fa-solid fa-dumbbell" style="color: #b45309;"></i>
-                        <span style="font-size: 11.5px;">맞춤 운동</span>
-                    </div>
-                </div>
-
-                <!-- 일상 기록 및 타이머 (연핑크 음성 로깅 적용) -->
+                <!-- 연핑크 음성 로깅 스타일이 적용된 일상 기록 -->
                 <div class="card">
                     <div class="card-title"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
@@ -250,39 +453,11 @@
                             <i class="fa-solid fa-microphone" style="color: #e11d48; font-size: 22px; margin-bottom: 6px;"></i>
                             <span style="color: #9f1239; font-size: 11.5px;">음성 로깅</span>
                         </div>
-                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('waterModal')">
-                            <i class="fa-solid fa-glass-water" style="color: #0284c7; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="font-size: 11.5px;">물 섭취</span>
-                        </div>
-                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('pedometerModal')">
-                            <i class="fa-solid fa-person-walking" style="color: #7e22ce; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="font-size: 11.5px;">만보기</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 스마트 관리 도구 -->
-                <div class="card">
-                    <div class="card-title"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구</div>
-                    <div class="grid-3">
-                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('expiryModal')">
-                            <i class="fa-solid fa-clock-rotate-left" style="color: #475569; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="font-size: 11.5px;">유통기한</span>
-                        </div>
-                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('bpModal')">
-                            <i class="fa-solid fa-heart-pulse" style="color: #e11d48; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="font-size: 11.5px;">혈압·당뇨</span>
-                        </div>
-                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('weightModal')">
-                            <i class="fa-solid fa-weight-scale" style="color: #16a34a; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="font-size: 11.5px;">체중 관리</span>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    
-        <!-- 마이페이지 모달 (데이터 백업 및 복원 포함) -->
+        <!-- 마이페이지 모달 (데이터 백업 및 복원 기능 포함) -->
         <div id="myPageModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -307,33 +482,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- 음성 로깅 모달 -->
-        <div id="voiceModal" class="custom-modal">
-            <div class="modal-content" style="text-align: center;">
-                <div class="modal-header"><h3>🎙 음성 로깅 비서</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
-                <div style="font-size: 45px; color: #e11d48; margin: 15px 0;"><i class="fa-solid fa-microphone-lines fa-beat"></i></div>
-                <p style="font-size: 13px; color: var(--sub-text); margin-bottom: 15px;">"아침 비타민 먹었어", "물 500ml 마셨어"처럼 편하게 말씀해 주세요.</p>
-                <button type="button" class="action-btn" style="background: #e11d48;" onclick="startRealVoiceRecognition()">음성 인식 시작하기</button>
-            </div>
-        </div>
-
-        <!-- 기타 모달 창들 -->
-        <div id="quizModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>🧠 건강 퀴즈</h3><button type="button" class="close-modal-btn" onclick="closeModal('quizModal')">&times;</button></div><p style="font-size:13px;">오늘의 건강 퀴즈 내용입니다.</p></div></div>
-        <div id="rouletteModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>🎡 룰렛</h3><button type="button" class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button></div><p style="font-size:13px;">행운의 룰렛 화면입니다.</p></div></div>
-        <div id="compatibilityModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>📚 영양 가이드</h3><button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button></div><p style="font-size:13px;">영양 가이드 백과입니다.</p></div></div>
-        <div id="addModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>💊 복용약 추가</h3><button type="button" class="close-modal-btn" onclick="closeModal('addModal')">&times;</button></div><p style="font-size:13px;">복용약 추가 화면입니다.</p></div></div>
-        <div id="hospitalGuideModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>🏥 병원 길잡이</h3><button type="button" class="close-modal-btn" onclick="closeModal('hospitalGuideModal')">&times;</button></div><p style="font-size:13px;">병원 길잡이 화면입니다.</p></div></div>
-        <div id="bodyMapModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>🧠 인체 기능 맵</h3><button type="button" class="close-modal-btn" onclick="closeModal('bodyMapModal')">&times;</button></div><p style="font-size:13px;">인체 기능 맵 화면입니다.</p></div></div>
-        <div id="exerciseModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>💪 맞춤 운동</h3><button type="button" class="close-modal-btn" onclick="closeModal('exerciseModal')">&times;</button></div><p style="font-size:13px;">맞춤 운동 처방 화면입니다.</p></div></div>
-        <div id="waterModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>💧 물 섭취</h3><button type="button" class="close-modal-btn" onclick="closeModal('waterModal')">&times;</button></div><p style="font-size:13px;">물 섭취 기록 화면입니다.</p></div></div>
-        <div id="pedometerModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>🚶 만보기</h3><button type="button" class="close-modal-btn" onclick="closeModal('pedometerModal')">&times;</button></div><p style="font-size:13px;">만보기 화면입니다.</p></div></div>
-        <div id="expiryModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>📦 유통기한</h3><button type="button" class="close-modal-btn" onclick="closeModal('expiryModal')">&times;</button></div><p style="font-size:13px;">유통기한 관리 화면입니다.</p></div></div>
-        <div id="bpModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>❤ 혈압·당뇨</h3><button type="button" class="close-modal-btn" onclick="closeModal('bpModal')">&times;</button></div><p style="font-size:13px;">혈압·당뇨 관리 화면입니다.</p></div></div>
-        <div id="weightModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>⚖ 체중 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('weightModal')">&times;</button></div><p style="font-size:13px;">체중 관리 화면입니다.</p></div></div>
-        <div id="rewardModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>💰 포인트</h3><button type="button" class="close-modal-btn" onclick="closeModal('rewardModal')">&times;</button></div><p style="font-size:13px;">포인트 보관함입니다.</p></div></div>
-        <div id="dashboardModal" class="custom-modal"><div class="modal-content"><div class="modal-header"><h3>📊 대시보드</h3><button type="button" class="close-modal-btn" onclick="closeModal('dashboardModal')">&times;</button></div><p style="font-size:13px;">대시보드 요약 화면입니다.</p></div></div>
-
         <div id="toast" class="toast">알림 메시지입니다.</div>
     </div>
     
@@ -343,11 +491,11 @@
             const icon = document.getElementById('darkModeIcon');
             if (html.getAttribute('data-theme') === 'dark') {
                 html.removeAttribute('data-theme');
-                icon.className = 'fa-solid fa-moon';
+                if(icon) icon.className = 'fa-solid fa-moon';
                 localStorage.setItem('ahm_theme', 'light');
             } else {
                 html.setAttribute('data-theme', 'dark');
-                icon.className = 'fa-solid fa-sun';
+                if(icon) icon.className = 'fa-solid fa-sun';
                 localStorage.setItem('ahm_theme', 'dark');
             }
         }
@@ -360,23 +508,6 @@
                 if (icon) icon.className = 'fa-solid fa-sun';
             }
         });
-
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-        function executeLogin() {
-            document.getElementById('loginScreen').classList.remove('active');
-            document.getElementById('mainScreen').classList.add('active');
-        }
-        function executeLoginGuest() {
-            document.getElementById('loginScreen').classList.remove('active');
-            document.getElementById('mainScreen').classList.add('active');
-        }
-        function executeLogout() {
-            document.getElementById('mainScreen').classList.remove('active');
-            document.getElementById('loginScreen').classList.add('active');
-            closeModal('myPageModal');
-        }
 
         function exportHealthData() {
             const backupData = {};
@@ -417,16 +548,12 @@
             reader.readAsText(file);
         }
 
-        function startRealVoiceRecognition() {
-            showToast("🎙 음성 인식 기능 실행됨");
-            closeModal('voiceModal');
-        }
-
-        function saveMyPageInfo() {
-            showToast("✨ 마이페이지 정보가 저장되었습니다!");
-            closeModal('myPageModal');
-        }
-
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function executeLogin() { document.getElementById('loginScreen').classList.remove('active'); document.getElementById('mainScreen').classList.add('active'); }
+        function executeLoginGuest() { document.getElementById('loginScreen').classList.remove('active'); document.getElementById('mainScreen').classList.add('active'); }
+        function executeLogout() { document.getElementById('mainScreen').classList.remove('active'); document.getElementById('loginScreen').classList.add('active'); closeModal('myPageModal'); }
+        function saveMyPageInfo() { showToast("✨ 마이페이지 정보가 저장되었습니다!"); closeModal('myPageModal'); }
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg; 
