@@ -1474,11 +1474,15 @@
             }
         }
 
-        // 🌟 로그아웃 즉시 강제 반영 함수
+        // 🌟 [즉시 강제 아웃 및 확실한 화면 전환 보장] 로그아웃 함수
         function executeLogout() {
-            // 모든 모달 닫기
-            document.querySelectorAll('.custom-modal').forEach(m => m.classList.remove('active'));
+            // 1. 모든 모달창 닫기
+            document.querySelectorAll('.custom-modal').forEach(m => {
+                m.classList.remove('active');
+                m.style.display = 'none';
+            });
             
+            // 2. 인증 세션 및 자동 로그인 정보 완전 해제
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
@@ -1486,6 +1490,7 @@
             const autoLoginChk = document.getElementById('autoLoginCheck');
             if(autoLoginChk) autoLoginChk.checked = false;
             
+            // 3. 메인 화면 숨기고 로그인 화면 강제 활성화 (display 속성 제어 동시 적용)
             const mainScreen = document.getElementById('mainScreen');
             const loginScreen = document.getElementById('loginScreen');
             
@@ -1541,11 +1546,15 @@
         }
 
         function loadSavedBible24h() {
-            let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active')) || {
-                title: "오늘의 말씀 (요일 5:14)",
-                desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라",
-                date: "2026.10.26"
-            };
+            let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active'));
+            if (!activeBible) {
+                activeBible = {
+                    title: "오늘의 말씀 (요일 5:14)",
+                    desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라",
+                    date: "2026.10.26"
+                };
+                localStorage.setItem('ahm_bible_active', JSON.stringify(activeBible));
+            }
             applyBibleToScreen(activeBible);
             renderBibleHistory();
         }
@@ -1706,11 +1715,19 @@
                 if(saved) {
                     try {
                         const parsed = JSON.parse(saved);
-                        updatePostPreview(cat, parsed.title);
+                        if(parsed && parsed.title) {
+                            updatePostPreview(cat, parsed.title);
+                        } else {
+                            updatePostPreview(cat, defaults[cat].title);
+                        }
                     } catch(e) {
                         updatePostPreview(cat, defaults[cat].title);
                     }
                 } else {
+                    // 최초 기본값 고정 설정 (비어있을 때만 기본값 부여하되 기존 저장값 보존)
+                    if(!localStorage.getItem('ahm_post_' + cat)) {
+                        localStorage.setItem('ahm_post_' + cat, JSON.stringify(defaults[cat]));
+                    }
                     updatePostPreview(cat, defaults[cat].title);
                 }
             });
@@ -1725,8 +1742,8 @@
             if(saved) {
                 try {
                     const data = JSON.parse(saved);
-                    let formattedDesc = data.desc ? data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color); text-decoration: underline;">$1</a>') : '';
-                    bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date}</span>`;
+                    let formattedDesc = data.desc ? data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color); text-decoration: underline;">$1</a>') : '내용이 없습니다.';
+                    bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date || ''}</span>`;
                 } catch(e) {
                     bodyEl.innerHTML = `<p style="color:#64748b;">등록된 내용이 없습니다.</p>`;
                 }
