@@ -1490,17 +1490,17 @@
             const autoLoginChk = document.getElementById('autoLoginCheck');
             if(autoLoginChk) autoLoginChk.checked = false;
             
-            // 화면 강제 교체 (DOM 클래스 및 디스플레이 속성 동시 조작)
+            // 화면 즉시 교체 강제 적용
             const mainScreen = document.getElementById('mainScreen');
             const loginScreen = document.getElementById('loginScreen');
             
             if(mainScreen) {
                 mainScreen.classList.remove('active');
-                mainScreen.style.display = 'none';
+                mainScreen.style.setProperty('display', 'none', 'important');
             }
             if(loginScreen) {
                 loginScreen.classList.add('active');
-                loginScreen.style.display = 'flex';
+                loginScreen.style.setProperty('display', 'flex', 'important');
             }
             
             showToast('로그아웃 되었습니다.');
