@@ -1470,8 +1470,9 @@
             }
         }
 
-        // 로그아웃 원래 방식 유지
+        // 🌟 [로그아웃 및 마이페이지 모달 창 즉시 닫힘 보장]
         function executeLogout() {
+            closeModal('myPageModal'); // 마이페이지 창 강제 닫기
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
@@ -1511,7 +1512,6 @@
             const newItem = { title: `오늘의 말씀 (${titleInput})`, desc: desc, date: dateStr };
             
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
-            // 중복 방지 체크 후 최신 항목 추가
             if (!history.some(item => item.title === newItem.title && item.desc === newItem.desc)) {
                 history.unshift(newItem);
             }
