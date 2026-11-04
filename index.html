@@ -1474,35 +1474,15 @@
             }
         }
 
-        // 🌟 [강력한 즉시 로그아웃 보장 로직]
+        // 로그아웃 원래 방식 유지
         function executeLogout() {
-            // 모든 모달 강제 닫기
-            document.querySelectorAll('.custom-modal').forEach(m => {
-                m.classList.remove('active');
-                m.style.display = 'none';
-            });
-            
-            // 세션 정보 완전 소멸
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
-            
-            const autoLoginChk = document.getElementById('autoLoginCheck');
-            if(autoLoginChk) autoLoginChk.checked = false;
-            
-            // 화면 즉시 교체 강제 적용
-            const mainScreen = document.getElementById('mainScreen');
-            const loginScreen = document.getElementById('loginScreen');
-            
-            if(mainScreen) {
-                mainScreen.classList.remove('active');
-                mainScreen.style.setProperty('display', 'none', 'important');
-            }
-            if(loginScreen) {
-                loginScreen.classList.add('active');
-                loginScreen.style.setProperty('display', 'flex', 'important');
-            }
-            
+            document.getElementById('mainScreen').classList.remove('active');
+            document.getElementById('mainScreen').style.display = 'none';
+            document.getElementById('loginScreen').classList.add('active');
+            document.getElementById('loginScreen').style.display = 'flex';
             showToast('로그아웃 되었습니다.');
         }
 
@@ -1535,7 +1515,10 @@
             const newItem = { title: `오늘의 말씀 (${titleInput})`, desc: desc, date: dateStr };
             
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
-            history.unshift(newItem);
+            // 중복 방지 체크 후 추가
+            if (!history.some(item => item.title === newItem.title && item.desc === newItem.desc)) {
+                history.unshift(newItem);
+            }
             localStorage.setItem('ahm_bible_history', JSON.stringify(history));
             localStorage.setItem('ahm_bible_active', JSON.stringify(newItem));
             
@@ -1555,6 +1538,17 @@
                 };
                 localStorage.setItem('ahm_bible_active', JSON.stringify(activeBible));
             }
+            
+            // 지난 말씀 보관함 초기 데이터 동기화 보장
+            let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
+            if (history.length === 0) {
+                history = [
+                    { title: "오늘의 말씀 (요일 5:14)", desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라", date: "2026.10.26" },
+                    { title: "오늘의 말씀 (시 23:1)", desc: "여호와는 나의 목자시니 내게 부족함이 없으리로다", date: "2026.10.25" }
+                ];
+                localStorage.setItem('ahm_bible_history', JSON.stringify(history));
+            }
+            
             applyBibleToScreen(activeBible);
             renderBibleHistory();
         }
@@ -1703,13 +1697,13 @@
             if(cat === 'board') document.getElementById('previewBoard').textContent = title;
         }
 
-        // 🌟 [건강 핫플 영구 보존 및 덮어쓰기 원천 방지 로직]
+        // 🌟 [건강 핫플 및 정보광장 영구 보존 및 복원 로직]
         function loadSavedContent() {
             const defaults = {
-                news: { title: "등록된 뉴스가 없습니다.", desc: "", date: "" },
-                video: { title: "등록된 영상이 없습니다.", desc: "", date: "" },
-                notice: { title: "관리자 공지사항 확인하기", desc: "환영합니다! AHM 스마트 건강 관리 플랫폼 공지사항입니다.", date: "" },
-                board: { title: "회원 소통 게시판", desc: "자유롭게 소통하는 회원 게시판입니다.", date: "" }
+                news: { title: "환절기 면역력 강화 수칙 안내", desc: "환절기 건강 관리를 위한 올바른 비타민 섭취와 수분 보충 가이드를 확인하세요.", date: "2026.10.26" },
+                video: { title: "매일 10분 관절 스트레칭 영상", desc: "시니어 및 직장인을 위한 허리/관절 홈트레이닝 가이드 영상입니다.", date: "2026.10.25" },
+                notice: { title: "관리자 공지사항 확인하기", desc: "환영합니다! AHM 스마트 건강 관리 플랫폼 정기 업데이트 안내입니다.", date: "2026.10.24" },
+                board: { title: "회원 소통 게시판", desc: "건강 팁과 일상을 자유롭게 나누는 따뜻한 소통 공간입니다.", date: "2026.10.23" }
             };
             
             ['news', 'video', 'notice', 'board'].forEach(cat => {
