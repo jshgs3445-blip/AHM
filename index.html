@@ -1236,7 +1236,7 @@
             if (autoLoginSaved) {
                 document.getElementById('autoLoginCheck').checked = true;
                 const savedRole = localStorage.getItem('ahm_user_role') || '회원';
-                const savedNick = localStorage.getItem('ahm_user_nick'] || (savedRole === '관리자' ? '관리자' : '체험 유저');
+                const savedNick = localStorage.getItem('ahm_user_nick') || (savedRole === '관리자' ? '관리자' : '체험 유저');
                 enterMainScreen(savedNick, savedRole);
             } else {
                 document.getElementById('mainScreen').classList.remove('active');
