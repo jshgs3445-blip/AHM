@@ -672,7 +672,7 @@
             </div>
         </div>
     
-        <!-- 마이페이지 모달 (데이터 백업 및 복원 기능 포함) -->
+        <!-- 마이페이지 모달 -->
         <div id="myPageModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -866,7 +866,7 @@
                 </div>
             </div>
         </div>
-        <!-- [인체 기능 맵 모달] -->
+        <!-- 🌟 [인체 기능 맵 모달 - 완벽 복원 및 확장] -->
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -882,7 +882,7 @@
                         <span class="dict-tag" onclick="quickSelectBody('소화면역계')">🛡 소화·면역</span>
                         <span class="dict-tag" onclick="quickSelectBody('대사해독계')">⚡ 대사·해독</span>
                         <span class="dict-tag" onclick="quickSelectBody('눈건강')">👁 눈 건강</span>
-                        <span class="dict-tag" onclick="quickSelectBody('고혈압관림')">🩸 고혈압 관리</span>
+                        <span class="dict-tag" onclick="quickSelectBody('고혈압관리')">🩸 고혈압 관리</span>
                         <span class="dict-tag" onclick="quickSelectBody('당뇨관리')">🍃 당뇨 관리</span>
                     </div>
                     <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; display: none; max-height: 240px; overflow-y: auto;">
@@ -914,7 +914,7 @@
                 </div>
             </div>
         </div>
-        <!-- [영양 가이드 백과 모달] -->
+        <!-- 🌟 [영양 가이드 백과 모달 - 풍성한 영양소 데이터 탑재] -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -928,16 +928,17 @@
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
                         <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
                         <span class="dict-tag" onclick="quickSelectDict('물 (수분)')">💧 물 (수분)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민13종')">💊 비타민 20종</span>
-                        <span class="dict-tag" onclick="quickSelectDict('무기질15가지')">⚖ 무기질 15가지</span>
-                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수 아미노산</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민 종합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('무기질')">⚖ 무기질 15가지</span>
+                        <span class="dict-tag" onclick="quickSelectDict('오메가3')">🐟 오메가3</span>
                         <span class="dict-tag" onclick="quickSelectDict('칼슘')">🦴 칼슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('마그네슘')">⚡ 마그네슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('철분')">🩸 철분</span>
                         <span class="dict-tag" onclick="quickSelectDict('아연')">🛡 아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('루테인')">👁 루테인</span>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="영양소 직접 검색" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="영양소 직접 검색 (예: 비타민, 칼슘)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 220px; overflow-y: auto;">
@@ -1152,18 +1153,37 @@
             const randomIndex = Math.floor(Math.random() * aiEncourageMessages.length);
             return aiEncourageMessages[randomIndex];
         }
+
+        // 🌟 영양 가이드 백과사전 데이터베이스 (확장 보완)
         const encyclopediaDb = {
-            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate)", desc: "① 에너지 공급 및 뇌 활동 지원\n② 대표 식품: 쌀, 현미, 고구마, 감자, 오트밀" },
-            "단백질": { title: "🥩 단백질 (Protein)", desc: "① 근육 합성 및 면역 체계 유지\n② 대표 식품: 닭가슴살, 소고기, 계란, 두부, 콩" },
-            "지방": { title: "🥑 지방 (Fat)", desc: "① 체온 유지 및 불포화지방산 공급\n② 대표 식품: 올리브유, 아보카도, 견과류" },
-            "물 (수분)": { title: "💧 물 (Water / 수분)", desc: "① 체온 조절 및 노폐물 배출\n② 권장량: 하루 1.5~2L" }
+            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate)", desc: "① 에너지 공급 및 뇌 활동 지원\n② 권장 섭취원: 쌀, 현미, 고구마, 감자, 오트밀" },
+            "단백질": { title: "🥩 단백질 (Protein)", desc: "① 근육 합성 및 면역 체계 유지\n② 권장 섭취원: 닭가슴살, 소고기, 계란, 두부, 콩" },
+            "지방": { title: "🥑 지방 (Fat)", desc: "① 체온 유지 및 불포화지방산 공급\n② 권장 섭취원: 올리브유, 아보카도, 견과류" },
+            "물 (수분)": { title: "💧 물 (Water / 수분)", desc: "① 체온 조절 및 노폐물 배출\n② 권장량: 하루 1.5~2L 이상" },
+            "비타민": { title: "💊 비타민 종합 가이드", desc: "① 비타민 C: 항산화 작용 및 피로 회복\n② 비타민 D: 뼈 건강 및 면역력 강화\n③ 비타민 B군: 에너지 생성 및 신경계 활력" },
+            "무기질": { title: "⚖ 무기질 15가지 가이드", desc: "① 칼슘·마그네슘·철분 등 신체 균형 유지\n② 효소 활성화 및 뼈·혈액 건강 지원" },
+            "오메가3": { title: "🐟 오메가-3 지방산", desc: "① 혈행 개선 및 중성지질 감소\n② 뇌 기능 활성화 및 눈 건조 개선" },
+            "칼슘": { title: "🦴 칼슘 (Calcium)", desc: "① 뼈와 치아의 형성에 필수\n② 근육 수축 및 신경 전달 조절" },
+            "마그네슘": { title: "⚡ 마그네슘 (Magnesium)", desc: "① 신경 안정 및 근육 경련 방지\n② 에너지 대사 및 피로 개선" },
+            "철분": { title: "🩸 철분 (Iron)", desc: "① 헤모글로빈 생성 및 산소 운반\n② 빈혈 예방 및 활력 증진" },
+            "아연": { title: "🛡 아연 (Zinc)", desc: "① 정상적인 면역 기능 및 세포 분열\n② 상처 치유 및 대사 촉진" },
+            "루테인": { title: "👁 루테인 (Lutein)", desc: "① 눈의 황반색소 밀도 유지\n② 노화로 인한 시력 저하 방지" }
         };
+
+        // 🌟 인체 기능 맵 가이드 데이터베이스 (완벽 복원 및 확장)
         const bodyCareDb = {
-            "뇌신경계": { title: "🧠 뇌·신경계 가이드", desc: "추천 성분: 오메가-3, 비타민 B군" },
-            "심혈관계": { title: "❤ 심혈관계 가이드", desc: "추천 성분: 코엔자임Q10, 마그네슘" }
+            "뇌신경계": { title: "🧠 뇌·신경계 케어 가이드", desc: "• 주요 역할: 기억력 유지, 집중력 및 스트레스 조절\n• 추천 성분: 오메가-3, 비타민 B군, 포스파티딜세린\n• 생활 습관: 충분한 수면과 규칙적인 유산소 운동" },
+            "심혈관계": { title: "❤ 심혈관계 케어 가이드", desc: "• 주요 역할: 혈행 개선, 혈압 및 콜레스테롤 조절\n• 추천 성분: 코엔자임Q10, 오메가-3, 마그네슘\n• 생활 습관: 저염식 식단 및 금연·절주" },
+            "근골격계": { title: "🦴 관절·뼈 케어 가이드", desc: "• 주요 역할: 신체 지지 및 관절 연골 보호\n• 추천 성분: 칼슘, 비타민 D, MSM(식이유황), 글루코사민\n• 생활 습관: 가벼운 체중 부하 운동과 햇볕 쬐기" },
+            "소화면역계": { title: "🛡 소화·면역계 케어 가이드", desc: "• 주요 역할: 영양소 흡수 및 유해균 억제\n• 추천 성분: 유산균(프로바이오틱스), 아연, 글루타민\n• 생활 습관: 규칙적인 식사 시간과 식이섬유 섭취" },
+            "대사해독계": { title: "⚡ 대사·해독계 케어 가이드", desc: "• 주요 역할: 피로 물질 배출 및 에너지 대사 촉진\n• 추천 성분: 밀크시슬(실리마린), 비타민 B군, 수분\n• 생활 습관: 충분한 수분 섭취와 간 휴식" },
+            "눈건강": { title: "👁 눈 건강 케어 가이드", desc: "• 주요 역할: 시력 보호 및 황반 색소 유지\n• 추천 성분: 루테인 지아잔틴, 비타민 A, 오메가-3\n• 생활 습관: 스마트폰 사용 시 50분마다 10분 휴식" },
+            "고혈압관리": { title: "🩸 고혈압 관리 가이드", desc: "• 주요 역할: 혈관 압력 안정화 및 혈류 순환\n• 추천 성분: 칼륨, 코엔자임Q10, 마그네슘\n• 생활 습관: 염분 섭취 줄이기, 체중 조절" },
+            "당뇨관리": { title: "🍃 당뇨 관리 가이드", desc: "• 주요 역할: 혈당 스파이크 방지 및 인슐린 감수성 개선\n• 추천 성분: 크롬, 바나바잎 추출물, 식이섬유\n• 생활 습관: 식후 가벼운 산책 및 당류 제한" }
         };
+
         const hospitalDb = {
-            "두통": { title: "🧠 추천 진료과: 신경과", desc: "편두통 및 긴장성 두통 진료" },
+            "두통": { title: "🧠 추천 진료과: 신경과", desc: "편두통 및 긴장성 두통 정밀 진료" },
             "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "심장 및 혈관 정밀 검진" }
         };
         const dailyQuizPool = [
@@ -1173,7 +1193,7 @@
             { q: "Q. 눈 건강(황반색소 유지)에 도움을 주는 대표적인 영양 성분은?", options: ["1. 루테인", "2. 나트륨", "3. 카페인"], answer: 0 },
             { q: "Q. 칼슘의 흡수를 돕고 면역력 증진에 기여하는 대표적인 미네랄은?", options: ["1. 설탕", "2. 아연", "3. 식초"], answer: 1 }
         ];
-
+    
         window.onload = function() {
             loadSavedContent();
             loadSavedBible24h();
@@ -1203,8 +1223,7 @@
                 document.getElementById('loginScreen').style.display = 'flex';
             }
         };
-
-        // 데이터 백업 내보내기
+    
         function exportHealthData() {
             const backupData = {};
             for (let i = 0; i < localStorage.length; i++) {
@@ -1222,8 +1241,7 @@
             downloadAnchor.remove();
             showToast("✨ 건강 데이터 백업 파일이 다운로드되었습니다.");
         }
-
-        // 데이터 복원 가져오기
+    
         function importHealthData(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1244,13 +1262,13 @@
             };
             reader.readAsText(file);
         }
-
+    
         function updatePointDisplay() {
             const pointEl = document.getElementById('totalPointDisplay');
             if(pointEl) pointEl.textContent = userPoints.toLocaleString();
             localStorage.setItem('ahm_points', userPoints);
         }
-
+    
         function loadDailyQuiz() {
             const now = new Date();
             const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
@@ -1267,7 +1285,7 @@
             optionsArea.innerHTML = html;
             document.getElementById('quizResultMsg').textContent = '';
         }
-
+    
         function answerQuiz(isCorrect) {
             const msgEl = document.getElementById('quizResultMsg');
             const quizDateKey = 'ahm_quiz_done_' + new Date().toLocaleDateString();
@@ -1288,7 +1306,7 @@
                 msgEl.textContent = "❌ 아쉽네요! 정답이 아닙니다. 내일 다시 도전해보세요!";
             }
         }
-
+    
         function spinRoulette() {
             const nowStr = new Date().toLocaleDateString();
             const lastSpinDate = localStorage.getItem('ahm_last_spin_date');
@@ -1308,7 +1326,7 @@
             box.innerHTML = `🎉 축하합니다 오늘 당첨! <b>+${randomReward} 포인트</b> 획득!`;
             showToast(`🎡 룰렛 당첨! +${randomReward}P 획득`);
         }
-
+    
         function exchangeCoupon() {
             if(userPoints >= 1000) {
                 userPoints -= 1000;
@@ -1318,7 +1336,7 @@
                 showToast("⚠ 포인트가 부족합니다! (필요: 1,000P)");
             }
         }
-
+    
         function saveDailyRecordToMonthly() {
             let history = JSON.parse(localStorage.getItem('ahm_monthly_history') || '[]');
             const now = new Date();
@@ -1342,7 +1360,7 @@
             localStorage.setItem('ahm_monthly_history', JSON.stringify(history));
             renderMonthlyReportUI(history);
         }
-
+    
         function renderMonthlyReportUI(history) {
             if(!history || history.length === 0) return;
             let totalWater = 0, totalWeight = 0, totalBs = 0;
@@ -1370,7 +1388,7 @@
             `;
             document.getElementById('monthlyHistoryList').innerHTML = html;
         }
-
+    
         function updateDashboardValues() {
             document.getElementById('waterAmount').textContent = currentWater;
             document.getElementById('dashWaterDisplay').textContent = currentWater;
@@ -1380,13 +1398,13 @@
             document.getElementById('dashBsDisplay').textContent = latestBs;
             saveDailyRecordToMonthly();
         }
-
+    
         function toggleAutoLogin() {
             const chk = document.getElementById('autoLoginCheck');
             chk.checked = !chk.checked;
             localStorage.setItem('ahm_auto_login', chk.checked);
         }
-
+    
         function initAllCharts() {
             const weightCtx = document.getElementById('weightChart').getContext('2d');
             weightChartInstance = new Chart(weightCtx, {
@@ -1413,7 +1431,7 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
-
+    
         function executeSignup() {
             const name = document.getElementById('signupNameInput').value.trim();
             const email = document.getElementById('signupEmailInput').value.trim();
@@ -1426,7 +1444,7 @@
             closeModal('signupModal');
             enterMainScreen(name, "회원");
         }
-
+    
         function executeLogin() { 
             const email = document.getElementById('loginEmailInput').value.trim();
             const pw = document.getElementById('loginPwInput').value.trim();
@@ -1446,7 +1464,7 @@
             enterMainScreen(nickname, role); 
             showToast(`✨ 환영합니다 수현님! (${role} 모드)`);
         }
-
+    
         function executeLoginGuest() { 
             localStorage.setItem('ahm_user_role', '회원');
             localStorage.setItem('ahm_user_nick', '체험 유저');
@@ -1454,7 +1472,7 @@
             enterMainScreen("체험 유저", "회원"); 
             showToast("👀 비회원 모드로 접속합니다.");
         }
-
+    
         function enterMainScreen(nickname, roleText) {
             document.getElementById('loginScreen').classList.remove('active');
             document.getElementById('loginScreen').style.display = 'none';
@@ -1473,7 +1491,7 @@
                 if(adminWrap2) adminWrap2.style.display = 'none';
             }
         }
-
+    
         function executeLogout() {
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
@@ -1486,18 +1504,18 @@
             closeModal('myPageModal');
             showToast('로그아웃 되었습니다.');
         }
-
+    
         function showFindAccountModal() { openModal('findAccountModal'); }
         function executeFindAccount() {
             showToast("✨ 임시 비밀번호가 이메일로 발송되었습니다.");
             closeModal('findAccountModal');
         }
-
+    
         function saveMyPageInfo() {
             showToast("✨ 마이페이지 정보가 저장되었습니다!");
             closeModal('myPageModal');
         }
-
+    
         function submitQaQuestion() {
             const q = document.getElementById('qaQuestionInput').value.trim();
             if(!q) { showToast("⚠ 문의 내용을 입력해주세요."); return; }
@@ -1505,8 +1523,7 @@
             document.getElementById('qaQuestionInput').value = '';
             closeModal('qaModal');
         }
-
-        // 🌟 오늘의 말씀 및 지난 말씀 영구 저장 로직 보완
+    
         function saveAdminBible() {
             const titleInput = document.getElementById('adminBibleTitleInput').value.trim();
             const desc = document.getElementById('adminBibleDescInput').value.trim();
@@ -1526,7 +1543,7 @@
             showToast("✨ 오늘의 말씀 등록 완료!");
             closeModal('adminBibleModal');
         }
-
+    
         function loadSavedBible24h() {
             let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active')) || {
                 title: "오늘의 말씀 (요일 5:14)",
@@ -1536,12 +1553,12 @@
             applyBibleToScreen(activeBible);
             renderBibleHistory();
         }
-
+    
         function applyBibleToScreen(item) {
             document.getElementById('displayBibleTitle').textContent = item.title;
             document.getElementById('displayBibleDesc').textContent = item.desc;
         }
-
+    
         function renderBibleHistory() {
             const listEl = document.getElementById('bibleHistoryList');
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
@@ -1558,7 +1575,7 @@
             });
             listEl.innerHTML = html;
         }
-
+    
         function initStepCounter() {
             if (window.DeviceMotionEvent) {
                 window.addEventListener('devicemotion', (event) => {
@@ -1578,7 +1595,7 @@
                 });
             }
         }
-
+    
         function updateStepDisplay(steps) {
             const formatted = steps.toLocaleString();
             const percent = Math.min(Math.round((steps / 10000) * 100), 100);
@@ -1589,7 +1606,7 @@
             const dashStep = document.getElementById('dashStepDisplay');
             if(dashStep) dashStep.textContent = formatted;
         }
-
+    
         function startRealVoiceRecognition() {
             const statusEl = document.getElementById('voiceStatus');
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -1632,7 +1649,7 @@
             };
             recognition.start();
         }
-
+    
         function saveBpRecordBtn() {
             const bpVal = document.getElementById('bpInput').value.trim();
             const bsVal = document.getElementById('bsInput').value.trim();
@@ -1645,7 +1662,7 @@
             showToast(`❤ 수치 기록 완료! ${aiCheers}`);
             closeModal('bpModal');
         }
-
+    
         function saveWeightRecordBtn() {
             const val = document.getElementById('weightInput').value.trim();
             if(!val) { showToast("⚠ 체중을 입력해주세요."); return; }
@@ -1657,8 +1674,7 @@
             showToast(`⚖ 체중(${val}kg) 기록 완료! ${aiCheers}`);
             closeModal('weightModal');
         }
-
-        // 🌟 건강 핫플 정보 영구 저장 로직 보완
+    
         function saveAdminPost() {
             const cat = document.getElementById('adminPostCategory').value;
             const title = document.getElementById('adminPostTitle').value.trim();
@@ -1674,14 +1690,14 @@
             document.getElementById('adminPostTitle').value = '';
             document.getElementById('adminPostDesc').value = '';
         }
-
+    
         function updatePostPreview(cat, title) {
             if(cat === 'news') document.getElementById('previewNews').textContent = title;
             if(cat === 'video') document.getElementById('previewVideo').textContent = title;
             if(cat === 'notice') document.getElementById('previewNotice').textContent = title;
             if(cat === 'board') document.getElementById('previewBoard').textContent = title;
         }
-
+    
         function loadSavedContent() {
             const defaults = {
                 news: { title: "등록된 뉴스가 없습니다." },
@@ -1703,7 +1719,7 @@
                 }
             });
         }
-
+    
         function showPostContent(cat) {
             const saved = localStorage.getItem('ahm_post_' + cat);
             const titles = { news: '최신 뉴스', video: '득템 영상', notice: '공지사항', board: '게시판' };
@@ -1723,7 +1739,7 @@
             }
             openModal('contentViewModal');
         }
-
+    
         function toggleTakeMed(btnId, name) {
             const btn = document.getElementById(btnId);
             if(btn.classList.contains('checked')) {
@@ -1737,26 +1753,61 @@
                 showToast(`✨ [AI 비서] "${name} 완료! ${aiCheers}"`);
             }
         }
-
+    
+        // 🌟 영양 가이드 백과 선택 및 검색 함수 (완벽 복원)
         function quickSelectDict(keyword) {
             document.getElementById('inputSearchQueryText').value = keyword;
             executeDictSearch(keyword);
         }
 
+        function searchSupplementCompatibilityTextInput() {
+            const query = document.getElementById('inputSearchQueryText').value.trim();
+            executeDictSearch(query);
+        }
+
+        function executeDictSearch(query) {
+            const resultArea = document.getElementById('searchResultArea');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultDesc = document.getElementById('resultDesc');
+            if(!query) {
+                showToast("⚠ 검색어 또는 영양소를 선택해주세요.");
+                return;
+            }
+            resultArea.style.display = 'block';
+            
+            // 정확히 일치하거나 포함하는 키워드 검색 지원
+            let matchedKey = Object.keys(encyclopediaDb).find(k => k.includes(query) || query.includes(k));
+            
+            if(matchedKey) {
+                let matched = encyclopediaDb[matchedKey];
+                resultTitle.textContent = matched.title;
+                resultDesc.textContent = matched.desc;
+            } else {
+                resultTitle.textContent = `🤖 "${query}" 영양 성분 백과`;
+                resultDesc.textContent = `• 검색하신 "${query}" 성분은 신체 균형 유지, 대사 보조 및 건강 증진에 기여합니다.\n• 상세 가이드는 전문 의약 백과나 전용 성분표를 참고해 주세요.`;
+            }
+        }
+    
+        // 🌟 인체 기능 맵 선택 함수 (완벽 복원)
         function quickSelectBody(key) {
             const area = document.getElementById('bodyResultArea');
             area.style.display = 'block';
-            document.getElementById('bodyResultTitle').textContent = bodyCareDb[key].title;
-            document.getElementById('bodyResultDesc').textContent = bodyCareDb[key].desc;
+            if(bodyCareDb[key]) {
+                document.getElementById('bodyResultTitle').textContent = bodyCareDb[key].title;
+                document.getElementById('bodyResultDesc').textContent = bodyCareDb[key].desc;
+            } else {
+                document.getElementById('bodyResultTitle').textContent = `🧠 맞춤 신체 기능 가이드`;
+                document.getElementById('bodyResultDesc').textContent = `선택하신 신체 부위의 맞춤형 건강 관리 및 영양 성분 가이드입니다.`;
+            }
         }
-
+    
         function quickSelectHospital(key) {
             const area = document.getElementById('hospitalResultArea');
             area.style.display = 'block';
             document.getElementById('hospitalResultTitle').textContent = hospitalDb[key].title;
             document.getElementById('hospitalResultDesc').textContent = hospitalDb[key].desc;
         }
-
+    
         function searchHospitalAI() {
             const query = document.getElementById('inputHospitalSearch').value.trim();
             if(!query) { showToast('⚠ 증상을 입력해주세요.'); return; }
@@ -1765,7 +1816,7 @@
             document.getElementById('hospitalResultTitle').textContent = `🤖 AI 추천 진료과`;
             document.getElementById('hospitalResultDesc').textContent = `입력 증상: "${query}"\n권장 진료과: 1차 가정의학과 및 전문 내과 진료를 권장합니다.`;
         }
-
+    
         function generateAiConditionPrescription() {
             const query = document.getElementById('inputUserCondition').value.trim();
             if(!query) { showToast('⚠ 컨디션을 입력해주세요.'); return; }
@@ -1774,40 +1825,20 @@
             document.getElementById('exerciseResultTitle').textContent = `💪 맞춤 운동 처방`;
             document.getElementById('exerciseResultDesc').textContent = `상태: "${query}"\n솔루션: 가벼운 유산소 스트레칭 및 심호흡 (15분간 진행)`;
         }
-
-        function executeDictSearch(query) {
-            const resultArea = document.getElementById('searchResultArea');
-            const resultTitle = document.getElementById('resultTitle');
-            const resultDesc = document.getElementById('resultDesc');
-            if(!query) return;
-            resultArea.style.display = 'block';
-            let matched = encyclopediaDb[query];
-            if(matched) {
-                resultTitle.textContent = matched.title;
-                resultDesc.textContent = matched.desc;
-            } else {
-                resultTitle.textContent = `🤖 "${query}" 영양 성분 백과`;
-                resultDesc.textContent = `${query} 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
-            }
-        }
-
-        function searchSupplementCompatibilityTextInput() {
-            executeDictSearch(document.getElementById('inputSearchQueryText').value.trim());
-        }
-
+    
         function addWater(a) { 
             currentWater += a; 
             updateDashboardValues();
         }
-
+    
         function saveWaterRecord() { 
             const aiCheers = getRandomAiMessage();
             showToast(`💧 물 ${currentWater}ml 기록 완료! ${aiCheers}`); 
             closeModal('waterModal'); 
         }
-
+    
         function saveAlarmTimes() { showToast("🔔 알림 시간이 저장되었습니다."); closeModal('alarmModal'); }
-
+    
         function saveNewMedicineRecord() {
             const name = document.getElementById('inputNewMedicineNameText').value.trim();
             const time = document.getElementById('inputNewMedicineTime').value;
@@ -1821,7 +1852,7 @@
             const aiCheers = getRandomAiMessage();
             showToast(`💊 "${name}" 등록 완료! ${aiCheers}`);
         }
-
+    
         function renderMedicineList() {
             const container = document.getElementById('medicineListContainer');
             let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
@@ -1838,7 +1869,7 @@
             });
             container.innerHTML = html;
         }
-
+    
         function deleteMedicineItem(index) {
             let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             list.splice(index, 1);
@@ -1846,7 +1877,7 @@
             renderMedicineList();
             showToast("🗑 복용약이 삭제되었습니다.");
         }
-
+    
         function saveExpiryItem() {
             const name = document.getElementById('inputExpiryName').value.trim();
             const date = document.getElementById('inputExpiryDate').value;
@@ -1859,7 +1890,7 @@
             renderExpiryList();
             showToast(`📦 "${name}" 유통기한 등록 완료!`);
         }
-
+    
         function renderExpiryList() {
             const container = document.getElementById('expiryListContainer');
             let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
@@ -1876,7 +1907,7 @@
             });
             container.innerHTML = html;
         }
-
+    
         function deleteExpiryItem(index) {
             let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
             list.splice(index, 1);
@@ -1884,13 +1915,13 @@
             renderExpiryList();
             showToast("🗑 유통기한 항목이 삭제되었습니다.");
         }
-
+    
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg; t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3500);
         }
-
+    
         function openModal(id) { 
             const modal = document.getElementById(id);
             modal.classList.add('active'); 
@@ -1928,7 +1959,7 @@
                 renderBibleHistory();
             }
         }
-
+    
         function closeModal(id) { 
             document.getElementById(id).classList.remove('active'); 
         }
