@@ -129,7 +129,6 @@
             outline: none;
             background: #ffffff;
         }
-
         .auto-login-wrap {
             width: 100%;
             display: flex;
@@ -226,27 +225,23 @@
             align-items: center;
             gap: 8px;
         }
-
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin-bottom: 12px;
         }
-
         .grid-3 {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
         }
-
         .grid-3-col {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 8px;
             margin-bottom: 12px;
         }
-
         .big-action-card {
             background: #ffffff;
             border-radius: 18px;
@@ -362,7 +357,6 @@
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
-
         .dict-tag {
             display: inline-block;
             background: #f1f5f9;
@@ -380,7 +374,6 @@
             color: white;
             border-color: var(--primary-color);
         }
-
         .action-btn {
             display: block;
             width: 100%;
@@ -414,7 +407,6 @@
                     <label>비밀번호</label>
                     <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력" value="">
                 </div>
-
                 <div class="auto-login-wrap" onclick="toggleAutoLogin()">
                     <input type="checkbox" id="autoLoginCheck" style="width: 16px; height: 16px; cursor: pointer;">
                     <label for="autoLoginCheck" style="cursor: pointer; margin-bottom: 0; font-weight: 600;">자동 로그인 유지</label>
@@ -426,7 +418,6 @@
                 <div style="background: #ffffff; padding: 10px; border-radius: 10px; font-size: 11px; color: #64748b; border: 1px solid #e2e8f0; line-height: 1.4; margin-top: 4px;">
                     ⚖ 본 앱의 건강 가이드는 참고용이며, 정확한 진단은 전문 의사와 상담하세요.
                 </div>
-
                 <div style="margin-top: 12px; font-size: 12px;">
                     <a href="javascript:void(0);" onclick="openModal('signupModal')" style="color: var(--primary-color); text-decoration: none; font-weight: 700;">회원가입</a>
                     <span style="color: #cbd5e1; margin: 0 6px;">|</span>
@@ -459,14 +450,12 @@
                         <span style="color: #1e40af;">오늘의 건강 퀴즈</span>
                         <span style="font-size: 10px; color: #3b82f6; font-weight: normal; margin-top: 2px;">+100P 적립</span>
                     </div>
-
                     <div class="big-action-card" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #fcd34d;" onclick="openModal('rouletteModal')">
                         <i class="fa-solid fa-dharmachakra" style="color: #d97706;"></i>
                         <span style="color: #92400e;">행운의 룰렛</span>
                         <span style="font-size: 10px; color: #b45309; font-weight: normal; margin-top: 2px;">매일 1회 무료</span>
                     </div>
                 </div>
-
                 <!-- 🌟 [섹션 2] [스마트 영양] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-pills" style="color:#e11d48;"></i> [스마트 영양]</div>
                 <div class="grid-2">
@@ -474,13 +463,11 @@
                         <i class="fa-solid fa-book-medical" style="color: #e11d48;"></i>
                         <span style="color: #9f1239;">영양 가이드</span>
                     </div>
-
                     <div class="big-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('addModal')">
                         <i class="fa-solid fa-circle-plus" style="color: #7e22ce;"></i>
                         <span style="color: #6b21a8;">복용약 추가</span>
                     </div>
                 </div>
-
                 <!-- 🌟 [섹션 3] [1:1 건강 솔루션] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-stethoscope" style="color:#1d4ed8;"></i> [1:1 건강 솔루션]</div>
                 <div class="grid-3-col">
@@ -488,18 +475,15 @@
                         <i class="fa-solid fa-hospital-user" style="color: #1d4ed8;"></i>
                         <span style="color: #1e40af; font-size: 11.5px;">병원 길잡이</span>
                     </div>
-
                     <div class="big-action-card" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; padding: 16px 6px;" onclick="openModal('bodyMapModal')">
                         <i class="fa-solid fa-notes-medical" style="color: #0b6623;"></i>
                         <span style="color: #166534; font-size: 11.5px;">인체 기능 맵</span>
                     </div>
-
                     <div class="big-action-card" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fde68a; padding: 16px 6px;" onclick="openModal('exerciseModal')">
                         <i class="fa-solid fa-dumbbell" style="color: #b45309;"></i>
                         <span style="color: #92400e; font-size: 11.5px;">맞춤 운동</span>
                     </div>
                 </div>
-
                 <!-- 3. 일상 기록 및 타이머 -->
                 <div class="card">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
@@ -518,7 +502,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- 4. 스마트 관리 도구 -->
                 <div class="card">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
@@ -573,7 +556,7 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 🌟 7. [건강 핫플 & 정보광장] 코너 -->
+                <!-- 7. [건강 핫플 & 정보광장] 코너 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: var(--primary-color); justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 핫플 & 정보광장</span>
@@ -594,7 +577,6 @@
                             <span style="color: #64748b; font-size: 10px; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" id="previewVideo">등록된 영상이 없습니다.</span>
                         </div>
                     </div>
-
                     <div class="grid-2" style="margin-bottom: 0;">
                         <div class="big-action-card" style="background: white; border-color: #cbd5e1; min-height: 100px; padding: 12px 6px;" onclick="showPostContent('notice')">
                             <i class="fa-solid fa-bullhorn" style="color: #d97706; font-size: 22px; margin-bottom: 4px;"></i>
@@ -653,7 +635,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Q & A 모달 -->
         <div id="qaModal" class="custom-modal">
             <div class="modal-content">
@@ -678,7 +659,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 앱 소개 및 도움말 모달 -->
         <div id="helpModal" class="custom-modal">
             <div class="modal-content">
@@ -692,7 +672,7 @@
             </div>
         </div>
     
-        <!-- 마이페이지 모달 -->
+        <!-- 🌟 [업그레이드] 데이터 백업/복원 기능이 추가된 마이페이지 모달 -->
         <div id="myPageModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -703,11 +683,21 @@
                     <label>닉네임 / 성함: <input type="text" id="myPageNameInput" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
                     <label>이메일 (ID): <input type="text" id="myPageEmailInput" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
                     <button type="button" class="action-btn" onclick="saveMyPageInfo()">정보 수정 저장하기</button>
-                    <button type="button" style="background: #ef4444; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 4px;" onclick="executeLogout()">로그아웃</button>
+                    <!-- 데이터 백업 및 복원 영역 -->
+                    <div style="border-top: 1px solid #e2e8f0; padding-top: 10px; margin-top: 2px;">
+                        <b style="font-size: 12px; color: var(--primary-color);">💾 건강 데이터 백업 및 복원</b>
+                        <div style="display: flex; gap: 8px; margin-top: 6px;">
+                            <button type="button" class="action-btn" style="background: #0284c7; font-size: 11.5px; padding: 8px;" onclick="exportHealthData()">데이터 백업 (JSON)</button>
+                            <label style="flex: 1; background: #059669; color: white; border-radius: 8px; font-size: 11.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 8px; text-align: center;">
+                                데이터 복원
+                                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importHealthData(event)">
+                            </label>
+                        </div>
+                    </div>
+                    <button type="button" style="background: #ef4444; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 2px;" onclick="executeLogout()">로그아웃</button>
                 </div>
             </div>
         </div>
-
         <!-- ID/비밀번호 찾기 모달 -->
         <div id="findAccountModal" class="custom-modal">
             <div class="modal-content">
@@ -724,8 +714,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- 🌟 날짜별 자동 변경 퀴즈 모달 -->
+        <!-- 날짜별 자동 변경 퀴즈 모달 -->
         <div id="quizModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -743,8 +732,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- 🌟 1일 1회 제한 룰렛 모달 -->
+        <!-- 1일 1회 제한 룰렛 모달 -->
         <div id="rouletteModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎡 행운의 룰렛 돌리기</h3><button type="button" class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button></div>
@@ -755,7 +743,6 @@
                 <button type="button" id="rouletteBtn" class="action-btn" style="background: #d97706;" onclick="spinRoulette()">룰렛 돌리기 START!</button>
             </div>
         </div>
-
         <!-- 포인트 보관함 및 쿠폰 교환소 -->
         <div id="rewardModal" class="custom-modal">
             <div class="modal-content">
@@ -776,7 +763,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 전체 대시보드 요약 모달 -->
         <div id="dashboardModal" class="custom-modal">
             <div class="modal-content">
@@ -806,7 +792,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 1개월 월간 리포트 모달 -->
         <div id="monthlyReportModal" class="custom-modal">
             <div class="modal-content">
@@ -833,7 +818,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 관리자용 오늘의 말씀 등록 모달 -->
         <div id="adminBibleModal" class="custom-modal">
             <div class="modal-content">
@@ -848,7 +832,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 지난 말씀 보관함 모달 -->
         <div id="bibleHistoryModal" class="custom-modal">
             <div class="modal-content">
@@ -861,7 +844,6 @@
                 </div>
             </div>
         </div>
-
         <!-- [병원 길잡이] 모달 -->
         <div id="hospitalGuideModal" class="custom-modal">
             <div class="modal-content">
@@ -889,7 +871,6 @@
                 </div>
             </div>
         </div>
-
         <!-- [인체 기능 맵 모달] -->
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
@@ -916,7 +897,6 @@
                 </div>
             </div>
         </div>
-
         <!-- [맞춤 운동] 모달 -->
         <div id="exerciseModal" class="custom-modal">
             <div class="modal-content">
@@ -939,7 +919,6 @@
                 </div>
             </div>
         </div>
-
         <!-- [영양 가이드 백과 모달] -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
@@ -1012,7 +991,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 관리자 콘텐츠 등록 모달 -->
         <div id="adminPostModal" class="custom-modal">
             <div class="modal-content">
@@ -1035,7 +1013,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 콘텐츠 상세 조회 모달 -->
         <div id="contentViewModal" class="custom-modal">
             <div class="modal-content">
@@ -1048,7 +1025,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 알림 설정 모달 -->
         <div id="alarmModal" class="custom-modal">
             <div class="modal-content">
@@ -1064,7 +1040,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 통계 리포트 모달 -->
         <div id="statModal" class="custom-modal">
             <div class="modal-content">
@@ -1077,7 +1052,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 음성 로깅 모달 -->
         <div id="voiceModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
@@ -1089,7 +1063,6 @@
                 <button type="button" class="action-btn" onclick="startRealVoiceRecognition()">음성 인식 시작</button>
             </div>
         </div>
-
         <!-- 물 섭취량 모달 -->
         <div id="waterModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
@@ -1102,7 +1075,6 @@
                 <button type="button" class="action-btn" onclick="saveWaterRecord()">기록 완료</button>
             </div>
         </div>
-
         <!-- 만보기 모달 -->
         <div id="pedometerModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
@@ -1112,7 +1084,6 @@
                 <p id="stepDescDisplay" style="font-size: 12px; color: #64748b; margin-top: 6px;">목표 10,000보</p>
             </div>
         </div>
-
         <!-- 유통기한 관리 모달 -->
         <div id="expiryModal" class="custom-modal">
             <div class="modal-content">
@@ -1131,7 +1102,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 혈압·당뇨 모달 -->
         <div id="bpModal" class="custom-modal">
             <div class="modal-content">
@@ -1154,7 +1124,6 @@
                 </div>
             </div>
         </div>
-
         <!-- 체중 관리 모달 -->
         <div id="weightModal" class="custom-modal">
             <div class="modal-content">
@@ -1180,7 +1149,6 @@
         let latestWeight = localStorage.getItem('ahm_latest_weight') || '65.5';
         let latestBp = localStorage.getItem('ahm_latest_bp') || '120 / 80';
         let latestBs = localStorage.getItem('ahm_latest_bs') || '105';
-
         let lastAccel = { x: 0, y: 0, z: 0 };
         let lastStepTime = 0;
         
@@ -1188,7 +1156,6 @@
         let bpChartInstance = null;
         let bsChartInstance = null;
         let dashChartInstance = null;
-
         const aiEncourageMessages = [
             "오늘도 건강 습관을 지켜내셨군요! 정말 멋져요.",
             "작은 실천이 모여 큰 건강을 만듭니다. 오늘도 화이팅이에요!",
@@ -1196,29 +1163,24 @@
             "규칙적인 기록과 케어, AI 매니저가 늘 응원합니다!",
             "건강해지는 소리가 여기까지 들려요! 최고예요!"
         ];
-
         function getRandomAiMessage() {
             const randomIndex = Math.floor(Math.random() * aiEncourageMessages.length);
             return aiEncourageMessages[randomIndex];
         }
-
         const encyclopediaDb = {
             "탄수화물": { title: "🍞 탄수화물 (Carbohydrate)", desc: "① 에너지 공급 및 뇌 활동 지원\n② 대표 식품: 쌀, 현미, 고구마, 감자, 오트밀" },
             "단백질": { title: "🥩 단백질 (Protein)", desc: "① 근육 합성 및 면역 체계 유지\n② 대표 식품: 닭가슴살, 소고기, 계란, 두부, 콩" },
             "지방": { title: "🥑 지방 (Fat)", desc: "① 체온 유지 및 불포화지방산 공급\n② 대표 식품: 올리브유, 아보카도, 견과류" },
             "물 (수분)": { title: "💧 물 (Water / 수분)", desc: "① 체온 조절 및 노폐물 배출\n② 권장량: 하루 1.5~2L" }
         };
-
         const bodyCareDb = {
             "뇌신경계": { title: "🧠 뇌·신경계 가이드", desc: "추천 성분: 오메가-3, 비타민 B군" },
             "심혈관계": { title: "❤ 심혈관계 가이드", desc: "추천 성분: 코엔자임Q10, 마그네슘" }
         };
-
         const hospitalDb = {
             "두통": { title: "🧠 추천 진료과: 신경과", desc: "편두통 및 긴장성 두통 진료" },
             "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "심장 및 혈관 정밀 검진" }
         };
-
         const dailyQuizPool = [
             { q: "Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?", options: ["1. 물 (수분)", "2. 철분 (또는 종합비타민)", "3. 일반 생수"], answer: 1 },
             { q: "Q. 체온 조절과 노폐물 배출을 위해 하루 권장되는 기본 수분 섭취량은?", options: ["1. 0.5 리터", "2. 1.5 ~ 2 리터", "3. 5 리터 이상"], answer: 1 },
@@ -1226,7 +1188,6 @@
             { q: "Q. 눈 건강(황반색소 유지)에 도움을 주는 대표적인 영양 성분은?", options: ["1. 루테인", "2. 나트륨", "3. 카페인"], answer: 0 },
             { q: "Q. 칼슘의 흡수를 돕고 면역력 증진에 기여하는 대표적인 미네랄은?", options: ["1. 설탕", "2. 아연", "3. 식초"], answer: 1 }
         ];
-
         window.onload = function() {
             loadSavedContent();
             loadSavedBible24h();
@@ -1243,7 +1204,6 @@
             window.onpopstate = function() {
                 history.go(1);
             };
-
             const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
             if (autoLoginSaved) {
                 document.getElementById('autoLoginCheck').checked = true;
@@ -1257,19 +1217,55 @@
                 document.getElementById('loginScreen').style.display = 'flex';
             }
         };
-
+        // 🌟 [추가 기능] 건강 데이터 JSON 백업 내보내기 함수
+        function exportHealthData() {
+            const backupData = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('ahm_')) {
+                    backupData[key] = localStorage.getItem(key);
+                }
+            }
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", "ahm_health_backup.json");
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("✨ 건강 데이터 백업 파일이 다운로드되었습니다.");
+        }
+        // 🌟 [추가 기능] 건강 데이터 JSON 파일 복원 가져오기 함수
+        function importHealthData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    for (const key in importedData) {
+                        if (key.startsWith('ahm_')) {
+                            localStorage.setItem(key, importedData[key]);
+                        }
+                    }
+                    showToast("✨ 데이터 복원이 완료되었습니다. 앱을 새로고침합니다.");
+                    setTimeout(() => { location.reload(); }, 1500);
+                } catch (err) {
+                    showToast("⚠ 올바른 백업 파일이 아닙니다.");
+                }
+            };
+            reader.readAsText(file);
+        }
         function updatePointDisplay() {
             const pointEl = document.getElementById('totalPointDisplay');
             if(pointEl) pointEl.textContent = userPoints.toLocaleString();
             localStorage.setItem('ahm_points', userPoints);
         }
-
         function loadDailyQuiz() {
             const now = new Date();
             const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
             const quizIndex = dayOfYear % dailyQuizPool.length;
             const currentQuiz = dailyQuizPool[quizIndex];
-
             document.getElementById('quizQuestionText').textContent = currentQuiz.q;
             const optionsArea = document.getElementById('quizOptionsArea');
             let html = '';
@@ -1281,7 +1277,6 @@
             optionsArea.innerHTML = html;
             document.getElementById('quizResultMsg').textContent = '';
         }
-
         function answerQuiz(isCorrect) {
             const msgEl = document.getElementById('quizResultMsg');
             const quizDateKey = 'ahm_quiz_done_' + new Date().toLocaleDateString();
@@ -1290,7 +1285,6 @@
                 showToast("⚠ 오늘은 이미 퀴즈를 풀셨습니다! 내일 다시 도전해 주세요.");
                 return;
             }
-
             if(isCorrect) {
                 userPoints += 100;
                 updatePointDisplay();
@@ -1303,22 +1297,18 @@
                 msgEl.textContent = "❌ 아쉽네요! 정답이 아닙니다. 내일 다시 도전해보세요!";
             }
         }
-
         function spinRoulette() {
             const nowStr = new Date().toLocaleDateString();
             const lastSpinDate = localStorage.getItem('ahm_last_spin_date');
-
             if(lastSpinDate === nowStr) {
                 showToast("⚠ 오늘은 이미 룰렛을 돌리셨습니다! 내일 다시 참여해 주세요.");
                 return;
             }
-
             const rewards = [50, 100, 200, 300, 500];
             const randomReward = rewards[Math.floor(Math.random() * rewards.length)];
             userPoints += randomReward;
             updatePointDisplay();
             localStorage.setItem('ahm_last_spin_date', nowStr);
-
             const box = document.getElementById('rouletteResultBox');
             box.style.background = '#dcfce7';
             box.style.color = '#166534';
@@ -1326,7 +1316,6 @@
             box.innerHTML = `🎉 축하합니다 오늘 당첨! <b>+${randomReward} 포인트</b> 획득!`;
             showToast(`🎡 룰렛 당첨! +${randomReward}P 획득`);
         }
-
         function exchangeCoupon() {
             if(userPoints >= 1000) {
                 userPoints -= 1000;
@@ -1336,7 +1325,6 @@
                 showToast("⚠ 포인트가 부족합니다! (필요: 1,000P)");
             }
         }
-
         function saveDailyRecordToMonthly() {
             let history = JSON.parse(localStorage.getItem('ahm_monthly_history') || '[]');
             const now = new Date();
@@ -1350,19 +1338,16 @@
                 bs: latestBs,
                 steps: stepCount
             };
-
             const existingIndex = history.findIndex(item => item.date === dateStr);
             if(existingIndex >= 0) {
                 history[existingIndex] = todayData;
             } else {
                 history.unshift(todayData);
             }
-
             if(history.length > 30) history = history.slice(0, 30);
             localStorage.setItem('ahm_monthly_history', JSON.stringify(history));
             renderMonthlyReportUI(history);
         }
-
         function renderMonthlyReportUI(history) {
             if(!history || history.length === 0) return;
             
@@ -1379,12 +1364,10 @@
                     <span style="color: #475569;">물 ${item.water}ml | 체중 ${item.weight}kg | 혈당 ${item.bs}</span>
                 </div>`;
             });
-
             const count = history.length;
             const avgWater = Math.round(totalWater / count);
             const avgWeight = (totalWeight / count).toFixed(1);
             const avgBs = Math.round(totalBs / count);
-
             document.getElementById('monthlySummaryText').innerHTML = `
                 • 총 기록일수: ${count}일<br>
                 • 평균 물 섭취량: ${avgWater} ml<br>
@@ -1393,7 +1376,6 @@
             `;
             document.getElementById('monthlyHistoryList').innerHTML = html;
         }
-
         function updateDashboardValues() {
             document.getElementById('waterAmount').textContent = currentWater;
             document.getElementById('dashWaterDisplay').textContent = currentWater;
@@ -1403,13 +1385,11 @@
             document.getElementById('dashBsDisplay').textContent = latestBs;
             saveDailyRecordToMonthly();
         }
-
         function toggleAutoLogin() {
             const chk = document.getElementById('autoLoginCheck');
             chk.checked = !chk.checked;
             localStorage.setItem('ahm_auto_login', chk.checked);
         }
-
         function initAllCharts() {
             const weightCtx = document.getElementById('weightChart').getContext('2d');
             weightChartInstance = new Chart(weightCtx, {
@@ -1417,21 +1397,18 @@
                 data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, parseFloat(latestWeight)], borderColor: '#1d4ed8', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
-
             const bpCtx = document.getElementById('bpChart').getContext('2d');
             bpChartInstance = new Chart(bpCtx, {
                 type: 'line',
                 data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈압', data: [125, 122, 120], borderColor: '#e11d48', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
-
             const bsCtx = document.getElementById('bsChart').getContext('2d');
             bsChartInstance = new Chart(bsCtx, {
                 type: 'line',
                 data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈당', data: [115, 110, parseInt(latestBs) || 105], borderColor: '#0284c7', tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
-
             const dashCtx = document.getElementById('dashboardTrendChart').getContext('2d');
             dashChartInstance = new Chart(dashCtx, {
                 type: 'line',
@@ -1439,7 +1416,6 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
-
         function executeSignup() {
             const name = document.getElementById('signupNameInput').value.trim();
             const email = document.getElementById('signupEmailInput').value.trim();
@@ -1452,20 +1428,16 @@
             closeModal('signupModal');
             enterMainScreen(name, "회원");
         }
-
         function executeLogin() { 
             const email = document.getElementById('loginEmailInput').value.trim();
             const pw = document.getElementById('loginPwInput').value.trim();
             if(!email || !pw) { showToast("⚠ 이메일과 비밀번호를 입력해주세요."); return; }
-
             let role = "회원";
             let nickname = email.split('@')[0];
-
             if (email === "jshgs3445@gmail.com" || email === "관리자" || email === "admin") {
                 role = "관리자";
                 nickname = "관리자";
             }
-
             localStorage.setItem('ahm_user_role', role);
             localStorage.setItem('ahm_user_nick', nickname);
             
@@ -1475,7 +1447,6 @@
             enterMainScreen(nickname, role); 
             showToast(`✨ 환영합니다 수현님! (${role} 모드)`);
         }
-
         function executeLoginGuest() { 
             localStorage.setItem('ahm_user_role', '회원');
             localStorage.setItem('ahm_user_nick', '체험 유저');
@@ -1483,7 +1454,6 @@
             enterMainScreen("체험 유저", "회원"); 
             showToast("👀 비회원 모드로 접속합니다.");
         }
-
         function enterMainScreen(nickname, roleText) {
             document.getElementById('loginScreen').classList.remove('active');
             document.getElementById('loginScreen').style.display = 'none';
@@ -1492,7 +1462,6 @@
             document.getElementById('userRoleBadge').textContent = roleText;
             document.getElementById('myPageNameInput').value = nickname;
             document.getElementById('myPageEmailInput').value = document.getElementById('loginEmailInput').value || "jshgs3445@gmail.com";
-
             const adminWrap1 = document.getElementById('adminAddBtnWrap');
             const adminWrap2 = document.getElementById('adminBibleBtnWrap');
             if(roleText === '관리자') {
@@ -1503,7 +1472,6 @@
                 if(adminWrap2) adminWrap2.style.display = 'none';
             }
         }
-
         function executeLogout() {
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
@@ -1516,18 +1484,15 @@
             closeModal('myPageModal');
             showToast('로그아웃 되었습니다.');
         }
-
         function showFindAccountModal() { openModal('findAccountModal'); }
         function executeFindAccount() {
             showToast("✨ 임시 비밀번호가 이메일로 발송되었습니다.");
             closeModal('findAccountModal');
         }
-
         function saveMyPageInfo() {
             showToast("✨ 마이페이지 정보가 저장되었습니다!");
             closeModal('myPageModal');
         }
-
         function submitQaQuestion() {
             const q = document.getElementById('qaQuestionInput').value.trim();
             if(!q) { showToast("⚠ 문의 내용을 입력해주세요."); return; }
@@ -1535,7 +1500,6 @@
             document.getElementById('qaQuestionInput').value = '';
             closeModal('qaModal');
         }
-
         function saveAdminBible() {
             const titleInput = document.getElementById('adminBibleTitleInput').value.trim();
             const desc = document.getElementById('adminBibleDescInput').value.trim();
@@ -1554,7 +1518,6 @@
             showToast("✨ 오늘의 말씀 등록 완료!");
             closeModal('adminBibleModal');
         }
-
         function loadSavedBible24h() {
             let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active')) || {
                 title: "오늘의 말씀 (요일 5:14)",
@@ -1564,12 +1527,10 @@
             applyBibleToScreen(activeBible);
             renderBibleHistory();
         }
-
         function applyBibleToScreen(item) {
             document.getElementById('displayBibleTitle').textContent = item.title;
             document.getElementById('displayBibleDesc').textContent = item.desc;
         }
-
         function renderBibleHistory() {
             const listEl = document.getElementById('bibleHistoryList');
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
@@ -1583,7 +1544,6 @@
             });
             listEl.innerHTML = html;
         }
-
         function initStepCounter() {
             if (window.DeviceMotionEvent) {
                 window.addEventListener('devicemotion', (event) => {
@@ -1603,7 +1563,6 @@
                 });
             }
         }
-
         function updateStepDisplay(steps) {
             const formatted = steps.toLocaleString();
             const percent = Math.min(Math.round((steps / 10000) * 100), 100);
@@ -1614,7 +1573,6 @@
             const dashStep = document.getElementById('dashStepDisplay');
             if(dashStep) dashStep.textContent = formatted;
         }
-
         function startRealVoiceRecognition() {
             const statusEl = document.getElementById('voiceStatus');
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -1657,7 +1615,6 @@
             };
             recognition.start();
         }
-
         function saveBpRecordBtn() {
             const bpVal = document.getElementById('bpInput').value.trim();
             const bsVal = document.getElementById('bsInput').value.trim();
@@ -1666,12 +1623,10 @@
             if(bpVal) { latestBp = bpVal; localStorage.setItem('ahm_latest_bp', bpVal); }
             if(bsVal) { latestBs = bsVal; localStorage.setItem('ahm_latest_bs', bsVal); }
             updateDashboardValues();
-
             const aiCheers = getRandomAiMessage();
             showToast(`❤ 수치 기록 완료! ${aiCheers}`);
             closeModal('bpModal');
         }
-
         function saveWeightRecordBtn() {
             const val = document.getElementById('weightInput').value.trim();
             if(!val) { showToast("⚠ 체중을 입력해주세요."); return; }
@@ -1679,12 +1634,10 @@
             latestWeight = val;
             localStorage.setItem('ahm_latest_weight', val);
             updateDashboardValues();
-
             const aiCheers = getRandomAiMessage();
             showToast(`⚖ 체중(${val}kg) 기록 완료! ${aiCheers}`);
             closeModal('weightModal');
         }
-
         function saveAdminPost() {
             const cat = document.getElementById('adminPostCategory').value;
             const title = document.getElementById('adminPostTitle').value.trim();
@@ -1695,14 +1648,12 @@
             showToast("✨ 콘텐츠 등록 완료!");
             closeModal('adminPostModal');
         }
-
         function updatePostPreview(cat, title) {
             if(cat === 'news') document.getElementById('previewNews').textContent = title;
             if(cat === 'video') document.getElementById('previewVideo').textContent = title;
             if(cat === 'notice') document.getElementById('previewNotice').textContent = title;
             if(cat === 'board') document.getElementById('previewBoard').textContent = title;
         }
-
         function loadSavedContent() {
             const defaults = {
                 news: { title: "등록된 뉴스가 없습니다." },
@@ -1719,7 +1670,6 @@
                 }
             });
         }
-
         function showPostContent(cat) {
             const saved = localStorage.getItem('ahm_post_' + cat);
             const titles = { news: '최신 뉴스', video: '득템 영상', notice: '공지사항', board: '게시판' };
@@ -1735,7 +1685,6 @@
             }
             openModal('contentViewModal');
         }
-
         function toggleTakeMed(btnId, name) {
             const btn = document.getElementById(btnId);
             if(btn.classList.contains('checked')) {
@@ -1749,26 +1698,22 @@
                 showToast(`✨ [AI 비서] "${name} 완료! ${aiCheers}"`);
             }
         }
-
         function quickSelectDict(keyword) {
             document.getElementById('inputSearchQueryText').value = keyword;
             executeDictSearch(keyword);
         }
-
         function quickSelectBody(key) {
             const area = document.getElementById('bodyResultArea');
             area.style.display = 'block';
             document.getElementById('bodyResultTitle').textContent = bodyCareDb[key].title;
             document.getElementById('bodyResultDesc').textContent = bodyCareDb[key].desc;
         }
-
         function quickSelectHospital(key) {
             const area = document.getElementById('hospitalResultArea');
             area.style.display = 'block';
             document.getElementById('hospitalResultTitle').textContent = hospitalDb[key].title;
             document.getElementById('hospitalResultDesc').textContent = hospitalDb[key].desc;
         }
-
         function searchHospitalAI() {
             const query = document.getElementById('inputHospitalSearch').value.trim();
             if(!query) { showToast('⚠ 증상을 입력해주세요.'); return; }
@@ -1777,7 +1722,6 @@
             document.getElementById('hospitalResultTitle').textContent = `🤖 AI 추천 진료과`;
             document.getElementById('hospitalResultDesc').textContent = `• 입력 증상: "${query}"\n• 권장 진료과: 1차 가정의학과 및 전문 내과 진료를 권장합니다.`;
         }
-
         function generateAiConditionPrescription() {
             const query = document.getElementById('inputUserCondition').value.trim();
             if(!query) { showToast('⚠ 컨디션을 입력해주세요.'); return; }
@@ -1786,7 +1730,6 @@
             document.getElementById('exerciseResultTitle').textContent = `💪 맞춤 운동 처방`;
             document.getElementById('exerciseResultDesc').textContent = `• 상태: "${query}"\n• 솔루션: 가벼운 유산소 스트레칭 및 심호흡 (15분간 진행)`;
         }
-
         function executeDictSearch(query) {
             const resultArea = document.getElementById('searchResultArea');
             const resultTitle = document.getElementById('resultTitle');
@@ -1802,29 +1745,23 @@
                 resultDesc.textContent = `• ${query} 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
             }
         }
-
         function searchSupplementCompatibilityTextInput() {
             executeDictSearch(document.getElementById('inputSearchQueryText').value.trim());
         }
-
         function addWater(a) { 
             currentWater += a; 
             updateDashboardValues();
         }
-
         function saveWaterRecord() { 
             const aiCheers = getRandomAiMessage();
             showToast(`💧 물 ${currentWater}ml 기록 완료! ${aiCheers}`); 
             closeModal('waterModal'); 
         }
-
         function saveAlarmTimes() { showToast("🔔 알림 시간이 저장되었습니다."); closeModal('alarmModal'); }
-
         function saveNewMedicineRecord() {
             const name = document.getElementById('inputNewMedicineNameText').value.trim();
             const time = document.getElementById('inputNewMedicineTime').value;
             if(!name) { showToast("⚠ 약 이름을 입력해주세요."); return; }
-
             let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             list.push({ name, time });
             localStorage.setItem('ahm_med_list', JSON.stringify(list));
@@ -1834,7 +1771,6 @@
             const aiCheers = getRandomAiMessage();
             showToast(`💊 "${name}" 등록 완료! ${aiCheers}`);
         }
-
         function renderMedicineList() {
             const container = document.getElementById('medicineListContainer');
             let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
@@ -1851,7 +1787,6 @@
             });
             container.innerHTML = html;
         }
-
         function deleteMedicineItem(index) {
             let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             list.splice(index, 1);
@@ -1859,22 +1794,18 @@
             renderMedicineList();
             showToast("🗑 복용약이 삭제되었습니다.");
         }
-
         function saveExpiryItem() {
             const name = document.getElementById('inputExpiryName').value.trim();
             const date = document.getElementById('inputExpiryDate').value;
             if(!name || !date) { showToast("⚠ 영양제 이름과 유통기한 날짜를 입력해주세요."); return; }
-
             let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
             list.push({ name, date });
             localStorage.setItem('ahm_expiry_list', JSON.stringify(list));
-
             document.getElementById('inputExpiryName').value = '';
             document.getElementById('inputExpiryDate').value = '';
             renderExpiryList();
             showToast(`📦 "${name}" 유통기한 등록 완료!`);
         }
-
         function renderExpiryList() {
             const container = document.getElementById('expiryListContainer');
             let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
@@ -1891,7 +1822,6 @@
             });
             container.innerHTML = html;
         }
-
         function deleteExpiryItem(index) {
             let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
             list.splice(index, 1);
@@ -1899,17 +1829,14 @@
             renderExpiryList();
             showToast("🗑 유통기한 항목이 삭제되었습니다.");
         }
-
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg; t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3500);
         }
-
         function openModal(id) { 
             const modal = document.getElementById(id);
             modal.classList.add('active'); 
-
             if(id === 'compatibilityModal') {
                 document.getElementById('inputSearchQueryText').value = '';
                 document.getElementById('searchResultArea').style.display = 'none';
@@ -1942,7 +1869,6 @@
                 if(bsChartInstance) bsChartInstance.update();
             }
         }
-
         function closeModal(id) { 
             document.getElementById(id).classList.remove('active'); 
         }
