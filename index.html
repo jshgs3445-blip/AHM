@@ -672,7 +672,7 @@
             </div>
         </div>
     
-        <!-- 마이페이지 모달 -->
+        <!-- 마이페이지 모달 (데이터 백업 및 복원 기능 포함) -->
         <div id="myPageModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1186,6 +1186,10 @@
             updatePointDisplay();
             loadDailyQuiz();
             
+            history.pushState(null, null, location.href);
+            window.onpopstate = function() {
+                history.go(1);
+            };
             const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
             if (autoLoginSaved) {
                 document.getElementById('autoLoginCheck').checked = true;
@@ -1470,16 +1474,16 @@
             }
         }
 
-        // 🌟 [로그아웃 및 마이페이지 모달 창 즉시 닫힘 보장]
         function executeLogout() {
-            closeModal('myPageModal'); // 마이페이지 창 강제 닫기
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
+            document.getElementById('autoLoginCheck').checked = false;
             document.getElementById('mainScreen').classList.remove('active');
             document.getElementById('mainScreen').style.display = 'none';
             document.getElementById('loginScreen').classList.add('active');
             document.getElementById('loginScreen').style.display = 'flex';
+            closeModal('myPageModal');
             showToast('로그아웃 되었습니다.');
         }
 
@@ -1502,6 +1506,7 @@
             closeModal('qaModal');
         }
 
+        // 🌟 오늘의 말씀 및 지난 말씀 영구 저장 로직 보완
         function saveAdminBible() {
             const titleInput = document.getElementById('adminBibleTitleInput').value.trim();
             const desc = document.getElementById('adminBibleDescInput').value.trim();
@@ -1512,9 +1517,7 @@
             const newItem = { title: `오늘의 말씀 (${titleInput})`, desc: desc, date: dateStr };
             
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
-            if (!history.some(item => item.title === newItem.title && item.desc === newItem.desc)) {
-                history.unshift(newItem);
-            }
+            history.unshift(newItem);
             localStorage.setItem('ahm_bible_history', JSON.stringify(history));
             localStorage.setItem('ahm_bible_active', JSON.stringify(newItem));
             
@@ -1525,25 +1528,11 @@
         }
 
         function loadSavedBible24h() {
-            let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active'));
-            if (!activeBible) {
-                activeBible = {
-                    title: "오늘의 말씀 (요일 5:14)",
-                    desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라",
-                    date: "2026.10.26"
-                };
-                localStorage.setItem('ahm_bible_active', JSON.stringify(activeBible));
-            }
-            
-            let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
-            if (history.length === 0) {
-                history = [
-                    { title: "오늘의 말씀 (요일 5:14)", desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라", date: "2026.10.26" },
-                    { title: "오늘의 말씀 (시 23:1)", desc: "여호와는 나의 목자시니 내게 부족함이 없으리로다", date: "2026.10.25" }
-                ];
-                localStorage.setItem('ahm_bible_history', JSON.stringify(history));
-            }
-            
+            let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active')) || {
+                title: "오늘의 말씀 (요일 5:14)",
+                desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라",
+                date: "2026.10.26"
+            };
             applyBibleToScreen(activeBible);
             renderBibleHistory();
         }
@@ -1669,6 +1658,7 @@
             closeModal('weightModal');
         }
 
+        // 🌟 건강 핫플 정보 영구 저장 로직 보완
         function saveAdminPost() {
             const cat = document.getElementById('adminPostCategory').value;
             const title = document.getElementById('adminPostTitle').value.trim();
@@ -1692,32 +1682,23 @@
             if(cat === 'board') document.getElementById('previewBoard').textContent = title;
         }
 
-        // 🌟 [건강 핫플 및 정보광장 영구 보존 및 복원 로직]
         function loadSavedContent() {
             const defaults = {
-                news: { title: "환절기 면역력 강화 수칙 안내", desc: "환절기 건강 관리를 위한 올바른 비타민 섭취와 수분 보충 가이드를 확인하세요.", date: "2026.10.26" },
-                video: { title: "매일 10분 관절 스트레칭 영상", desc: "시니어 및 직장인을 위한 허리/관절 홈트레이닝 가이드 영상입니다.", date: "2026.10.25" },
-                notice: { title: "관리자 공지사항 확인하기", desc: "환영합니다! AHM 스마트 건강 관리 플랫폼 정기 업데이트 안내입니다.", date: "2026.10.24" },
-                board: { title: "회원 소통 게시판", desc: "건강 팁과 일상을 자유롭게 나누는 따뜻한 소통 공간입니다.", date: "2026.10.23" }
+                news: { title: "등록된 뉴스가 없습니다." },
+                video: { title: "등록된 영상이 없습니다." },
+                notice: { title: "관리자 공지사항 확인하기" },
+                board: { title: "회원 소통 게시판" }
             };
-            
             ['news', 'video', 'notice', 'board'].forEach(cat => {
                 const saved = localStorage.getItem('ahm_post_' + cat);
-                if (saved) {
+                if(saved) {
                     try {
                         const parsed = JSON.parse(saved);
-                        if (parsed && parsed.title) {
-                            updatePostPreview(cat, parsed.title);
-                        } else {
-                            localStorage.setItem('ahm_post_' + cat, JSON.stringify(defaults[cat]));
-                            updatePostPreview(cat, defaults[cat].title);
-                        }
+                        updatePostPreview(cat, parsed.title);
                     } catch(e) {
-                        localStorage.setItem('ahm_post_' + cat, JSON.stringify(defaults[cat]));
                         updatePostPreview(cat, defaults[cat].title);
                     }
                 } else {
-                    localStorage.setItem('ahm_post_' + cat, JSON.stringify(defaults[cat]));
                     updatePostPreview(cat, defaults[cat].title);
                 }
             });
@@ -1732,8 +1713,8 @@
             if(saved) {
                 try {
                     const data = JSON.parse(saved);
-                    let formattedDesc = data.desc ? data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color); text-decoration: underline;">$1</a>') : '등록된 상세 내용이 없습니다.';
-                    bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date || ''}</span>`;
+                    let formattedDesc = data.desc ? data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color); text-decoration: underline;">$1</a>') : '';
+                    bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date}</span>`;
                 } catch(e) {
                     bodyEl.innerHTML = `<p style="color:#64748b;">등록된 내용이 없습니다.</p>`;
                 }
