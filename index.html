@@ -672,7 +672,7 @@
             </div>
         </div>
     
-        <!-- 마이페이지 모달 (데이터 백업 및 복원 기능 포함) -->
+        <!-- 마이페이지 모달 -->
         <div id="myPageModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1474,16 +1474,30 @@
             }
         }
 
+        // 🌟 로그아웃 즉시 강제 반영 함수
         function executeLogout() {
+            // 모든 모달 닫기
+            document.querySelectorAll('.custom-modal').forEach(m => m.classList.remove('active'));
+            
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
-            document.getElementById('autoLoginCheck').checked = false;
-            document.getElementById('mainScreen').classList.remove('active');
-            document.getElementById('mainScreen').style.display = 'none';
-            document.getElementById('loginScreen').classList.add('active');
-            document.getElementById('loginScreen').style.display = 'flex';
-            closeModal('myPageModal');
+            
+            const autoLoginChk = document.getElementById('autoLoginCheck');
+            if(autoLoginChk) autoLoginChk.checked = false;
+            
+            const mainScreen = document.getElementById('mainScreen');
+            const loginScreen = document.getElementById('loginScreen');
+            
+            if(mainScreen) {
+                mainScreen.classList.remove('active');
+                mainScreen.style.display = 'none';
+            }
+            if(loginScreen) {
+                loginScreen.classList.add('active');
+                loginScreen.style.display = 'flex';
+            }
+            
             showToast('로그아웃 되었습니다.');
         }
 
@@ -1506,7 +1520,6 @@
             closeModal('qaModal');
         }
 
-        // 🌟 오늘의 말씀 및 지난 말씀 영구 저장 로직 보완
         function saveAdminBible() {
             const titleInput = document.getElementById('adminBibleTitleInput').value.trim();
             const desc = document.getElementById('adminBibleDescInput').value.trim();
@@ -1658,7 +1671,6 @@
             closeModal('weightModal');
         }
 
-        // 🌟 건강 핫플 정보 영구 저장 로직 보완
         function saveAdminPost() {
             const cat = document.getElementById('adminPostCategory').value;
             const title = document.getElementById('adminPostTitle').value.trim();
