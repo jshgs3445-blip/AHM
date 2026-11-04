@@ -866,7 +866,7 @@
                 </div>
             </div>
         </div>
-        <!-- 🌟 [인체 기능 맵 모달 - 완벽 복원 및 확장] -->
+        <!-- [인체 기능 맵 모달] -->
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -914,7 +914,7 @@
                 </div>
             </div>
         </div>
-        <!-- 🌟 [영양 가이드 백과 모달 - 풍성한 영양소 데이터 탑재] -->
+        <!-- 🌟 [영양 가이드 백과 모달 - 풍성한 영양소 데이터 백과사전 완벽 복원] -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -922,26 +922,27 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('compatibilityModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 영양소 백과 원문을 확인하세요.</p>
+                    <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 종류·기능·대표식품을 확인하세요.</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 180px; overflow-y: auto;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
                         <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
                         <span class="dict-tag" onclick="quickSelectDict('물 (수분)')">💧 물 (수분)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민 종합</span>
-                        <span class="dict-tag" onclick="quickSelectDict('무기질')">⚖ 무기질 15가지</span>
-                        <span class="dict-tag" onclick="quickSelectDict('오메가3')">🐟 오메가3</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민')">💊 비타민 20종 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('무기질')">⚖ 무기질 15가지 통합</span>
+                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수아미노산 9종</span>
                         <span class="dict-tag" onclick="quickSelectDict('칼슘')">🦴 칼슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('마그네슘')">⚡ 마그네슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('철분')">🩸 철분</span>
                         <span class="dict-tag" onclick="quickSelectDict('아연')">🛡 아연</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼륨')">🍌 칼륨</span>
                         <span class="dict-tag" onclick="quickSelectDict('루테인')">👁 루테인</span>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="영양소 직접 검색 (예: 비타민, 칼슘)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="영양소 직접 검색 (예: 비타민, 무기질 15가지)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
-                    <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 220px; overflow-y: auto;">
+                    <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 240px; overflow-y: auto;">
                         <h4 id="resultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #1e293b;"></h4>
                         <p id="resultDesc" style="font-size: 12px; color: #475569; line-height: 1.6; white-space: pre-line;"></p>
                     </div>
@@ -1154,23 +1155,62 @@
             return aiEncourageMessages[randomIndex];
         }
 
-        // 🌟 영양 가이드 백과사전 데이터베이스 (확장 보완)
+        // 🌟 캡처 사진 속 상세 백과사전 내용이 모두 담긴 완벽 복원 데이터베이스
         const encyclopediaDb = {
-            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate)", desc: "① 에너지 공급 및 뇌 활동 지원\n② 권장 섭취원: 쌀, 현미, 고구마, 감자, 오트밀" },
-            "단백질": { title: "🥩 단백질 (Protein)", desc: "① 근육 합성 및 면역 체계 유지\n② 권장 섭취원: 닭가슴살, 소고기, 계란, 두부, 콩" },
-            "지방": { title: "🥑 지방 (Fat)", desc: "① 체온 유지 및 불포화지방산 공급\n② 권장 섭취원: 올리브유, 아보카도, 견과류" },
-            "물 (수분)": { title: "💧 물 (Water / 수분)", desc: "① 체온 조절 및 노폐물 배출\n② 권장량: 하루 1.5~2L 이상" },
-            "비타민": { title: "💊 비타민 종합 가이드", desc: "① 비타민 C: 항산화 작용 및 피로 회복\n② 비타민 D: 뼈 건강 및 면역력 강화\n③ 비타민 B군: 에너지 생성 및 신경계 활력" },
-            "무기질": { title: "⚖ 무기질 15가지 가이드", desc: "① 칼슘·마그네슘·철분 등 신체 균형 유지\n② 효소 활성화 및 뼈·혈액 건강 지원" },
-            "오메가3": { title: "🐟 오메가-3 지방산", desc: "① 혈행 개선 및 중성지질 감소\n② 뇌 기능 활성화 및 눈 건조 개선" },
-            "칼슘": { title: "🦴 칼슘 (Calcium)", desc: "① 뼈와 치아의 형성에 필수\n② 근육 수축 및 신경 전달 조절" },
-            "마그네슘": { title: "⚡ 마그네슘 (Magnesium)", desc: "① 신경 안정 및 근육 경련 방지\n② 에너지 대사 및 피로 개선" },
-            "철분": { title: "🩸 철분 (Iron)", desc: "① 헤모글로빈 생성 및 산소 운반\n② 빈혈 예방 및 활력 증진" },
-            "아연": { title: "🛡 아연 (Zinc)", desc: "① 정상적인 면역 기능 및 세포 분열\n② 상처 치유 및 대사 촉진" },
-            "루테인": { title: "👁 루테인 (Lutein)", desc: "① 눈의 황반색소 밀도 유지\n② 노화로 인한 시력 저하 방지" }
+            "탄수화물": { 
+                title: "🍞 탄수화물 (Carbohydrate)", 
+                desc: "• [종류]: 단순당(설탕, 과당), 복합당(전분, 식이섬유)\n• [주요 기능]: 신체 및 뇌 활동의 핵심 에너지원 공급, 단백질 절약 작용\n• [대표 식품]: 쌀, 현미, 귀리(오트밀), 고구마, 감자, 통밀빵" 
+            },
+            "단백질": { 
+                title: "🥩 단백질 (Protein)", 
+                desc: "• [종류]: 동물성 단백질(육류, 생선, 계란, 유제품), 식물성 단백질(두부, 콩, 견과류)\n• [주요 기능]: 근육 및 조직 합성, 면역 항체 생성, 효소 및 호르몬 구성\n• [대표 식품]: 닭가슴살, 소고기, 연어, 달걀, 콩, 두부" 
+            },
+            "지방": { 
+                title: "🥑 지방 (Fat)", 
+                desc: "• [종류]: 불포화지방산(오메가3·6, 올리브유), 포화지방산(육류 지방), 트랜스지방\n• [주요 기능]: 세포막 구성, 체온 유지, 지용성 비타민 흡수 촉진\n• [대표 식품]: 아보카도, 견과류, 등푸른생선, 올리브오일" 
+            },
+            "물 (수분)": { 
+                title: "💧 물 (Water / 수분)", 
+                desc: "• [주요 기능]: 체온 조절, 혈액 순환, 노폐물 체외 배출, 영양소 운반\n• [권장 섭취량]: 성인 기준 하루 1.5 ~ 2 리터 이상\n• [섭취 팁]: 갈증을 느끼기 전에 자주 조금씩 나누어 마시기" 
+            },
+            "비타민": { 
+                title: "💊 비타민 (20종 종합 가이드)", 
+                desc: "• [수용성 비타민 (9종)]: 비타민 B군(B1 티아민, B2 리보플래빈, B3 나이아신, B5 판토텐산, B6 피리독신, B7 비오틴, B9 엽산, B12 코발라민)과 비타민 C(아스코르브산). 에너지 대사, 피로 회복, 항산화 작용을 하며 체내에 남지 않고 배출되므로 매일 섭취 필요.\n• [지용성 비타민 (4종)]: 비타민 A(시력·피부), 비타민 D(칼슘 흡수·면역), 비타민 E(항성화), 비타민 K(혈액 응고). 지방과 함께 섭취 시 흡수율이 높아짐." 
+            },
+            "무기질": { 
+                title: "⚖ 무기질 15가지 (미네랄 통합 백과)", 
+                desc: "• [다량 무기질 (7가지)]: 칼슘(뼈·치아), 인(에너지 대사), 칼륨(혈압 조절), 나트륨(체액 균형), 마그네슘(근육·신경 안정), 염소, 황.\n• [미량 무기질 (8가지)]: 철분(산소 운반), 아연(면역·세포 분열), 요오드(갑상선), 셀레늄(항산화), 구리, 망간, 몰리브덴, 크롬.\n• [대표 식품]: 우유, 멸치, 미역, 굴, 소고기, 견과류, 바나나, 시금치" 
+            },
+            "필수아미노산": { 
+                title: "🧬 필수 아미노산 (9가지 핵심)", 
+                desc: "• [종류 (9종)]: 류신, 이소류신, 발린(BCAA 3종), 라이신, 메티오닌, 페닐알라닌, 트레오닌, 트립토판, 히스티딘.\n• [주요 기능]: 체내에서 합성되지 않아 반드시 음식으로 섭취해야 하며, 근육 합성 촉진, 뇌 신경전달물질 생성, 수면 질 개선에 필수적임.\n• [대표 식품]: 닭가슴살, 달걀, 소고기, 대두(콩), 우유 및 유제품" 
+            },
+            "칼슘": { 
+                title: "🦴 칼슘 (Calcium)", 
+                desc: "• [주요 기능]: 튼튼한 뼈와 치아 구조 형성, 근육 수축 및 이완 조절, 신경 전달 기능\n• [대표 식품]: 우유, 치즈, 요구르트, 멸치, 뼈째 먹는 생선, 두부, 케일" 
+            },
+            "마그네슘": { 
+                title: "⚡ 마그네슘 (Magnesium)", 
+                desc: "• [주요 기능]: 신경 및 근육 긴장 완화, 눈밑 떨림 방지, 에너지 생성 대사 지원\n• [대표 식품]: 견과류(아몬드, 캐슈넛), 바나나, 시금치, 아보카도, 통곡물" 
+            },
+            "철분": { 
+                title: "🩸 철분 (Iron)", 
+                desc: "• [주요 기능]: 혈액 내 헤모글로빈 생성 및 전신 산소 운반, 피로 개선 및 빈혈 예방\n• [대표 식품]: 소고기 등 붉은 살코기, 달걀 노른자, 시금치, 렌틸콩, 조개류" 
+            },
+            "아연": { 
+                title: "🛡 아연 (Zinc)", 
+                desc: "• [주요 기능]: 정상적인 면역 반응 유지, 세포 분열 및 성장 발달, 상처 회복\n• [대표 식품]: 굴, 소고기, 돼지고기, 호박씨, 뼛속까지 건강한 견과류" 
+            },
+            "칼륨": { 
+                title: "🍌 칼륨 (Potassium)", 
+                desc: "• [주요 기능]: 체내 나트륨 배출 유도, 정상 혈압 유지 및 세포 삼투압 조절\n• [대표 식품]: 바나나, 고구마, 시금치, 토마토, 아보카도, 콩류" 
+            },
+            "루테인": { 
+                title: "👁 루테인 지아잔틴 (Lutein)", 
+                desc: "• [주요 기능]: 눈의 황반 색소 밀도 유지, 블루라이트 등 유해 광선으로부터 시세포 보호\n• [대표 식품]: 시금치, 케일, 브로콜리, 상추, 달걀 노른자" 
+            }
         };
 
-        // 🌟 인체 기능 맵 가이드 데이터베이스 (완벽 복원 및 확장)
         const bodyCareDb = {
             "뇌신경계": { title: "🧠 뇌·신경계 케어 가이드", desc: "• 주요 역할: 기억력 유지, 집중력 및 스트레스 조절\n• 추천 성분: 오메가-3, 비타민 B군, 포스파티딜세린\n• 생활 습관: 충분한 수면과 규칙적인 유산소 운동" },
             "심혈관계": { title: "❤ 심혈관계 케어 가이드", desc: "• 주요 역할: 혈행 개선, 혈압 및 콜레스테롤 조절\n• 추천 성분: 코엔자임Q10, 오메가-3, 마그네슘\n• 생활 습관: 저염식 식단 및 금연·절주" },
@@ -1775,7 +1815,6 @@
             }
             resultArea.style.display = 'block';
             
-            // 정확히 일치하거나 포함하는 키워드 검색 지원
             let matchedKey = Object.keys(encyclopediaDb).find(k => k.includes(query) || query.includes(k));
             
             if(matchedKey) {
@@ -1788,7 +1827,7 @@
             }
         }
     
-        // 🌟 인체 기능 맵 선택 함수 (완벽 복원)
+        // 🌟 인체 기능 맵 선택 함수
         function quickSelectBody(key) {
             const area = document.getElementById('bodyResultArea');
             area.style.display = 'block';
