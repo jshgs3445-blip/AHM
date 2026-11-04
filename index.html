@@ -1186,10 +1186,6 @@
             updatePointDisplay();
             loadDailyQuiz();
             
-            history.pushState(null, null, location.href);
-            window.onpopstate = function() {
-                history.go(1);
-            };
             const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
             if (autoLoginSaved) {
                 document.getElementById('autoLoginCheck').checked = true;
@@ -1515,7 +1511,7 @@
             const newItem = { title: `오늘의 말씀 (${titleInput})`, desc: desc, date: dateStr };
             
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
-            // 중복 방지 체크 후 추가
+            // 중복 방지 체크 후 최신 항목 추가
             if (!history.some(item => item.title === newItem.title && item.desc === newItem.desc)) {
                 history.unshift(newItem);
             }
@@ -1539,7 +1535,6 @@
                 localStorage.setItem('ahm_bible_active', JSON.stringify(activeBible));
             }
             
-            // 지난 말씀 보관함 초기 데이터 동기화 보장
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
             if (history.length === 0) {
                 history = [
