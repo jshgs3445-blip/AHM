@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -485,13 +484,13 @@
                         <span style="color: #92400e; font-size: 11.5px;">맞춤 운동</span>
                     </div>
                 </div>
-                <!-- 3. 일상 기록 및 타이머 -->
+                <!-- 3. 일상 기록 및 타이머 (연핑크 음성 로깅 스타일 적용) -->
                 <div class="card">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
-                        <div class="big-action-card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #bfdbfe; min-height: 95px; padding: 12px 6px;" onclick="openModal('voiceModal')">
-                            <i class="fa-solid fa-microphone" style="color: #1d4ed8; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e40af; font-size: 11.5px;">음성 로깅</span>
+                        <div class="big-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3; min-height: 95px; padding: 12px 6px;" onclick="openModal('voiceModal')">
+                            <i class="fa-solid fa-microphone" style="color: #e11d48; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #9f1239; font-size: 11.5px;">음성 로깅</span>
                         </div>
                         <div class="big-action-card" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd); border-color: #7dd3fc; min-height: 95px; padding: 12px 6px;" onclick="openModal('waterModal')">
                             <i class="fa-solid fa-glass-water" style="color: #0284c7; font-size: 22px; margin-bottom: 6px;"></i>
@@ -673,7 +672,7 @@
             </div>
         </div>
     
-        <!-- 🌟 [업그레이드] 데이터 백업/복원 기능이 추가된 마이페이지 모달 -->
+        <!-- 마이페이지 모달 (데이터 백업 및 복원 기능 포함) -->
         <div id="myPageModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -684,7 +683,7 @@
                     <label>닉네임 / 성함: <input type="text" id="myPageNameInput" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
                     <label>이메일 (ID): <input type="text" id="myPageEmailInput" style="width:100%; margin-top:4px; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;"></label>
                     <button type="button" class="action-btn" onclick="saveMyPageInfo()">정보 수정 저장하기</button>
-                    <!-- 데이터 백업 및 복원 영역 -->
+                    
                     <div style="border-top: 1px solid #e2e8f0; padding-top: 10px; margin-top: 2px;">
                         <b style="font-size: 12px; color: var(--primary-color);">💾 건강 데이터 백업 및 복원</b>
                         <div style="display: flex; gap: 8px; margin-top: 6px;">
@@ -726,9 +725,7 @@
                     <div style="background: #eff6ff; padding: 14px; border-radius: 12px; border: 1px solid #bfdbfe;">
                         <b style="color: var(--primary-color);" id="quizQuestionText">Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?</b>
                     </div>
-                    <div style="display: flex; flex-direction: column; gap: 8px;" id="quizOptionsArea">
-                        <!-- 동적 생성 -->
-                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;" id="quizOptionsArea"></div>
                     <p id="quizResultMsg" style="font-size: 12px; color: #1e40af; font-weight: 700; text-align: center; margin-top: 4px;"></p>
                 </div>
             </div>
@@ -758,7 +755,7 @@
                     </div>
                     <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; text-align: left;">
                         <b style="font-size: 12px; color: #334155;"><i class="fa-solid fa-ticket" style="color:#7e22ce;"></i> 쿠폰 교환소</b>
-                        <p style="font-size: 11.5px; color: #64748b; margin-top: 4px;">• 영양제 3,000원 할인 쿠폰 (1,000P 차감)</p>
+                        <p style="font-size: 11.5px; color: #64748b; margin-top: 4px;">영양제 3,000원 할인 쿠폰 (1,000P 차감)</p>
                         <button type="button" class="action-btn" style="background: #7e22ce; margin-top: 8px; font-size: 12px; padding: 8px;" onclick="exchangeCoupon()">쿠폰 교환하기</button>
                     </div>
                 </div>
@@ -775,12 +772,12 @@
                     <div style="background: #eff6ff; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe;">
                         <b>✨ 오늘의 건강 요약</b>
                         <p style="margin-top: 6px; font-size: 12px; color: #1e40af; line-height: 1.5;">
-                            • 복용 달성률: 85% 우수<br>
-                            • 물 섭취량: <span id="dashWaterDisplay">500</span> ml<br>
-                            • 만보기 걸음: <span id="dashStepDisplay">0</span> 걸음<br>
-                            • 최근 체중: <span id="dashWeightDisplay">65.5</span> kg<br>
-                            • 최근 혈압: <span id="dashBpDisplay">120 / 80</span> mmHg<br>
-                            • 최근 혈당: <span id="dashBsDisplay">105</span> mg/dL
+                            복용 달성률: 85% 우수<br>
+                            물 섭취량: <span id="dashWaterDisplay">500</span> ml<br>
+                            만보기 걸음: <span id="dashStepDisplay">0</span> 걸음<br>
+                            최근 체중: <span id="dashWeightDisplay">65.5</span> kg<br>
+                            최근 혈압: <span id="dashBpDisplay">120 / 80</span> mmHg<br>
+                            최근 혈당: <span id="dashBsDisplay">105</span> mg/dL
                         </p>
                     </div>
                     <button type="button" class="action-btn" style="background: #7e22ce; font-size: 13px; padding: 10px;" onclick="openModal('monthlyReportModal')">📅 1개월 월간 누적 리포트 보기</button>
@@ -804,10 +801,7 @@
                     <div style="background: #faf5ff; padding: 12px; border-radius: 10px; border: 1px solid #e9d5ff;">
                         <b style="color: #7e22ce;">✨ 1개월 토탈 누적 요약</b>
                         <p style="margin-top: 6px; font-size: 12px; color: #6b21a8; line-height: 1.5;" id="monthlySummaryText">
-                            • 총 기록일수: 1일<br>
-                            • 평균 물 섭취량: 500 ml<br>
-                            • 평균 체중: 65.5 kg<br>
-                            • 평균 혈당: 105 mg/dL
+                            총 기록일수: 1일<br>평균 물 섭취량: 500 ml<br>평균 체중: 65.5 kg<br>평균 혈당: 105 mg/dL
                         </p>
                     </div>
                     <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; max-height: 180px; overflow-y: auto;">
@@ -931,30 +925,19 @@
                     <p style="color: #64748b; font-size: 12px;">아래 버튼을 터치하거나 직접 검색하여 영양소 백과 원문을 확인하세요.</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 180px; overflow-y: auto;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
-                        <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질 (동물성·식물성)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방 (동물성·식물성)</span>
+                        <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
+                        <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
                         <span class="dict-tag" onclick="quickSelectDict('물 (수분)')">💧 물 (수분)</span>
-                        <span class="dict-tag" onclick="quickSelectDict('비타민13종')">💊 비타민 20종 통합</span>
-                        <span class="dict-tag" onclick="quickSelectDict('무기질15가지')">⚖ 무기질 15가지 통합</span>
-                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수 아미노산 9종</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민13종')">💊 비타민 20종</span>
+                        <span class="dict-tag" onclick="quickSelectDict('무기질15가지')">⚖ 무기질 15가지</span>
+                        <span class="dict-tag" onclick="quickSelectDict('필수아미노산')">🧬 필수 아미노산</span>
                         <span class="dict-tag" onclick="quickSelectDict('칼슘')">🦴 칼슘</span>
-                        <span class="dict-tag" onclick="quickSelectDict('인')">⚪ 인</span>
-                        <span class="dict-tag" onclick="quickSelectDict('나트륨')">🧂 나트륨</span>
-                        <span class="dict-tag" onclick="quickSelectDict('염소')">💧 염소</span>
-                        <span class="dict-tag" onclick="quickSelectDict('칼륨')">🍌 칼륨</span>
                         <span class="dict-tag" onclick="quickSelectDict('마그네슘')">⚡ 마그네슘</span>
                         <span class="dict-tag" onclick="quickSelectDict('철분')">🩸 철분</span>
                         <span class="dict-tag" onclick="quickSelectDict('아연')">🛡 아연</span>
-                        <span class="dict-tag" onclick="quickSelectDict('구리')">🪙 구리</span>
-                        <span class="dict-tag" onclick="quickSelectDict('불소')">🟢 불소</span>
-                        <span class="dict-tag" onclick="quickSelectDict('망간')">🌾 망간</span>
-                        <span class="dict-tag" onclick="quickSelectDict('요오드')">🌊 요오드</span>
-                        <span class="dict-tag" onclick="quickSelectDict('셀레늄')">✨ 셀레늄</span>
-                        <span class="dict-tag" onclick="quickSelectDict('몰리브덴')">🌿 몰리브덴</span>
-                        <span class="dict-tag" onclick="quickSelectDict('크롬')">🥦 크롬</span>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <input type="text" id="inputSearchQueryText" placeholder="영양소 직접 검색 (예: 탄수화물, 단백질)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
+                        <input type="text" id="inputSearchQueryText" placeholder="영양소 직접 검색" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
                         <button type="button" style="background: var(--primary-color); color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; cursor: pointer;" onclick="searchSupplementCompatibilityTextInput()">검색</button>
                     </div>
                     <div id="searchResultArea" style="margin-top: 5px; padding: 14px; border-radius: 12px; background: #f8fafc; border: 1px solid #e2e8f0; display: none; max-height: 220px; overflow-y: auto;">
@@ -1053,15 +1036,15 @@
                 </div>
             </div>
         </div>
-        <!-- 음성 로깅 모달 -->
+        <!-- 🌟 연핑크 음성 로깅 스타일 적용된 음성 로깅 모달 -->
         <div id="voiceModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎙 음성 로깅 (스마트 연동)</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
-                <div style="font-size: 35px; color: var(--primary-color); margin: 15px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
-                <div id="voiceStatus" style="font-size: 12px; background: #f1f5f9; padding: 10px; border-radius: 8px; margin-bottom: 12px; line-height: 1.4;">
+                <div style="font-size: 35px; color: #e11d48; margin: 15px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
+                <div id="voiceStatus" style="font-size: 12px; background: linear-gradient(135deg, #fff1f2, #ffe4e6); border: 1px solid #fecdd3; color: #9f1239; padding: 12px; border-radius: 12px; margin-bottom: 12px; line-height: 1.4; font-weight: 600;">
                     버튼을 누르고 말씀하세요.<br>(예: "혈압 120에 80", "혈당 110", "체중 65.5", "물 500ml")
                 </div>
-                <button type="button" class="action-btn" onclick="startRealVoiceRecognition()">음성 인식 시작</button>
+                <button type="button" class="action-btn" style="background: #e11d48;" onclick="startRealVoiceRecognition()">음성 인식 시작</button>
             </div>
         </div>
         <!-- 물 섭취량 모달 -->
@@ -1218,7 +1201,8 @@
                 document.getElementById('loginScreen').style.display = 'flex';
             }
         };
-        // 🌟 [추가 기능] 건강 데이터 JSON 백업 내보내기 함수
+
+        // 🌟 데이터 백업 내보내기 함수
         function exportHealthData() {
             const backupData = {};
             for (let i = 0; i < localStorage.length; i++) {
@@ -1236,7 +1220,8 @@
             downloadAnchor.remove();
             showToast("✨ 건강 데이터 백업 파일이 다운로드되었습니다.");
         }
-        // 🌟 [추가 기능] 건강 데이터 JSON 파일 복원 가져오기 함수
+
+        // 🌟 데이터 복원 가져오기 함수
         function importHealthData(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1257,6 +1242,7 @@
             };
             reader.readAsText(file);
         }
+
         function updatePointDisplay() {
             const pointEl = document.getElementById('totalPointDisplay');
             if(pointEl) pointEl.textContent = userPoints.toLocaleString();
@@ -1370,10 +1356,10 @@
             const avgWeight = (totalWeight / count).toFixed(1);
             const avgBs = Math.round(totalBs / count);
             document.getElementById('monthlySummaryText').innerHTML = `
-                • 총 기록일수: ${count}일<br>
-                • 평균 물 섭취량: ${avgWater} ml<br>
-                • 평균 체중: ${avgWeight} kg<br>
-                • 평균 혈당: ${avgBs} mg/dL
+                총 기록일수: ${count}일<br>
+                평균 물 섭취량: ${avgWater} ml<br>
+                평균 체중: ${avgWeight} kg<br>
+                평균 혈당: ${avgBs} mg/dL
             `;
             document.getElementById('monthlyHistoryList').innerHTML = html;
         }
@@ -1721,7 +1707,7 @@
             const area = document.getElementById('hospitalResultArea');
             area.style.display = 'block';
             document.getElementById('hospitalResultTitle').textContent = `🤖 AI 추천 진료과`;
-            document.getElementById('hospitalResultDesc').textContent = `• 입력 증상: "${query}"\n• 권장 진료과: 1차 가정의학과 및 전문 내과 진료를 권장합니다.`;
+            document.getElementById('hospitalResultDesc').textContent = `입력 증상: "${query}"\n권장 진료과: 1차 가정의학과 및 전문 내과 진료를 권장합니다.`;
         }
         function generateAiConditionPrescription() {
             const query = document.getElementById('inputUserCondition').value.trim();
@@ -1729,7 +1715,7 @@
             const area = document.getElementById('exerciseResultArea');
             area.style.display = 'block';
             document.getElementById('exerciseResultTitle').textContent = `💪 맞춤 운동 처방`;
-            document.getElementById('exerciseResultDesc').textContent = `• 상태: "${query}"\n• 솔루션: 가벼운 유산소 스트레칭 및 심호흡 (15분간 진행)`;
+            document.getElementById('exerciseResultDesc').textContent = `상태: "${query}"\n솔루션: 가벼운 유산소 스트레칭 및 심호흡 (15분간 진행)`;
         }
         function executeDictSearch(query) {
             const resultArea = document.getElementById('searchResultArea');
@@ -1743,7 +1729,7 @@
                 resultDesc.textContent = matched.desc;
             } else {
                 resultTitle.textContent = `🤖 "${query}" 영양 성분 백과`;
-                resultDesc.textContent = `• ${query} 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
+                resultDesc.textContent = `${query} 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
             }
         }
         function searchSupplementCompatibilityTextInput() {
@@ -1876,6 +1862,3 @@
     </script>
 </body>
 </html>
-
-
-
