@@ -484,7 +484,7 @@
                         <span style="color: #92400e; font-size: 11.5px;">맞춤 운동</span>
                     </div>
                 </div>
-                <!-- 3. 일상 기록 및 타이머 (연핑크 음성 로깅 스타일 적용) -->
+                <!-- 3. 일상 기록 및 타이머 -->
                 <div class="card">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
                     <div class="grid-3">
@@ -1036,7 +1036,7 @@
                 </div>
             </div>
         </div>
-        <!-- 🌟 연핑크 음성 로깅 스타일 적용된 음성 로깅 모달 -->
+        <!-- 음성 로깅 모달 -->
         <div id="voiceModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎙 음성 로깅 (스마트 연동)</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
@@ -1140,6 +1140,7 @@
         let bpChartInstance = null;
         let bsChartInstance = null;
         let dashChartInstance = null;
+        
         const aiEncourageMessages = [
             "오늘도 건강 습관을 지켜내셨군요! 정말 멋져요.",
             "작은 실천이 모여 큰 건강을 만듭니다. 오늘도 화이팅이에요!",
@@ -1172,6 +1173,7 @@
             { q: "Q. 눈 건강(황반색소 유지)에 도움을 주는 대표적인 영양 성분은?", options: ["1. 루테인", "2. 나트륨", "3. 카페인"], answer: 0 },
             { q: "Q. 칼슘의 흡수를 돕고 면역력 증진에 기여하는 대표적인 미네랄은?", options: ["1. 설탕", "2. 아연", "3. 식초"], answer: 1 }
         ];
+
         window.onload = function() {
             loadSavedContent();
             loadSavedBible24h();
@@ -1202,7 +1204,7 @@
             }
         };
 
-        // 🌟 데이터 백업 내보내기 함수
+        // 데이터 백업 내보내기
         function exportHealthData() {
             const backupData = {};
             for (let i = 0; i < localStorage.length; i++) {
@@ -1221,7 +1223,7 @@
             showToast("✨ 건강 데이터 백업 파일이 다운로드되었습니다.");
         }
 
-        // 🌟 데이터 복원 가져오기 함수
+        // 데이터 복원 가져오기
         function importHealthData(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1248,6 +1250,7 @@
             if(pointEl) pointEl.textContent = userPoints.toLocaleString();
             localStorage.setItem('ahm_points', userPoints);
         }
+
         function loadDailyQuiz() {
             const now = new Date();
             const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
@@ -1264,6 +1267,7 @@
             optionsArea.innerHTML = html;
             document.getElementById('quizResultMsg').textContent = '';
         }
+
         function answerQuiz(isCorrect) {
             const msgEl = document.getElementById('quizResultMsg');
             const quizDateKey = 'ahm_quiz_done_' + new Date().toLocaleDateString();
@@ -1284,6 +1288,7 @@
                 msgEl.textContent = "❌ 아쉽네요! 정답이 아닙니다. 내일 다시 도전해보세요!";
             }
         }
+
         function spinRoulette() {
             const nowStr = new Date().toLocaleDateString();
             const lastSpinDate = localStorage.getItem('ahm_last_spin_date');
@@ -1303,6 +1308,7 @@
             box.innerHTML = `🎉 축하합니다 오늘 당첨! <b>+${randomReward} 포인트</b> 획득!`;
             showToast(`🎡 룰렛 당첨! +${randomReward}P 획득`);
         }
+
         function exchangeCoupon() {
             if(userPoints >= 1000) {
                 userPoints -= 1000;
@@ -1312,6 +1318,7 @@
                 showToast("⚠ 포인트가 부족합니다! (필요: 1,000P)");
             }
         }
+
         function saveDailyRecordToMonthly() {
             let history = JSON.parse(localStorage.getItem('ahm_monthly_history') || '[]');
             const now = new Date();
@@ -1335,9 +1342,9 @@
             localStorage.setItem('ahm_monthly_history', JSON.stringify(history));
             renderMonthlyReportUI(history);
         }
+
         function renderMonthlyReportUI(history) {
             if(!history || history.length === 0) return;
-            
             let totalWater = 0, totalWeight = 0, totalBs = 0;
             let html = '';
             
@@ -1363,6 +1370,7 @@
             `;
             document.getElementById('monthlyHistoryList').innerHTML = html;
         }
+
         function updateDashboardValues() {
             document.getElementById('waterAmount').textContent = currentWater;
             document.getElementById('dashWaterDisplay').textContent = currentWater;
@@ -1372,11 +1380,13 @@
             document.getElementById('dashBsDisplay').textContent = latestBs;
             saveDailyRecordToMonthly();
         }
+
         function toggleAutoLogin() {
             const chk = document.getElementById('autoLoginCheck');
             chk.checked = !chk.checked;
             localStorage.setItem('ahm_auto_login', chk.checked);
         }
+
         function initAllCharts() {
             const weightCtx = document.getElementById('weightChart').getContext('2d');
             weightChartInstance = new Chart(weightCtx, {
@@ -1403,6 +1413,7 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
+
         function executeSignup() {
             const name = document.getElementById('signupNameInput').value.trim();
             const email = document.getElementById('signupEmailInput').value.trim();
@@ -1415,6 +1426,7 @@
             closeModal('signupModal');
             enterMainScreen(name, "회원");
         }
+
         function executeLogin() { 
             const email = document.getElementById('loginEmailInput').value.trim();
             const pw = document.getElementById('loginPwInput').value.trim();
@@ -1434,6 +1446,7 @@
             enterMainScreen(nickname, role); 
             showToast(`✨ 환영합니다 수현님! (${role} 모드)`);
         }
+
         function executeLoginGuest() { 
             localStorage.setItem('ahm_user_role', '회원');
             localStorage.setItem('ahm_user_nick', '체험 유저');
@@ -1441,6 +1454,7 @@
             enterMainScreen("체험 유저", "회원"); 
             showToast("👀 비회원 모드로 접속합니다.");
         }
+
         function enterMainScreen(nickname, roleText) {
             document.getElementById('loginScreen').classList.remove('active');
             document.getElementById('loginScreen').style.display = 'none';
@@ -1459,6 +1473,7 @@
                 if(adminWrap2) adminWrap2.style.display = 'none';
             }
         }
+
         function executeLogout() {
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
@@ -1471,15 +1486,18 @@
             closeModal('myPageModal');
             showToast('로그아웃 되었습니다.');
         }
+
         function showFindAccountModal() { openModal('findAccountModal'); }
         function executeFindAccount() {
             showToast("✨ 임시 비밀번호가 이메일로 발송되었습니다.");
             closeModal('findAccountModal');
         }
+
         function saveMyPageInfo() {
             showToast("✨ 마이페이지 정보가 저장되었습니다!");
             closeModal('myPageModal');
         }
+
         function submitQaQuestion() {
             const q = document.getElementById('qaQuestionInput').value.trim();
             if(!q) { showToast("⚠ 문의 내용을 입력해주세요."); return; }
@@ -1487,6 +1505,8 @@
             document.getElementById('qaQuestionInput').value = '';
             closeModal('qaModal');
         }
+
+        // 🌟 오늘의 말씀 및 지난 말씀 영구 저장 로직 보완
         function saveAdminBible() {
             const titleInput = document.getElementById('adminBibleTitleInput').value.trim();
             const desc = document.getElementById('adminBibleDescInput').value.trim();
@@ -1502,9 +1522,11 @@
             localStorage.setItem('ahm_bible_active', JSON.stringify(newItem));
             
             applyBibleToScreen(newItem);
+            renderBibleHistory();
             showToast("✨ 오늘의 말씀 등록 완료!");
             closeModal('adminBibleModal');
         }
+
         function loadSavedBible24h() {
             let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active')) || {
                 title: "오늘의 말씀 (요일 5:14)",
@@ -1514,14 +1536,19 @@
             applyBibleToScreen(activeBible);
             renderBibleHistory();
         }
+
         function applyBibleToScreen(item) {
             document.getElementById('displayBibleTitle').textContent = item.title;
             document.getElementById('displayBibleDesc').textContent = item.desc;
         }
+
         function renderBibleHistory() {
             const listEl = document.getElementById('bibleHistoryList');
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
-            if(history.length === 0) { listEl.innerHTML = `<p style="color: #64748b;">등록된 지난 말씀이 없습니다.</p>`; return; }
+            if(history.length === 0) { 
+                listEl.innerHTML = `<p style="color: #64748b;">등록된 지난 말씀이 없습니다.</p>`; 
+                return; 
+            }
             let html = '';
             history.forEach(item => {
                 html += `<div style="background: #f8fafc; padding: 10px; border-radius: 10px; margin-bottom: 8px; border: 1px solid #e2e8f0;">
@@ -1531,6 +1558,7 @@
             });
             listEl.innerHTML = html;
         }
+
         function initStepCounter() {
             if (window.DeviceMotionEvent) {
                 window.addEventListener('devicemotion', (event) => {
@@ -1550,6 +1578,7 @@
                 });
             }
         }
+
         function updateStepDisplay(steps) {
             const formatted = steps.toLocaleString();
             const percent = Math.min(Math.round((steps / 10000) * 100), 100);
@@ -1560,6 +1589,7 @@
             const dashStep = document.getElementById('dashStepDisplay');
             if(dashStep) dashStep.textContent = formatted;
         }
+
         function startRealVoiceRecognition() {
             const statusEl = document.getElementById('voiceStatus');
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
@@ -1602,6 +1632,7 @@
             };
             recognition.start();
         }
+
         function saveBpRecordBtn() {
             const bpVal = document.getElementById('bpInput').value.trim();
             const bsVal = document.getElementById('bsInput').value.trim();
@@ -1614,6 +1645,7 @@
             showToast(`❤ 수치 기록 완료! ${aiCheers}`);
             closeModal('bpModal');
         }
+
         function saveWeightRecordBtn() {
             const val = document.getElementById('weightInput').value.trim();
             if(!val) { showToast("⚠ 체중을 입력해주세요."); return; }
@@ -1625,22 +1657,31 @@
             showToast(`⚖ 체중(${val}kg) 기록 완료! ${aiCheers}`);
             closeModal('weightModal');
         }
+
+        // 🌟 건강 핫플 정보 영구 저장 로직 보완
         function saveAdminPost() {
             const cat = document.getElementById('adminPostCategory').value;
             const title = document.getElementById('adminPostTitle').value.trim();
             const desc = document.getElementById('adminPostDesc').value.trim();
             if(!title) { showToast("⚠ 제목을 입력해주세요."); return; }
-            localStorage.setItem('ahm_post_' + cat, JSON.stringify({ title, desc, date: new Date().toLocaleDateString() }));
+            
+            const postData = { title, desc, date: new Date().toLocaleDateString() };
+            localStorage.setItem('ahm_post_' + cat, JSON.stringify(postData));
             updatePostPreview(cat, title);
+            
             showToast("✨ 콘텐츠 등록 완료!");
             closeModal('adminPostModal');
+            document.getElementById('adminPostTitle').value = '';
+            document.getElementById('adminPostDesc').value = '';
         }
+
         function updatePostPreview(cat, title) {
             if(cat === 'news') document.getElementById('previewNews').textContent = title;
             if(cat === 'video') document.getElementById('previewVideo').textContent = title;
             if(cat === 'notice') document.getElementById('previewNotice').textContent = title;
             if(cat === 'board') document.getElementById('previewBoard').textContent = title;
         }
+
         function loadSavedContent() {
             const defaults = {
                 news: { title: "등록된 뉴스가 없습니다." },
@@ -1651,12 +1692,18 @@
             ['news', 'video', 'notice', 'board'].forEach(cat => {
                 const saved = localStorage.getItem('ahm_post_' + cat);
                 if(saved) {
-                    updatePostPreview(cat, JSON.parse(saved).title);
+                    try {
+                        const parsed = JSON.parse(saved);
+                        updatePostPreview(cat, parsed.title);
+                    } catch(e) {
+                        updatePostPreview(cat, defaults[cat].title);
+                    }
                 } else {
                     updatePostPreview(cat, defaults[cat].title);
                 }
             });
         }
+
         function showPostContent(cat) {
             const saved = localStorage.getItem('ahm_post_' + cat);
             const titles = { news: '최신 뉴스', video: '득템 영상', notice: '공지사항', board: '게시판' };
@@ -1664,14 +1711,19 @@
             const bodyEl = document.getElementById('viewModalBody');
             
             if(saved) {
-                const data = JSON.parse(saved);
-                let formattedDesc = data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color); text-decoration: underline;">$1</a>');
-                bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date}</span>`;
+                try {
+                    const data = JSON.parse(saved);
+                    let formattedDesc = data.desc ? data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color); text-decoration: underline;">$1</a>') : '';
+                    bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date}</span>`;
+                } catch(e) {
+                    bodyEl.innerHTML = `<p style="color:#64748b;">등록된 내용이 없습니다.</p>`;
+                }
             } else {
                 bodyEl.innerHTML = `<p style="color:#64748b;">등록된 내용이 없습니다.</p>`;
             }
             openModal('contentViewModal');
         }
+
         function toggleTakeMed(btnId, name) {
             const btn = document.getElementById(btnId);
             if(btn.classList.contains('checked')) {
@@ -1685,22 +1737,26 @@
                 showToast(`✨ [AI 비서] "${name} 완료! ${aiCheers}"`);
             }
         }
+
         function quickSelectDict(keyword) {
             document.getElementById('inputSearchQueryText').value = keyword;
             executeDictSearch(keyword);
         }
+
         function quickSelectBody(key) {
             const area = document.getElementById('bodyResultArea');
             area.style.display = 'block';
             document.getElementById('bodyResultTitle').textContent = bodyCareDb[key].title;
             document.getElementById('bodyResultDesc').textContent = bodyCareDb[key].desc;
         }
+
         function quickSelectHospital(key) {
             const area = document.getElementById('hospitalResultArea');
             area.style.display = 'block';
             document.getElementById('hospitalResultTitle').textContent = hospitalDb[key].title;
             document.getElementById('hospitalResultDesc').textContent = hospitalDb[key].desc;
         }
+
         function searchHospitalAI() {
             const query = document.getElementById('inputHospitalSearch').value.trim();
             if(!query) { showToast('⚠ 증상을 입력해주세요.'); return; }
@@ -1709,6 +1765,7 @@
             document.getElementById('hospitalResultTitle').textContent = `🤖 AI 추천 진료과`;
             document.getElementById('hospitalResultDesc').textContent = `입력 증상: "${query}"\n권장 진료과: 1차 가정의학과 및 전문 내과 진료를 권장합니다.`;
         }
+
         function generateAiConditionPrescription() {
             const query = document.getElementById('inputUserCondition').value.trim();
             if(!query) { showToast('⚠ 컨디션을 입력해주세요.'); return; }
@@ -1717,6 +1774,7 @@
             document.getElementById('exerciseResultTitle').textContent = `💪 맞춤 운동 처방`;
             document.getElementById('exerciseResultDesc').textContent = `상태: "${query}"\n솔루션: 가벼운 유산소 스트레칭 및 심호흡 (15분간 진행)`;
         }
+
         function executeDictSearch(query) {
             const resultArea = document.getElementById('searchResultArea');
             const resultTitle = document.getElementById('resultTitle');
@@ -1732,19 +1790,24 @@
                 resultDesc.textContent = `${query} 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
             }
         }
+
         function searchSupplementCompatibilityTextInput() {
             executeDictSearch(document.getElementById('inputSearchQueryText').value.trim());
         }
+
         function addWater(a) { 
             currentWater += a; 
             updateDashboardValues();
         }
+
         function saveWaterRecord() { 
             const aiCheers = getRandomAiMessage();
             showToast(`💧 물 ${currentWater}ml 기록 완료! ${aiCheers}`); 
             closeModal('waterModal'); 
         }
+
         function saveAlarmTimes() { showToast("🔔 알림 시간이 저장되었습니다."); closeModal('alarmModal'); }
+
         function saveNewMedicineRecord() {
             const name = document.getElementById('inputNewMedicineNameText').value.trim();
             const time = document.getElementById('inputNewMedicineTime').value;
@@ -1758,6 +1821,7 @@
             const aiCheers = getRandomAiMessage();
             showToast(`💊 "${name}" 등록 완료! ${aiCheers}`);
         }
+
         function renderMedicineList() {
             const container = document.getElementById('medicineListContainer');
             let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
@@ -1774,6 +1838,7 @@
             });
             container.innerHTML = html;
         }
+
         function deleteMedicineItem(index) {
             let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             list.splice(index, 1);
@@ -1781,6 +1846,7 @@
             renderMedicineList();
             showToast("🗑 복용약이 삭제되었습니다.");
         }
+
         function saveExpiryItem() {
             const name = document.getElementById('inputExpiryName').value.trim();
             const date = document.getElementById('inputExpiryDate').value;
@@ -1793,6 +1859,7 @@
             renderExpiryList();
             showToast(`📦 "${name}" 유통기한 등록 완료!`);
         }
+
         function renderExpiryList() {
             const container = document.getElementById('expiryListContainer');
             let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
@@ -1809,6 +1876,7 @@
             });
             container.innerHTML = html;
         }
+
         function deleteExpiryItem(index) {
             let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
             list.splice(index, 1);
@@ -1816,11 +1884,13 @@
             renderExpiryList();
             showToast("🗑 유통기한 항목이 삭제되었습니다.");
         }
+
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg; t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3500);
         }
+
         function openModal(id) { 
             const modal = document.getElementById(id);
             modal.classList.add('active'); 
@@ -1854,8 +1924,11 @@
             } else if(id === 'bpModal') {
                 if(bpChartInstance) bpChartInstance.update();
                 if(bsChartInstance) bsChartInstance.update();
+            } else if(id === 'bibleHistoryModal') {
+                renderBibleHistory();
             }
         }
+
         function closeModal(id) { 
             document.getElementById(id).classList.remove('active'); 
         }
