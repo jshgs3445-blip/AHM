@@ -434,7 +434,6 @@
                 <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">회원</span></h1>
                 <div class="header-icons">
                     <i class="fa-solid fa-coins" style="color: #fbbf24;" onclick="openModal('rewardModal')" title="포인트 보관함"></i>
-                    <i class="fa-solid fa-calendar-days" style="color: #93c5fd;" onclick="openModal('medCalendarModal')" title="복용약 캘린더 뷰"></i>
                     <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
                     <i class="fa-solid fa-circle-question" onclick="openModal('qaModal')" title="Q & A 코너"></i>
                     <i class="fa-solid fa-circle-plus" onclick="openModal('addModal')" title="추가"></i>
@@ -621,7 +620,7 @@
             </div>
         </div>
     
-        <!-- 🌟 [신규 추가] 복용약 캘린더 연동 뷰 모달 -->
+        <!-- 복용약 캘린더 연동 뷰 모달 -->
         <div id="medCalendarModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -946,7 +945,7 @@
                 </div>
             </div>
         </div>
-        <!-- [영양 가이드 백과 모달] -->
+        <!-- [영양 가이드 백과 모달 - 풍성한 내용 완벽 탑재] -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1175,7 +1174,6 @@
         let bsChartInstance = null;
         let dashChartInstance = null;
         
-        // 캘린더 관련 상태 변수
         let calCurrentYear = new Date().getFullYear();
         let calCurrentMonth = new Date().getMonth();
         
@@ -1191,6 +1189,7 @@
             return aiEncourageMessages[randomIndex];
         }
 
+        // 🌟 영양 가이드 백과사전 내용 완전 복원
         const encyclopediaDb = {
             "탄수화물": { 
                 title: "🍞 탄수화물 (Carbohydrate)", 
@@ -1999,7 +1998,6 @@
             const grid = document.getElementById('calDaysGrid');
             let html = '';
             
-            // 빈 칸 채우기
             for (let i = 0; i < firstDay; i++) {
                 html += `<div></div>`;
             }
