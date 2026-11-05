@@ -207,7 +207,7 @@
             flex: 1;
             padding: 16px;
             overflow-y: auto;
-            padding-bottom: 40px; /* 화면 잘림 방지 하단 여백 */
+            padding-bottom: 40px;
         }
     
         .card {
@@ -459,8 +459,9 @@
                         <span style="font-size: 10px; color: #b45309; font-weight: normal; margin-top: 2px;">매일 1회 무료</span>
                     </div>
                 </div>
-                <!-- 🌟 [섹션 2] [스마트 영양] -->
-                <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-pills" style="color:#e11d48;"></i> [스마트 영양]</div>
+
+                <!-- 🌟 [섹션 2] [스마트 영양 & 챌린지] (신규 2번, 3번 기능 포함) -->
+                <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-pills" style="color:#e11d48;"></i> [스마트 영양 & 챌린지]</div>
                 <div class="grid-2">
                     <div class="big-action-card" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border-color: #fecdd3;" onclick="openModal('compatibilityModal')">
                         <i class="fa-solid fa-book-medical" style="color: #e11d48;"></i>
@@ -471,6 +472,20 @@
                         <span style="color: #6b21a8;">복용 캘린더 뷰</span>
                     </div>
                 </div>
+                <!-- 🌟 [신규] 영양 밸런스 진단 & 챌린지 배지 카드 -->
+                <div class="grid-2" style="margin-top: 2px;">
+                    <div class="big-action-card" style="background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-color: #a7f3d0;" onclick="openModal('nutritionDiagnosticModal')">
+                        <i class="fa-solid fa-dna" style="color: #059669;"></i>
+                        <span style="color: #065f46; font-size: 12px;">AI 영양 밸런스 진단</span>
+                        <span style="font-size: 9.5px; color: #047857; margin-top: 2px;">내 몸에 필요한 성분 분석</span>
+                    </div>
+                    <div class="big-action-card" style="background: linear-gradient(135deg, #fffbeb, #fef3c7); border-color: #fde68a;" onclick="openModal('badgeModal')">
+                        <i class="fa-solid fa-award" style="color: #d97706;"></i>
+                        <span style="color: #92400e; font-size: 12px;">챌린지 업적 배지</span>
+                        <span style="font-size: 9.5px; color: #b45309; margin-top: 2px;">루틴 달성 보상 수집</span>
+                    </div>
+                </div>
+
                 <!-- 🌟 [섹션 3] [1:1 건강 솔루션] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-stethoscope" style="color:#1d4ed8;"></i> [1:1 건강 솔루션]</div>
                 <div class="grid-3-col">
@@ -623,6 +638,53 @@
             </div>
         </div>
     
+        <!-- 🌟 [신규 모달 1] AI 영양 밸런스 진단 설문 -->
+        <div id="nutritionDiagnosticModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🧬 AI 맞춤 영양 밸런스 진단</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('nutritionDiagnosticModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="background: #ecfdf5; padding: 12px; border-radius: 12px; border: 1px solid #a7f3d0;">
+                        <b style="color: #065f46;"><i class="fa-solid fa-chart-line"></i> 내 최근 기록 기반 분석</b>
+                        <p style="font-size: 11.5px; color: #047857; margin-top: 4px; line-height: 1.5;">
+                            • 체중: <span id="diagWeight">65.5</span> kg<br>
+                            • 혈압: <span id="diagBp">120 / 80</span> mmHg<br>
+                            • 혈당: <span id="diagBs">105</span> mg/dL
+                        </p>
+                    </div>
+                    <div style="background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1;">
+                        <b style="color: #1e293b;">💡 AI 영양 솔루션 추천</b>
+                        <p id="diagResultText" style="font-size: 12px; color: #475569; margin-top: 6px; line-height: 1.5;">
+                            기록된 데이터를 분석 중입니다...
+                        </p>
+                    </div>
+                    <button type="button" class="action-btn" style="background: #059669;" onclick="runAiDiagnostic()">🔄 실시간 영양 진단 다시 실행</button>
+                    <p style="font-size: 10.5px; color: #94a3b8; text-align: center;">※ 본 진단은 일상 기록 기반 참고용 가이드입니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🌟 [신규 모달 2] 챌린지 업적 배지 시스템 -->
+        <div id="badgeModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>🏆 나의 건강 루틴 챌린지 배지</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('badgeModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px; max-height: 320px; overflow-y: auto;">
+                    <div style="background: #fffbeb; padding: 10px; border-radius: 10px; border: 1px solid #fde68a;">
+                        <b>✨ 챌린지 보상 안내</b>
+                        <p style="font-size: 11.5px; color: #92400e; margin-top: 2px;">꾸준한 건강 습관을 달성하고 디지털 배지를 모아보세요!</p>
+                    </div>
+                    <div id="badgeListContainer" style="display: flex; flex-direction: column; gap: 8px;">
+                        <!-- JS에서 동적 렌더링 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 복용약 캘린더 연동 뷰 모달 -->
         <div id="medCalendarModal" class="custom-modal">
             <div class="modal-content">
@@ -948,7 +1010,7 @@
                 </div>
             </div>
         </div>
-        <!-- [영양 가이드 백과 모달 - 풍성한 내용 완벽 탑재] -->
+        <!-- [영양 가이드 백과 모달] -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1194,69 +1256,30 @@
 
         // 🌟 영양 가이드 백과사전 내용 완벽 복원
         const encyclopediaDb = {
-            "탄수화물": { 
-                title: "🍞 탄수화물 (Carbohydrate)", 
-                desc: "• [종류]: 단순당(설탕, 과당), 복합당(전분, 식이섬유)\n• [주요 기능]: 신체 및 뇌 활동의 핵심 에너지원 공급, 단백질 절약 작용\n• [대표 식품]: 쌀, 현미, 귀리(오트밀), 고구마, 감자, 통밀빵" 
-            },
-            "단백질": { 
-                title: "🥩 단백질 (Protein)", 
-                desc: "• [종류]: 동물성 단백질(육류, 생선, 계란, 유제품), 식물성 단백질(두부, 콩, 견과류)\n• [주요 기능]: 근육 및 조직 합성, 면역 항체 생성, 효소 및 호르몬 구성\n• [대표 식품]: 닭가슴살, 소고기, 연어, 달걀, 콩, 두부" 
-            },
-            "지방": { 
-                title: "🥑 지방 (Fat)", 
-                desc: "• [종류]: 불포화지방산(오메가3·6, 올리브유), 포화지방산(육류 지방), 트랜스지방\n• [주요 기능]: 세포막 구성, 체온 유지, 지용성 비타민 흡수 촉진\n• [대표 식품]: 아보카도, 견과류, 등푸른생선, 올리브오일" 
-            },
-            "물 (수분)": { 
-                title: "💧 물 (Water / 수분)", 
-                desc: "• [주요 기능]: 체온 조절, 혈액 순환, 노폐물 체외 배출, 영양소 운반\n• [권장 섭취량]: 성인 기준 하루 1.5 ~ 2 리터 이상\n• [섭취 팁]: 갈증을 느끼기 전에 자주 조금씩 나누어 마시기" 
-            },
-            "비타민": { 
-                title: "💊 비타민 (20종 종합 가이드)", 
-                desc: "• [수용성 비타민 (9종)]: 비타민 B군(B1 티아민, B2 리보플래빈, B3 나이아신, B5 판토텐산, B6 피리독신, B7 비오틴, B9 엽산, B12 코발라민)과 비타민 C(아스코르브산). 에너지 대사, 피로 회복, 항산화 작용을 하며 체내에 남지 않고 배출되므로 매일 섭취 필요.\n• [지용성 비타민 (4종)]: 비타민 A(시력·피부), 비타민 D(칼슘 흡수·면역), 비타민 E(항성화), 비타민 K(혈액 응고). 지방과 함께 섭취 시 흡수율이 높아짐." 
-            },
-            "무기질": { 
-                title: "⚖ 무기질 15가지 (미네랄 통합 백과)", 
-                desc: "• [다량 무기질 (7가지)]: 칼슘(뼈·치아), 인(에너지 대사), 칼륨(혈압 조절), 나트륨(체액 균형), 마그네슘(근육·신경 안정), 염소, 황.\n• [미량 무기질 (8가지)]: 철분(산소 운반), 아연(면역·세포 분열), 요오드(갑상선), 셀레늄(항산화), 구리, 망간, 몰리브덴, 크롬.\n• [대표 식품]: 우유, 멸치, 미역, 굴, 소고기, 견과류, 바나나, 시금치" 
-            },
-            "필수아미노산": { 
-                title: "🧬 필수 아미노산 (9가지 핵심)", 
-                desc: "• [종류 (9종)]: 류신, 이소류신, 발린(BCAA 3종), 라이신, 메티오닌, 페닐알라닌, 트레오닌, 트립토판, 히스티딘.\n• [주요 기능]: 체내에서 합성되지 않아 반드시 음식으로 섭취해야 하며, 근육 합성 촉진, 뇌 신경전달물질 생성, 수면 질 개선에 필수적임.\n• [대표 식품]: 닭가슴살, 달걀, 소고기, 대두(콩), 우유 및 유제품" 
-            },
-            "칼슘": { 
-                title: "🦴 칼슘 (Calcium)", 
-                desc: "• [주요 기능]: 튼튼한 뼈와 치아 구조 형성, 근육 수축 및 이완 조절, 신경 전달 기능\n• [대표 식품]: 우유, 치즈, 요구르트, 멸치, 뼈째 먹는 생선, 두부, 케일" 
-            },
-            "마그네슘": { 
-                title: "⚡ 마그네슘 (Magnesium)", 
-                desc: "• [주요 기능]: 신경 및 근육 긴장 완화, 눈밑 떨림 방지, 에너지 생성 대사 지원\n• [대표 식품]: 견과류(아몬드, 캐슈넛), 바나나, 시금치, 아보카도, 통곡물" 
-            },
-            "철분": { 
-                title: "🩸 철분 (Iron)", 
-                desc: "• [주요 기능]: 혈액 내 헤모글로빈 생성 및 전신 산소 운반, 피로 개선 및 빈혈 예방\n• [대표 식품]: 소고기 등 붉은 살코기, 달걀 노른자, 시금치, 렌틸콩, 조개류" 
-            },
-            "아연": { 
-                title: "🛡 아연 (Zinc)", 
-                desc: "• [주요 기능]: 정상적인 면역 반응 유지, 세포 분열 및 성장 발달, 상처 회복\n• [대표 식품]: 굴, 소고기, 돼지고기, 호박씨, 뼛속까지 건강한 견과류" 
-            },
-            "칼륨": { 
-                title: "🍌 칼륨 (Potassium)", 
-                desc: "• [주요 기능]: 체내 나트륨 배출 유도, 정상 혈압 유지 및 세포 삼투압 조절\n• [대표 식품]: 바나나, 고구마, 시금치, 토마토, 아보카도, 콩류" 
-            },
-            "루테인": { 
-                title: "👁 루테인 지아잔틴 (Lutein)", 
-                desc: "• [주요 기능]: 눈의 황반 색소 밀도 유지, 블루라이트 등 유해 광선으로부터 시세포 보호\n• [대표 식품]: 시금치, 케일, 브로콜리, 상추, 달걀 노른자" 
-            }
+            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate)", desc: "• [종류]: 단순당(설탕, 과당), 복합당(전분, 식이섬유)\n• [주요 기능]: 신체 및 뇌 활동의 핵심 에너지원 공급, 단백질 절약 작용\n• [대표 식품]: 쌀, 현미, 귀리(오트밀), 고구마, 감자, 통밀빵" },
+            "단백질": { title: "🥩 단백질 (Protein)", desc: "• [종류]: 동물성 단백질(육류, 생선, 계란, 유제품), 식물성 단백질(두부, 콩, 견과류)\n• [주요 기능]: 근육 및 조직 합성, 면역 항체 생성, 효소 및 호르몬 구성\n• [대표 식품]: 닭가슴살, 소고기, 연어, 달걀, 콩, 두부" },
+            "지방": { title: "🥑 지방 (Fat)", desc: "• [종류]: 불포화지방산(오메가3·6, 올리브유), 포화지방산(육류 지방), 트랜스지방\n• [주요 기능]: 세포막 구성, 체온 유지, 지용성 비타민 흡수 촉진\n• [대표 식품]: 아보카도, 견과류, 등푸른생선, 올리브오일" },
+            "물 (수분)": { title: "💧 물 (Water / 수분)", desc: "• [주요 기능]: 체온 조절, 혈액 순환, 노폐물 체외 배출, 영양소 운반\n• [권장 섭취량]: 성인 기준 하루 1.5 ~ 2 리터 이상\n• [섭취 팁]: 갈증을 느끼기 전에 자주 조금씩 나누어 마시기" },
+            "비타민": { title: "💊 비타민 (20종 종합 가이드)", desc: "• [수용성 비타민 (9종)]: 비타민 B군 및 비타민 C. 에너지 대사, 피로 회복, 항산화 작용.\n• [지용성 비타민 (4종)]: 비타민 A, D, E, K." },
+            "무기질": { title: "⚖ 무기질 15가지 (미네랄 통합 백과)", desc: "• [다량 무기질]: 칼슘, 인, 칼륨, 나트륨, 마그네슘 등.\n• [미량 무기질]: 철분, 아연, 요오드, 셀레늄, 크롬 등." },
+            "필수아미노산": { title: "🧬 필수 아미노산 (9가지 핵심)", desc: "• 체내에서 합성되지 않아 반드시 음식으로 섭취해야 하는 9가지 아미노산." },
+            "칼슘": { title: "🦴 칼슘 (Calcium)", desc: "• 튼튼한 뼈와 치아 구조 형성, 근육 수축 및 이완 조절." },
+            "마그네슘": { title: "⚡ 마그네슘 (Magnesium)", desc: "• 신경 및 근육 긴장 완화, 눈밑 떨림 방지, 에너지 대사 지원." },
+            "철분": { title: "🩸 철분 (Iron)", desc: "• 혈액 내 헤모글로빈 생성 및 전신 산소 운반, 빈혈 예방." },
+            "아연": { title: "🛡 아연 (Zinc)", desc: "• 정상적인 면역 반응 유지, 세포 분열 및 상처 회복." },
+            "칼륨": { title: "🍌 칼륨 (Potassium)", desc: "• 체내 나트륨 배출 유도 및 정상 혈압 유지." },
+            "루테인": { title: "👁 루테인 지아잔틴 (Lutein)", desc: "• 눈의 황반 색소 밀도 유지, 유해 광선으로부터 시세포 보호." }
         };
 
         const bodyCareDb = {
-            "뇌신경계": { title: "🧠 뇌·신경계 케어 가이드", desc: "• 주요 역할: 기억력 유지, 집중력 및 스트레스 조절\n• 추천 성분: 오메가-3, 비타민 B군, 포스파티딜세린\n• 생활 습관: 충분한 수면과 규칙적인 유산소 운동" },
-            "심혈관계": { title: "❤ 심혈관계 케어 가이드", desc: "• 주요 역할: 혈행 개선, 혈압 및 콜레스테롤 조절\n• 추천 성분: 코엔자임Q10, 오메가-3, 마그네슘\n• 생활 습관: 저염식 식단 및 금연·절주" },
-            "근골격계": { title: "🦴 관절·뼈 케어 가이드", desc: "• 주요 역할: 신체 지지 및 관절 연골 보호\n• 추천 성분: 칼슘, 비타민 D, MSM(식이유황), 글루코사민\n• 생활 습관: 가벼운 체중 부하 운동과 햇볕 쬐기" },
-            "소화면역계": { title: "🛡 소화·면역계 케어 가이드", desc: "• 주요 역할: 영양소 흡수 및 유해균 억제\n• 추천 성분: 유산균(프로바이오틱스), 아연, 글루타민\n• 생활 습관: 규칙적인 식사 시간과 식이섬유 섭취" },
-            "대사해독계": { title: "⚡ 대사·해독계 케어 가이드", desc: "• 주요 역할: 피로 물질 배출 및 에너지 대사 촉진\n• 추천 성분: 밀크시슬(실리마린), 비타민 B군, 수분\n• 생활 습관: 충분한 수분 섭취와 간 휴식" },
-            "눈건강": { title: "👁 눈 건강 케어 가이드", desc: "• 주요 역할: 시력 보호 및 황반 색소 유지\n• 추천 성분: 루테인 지아잔틴, 비타민 A, 오메가-3\n• 생활 습관: 스마트폰 사용 시 50분마다 10분 휴식" },
-            "고혈압관리": { title: "🩸 고혈압 관리 가이드", desc: "• 주요 역할: 혈관 압력 안정화 및 혈류 순환\n• 추천 성분: 칼륨, 코엔자임Q10, 마그네슘\n• 생활 습관: 염분 섭취 줄이기, 체중 조절" },
-            "당뇨관리": { title: "🍃 당뇨 관리 가이드", desc: "• 주요 역할: 혈당 스파이크 방지 및 인슐린 감수성 개선\n• 추천 성분: 크롬, 바나바잎 추출물, 식이섬유\n• 생활 습관: 식후 가벼운 산책 및 당류 제한" }
+            "뇌신경계": { title: "🧠 뇌·신경계 케어 가이드", desc: "• 추천 성분: 오메가-3, 비타민 B군, 포스파티딜세린" },
+            "심혈관계": { title: "❤ 심혈관계 케어 가이드", desc: "• 추천 성분: 코엔자임Q10, 오메가-3, 마그네슘" },
+            "근골격계": { title: "🦴 관절·뼈 케어 가이드", desc: "• 추천 성분: 칼슘, 비타민 D, MSM" },
+            "소화면역계": { title: "🛡 소화·면역계 케어 가이드", desc: "• 추천 성분: 유산균(프로바이오틱스), 아연" },
+            "대사해독계": { title: "⚡ 대사·해독계 케어 가이드", desc: "• 추천 성분: 밀크시슬, 비타민 B군" },
+            "눈건강": { title: "👁 눈 건강 케어 가이드", desc: "• 추천 성분: 루테인, 비타민 A" },
+            "고혈압관리": { title: "🩸 고혈압 관리 가이드", desc: "• 추천 성분: 칼륨, 코엔자임Q10" },
+            "당뇨관리": { title: "🍃 당뇨 관리 가이드", desc: "• 추천 성분: 크롬, 바나바잎 추출물, 식이섬유" }
         };
 
         const hospitalDb = {
@@ -1375,6 +1398,7 @@
                 userPoints += 100;
                 updatePointDisplay();
                 localStorage.setItem(quizDateKey, 'true');
+                localStorage.setItem('ahm_quiz_solved_today', 'true');
                 msgEl.style.color = '#16a34a';
                 msgEl.textContent = "🎉 정답입니다! +100 포인트가 적립되었습니다.";
                 showToast("✨ 퀴즈 정답! +100P 적립 완료");
@@ -1384,6 +1408,58 @@
             }
         }
     
+        // 🌟 [신규 2번 기능] AI 영양 밸런스 진단 실행 로직
+        function runAiDiagnostic() {
+            document.getElementById('diagWeight').textContent = latestWeight;
+            document.getElementById('diagBp').textContent = latestBp;
+            document.getElementById('diagBs').textContent = latestBs;
+            
+            const bsNum = parseInt(latestBs) || 105;
+            let diagnosisHtml = "";
+            
+            if (bsNum >= 110) {
+                diagnosisHtml = "• <b>혈당 수치 주의단계:</b> 혈당 스파이크 완화 및 인슐린 감수성 개선을 위해 <b>크롬, 바나바잎 추출물, 식이섬유</b> 섭취를 추천합니다.<br>• 식후 가벼운 산책과 저당 식단을 병행해 보세요.";
+            } else if (latestBp.includes('130') || latestBp.includes('140')) {
+                diagnosisHtml = "• <b>혈압 관리 필요:</b> 혈관 압력 안정화 및 나트륨 배출을 돕는 <b>칼륨, 코엔자임Q10, 마그네슘</b> 성분이 유익합니다.<br>• 저염식 식단과 충분한 휴식을 권장합니다.";
+            } else {
+                diagnosisHtml = "• <b>전반적인 대사 상태 우수:</b> 현재 체중({latestWeight}kg)과 혈당/혈압 수치가 안정적입니다.<br>• 활력 유지를 위한 <b>비타민 B군, 종합 비타민, 오메가-3</b>를 꾸준히 섭취하시어 현재 컨디션을 유지하세요.";
+            }
+            document.getElementById('diagResultText').innerHTML = diagnosisHtml;
+            showToast("✨ AI 영양 밸런스 진단 완료!");
+        }
+
+        // 🌟 [신규 3번 기능] 챌린지 업적 배지 렌더링 로직
+        function renderBadgeSystem() {
+            const container = document.getElementById('badgeListContainer');
+            
+            const waterDone = currentWater >= 1000;
+            const stepDone = stepCount >= 3000;
+            const quizDone = localStorage.getItem('ahm_quiz_solved_today') === 'true';
+            const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            const medDone = medList.length > 0;
+
+            const badges = [
+                { name: '💧 수분 지킴이', desc: '하루 물 1,000ml 이상 섭취', achieved: waterDone },
+                { name: '🚶 산책 마니아', desc: '만보기 3,000보 이상 달성', achieved: stepDone },
+                { name: '🧠 건강 퀴즈왕', desc: '오늘의 건강 퀴즈 정답 맞히기', achieved: quizDone },
+                { name: '💊 복용 성실러', desc: '나만의 복용약 리스트 등록 및 관리', achieved: medDone }
+            ];
+
+            let html = '';
+            badges.forEach(b => {
+                html += `<div style="display: flex; justify-content: space-between; align-items: center; background: ${b.achieved ? '#f0fdf4' : '#f8fafc'}; padding: 10px 12px; border-radius: 10px; border: 1px solid ${b.achieved ? '#bbf7d0' : '#e2e8f0'};">
+                    <div>
+                        <b style="font-size: 13px; color: ${b.achieved ? '#166534' : '#334155'};">${b.name}</b>
+                        <p style="font-size: 11px; color: ${b.achieved ? '#15803d' : '#64748b'}; margin-top: 2px;">${b.desc}</p>
+                    </div>
+                    <span style="font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: ${b.achieved ? '#dcfce7' : '#e2e8f0'}; color: ${b.achieved ? '#166534' : '#64748b'};">
+                        ${b.achieved ? '🏆 획득 완료' : '🔒 도전 중'}
+                    </span>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
         function spinRoulette() {
             const nowStr = new Date().toLocaleDateString();
             const lastSpinDate = localStorage.getItem('ahm_last_spin_date');
@@ -1990,7 +2066,7 @@
             showToast("🗑 유통기한 항목이 삭제되었습니다.");
         }
 
-        // 🌟 복용약 캘린더 뷰 렌더링 로직
+        // 복용약 캘린더 뷰 렌더링 로직
         function renderMedCalendar() {
             const year = calCurrentYear;
             const month = calCurrentMonth;
@@ -2098,6 +2174,10 @@
                 renderBibleHistory();
             } else if(id === 'medCalendarModal') {
                 renderMedCalendar();
+            } else if(id === 'nutritionDiagnosticModal') {
+                runAiDiagnostic();
+            } else if(id === 'badgeModal') {
+                renderBadgeSystem();
             }
         }
     
