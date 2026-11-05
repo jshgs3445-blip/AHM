@@ -434,6 +434,7 @@
                 <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">회원</span></h1>
                 <div class="header-icons">
                     <i class="fa-solid fa-coins" style="color: #fbbf24;" onclick="openModal('rewardModal')" title="포인트 보관함"></i>
+                    <i class="fa-solid fa-calendar-days" style="color: #93c5fd;" onclick="openModal('medCalendarModal')" title="복용약 캘린더 뷰"></i>
                     <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
                     <i class="fa-solid fa-circle-question" onclick="openModal('qaModal')" title="Q & A 코너"></i>
                     <i class="fa-solid fa-circle-plus" onclick="openModal('addModal')" title="추가"></i>
@@ -463,9 +464,9 @@
                         <i class="fa-solid fa-book-medical" style="color: #e11d48;"></i>
                         <span style="color: #9f1239;">영양 가이드</span>
                     </div>
-                    <div class="big-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('addModal')">
-                        <i class="fa-solid fa-circle-plus" style="color: #7e22ce;"></i>
-                        <span style="color: #6b21a8;">복용약 추가</span>
+                    <div class="big-action-card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;" onclick="openModal('medCalendarModal')">
+                        <i class="fa-solid fa-calendar-check" style="color: #7e22ce;"></i>
+                        <span style="color: #6b21a8;">복용 캘린더 뷰</span>
                     </div>
                 </div>
                 <!-- 🌟 [섹션 3] [1:1 건강 솔루션] -->
@@ -620,6 +621,37 @@
             </div>
         </div>
     
+        <!-- 🌟 [신규 추가] 복용약 캘린더 연동 뷰 모달 -->
+        <div id="medCalendarModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>📅 복용약 요일/알림 캘린더 뷰</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('medCalendarModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
+                    <div style="background: #eff6ff; padding: 10px 12px; border-radius: 10px; border: 1px solid #bfdbfe; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 700; color: var(--primary-color);" id="calMonthTitle">2026년 11월 복용 현황</span>
+                        <div style="display: flex; gap: 4px;">
+                            <button type="button" onclick="changeCalendarMonth(-1)" style="background: white; border: 1px solid #cbd5e1; padding: 2px 8px; border-radius: 6px; cursor: pointer;"><i class="fa-solid fa-chevron-left"></i></button>
+                            <button type="button" onclick="changeCalendarMonth(1)" style="background: white; border: 1px solid #cbd5e1; padding: 2px 8px; border-radius: 6px; cursor: pointer;"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <!-- 요일 헤더 -->
+                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 11px; font-weight: 700; color: #64748b;">
+                        <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+                    </div>
+                    <!-- 날짜 그리드 -->
+                    <div id="calDaysGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center;"></div>
+                    
+                    <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1;">
+                        <b style="font-size: 12px; color: #334155;"><i class="fa-solid fa-circle-info" style="color:var(--primary-color);"></i> 선택일 복용 리스트 및 도트 안내</b>
+                        <p style="font-size: 11.5px; color: #64748b; margin-top: 4px;" id="calSelectedDateInfo">날짜를 터치하면 등록된 복용약 기록과 체크 여부가 표시됩니다.</p>
+                        <div id="calMedListPreview" style="margin-top: 6px; display: flex; flex-direction: column; gap: 4px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 회원가입 모달 -->
         <div id="signupModal" class="custom-modal">
             <div class="modal-content">
@@ -914,7 +946,7 @@
                 </div>
             </div>
         </div>
-        <!-- 🌟 [영양 가이드 백과 모달 - 풍성한 영양소 데이터 백과사전 완벽 복원] -->
+        <!-- [영양 가이드 백과 모달] -->
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1143,6 +1175,10 @@
         let bsChartInstance = null;
         let dashChartInstance = null;
         
+        // 캘린더 관련 상태 변수
+        let calCurrentYear = new Date().getFullYear();
+        let calCurrentMonth = new Date().getMonth();
+        
         const aiEncourageMessages = [
             "오늘도 건강 습관을 지켜내셨군요! 정말 멋져요.",
             "작은 실천이 모여 큰 건강을 만듭니다. 오늘도 화이팅이에요!",
@@ -1155,7 +1191,6 @@
             return aiEncourageMessages[randomIndex];
         }
 
-        // 🌟 캡처 사진 속 상세 백과사전 내용이 모두 담긴 완벽 복원 데이터베이스
         const encyclopediaDb = {
             "탄수화물": { 
                 title: "🍞 탄수화물 (Carbohydrate)", 
@@ -1794,7 +1829,6 @@
             }
         }
     
-        // 🌟 영양 가이드 백과 선택 및 검색 함수 (완벽 복원)
         function quickSelectDict(keyword) {
             document.getElementById('inputSearchQueryText').value = keyword;
             executeDictSearch(keyword);
@@ -1827,7 +1861,6 @@
             }
         }
     
-        // 🌟 인체 기능 맵 선택 함수
         function quickSelectBody(key) {
             const area = document.getElementById('bodyResultArea');
             area.style.display = 'block';
@@ -1954,6 +1987,72 @@
             renderExpiryList();
             showToast("🗑 유통기한 항목이 삭제되었습니다.");
         }
+
+        // 🌟 복용약 캘린더 뷰 렌더링 로직
+        function renderMedCalendar() {
+            const year = calCurrentYear;
+            const month = calCurrentMonth;
+            document.getElementById('calMonthTitle').textContent = `${year}년 ${month + 1}월 복용 현황`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const grid = document.getElementById('calDaysGrid');
+            let html = '';
+            
+            // 빈 칸 채우기
+            for (let i = 0; i < firstDay; i++) {
+                html += `<div></div>`;
+            }
+            
+            const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            
+            for (let d = 1; d <= lastDate; d++) {
+                const dateStr = `${year}.${String(month+1).padStart(2,'0')}.${String(d).padStart(2,'0')}`;
+                const hasMeds = medList.length > 0;
+                
+                html += `<div onclick="selectCalendarDate('${dateStr}')" style="padding: 6px 2px; border-radius: 8px; background: white; border: 1px solid #e2e8f0; cursor: pointer; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                    <span style="font-size: 11.5px; font-weight: 700; color: #1e293b;">${d}</span>
+                    <div style="display: flex; gap: 2px; height: 6px;">
+                        ${hasMeds ? '<span style="width: 5px; height: 5px; background: #2563eb; border-radius: 50%;"></span>' : ''}
+                        ${hasMeds && medList.length > 1 ? '<span style="width: 5px; height: 5px; background: #16a34a; border-radius: 50%;"></span>' : ''}
+                    </div>
+                </div>`;
+            }
+            grid.innerHTML = html;
+        }
+
+        function changeCalendarMonth(direction) {
+            calCurrentMonth += direction;
+            if (calCurrentMonth > 11) {
+                calCurrentMonth = 0;
+                calCurrentYear++;
+            } else if (calCurrentMonth < 0) {
+                calCurrentMonth = 11;
+                calCurrentYear--;
+            }
+            renderMedCalendar();
+        }
+
+        function selectCalendarDate(dateStr) {
+            document.getElementById('calSelectedDateInfo').textContent = `선택한 날짜: ${dateStr}`;
+            const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            const container = document.getElementById('calMedListPreview');
+            
+            if (medList.length === 0) {
+                container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">이 날 등록된 복용약이 없습니다.</p>`;
+                return;
+            }
+            
+            let html = '';
+            medList.forEach((item, idx) => {
+                html += `<div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 11.5px;">
+                    <span><b>✅ ${item.name}</b> (${item.time})</span>
+                    <span style="color: #16a34a; font-weight: 700; font-size: 10px;">복용 완료</span>
+                </div>`;
+            });
+            container.innerHTML = html;
+            showToast(`${dateStr} 복용 현황 조회`);
+        }
     
         function showToast(msg) {
             const t = document.getElementById('toast');
@@ -1996,6 +2095,8 @@
                 if(bsChartInstance) bsChartInstance.update();
             } else if(id === 'bibleHistoryModal') {
                 renderBibleHistory();
+            } else if(id === 'medCalendarModal') {
+                renderMedCalendar();
             }
         }
     
