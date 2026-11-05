@@ -245,7 +245,6 @@
             gap: 8px;
             margin-bottom: 12px;
         }
-        /* 🌟 4번 사진 건강 핫플 스타일과 일치시킨 카드 백그라운드 (#ffffff 단색 + 깔끔한 테두리) */
         .big-action-card {
             background: #ffffff;
             border-radius: 18px;
@@ -1397,7 +1396,7 @@
             const msgEl = document.getElementById('quizResultMsg');
             const quizDateKey = 'ahm_quiz_done_' + new Date().toLocaleDateString();
             
-            if(localStorage.getItem(quizDateKey) === 'true') {
+            if(localStorage.getItem(quizDateKey) === 'true' || localStorage.getItem('ahm_quiz_solved_today') === 'true') {
                 showToast("⚠ 오늘은 이미 퀴즈를 풀셨습니다! 내일 다시 도전해 주세요.");
                 return;
             }
@@ -1449,7 +1448,7 @@
             
             const waterDone = currentWater >= 1000;
             const stepDone = stepCount >= 3000;
-            const quizDone = localStorage.getItem('ahm_quiz_solved_today') === 'true';
+            const quizDone = (localStorage.getItem('ahm_quiz_solved_today') === 'true' || localStorage.getItem('ahm_quiz_done_' + new Date().toLocaleDateString()) === 'true');
             const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             const medDone = medList.length > 0;
 
