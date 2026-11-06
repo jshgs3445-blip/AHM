@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AHM - AI Health Manager</title>
     
     <!-- 스마트폰 홈 화면 추가 및 PWA 아이콘 설정 -->
@@ -33,28 +33,40 @@
             font-family: 'Pretendard', sans-serif;
         }
     
-        body {
+        /* 화면 잘림 방지를 위해 모바일 브라우저 뷰포트 높이(100vh -> 100dvh) 대응 */
+        html, body {
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
             background: #e2e8f0;
             color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            overflow: hidden;
         }
     
         .phone-frame {
             width: 100%;
             max-width: 400px;
-            height: 100vh;
-            max-height: 840px;
+            height: 100%;
+            height: 100dvh;
             background: #ffffff;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             position: relative;
-            border: 8px solid #1a202c;
+        }
+
+        /* PC 화면 등에서 볼 때만 예쁜 테두리와 여백 적용 */
+        @media (min-width: 401px) {
+            .phone-frame {
+                height: 100vh;
+                max-height: 840px;
+                border-radius: 40px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+                border: 8px solid #1a202c;
+            }
         }
     
         .screen {
@@ -82,7 +94,7 @@
             background: linear-gradient(135deg, #eff6ff, #dbeafe);
             text-align: center;
             width: 100%;
-            height: 100%;
+            min-height: 100%;
         }
     
         .login-shield {
@@ -185,6 +197,7 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
         }
     
         .app-header h1 {
@@ -211,7 +224,7 @@
             flex: 1;
             padding: 16px;
             overflow-y: auto;
-            padding-bottom: 40px;
+            padding-bottom: 60px; /* 하단 짤림 방지 여유 공간 */
         }
     
         .card {
@@ -286,7 +299,7 @@
         .ai-check-btn.checked { background: #eff6ff; color: var(--primary-color); border-color: #93c5fd; }
     
         .custom-modal {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -297,7 +310,6 @@
             align-items: center;
             padding: 20px;
             z-index: 300;
-            pointer-events: auto;
         }
     
         .custom-modal.active {
@@ -313,11 +325,10 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
-            max-height: 88vh;
+            max-height: 85vh;
             overflow-y: auto;
             position: relative;
             z-index: 310;
-            pointer-events: auto;
         }
     
         .modal-header {
@@ -342,15 +353,13 @@
             cursor: pointer;
             color: #64748b;
             padding: 5px;
-            z-index: 320;
-            pointer-events: auto;
         }
     
         .toast {
-            position: absolute;
-            top: 80px;
+            position: fixed;
+            top: 30px;
             left: 50%;
-            transform: translateX(-50%) translateY(-50px);
+            transform: translateX(-50%) translateY(-20px);
             background: rgba(30, 41, 59, 0.95);
             color: white;
             padding: 12px 20px;
@@ -400,8 +409,6 @@
             font-weight: 700;
             cursor: pointer;
             text-align: center;
-            z-index: 320;
-            position: relative;
         }
     </style>
 </head>
@@ -1874,4 +1881,278 @@
     
         function showPostContent(cat) {
             const saved = localStorage.getItem('ahm_post_' + cat);
-            const titles = { news: '최신 뉴스', video: '득템 영상', notice: '공지사항
+            const titles = { news: '최신 뉴스', video: '득템 영상', notice: '공지사항', board: '게시판' };
+            document.getElementById('viewModalTitle').textContent = titles[cat];
+            const bodyEl = document.getElementById('viewModalBody');
+            if(saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    let formattedDesc = data.desc ? data.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color: var(--primary-color); text-decoration: underline;">$1</a>') : '';
+                    bodyEl.innerHTML = `<b style="font-size: 15px; color: #1e293b;">${data.title}</b><p style="margin-top:10px; color:#475569; white-space:pre-line; line-height: 1.6;">${formattedDesc}</p><span style="font-size:11px; color:#94a3b8; display:block; margin-top:14px;">등록일: ${data.date}</span>`;
+                } catch(e) { bodyEl.innerHTML = `<p style="color:#64748b;">등록된 내용이 없습니다.</p>`; }
+            } else { bodyEl.innerHTML = `<p style="color:#64748b;">등록된 내용이 없습니다.</p>`; }
+            openModal('contentViewModal');
+        }
+    
+        function toggleTakeMed(btnId, name) {
+            const btn = document.getElementById(btnId);
+            if(btn.classList.contains('checked')) {
+                btn.classList.remove('checked');
+                btn.textContent = "먹었어요";
+                showToast(`${name} 취소됨`);
+            } else {
+                btn.classList.add('checked');
+                btn.textContent = "완료!";
+                showToast(`✨ [AI 비서] "${name} 완료!"`);
+            }
+        }
+    
+        function quickSelectDict(keyword) {
+            document.getElementById('inputSearchQueryText').value = keyword;
+            executeDictSearch(keyword);
+        }
+
+        function searchSupplementCompatibilityTextInput() {
+            const query = document.getElementById('inputSearchQueryText').value.trim();
+            executeDictSearch(query);
+        }
+
+        function executeDictSearch(query) {
+            const resultArea = document.getElementById('searchResultArea');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultDesc = document.getElementById('resultDesc');
+            if(!query) { showToast("⚠ 검색어 또는 영양소를 선택해주세요."); return; }
+            resultArea.style.display = 'block';
+            let matchedKey = Object.keys(encyclopediaDb).find(k => k.includes(query) || query.includes(k));
+            if(matchedKey) {
+                let matched = encyclopediaDb[matchedKey];
+                resultTitle.textContent = matched.title;
+                resultDesc.textContent = matched.desc;
+            } else {
+                resultTitle.textContent = `🤖 "${query}" 영양 성분 백과`;
+                resultDesc.textContent = `• 검색하신 "${query}" 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
+            }
+        }
+    
+        function quickSelectBody(key) {
+            const area = document.getElementById('bodyResultArea');
+            area.style.display = 'block';
+            if(bodyCareDb[key]) {
+                document.getElementById('bodyResultTitle').textContent = bodyCareDb[key].title;
+                document.getElementById('bodyResultDesc').textContent = bodyCareDb[key].desc;
+            }
+        }
+    
+        function quickSelectHospital(key) {
+            const area = document.getElementById('hospitalResultArea');
+            area.style.display = 'block';
+            document.getElementById('hospitalResultTitle').textContent = hospitalDb[key].title;
+            document.getElementById('hospitalResultDesc').textContent = hospitalDb[key].desc;
+        }
+    
+        function searchHospitalAI() {
+            const query = document.getElementById('inputHospitalSearch').value.trim();
+            if(!query) { showToast('⚠ 증상을 입력해주세요.'); return; }
+            const area = document.getElementById('hospitalResultArea');
+            area.style.display = 'block';
+            document.getElementById('hospitalResultTitle').textContent = `🤖 AI 추천 진료과`;
+            document.getElementById('hospitalResultDesc').textContent = `입력 증상: "${query}"\n권장 진료과: 1차 가정의학과 및 전문 내과 진료를 권장합니다.`;
+        }
+    
+        function generateAiConditionPrescription() {
+            const query = document.getElementById('inputUserCondition').value.trim();
+            if(!query) { showToast('⚠ 컨디션을 입력해주세요.'); return; }
+            const area = document.getElementById('exerciseResultArea');
+            area.style.display = 'block';
+            document.getElementById('exerciseResultTitle').textContent = `💪 맞춤 운동 처방`;
+            document.getElementById('exerciseResultDesc').textContent = `상태: "${query}"\n솔루션: 가벼운 유산소 스트레칭 및 심호흡`;
+        }
+    
+        function addWater(a) { 
+            currentWater += a; 
+            updateDashboardValues();
+        }
+    
+        function saveWaterRecord() { 
+            showToast(`💧 물 ${currentWater}ml 기록 완료!`); 
+            closeModal('waterModal'); 
+        }
+    
+        function saveAlarmTimes() { showToast("🔔 알림 시간이 저장되었습니다."); closeModal('alarmModal'); }
+    
+        function saveNewMedicineRecord() {
+            const name = document.getElementById('inputNewMedicineNameText').value.trim();
+            const time = document.getElementById('inputNewMedicineTime').value;
+            if(!name) { showToast("⚠ 약 이름을 입력해주세요."); return; }
+            let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            list.push({ name, time });
+            localStorage.setItem('ahm_med_list', JSON.stringify(list));
+            document.getElementById('inputNewMedicineNameText').value = '';
+            renderMedicineList();
+            showToast(`💊 "${name}" 등록 완료!`);
+        }
+    
+        function renderMedicineList() {
+            const container = document.getElementById('medicineListContainer');
+            let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            if(list.length === 0) { container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">등록된 약이 없습니다.</p>`; return; }
+            let html = '';
+            list.forEach((item, index) => {
+                html += `<div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px;">
+                    <span><b>${item.name}</b> (${item.time})</span>
+                    <button type="button" onclick="deleteMedicineItem(${index})" style="background: #ef4444; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer;">삭제</button>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+    
+        function deleteMedicineItem(index) {
+            let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            list.splice(index, 1);
+            localStorage.setItem('ahm_med_list', JSON.stringify(list));
+            renderMedicineList();
+            showToast("🗑 복용약이 삭제되었습니다.");
+        }
+    
+        function saveExpiryItem() {
+            const name = document.getElementById('inputExpiryName').value.trim();
+            const date = document.getElementById('inputExpiryDate').value;
+            if(!name || !date) { showToast("⚠ 영양제 이름과 유통기한을 입력해주세요."); return; }
+            let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
+            list.push({ name, date });
+            localStorage.setItem('ahm_expiry_list', JSON.stringify(list));
+            document.getElementById('inputExpiryName').value = '';
+            document.getElementById('inputExpiryDate').value = '';
+            renderExpiryList();
+            showToast(`📦 "${name}" 유통기한 등록 완료!`);
+        }
+    
+        function renderExpiryList() {
+            const container = document.getElementById('expiryListContainer');
+            let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
+            if(list.length === 0) { container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">등록된 영양제가 없습니다.</p>`; return; }
+            let html = '';
+            list.forEach((item, index) => {
+                html += `<div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px;">
+                    <span><b>${item.name}</b>: ~ ${item.date}</span>
+                    <button type="button" onclick="deleteExpiryItem(${index})" style="background: #ef4444; color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer;">삭제</button>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+    
+        function deleteExpiryItem(index) {
+            let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
+            list.splice(index, 1);
+            localStorage.setItem('ahm_expiry_list', JSON.stringify(list));
+            renderExpiryList();
+            showToast("🗑 유통기한 항목이 삭제되었습니다.");
+        }
+
+        function renderMedCalendar() {
+            const year = calCurrentYear;
+            const month = calCurrentMonth;
+            document.getElementById('calMonthTitle').textContent = `${year}년 ${month + 1}월 복용 현황`;
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const grid = document.getElementById('calDaysGrid');
+            let html = '';
+            for (let i = 0; i < firstDay; i++) { html += `<div></div>`; }
+            const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            for (let d = 1; d <= lastDate; d++) {
+                const dateStr = `${year}.${String(month+1).padStart(2,'0')}.${String(d).padStart(2,'0')}`;
+                const hasMeds = medList.length > 0;
+                html += `<div onclick="selectCalendarDate('${dateStr}')" style="padding: 6px 2px; border-radius: 8px; background: white; border: 1px solid #e2e8f0; cursor: pointer; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                    <span style="font-size: 11.5px; font-weight: 700; color: #1e293b;">${d}</span>
+                    <div style="display: flex; gap: 2px; height: 6px;">
+                        ${hasMeds ? '<span style="width: 5px; height: 5px; background: #2563eb; border-radius: 50%;"></span>' : ''}
+                    </div>
+                </div>`;
+            }
+            grid.innerHTML = html;
+        }
+
+        function changeCalendarMonth(direction) {
+            calCurrentMonth += direction;
+            if (calCurrentMonth > 11) { calCurrentMonth = 0; calCurrentYear++; }
+            else if (calCurrentMonth < 0) { calCurrentMonth = 11; calCurrentYear--; }
+            renderMedCalendar();
+        }
+
+        function selectCalendarDate(dateStr) {
+            document.getElementById('calSelectedDateInfo').textContent = `선택한 날짜: ${dateStr}`;
+            const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            const container = document.getElementById('calMedListPreview');
+            if (medList.length === 0) { container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">이 날 등록된 복용약이 없습니다.</p>`; return; }
+            let html = '';
+            medList.forEach((item) => {
+                html += `<div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 11.5px;">
+                    <span><b>✅ ${item.name}</b> (${item.time})</span>
+                    <span style="color: #16a34a; font-weight: 700; font-size: 10px;">복용 완료</span>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+    
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3500);
+        }
+    
+        function openModal(id) { 
+            const modal = document.getElementById(id);
+            modal.classList.add('active'); 
+            
+            if(id === 'weightModal') {
+                document.getElementById('weightInput').value = latestWeight;
+                if(weightChartInstance) weightChartInstance.update();
+            } else if(id === 'bpModal') {
+                document.getElementById('bpInput').value = latestBp;
+                document.getElementById('bsInput').value = latestBs;
+                if(bpChartInstance) bpChartInstance.update();
+                if(bsChartInstance) bsChartInstance.update();
+            } else if(id === 'waterModal') {
+                updateDashboardValues();
+            } else if(id === 'compatibilityModal') {
+                document.getElementById('inputSearchQueryText').value = '';
+                document.getElementById('searchResultArea').style.display = 'none';
+            } else if(id === 'bodyMapModal') {
+                document.getElementById('bodyResultArea').style.display = 'none';
+            } else if(id === 'exerciseModal') {
+                document.getElementById('exerciseResultArea').style.display = 'none';
+                document.getElementById('inputUserCondition').value = '';
+            } else if(id === 'hospitalGuideModal') {
+                document.getElementById('hospitalResultArea').style.display = 'none';
+                document.getElementById('inputHospitalSearch').value = '';
+            } else if(id === 'pedometerModal') {
+                updateStepDisplay(stepCount);
+            } else if(id === 'addModal') {
+                renderMedicineList();
+            } else if(id === 'expiryModal') {
+                renderExpiryList();
+            } else if(id === 'dashboardModal') {
+                updateDashboardValues();
+                if(dashChartInstance) dashChartInstance.update();
+            } else if(id === 'monthlyReportModal') {
+                const history = JSON.parse(localStorage.getItem('ahm_monthly_history') || '[]');
+                renderMonthlyReportUI(history);
+            } else if(id === 'rewardModal') {
+                updatePointDisplay();
+            } else if(id === 'bibleHistoryModal') {
+                renderBibleHistory();
+            } else if(id === 'medCalendarModal') {
+                renderMedCalendar();
+            } else if(id === 'nutritionDiagnosticModal') {
+                runAiDiagnostic();
+            } else if(id === 'badgeModal') {
+                renderBadgeSystem();
+            }
+        }
+    
+        function closeModal(id) { 
+            document.getElementById(id).classList.remove('active'); 
+        }
+    </script>
+</body>
+</html>
