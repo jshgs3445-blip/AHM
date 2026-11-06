@@ -1220,7 +1220,7 @@
     </div>
     
     <script>
-        let currentWater = 500;
+        let currentWater = parseInt(localStorage.getItem('ahm_water') || '500');
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
         let userPoints = parseInt(localStorage.getItem('ahm_points') || '300');
         
@@ -1516,6 +1516,7 @@
             document.getElementById('dashWeightDisplay').textContent = latestWeight;
             document.getElementById('dashBpDisplay').textContent = latestBp;
             document.getElementById('dashBsDisplay').textContent = latestBs;
+            localStorage.setItem('ahm_water', currentWater);
             saveDailyRecordToMonthly();
         }
     
@@ -1734,7 +1735,9 @@
                 statusEl.textContent = `인식됨: "${text}"`;
                 
                 let successLogged = false;
-                if(text.includes('체중')) {
+                
+                // 1. 체중 인식
+                if(text.includes('체중') || text.includes('킬로')) {
                     const nums = text.match(/[\d.]+/);
                     if(nums) {
                         latestWeight = nums[0];
@@ -1742,6 +1745,8 @@
                         successLogged = true;
                     }
                 }
+                
+                // 2. 혈압 인식 (예: "혈압 120에 80")
                 if(text.includes('혈압')) {
                     const nums = text.match(/\d+/g);
                     if(nums && nums.length >= 2) {
@@ -1752,6 +1757,8 @@
                     localStorage.setItem('ahm_latest_bp', latestBp);
                     successLogged = true;
                 }
+                
+                // 3. 혈당 인식 (예: "혈당 105")
                 if(text.includes('혈당')) {
                     const nums = text.match(/\d+/);
                     if(nums) {
@@ -1760,6 +1767,8 @@
                         successLogged = true;
                     }
                 }
+                
+                // 4. 물 섭취량 인식 (예: "물 500ml", "물 300밀리리터")
                 if(text.includes('물') || text.includes('ml') || text.includes('밀리리터') || text.includes('리터')) {
                     const nums = text.match(/\d+/);
                     if(nums) {
@@ -1770,6 +1779,7 @@
                     }
                 }
                 
+                // 보조 정규식 매칭 (명시적 키워드가 없을 때)
                 if(!successLogged) {
                     const nums = text.match(/[\d.]+/);
                     if(nums) {
@@ -1809,6 +1819,17 @@
             if(!val) { showToast("⚠ 체중을 입력해주세요."); return; }
             latestWeight = val;
             localStorage.setItem('ahm_latest_weight', val);
+            
+            // 체중 차트 오늘 데이터 갱신
+            if (weightChartInstance) {
+                weightChartInstance.data.datasets[0].data[2] = parseFloat(val);
+                weightChartInstance.update();
+            }
+            if (dashChartInstance) {
+                dashChartInstance.data.datasets[0].data[2] = parseFloat(val);
+                dashChartInstance.update();
+            }
+            
             updateDashboardValues();
             showToast(`⚖ 체중(${val}kg) 기록 완료!`);
             closeModal('weightModal');
@@ -2077,7 +2098,19 @@
         function openModal(id) { 
             const modal = document.getElementById(id);
             modal.classList.add('active'); 
-            if(id === 'compatibilityModal') {
+            
+            // 모달 오픈 시 최신 데이터 값들을 입력 상자에 자동 바인딩
+            if(id === 'weightModal') {
+                document.getElementById('weightInput').value = latestWeight;
+                if(weightChartInstance) weightChartInstance.update();
+            } else if(id === 'bpModal') {
+                document.getElementById('bpInput').value = latestBp;
+                document.getElementById('bsInput').value = latestBs;
+                if(bpChartInstance) bpChartInstance.update();
+                if(bsChartInstance) bsChartInstance.update();
+            } else if(id === 'waterModal') {
+                updateDashboardValues();
+            } else if(id === 'compatibilityModal') {
                 document.getElementById('inputSearchQueryText').value = '';
                 document.getElementById('searchResultArea').style.display = 'none';
             } else if(id === 'bodyMapModal') {
@@ -2090,8 +2123,6 @@
                 document.getElementById('inputHospitalSearch').value = '';
             } else if(id === 'pedometerModal') {
                 updateStepDisplay(stepCount);
-            } else if(id === 'waterModal') {
-                updateDashboardValues();
             } else if(id === 'addModal') {
                 renderMedicineList();
             } else if(id === 'expiryModal') {
@@ -2104,9 +2135,6 @@
                 renderMonthlyReportUI(history);
             } else if(id === 'rewardModal') {
                 updatePointDisplay();
-            } else if(id === 'bpModal') {
-                if(bpChartInstance) bpChartInstance.update();
-                if(bsChartInstance) bsChartInstance.update();
             } else if(id === 'bibleHistoryModal') {
                 renderBibleHistory();
             } else if(id === 'medCalendarModal') {
