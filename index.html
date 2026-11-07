@@ -67,7 +67,6 @@
             overflow: hidden;
             position: relative;
         }
-
         @media (min-width: 401px) {
             .phone-frame {
                 height: 100vh;
@@ -480,7 +479,7 @@
                     <div class="big-action-card" onclick="openModal('quizModal')">
                         <i class="fa-solid fa-brain" style="color: #2563eb;"></i>
                         <span style="color: #1e293b;">오늘의 건강 퀴즈</span>
-                        <span style="font-size: 10px; color: #64748b; font-weight: normal; margin-top: 2px;">+100P 적립</span>
+                        <span style="font-size: 10px; color: #64748b; font-weight: normal; margin-top: 2px;">+100P 적립 (30일 분량)</span>
                     </div>
                     <div class="big-action-card" onclick="openModal('rouletteModal')">
                         <i class="fa-solid fa-dharmachakra" style="color: #d97706;"></i>
@@ -488,7 +487,6 @@
                         <span style="font-size: 10px; color: #64748b; font-weight: normal; margin-top: 2px;">매일 1회 무료</span>
                     </div>
                 </div>
-
                 <!-- [섹션 2] [일상 기록 및 타이머] -->
                 <div class="card" style="margin-top: 4px;">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
@@ -507,7 +505,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- [섹션 3] [스마트 영양 & 챌린지] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-pills" style="color:#e11d48;"></i> [스마트 영양 & 챌린지]</div>
                 <div class="grid-2">
@@ -532,7 +529,6 @@
                         <span style="font-size: 9.5px; color: #64748b; margin-top: 2px;">루틴 달성 보상 수집</span>
                     </div>
                 </div>
-
                 <!-- [섹션 4] [스마트 관리 도구] -->
                 <div class="card" style="margin-top: 6px;">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
@@ -551,7 +547,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- [섹션 5] [1:1 건강 솔루션] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-stethoscope" style="color:#1d4ed8;"></i> [1:1 건강 솔루션]</div>
                 <div class="grid-3-col">
@@ -678,9 +673,9 @@
                     <div style="background: #ecfdf5; padding: 12px; border-radius: 12px; border: 1px solid #a7f3d0;">
                         <b style="color: #065f46;"><i class="fa-solid fa-chart-line"></i> 내 최근 기록 기반 분석</b>
                         <p style="font-size: 11.5px; color: #047857; margin-top: 4px; line-height: 1.5;">
-                            • 체중: <span id="diagWeight">65.5</span> kg<br>
-                            • 혈압: <span id="diagBp">120 / 80</span> mmHg<br>
-                            • 혈당: <span id="diagBs">105</span> mg/dL
+                            체중: <span id="diagWeight">65.5</span> kg<br>
+                            혈압: <span id="diagBp">120 / 80</span> mmHg<br>
+                            혈당: <span id="diagBs">105</span> mg/dL
                         </p>
                     </div>
                     <div style="background: #f8fafc; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1;">
@@ -694,7 +689,6 @@
                 </div>
             </div>
         </div>
-
         <div id="badgeModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -710,7 +704,6 @@
                 </div>
             </div>
         </div>
-
         <div id="medCalendarModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -737,7 +730,6 @@
                 </div>
             </div>
         </div>
-
         <div id="signupModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -752,7 +744,6 @@
                 </div>
             </div>
         </div>
-
         <div id="qaModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -776,7 +767,6 @@
                 </div>
             </div>
         </div>
-
         <div id="helpModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -813,7 +803,6 @@
                 </div>
             </div>
         </div>
-
         <div id="findAccountModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -829,7 +818,8 @@
                 </div>
             </div>
         </div>
-
+        
+        <!-- 🧠 1개월(30일) 건강 퀴즈 모달 창 (전체 퀴즈 데이터 및 풀이 인터페이스 연동) -->
         <div id="quizModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -838,10 +828,11 @@
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 12px;">
                     <div style="background: #eff6ff; padding: 14px; border-radius: 12px; border: 1px solid #bfdbfe;">
-                        <b style="color: var(--primary-color);" id="quizQuestionText">Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?</b>
+                        <span id="quizDayBadge" style="font-size: 10.5px; background: #2563eb; color: white; padding: 2px 6px; border-radius: 4px; font-weight: 700; display: inline-block; margin-bottom: 6px;">Day 1 퀴즈</span>
+                        <b style="color: var(--primary-color); display: block;" id="quizQuestionText">Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?</b>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 8px;" id="quizOptionsArea"></div>
-                    <p id="quizResultMsg" style="font-size: 12px; color: #1e40af; font-weight: 700; text-align: center; margin-top: 4px;"></p>
+                    <p id="quizResultMsg" style="font-size: 12px; font-weight: 700; text-align: center; margin-top: 4px; line-height: 1.4;"></p>
                 </div>
             </div>
         </div>
@@ -856,7 +847,6 @@
                 <button type="button" id="rouletteBtn" class="action-btn" style="background: #d97706;" onclick="spinRoulette()">룰렛 돌리기 START!</button>
             </div>
         </div>
-
         <div id="rewardModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -876,7 +866,6 @@
                 </div>
             </div>
         </div>
-
         <div id="dashboardModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -905,7 +894,6 @@
                 </div>
             </div>
         </div>
-
         <div id="monthlyReportModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -928,7 +916,6 @@
                 </div>
             </div>
         </div>
-
         <div id="adminBibleModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -942,7 +929,6 @@
                 </div>
             </div>
         </div>
-
         <div id="bibleHistoryModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -954,7 +940,6 @@
                 </div>
             </div>
         </div>
-
         <div id="hospitalGuideModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -981,7 +966,6 @@
                 </div>
             </div>
         </div>
-
         <div id="bodyMapModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1007,7 +991,6 @@
                 </div>
             </div>
         </div>
-
         <div id="exerciseModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1029,7 +1012,6 @@
                 </div>
             </div>
         </div>
-
         <div id="compatibilityModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1091,7 +1073,6 @@
                 </div>
             </div>
         </div>
-
         <div id="adminPostModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1113,7 +1094,6 @@
                 </div>
             </div>
         </div>
-
         <div id="contentViewModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1125,7 +1105,6 @@
                 </div>
             </div>
         </div>
-
         <div id="alarmModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1140,7 +1119,6 @@
                 </div>
             </div>
         </div>
-
         <div id="statModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1152,7 +1130,6 @@
                 </div>
             </div>
         </div>
-
         <div id="voiceModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎙 음성 로깅 (스마트 연동)</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
@@ -1163,7 +1140,6 @@
                 <button type="button" class="action-btn" style="background: #e11d48;" onclick="startRealVoiceRecognition()">음성 인식 시작</button>
             </div>
         </div>
-
         <div id="waterModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>💧 물 섭취량</h3><button type="button" class="close-modal-btn" onclick="closeModal('waterModal')">&times;</button></div>
@@ -1175,7 +1151,6 @@
                 <button type="button" class="action-btn" onclick="saveWaterRecord()">기록 완료</button>
             </div>
         </div>
-
         <div id="pedometerModal" class="custom-modal">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🚶 만보기 연동</h3><button type="button" class="close-modal-btn" onclick="closeModal('pedometerModal')">&times;</button></div>
@@ -1184,7 +1159,6 @@
                 <p id="stepDescDisplay" style="font-size: 12px; color: #64748b; margin-top: 6px;">목표 10,000보</p>
             </div>
         </div>
-
         <div id="expiryModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header"><h3>📦 영양제 유통기한 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('expiryModal')">&times;</button></div>
@@ -1201,7 +1175,6 @@
                 </div>
             </div>
         </div>
-
         <div id="bpModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header"><h3>❤ 혈압·당뇨 기록</h3><button type="button" class="close-modal-btn" onclick="closeModal('bpModal')">&times;</button></div>
@@ -1222,7 +1195,6 @@
                 </div>
             </div>
         </div>
-
         <div id="weightModal" class="custom-modal">
             <div class="modal-content">
                 <div class="modal-header"><h3>⚖ 체중 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('weightModal')">&times;</button></div>
@@ -1270,43 +1242,69 @@
             return aiEncourageMessages[randomIndex];
         }
 
+        // 🧠 1개월(30일치) 건강 퀴즈 데이터베이스
+        const monthlyQuizzes = [
+            { day: 1, q: "빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?", options: ["1. 물 (수분)", "2. 철분 (또는 종합비타민)", "3. 일반 생수"], answer: 1, exp: "정답! 철분이나 종합비타민은 공복 복용 시 위장 장애를 유발할 수 있어 식후에 먹는 것이 좋습니다." },
+            { day: 2, q: "체온 조절과 노폐물 배출을 위해 하루 권장되는 기본 수분 섭취량은?", options: ["1. 0.5 리터", "2. 1.5 ~ 2 리터", "3. 5 리터 이상"], answer: 1, exp: "정답! 하루 1.5~2리터의 물을 수시로 나누어 마시는 것이 대사 건강에 가장 좋습니다." },
+            { day: 3, q: "뼈와 관절 건강에 도움을 주며 햇볕을 통해 우리 몸에서 자연 합성되는 비타민은?", options: ["1. 비타민 A", "2. 비타민 C", "3. 비타민 D"], answer: 2, exp: "정답! 비타민 D는 하루 15분 이상 햇볕을 쬐면 체내에서 자연 합성됩니다." },
+            { day: 4, q: "단백질은 근감소증 예방을 위해 매끼 손바닥 크기만큼 섭취하는 것이 좋다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 단백질은 노년기 근육 건강과 면역력 유지를 위해 매끼 분산 섭취해야 합니다." },
+            { day: 5, q: "관절에 무리가 갈 때는 무조건 고강도 스쿼트 운동을 하는 것이 좋다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 1, exp: "오답! 무릎에 무리가 갈 때는 가벼운 스트레칭이나 실내 자전거가 안전합니다." },
+            { day: 6, q: "시력 보호와 황반 밀도 유지를 위해 섭취하면 좋은 대표적인 성분은?", options: ["1. 루테인 지아잔틴", "2. 나트륨", "3. 단순 당류"], answer: 0, exp: "정답! 루테인은 블루라이트로부터 눈을 보호하고 시력 저하를 방지합니다." },
+            { day: 7, q: "식이섬유가 풍부한 채소와 과일은 장 운동 촉진과 변비 예방에 도움을 준다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 식이섬유는 장내 유익균의 먹이가 되며 원활한 배변 활동을 돕습니다." },
+            { day: 8, q: "고혈압 환자는 평소에 짜고 자극적인 식습관을 유지해도 건강에 지장이 없다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 1, exp: "오답! 저염 식단은 혈압을 안정적으로 관리하기 위한 필수 수칙입니다." },
+            { day: 9, q: "칼슘 흡수율을 높여주며 뼈 건강에 시너지를 주는 대표적인 영양 성분은?", options: ["1. 비타민 D", "2. 탄수화물", "3. 트랜스지방"], answer: 0, exp: "정답! 비타민 D는 칼슘이 체내에 잘 흡수되도록 돕는 역할을 합니다." },
+            { day: 10, q: "잠자기 직전에 스마트폰 화면을 오래 보면 숙면에 큰 도움이 된다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 1, exp: "오답! 스마트폰의 블루라이트는 멜라토닌 분비를 방해해 수면을 방해합니다." },
+            { day: 11, q: "규칙적인 하루 6,000~10,000보 걷기 운동은 심폐 기능과 면역력에 좋다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 꾸준한 유산소 걷기 운동은 혈액순환과 체력 증진에 매우 이롭습니다." },
+            { day: 12, q: "골다공증 예방을 위해 유제품, 멸치, 해조류 등을 멀리하는 것이 좋다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 1, exp: "오답! 뼈를 튼튼하게 유지하려면 칼슘이 풍부한 식품을 꾸준히 섭취해야 합니다." },
+            { day: 13, q: "식사 후 바로 눕는 습관은 소화 기관에 부담을 주며 역류를 유발할 수 있다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 식후에는 최소 30분 정도 가벼운 산책이나 휴식을 취하는 것이 좋습니다." },
+            { day: 14, q: "채소와 신선한 과일은 조리 전 흐르는 물에 깨끗이 씻어 먹어야 안전하다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 잔류 농물 및 세균을 제거하기 위해 세척은 필수적입니다." },
+            { day: 15, q: "스트레스는 만병의 근원이므로 가벼운 명상과 심호흡으로 다스리는 것이 좋다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 정신적 안정은 면역력과 전신 건강 유지에 큰 도움이 됩니다." },
+            { day: 16, q: "고혈압 약은 혈압 수치가 정상으로 내려갔다면 임의로 중단해도 무방하다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 1, exp: "오답! 임의로 복약을 중단하면 혈압이 다시 치솟을 수 있어 반드시 전문 의사와 상담해야 합니다." },
+            { day: 17, q: "충분한 수면은 피로 회복뿐만 아니라 두뇌 인지 기능 유지에도 매우 중요하다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 규칙적인 수면 패턴은 뇌 세포 회복과 기억력 유지의 핵심입니다." },
+            { day: 18, q: "설탕이 가득 든 탄산음료는 갈증 해소와 건강 관리에 가장 적합한 음료이다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 1, exp: "오답! 당분이 과다한 음료보다는 깨끗한 물이나 허브차가 가장 좋습니다." },
+            { day: 19, q: "아침 기상 직후 미지근한 물 한 잔은 장 운동과 신진대사를 깨워준다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 아침 수분 보충은 혈액순환을 촉진하고 노폐물 배출을 도웁니다." },
+            { day: 20, q: "근력 운동은 젊은 사람만 해야 하며 시니어에게는 전혀 필요가 없다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 1, exp: "오답! 시니어일수록 가벼운 하체·코어 근력 운동이 낙상 방지와 관절 보호에 필수입니다." },
+            { day: 21, q: "견과류는 불포화 지방산이 풍부해 하루 한 줌 적당량 먹으면 혈관에 이롭다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 아몬드나 호두 등의 견과류는 심혈관 건강 관리에 도움을 줍니다." },
+            { day: 22, q: "치아와 잇몸 건강을 위해 올바른 양치질은 식후 3분 이내에 하는 것이 좋다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 음식물 찌꺼기와 플라그를 제때 제거해야 충치와 치주염을 예방합니다." },
+            { day: 23, q: "달고 짜고 매운 자극적인 음식은 위장 점막에 부담을 줄 수 있다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 담백하고 싱거운 식단이 위장 건강과 대사 균형에 훨씬 유리합니다." },
+            { day: 24, q: "실내 공기 정화를 위해 주기적인 환기는 호흡기 건강에 아무런 영향이 없다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 1, exp: "오답! 주기적인 실내 환기는 미세먼지와 실내 오염물질 배출에 필수적입니다." },
+            { day: 25, q: "오메가-3 지방산은 혈행을 원활하게 하고 두뇌 영양 공급에 도움을 준다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 등푸른 생선이나 영양제로 꾸준히 섭취하면 혈중 중성지질 개선에 좋습니다." },
+            { day: 26, q: "나이가 들면 갈증 중추가 둔감해져 물을 적게 마시게 되므로 의식적 섭취가 필요하다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 탈수를 예방하기 위해 목마름을 느끼기 전에 미리 물을 마셔야 합니다." },
+            { day: 27, q: "활발한 사회활동과 꾸준한 두뇌 퀴즈 풀이는 인지 기능 유지에 도움을 준다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 뇌를 지속적으로 자극하는 활동은 치매 예방과 활력에 좋습니다." },
+            { day: 28, q: "뼈 건강을 유지하려면 영양 섭취 외에 체중을 싣는 가벼운 신체 활동이 필요하다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 적절한 체중 부하 운동은 골밀도를 강화하는 데 큰 도움이 됩니다." },
+            { day: 29, q: "정기적인 건강검진은 각종 질병을 조기에 발견하고 예방하는 가장 현명한 방법이다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 조기 발견과 사전 예방이 건강을 지키는 가장 확실한 지름길입니다." },
+            { day: 30, q: "긍정적인 마음가짐과 자주 웃는 습관은 체내 면역력을 높이는 데 기여한다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 긍정적인 감정은 엔도르핀을 분비시키고 신체 활력을 북돋아 줍니다." }
+        ];
+
         const encyclopediaDb = {
-            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate) 종합 가이드", desc: "• [종류 및 분류]: 단순당류(설탕, 과일당), 복합당류(현미, 식이섬유, 통곡물)\n• [주요 신체 기능]: 뇌와 적혈구의 1차 에너지 공급원, 단백질 절약 효과, 장 건강 및 연동운동 촉진(식이섬유)\n• [권장 및 주의]: 가공 정제된 설탕이나 밀가루보다는 식이섬유가 풍부한 복합 탄수화물 위주로 섭취하는 것이 대사 건강에 유리합니다.\n• [대표 식품]: 현미, 귀리, 고구마, 통밀빵, 퀴노아" },
-            "단백질": { title: "🥩 단백질 (Protein) 종합 가이드", desc: "• [종류 및 분류]: 동물성 단백질(육류, 가금류, 달걀, 생선·필수 아미노산 풍부), 식물성 단백질(두부, 콩류, 견과류)\n• [주요 신체 기능]: 근육·결합조직 구성 및 유지, 면역 항체 및 각종 효소·호르몬 합성, 체내 질서 유지 및 수분 균형\n• [권장 및 주의]: 연령대가 높아질수록 근손실 방지를 위해 매끼 양질의 단백질을 분산하여 섭취하는 것이 좋습니다.\n• [대표 식품]: 닭가슴살, 연어, 소고기 우둔살, 두부, 달걀, 렌틸콩" },
-            "지방": { title: "🥑 지방 (Fat) 종합 가이드", desc: "• [종류 및 분류]: 불포화지방산(오메가-3, 올레산 등 심혈관 보호), 포화지방산, 트랜스지방(주의)\n• [주요 신체 기능]: 세포막 구성 성분, 호르몬 원료, 지용성 비타민(A, D, E, K) 흡수 촉진 및 체온 유지\n• [권장 및 주의]: 트랜스지방과 과도한 포화지방은 피하고, 견과류나 올리브오일 같은 불포화지방 위주로 섭취하세요.\n• [대표 식품]: 아보카도, 올리브오일, 연어, 호두, 아몬드" },
-            "물 (수분)": { title: "💧 물 (Water / 수분) 종합 건강 가이드", desc: "• [주요 신체 기능]: 체온 조절, 혈액 순환 및 산소·영양소 운반, 신장을 통한 노폐물 독소 배설, 관절 윤활 작용\n• [권장 섭취량]: 하루 1.5 ~ 2 리터 이상(한 번에 마시기보다 목이 마르기 전 수시로 나누어 섭취하는 것이 가장 이상적입니다)\n• [주의사항]: 심장이나 신장 질환이 있으신 경우 주치의와 상담하여 적정 수분량을 조절해야 합니다." },
-            "비타민": { title: "💊 비타민 20종 통합 종합 백과사전", desc: "• [수용성 비타민 (B군, C)]: 에너지 대사 촉진, 피로 회복, 강력한 항산화 작용 및 면역력 강화 (체내에 축적되지 않고 배출되므로 매일 섭취 필요)\n• [지용성 비타민 (A, D, E, K)]: 시력 보호, 뼈 건강(칼슘 흡수), 세포 노화 방지 및 혈액 응고 조절\n• [대표 식품]: 신선한 채소, 감귤류, 당근, 견과류, 등푸른 생선" },
-            "무기질": { title: "⚖ 무기질 15가지 (미네랄 통합 백과)", desc: "• [주요 미네랄]: 칼슘(뼈와 치아, 근육 수축), 칼륨(나트륨 배출, 정상 혈압 유지), 마그네슘(신경 안정, 근육 긴장 완화 및 눈밑 떨림 방지)\n• [미량 미네랄]: 철분(헤모글로빈 생성 및 산소 운반), 아연(면역 반응 유지 및 상처 회복), 셀레늄(강력한 항산화)\n• [대표 식품]: 멸치, 시금치, 우유, 바나나, 소고기, 굴" },
-            "필수아미노산": { title: "🧬 필수 아미노산 9종 종합 백과", desc: "• [9종 구성]: 류신, 이소류신, 발린(이상 BCAA), 리신, 메티오닌, 페닐알래닌, 트레오닌, 트립토판, 히스티딘 (체내에서 합성되지 않아 반드시 음식으로 섭취해야 함)\n• [주요 기능]: 근육 합성 촉진, 신경전달물질 생성, 피로 물질 억제\n• [대표 식품]: 완전단백질 식품인 달걀, 닭고기, 생선, 콩류" },
-            "칼슘": { title: "🦴 칼슘 (Calcium) 상세 가이드", desc: "• [주요 기능]: 뼈와 치아의 견고한 구조 형성, 신경 전달 및 근육 수축·이완 조절, 혈액 응고\n• [섭취 팁]: 비타민 D와 함께 섭취하면 체내 흡수율이 크게 높아집니다.\n• [대표 식품]: 우유, 치즈, 요거트, 멸치, 뱅어포, 두부, 케일" },
-            "마그네슘": { title: "⚡ 마그네슘 (Magnesium) 상세 가이드", desc: "• [주요 기능]: 천연의 진정제로 불리며 신경과 근육의 긴장을 이완, 에너지 생성, 눈밑 떨림 및 근육 경련 방지\n• [섭취 팁]: 스트레스가 많거나 커피를 자주 마시면 체내 마그네슘이 고갈되기 쉽습니다.\n• [대표 식품]: 아몬드, 호두 등 견과류, 바나나, 시금치, 아보카도, 통곡물" },
-            "철분": { title: "🩸 철분 (Iron) 상세 가이드", desc: "• [주요 기능]: 적혈구 내 헤모글로빈을 구성하여 전신에 산소를 공급, 에너지 대사 지원\n• [섭취 팁]: 비타민 C와 함께 드시면 흡수율이 배가 되며, 칼슘과 동시에 고용량 복용하는 것은 피하는 것이 좋습니다.\n• [대표 식품]: 소고기, 돼지고기 등 붉은 살코기, 달걀노른자, 시금치, 렌틸콩" },
-            "아연": { title: "🛡 아연 (Zinc) 상세 가이드", desc: "• [주요 기능]: 정상적인 면역 기능 유지, 세포 분열 및 상처 회복, 미각과 후각 유지\n• [대표 식품]: 굴, 소고기, 장어, 호박씨, 견과류, 콩류" },
-            "칼륨": { title: "🍌 칼륨 (Potassium) 상세 가이드", desc: "• [주요 기능]: 체내 나트륨을 배출하여 정상 혈압을 유지하고 세포 내 수분 평형 조절\n• [대표 식품]: 바나나, 고구마, 감자, 시금치, 아보카도, 콩류" },
-            "루테인": { title: "👁 루테인 지아잔틴 (Lutein & Zeaxanthin)", desc: "• [주요 기능]: 눈의 망막 중심부인 황반의 색소 밀도를 유지하여 노화로 인한 시력 저하 방지, 블루라이트(전자기기 화면)로부터 눈 보호\n• [대표 식품]: 시금치, 케일, 브로콜리, 상추, 달걀노른자" }
+            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate) 종합 가이드", desc: "- [종류 및 분류]: 단순당류(설탕, 과일당), 복합당류(현미, 식이섬유, 통곡물)\n- [주요 신체 기능]: 뇌와 적혈구의 1차 에너지 공급원, 단백질 절약 효과, 장 건강 및 연동운동 촉진(식이섬유)\n- [권장 및 주의]: 가공 정제된 설탕이나 밀가루보다는 식이섬유가 풍부한 복합 탄수화물 위주로 섭취하는 것이 대사 건강에 유리합니다.\n[대표 식품]: 현미, 귀리, 고구마, 통밀빵, 퀴노아" },
+            "단백질": { title: "🥩 단백질 (Protein) 종합 가이드", desc: "- [종류 및 분류]: 동물성 단백질(육류, 가금류, 달걀, 생선·필수 아미노산 풍부), 식물성 단백질(두부, 콩류, 견과류)\n- [주요 신체 기능]: 근육·결합조직 구성 및 유지, 면역 항체 및 각종 효소·호르몬 합성, 체내 질서 유지 및 수분 균형\n- [권장 및 주의]: 연령대가 높아질수록 근손실 방지를 위해 매끼 양질의 단백질을 분산하여 섭취하는 것이 좋습니다.\n[대표 식품]: 닭가슴살, 연어, 소고기 우둔살, 두부, 달걀, 렌틸콩" },
+            "지방": { title: "🥑 지방 (Fat) 종합 가이드", desc: "- [종류 및 분류]: 불포화지방산(오메가-3, 올레산 등 심혈관 보호), 포화지방산, 트랜스지방(주의)\n- [주요 신체 기능]: 세포막 구성 성분, 호르몬 원료, 지용성 비타민(A, D, E, K) 흡수 촉진 및 체온 유지\n- [권장 및 주의]: 트랜스지방과 과도한 포화지방은 피하고, 견과류나 올리브오일 같은 불포화지방 위주로 섭취하세요.\n[대표 식품]: 아보카도, 올리브오일, 연어, 호두, 아몬드" },
+            "물 (수분)": { title: "💧 물 (Water / 수분) 종합 건강 가이드", desc: "- [주요 신체 기능]: 체온 조절, 혈액 순환 및 산소·영양소 운반, 신장을 통한 노폐물 독소 배설, 관절 윤활 작용\n- [권장 섭취량]: 하루 1.5 ~ 2 리터 이상(한 번에 마시기보다 목이 마르기 전 수시로 나누어 섭취하는 것이 가장 이상적입니다)\n[주의사항]: 심장이나 신장 질환이 있으신 경우 주치의와 상담하여 적정 수분량을 조절해야 합니다." },
+            "비타민": { title: "💊 비타민 20종 통합 종합 백과사전", desc: "- [수용성 비타민 (B군, C)]: 에너지 대사 촉진, 피로 회복, 강력한 항산화 작용 및 면역력 강화 (체내에 축적되지 않고 배출되므로 매일 섭취 필요)\n- [지용성 비타민 (A, D, E, K)]: 시력 보호, 뼈 건강(칼슘 흡수), 세포 노화 방지 및 혈액 응고 조절\n[대표 식품]: 신선한 채소, 감귤류, 당근, 견과류, 등푸른 생선" },
+            "무기질": { title: "⚖ 무기질 15가지 (미네랄 통합 백과)", desc: "- [주요 미네랄]: 칼슘(뼈와 치아, 근육 수축), 칼륨(나트륨 배출, 정상 혈압 유지), 마그네슘(신경 안정, 근육 긴장 완화 및 눈밑 떨림 방지)\n- [미량 미네랄]: 철분(헤모글로빈 생성 및 산소 운반), 아연(면역 반응 유지 및 상처 회복), 셀레늄(강력한 항산화)\n[대표 식품]: 멸치, 시금치, 우유, 바나나, 소고기, 굴" },
+            "필수아미노산": { title: "🧬 필수 아미노산 9종 종합 백과", desc: "- [9종 구성]: 류신, 이소류신, 발린(이상 BCAA), 리신, 메티오닌, 페닐알래닌, 트레오닌, 트립토판, 히스티딘 (체내에서 합성되지 않아 반드시 음식으로 섭취해야 함)\n- [주요 기능]: 근육 합성 촉진, 신경전달물질 생성, 피로 물질 억제\n[대표 식품]: 완전단백질 식품인 달걀, 닭고기, 생선, 콩류" },
+            "칼슘": { title: "🦴 칼슘 (Calcium) 상세 가이드", desc: "- [주요 기능]: 뼈와 치아의 견고한 구조 형성, 신경 전달 및 근육 수축·이완 조절, 혈액 응고\n- [섭취 팁]: 비타민 D와 함께 섭취하면 체내 흡수율이 크게 높아집니다.\n[대표 식품]: 우유, 치즈, 요거트, 멸치, 뱅어포, 두부, 케일" },
+            "마그네슘": { title: "⚡ 마그네슘 (Magnesium) 상세 가이드", desc: "- [주요 기능]: 천연의 진정제로 불리며 신경과 근육의 긴장을 이완, 에너지 생성, 눈밑 떨림 및 근육 경련 방지\n- [섭취 팁]: 스트레스가 많거나 커피를 자주 마시면 체내 마그네슘이 고갈되기 쉽습니다.\n[대표 식품]: 아몬드, 호두 등 견과류, 바나나, 시금치, 아보카도, 통곡물" },
+            "철분": { title: "🩸 철분 (Iron) 상세 가이드", desc: "- [주요 기능]: 적혈구 내 헤모글로빈을 구성하여 전신에 산소를 공급, 에너지 대사 지원\n- [섭취 팁]: 비타민 C와 함께 드시면 흡수율이 배가 되며, 칼슘과 동시에 고용량 복용하는 것은 피하는 것이 좋습니다.\n[대표 식품]: 소고기, 돼지고기 등 붉은 살코기, 달걀노른자, 시금치, 렌틸콩" },
+            "아연": { title: "🛡 아연 (Zinc) 상세 가이드", desc: "- [주요 기능]: 정상적인 면역 기능 유지, 세포 분열 및 상처 회복, 미각과 후각 유지\n[대표 식품]: 굴, 소고기, 장어, 호박씨, 견과류, 콩류" },
+            "칼륨": { title: "🍌 칼륨 (Potassium) 상세 가이드", desc: "- [주요 기능]: 체내 나트륨을 배출하여 정상 혈압을 유지하고 세포 내 수분 평형 조절\n[대표 식품]: 바나나, 고구마, 감자, 시금치, 아보카도, 콩류" },
+            "루테인": { title: "👁 루테인 지아잔틴 (Lutein & Zeaxanthin)", desc: "- [주요 기능]: 눈의 망막 중심부인 황반의 색소 밀도를 유지하여 노화로 인한 시력 저하 방지, 블루라이트(전자기기 화면)로부터 눈 보호\n[대표 식품]: 시금치, 케일, 브로콜리, 상추, 달걀노른자" }
         };
-
         const bodyCareDb = {
-            "뇌신경계": { title: "🧠 뇌·신경계 상세 생리 및 케어 가이드", desc: "• [핵심 생리]: 뇌는 체내 에너지의 20%를 소모하는 기관으로 지속적인 산소와 포도당 공급이 필수적입니다.\n• [필수 영양 성분]: 오메가-3(DHA), 비타민 B군(B1, B6, B12), 포스파티딜세린, 레시틴\n• [AI 생활 관리 팁]: 하루 7시간 이상 숙면을 취하고, 새로운 학습이나 가벼운 유산소 운동을 통해 뇌 신경세포 가소성을 높여주세요." },
-            "심혈관계": { title: "❤ 심혈관계 상세 생리 및 케어 가이드", desc: "• [핵심 생리]: 심장은 온몸에 혈액을 박출하여 산소와 영양소를 공급하는 생명의 엔진입니다.\n• [필수 영양 성분]: 코엔자임Q10(혈압 감소 및 항산화), 오메가-3(중성지질 개선), 마그네슘, 엽산\n• [AI 생활 관리 팁]: 저염식 식단을 유지하고, 금연과 함께 주 3회 이상 가벼운 유산소 운동(걷기, 자전거)을 실천하세요." },
-            "근골격계": { title: "🦴 관절·뼈 상세 생리 및 케어 가이드", desc: "• [핵심 생리]: 뼈는 신체를 지탱하고 장기를 보호하며, 관절은 부드러운 움직임을 가능하게 합니다.\n• [필수 영양 성분]: 칼슘, 비타민 D3, MSM(식이유황), 보스웰리아 추출물, 콜라겐\n• [AI 생활 관리 팁]: 햇볕을 받으며 가벼운 산책을 하여 비타민D를 합성하고, 무리한 하중보다는 적절한 코어·하체 근력 운동을 병행하세요." },
-            "소화면역계": { title: "🛡 소화·면역계 상세 생리 및 케어 가이드", desc: "• [핵심 생리]: 장은 인체 면역 세포의 70% 이상이 존재하는 거대한 면역 기관이자 소화 흡수의 중심입니다.\n• [필수 영양 성분]: 프로바이오틱스(유산균), 프리바이오틱스(유산균 먹이), L-글루타민, 아연\n• [AI 생활 관리 팁]: 인스턴트 식품을 줄이고 식이섬유가 풍부한 채소와 발효 식품을 꾸준히 섭취하여 장내 유익균 환경을 개선하세요." },
-            "대사해독계": { title: "⚡ 대사·해독계 (간·신장) 케어 가이드", desc: "• [핵심 생리]: 간은 체내 독소 해독, 영양소 대사 및 저장 담당하며, 신장은 혈액 속 노폐물을 걸러 소변으로 배설합니다.\n• [필수 영양 성분]: 밀크시슬(실리마린 - 간 보호), 비타민 B군, 아티초크, 충분한 수분\n• [AI 생활 관리 팁]: 과도한 음주와 불필요한 약물 오남용을 피하고, 충분한 수분 섭취로 체내 해독 순환을 원활하게 하세요." },
-            "눈건강": { title: "👁 눈 건강 상세 생리 및 케어 가이드", desc: "• [핵심 생리]: 눈은 스마트폰과 PC 화면의 블루라이트 및 자외선으로 인해 산화 스트레스에 쉽게 노출되는 기관입니다.\n• [필수 영양 성분]: 루테인 지아잔틴, 아스타잔틴(눈 피로 개선), 비타민 A\n• [AI 생활 관리 팁]: 20-20-20 법칙(20분마다 20피트(약 6m) 떨어진 곳을 20초 동안 바라보기)을 실천하고 인공눈물과 눈 가 마사지를 활용하세요." },
-            "고혈압관리": { title: "🩸 혈압 건강 관리 종합 가이드", desc: "• [핵심 관리]: 혈관 벽에 가해지는 압력이 정상 범위를 유지하도록 관리하는 것이 핵심입니다.\n• [필수 영양 성분]: 칼륨(나트륨 배출), 코엔자임Q10, 마그네슘, 오메가-3\n• [AI 생활 관리 팁]: 음식은 싱겁게 드시고(DASH 식단), 체중을 적정 범위로 유지하며 규칙적인 유산소 운동을 하세요." },
-            "당뇨관리": { title: "🍃 혈당 건강 관리 종합 가이드", desc: "• [핵심 관리]: 혈중 포도당 농도를 안정적으로 유지하여 인슐린 저항성을 개선하는 것이 중요합니다.\n• [필수 영양 성분]: 크롬, 바나바잎 추출물(코로솔산), 수용성 식이섬유, 비타민 D\n• [AI 생활 관리 팁]: 식후 15분 가벼운 산책으로 혈당 스파이크를 방지하고, 당류와 정제 곡물 섭취를 제한하세요." }
+            "뇌신경계": { title: "🧠 뇌·신경계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 뇌는 체내 에너지의 20%를 소모하는 기관으로 지속적인 산소와 포도당 공급이 필수적입니다.\n- [필수 영양 성분]: 오메가-3(DHA), 비타민 B군(B1, B6, B12), 포스파티딜세린, 레시틴\n[AI 생활 관리 팁]: 하루 7시간 이상 숙면을 취하고, 새로운 학습이나 가벼운 유산소 운동을 통해 뇌 신경세포 가소성을 높여주세요." },
+            "심혈관계": { title: "❤ 심혈관계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 심장은 온몸에 혈액을 박출하여 산소와 영양소를 공급하는 생명의 엔진입니다.\n- [필수 영양 성분]: 코엔자임Q10(혈압 감소 및 항산화), 오메가-3(중성지질 개선), 마그네슘, 엽산\n[AI 생활 관리 팁]: 저염식 식단을 유지하고, 금연과 함께 주 3회 이상 가벼운 유산소 운동(걷기, 자전거)을 실천하세요." },
+            "근골격계": { title: "🦴 관절·뼈 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 뼈는 신체를 지탱하고 장기를 보호하며, 관절은 부드러운 움직임을 가능하게 합니다.\n- [필수 영양 성분]: 칼슘, 비타민 D3, MSM(식이유황), 보스웰리아 추출물, 콜라겐\n[AI 생활 관리 팁]: 햇볕을 받으며 가벼운 산책을 하여 비타민D를 합성하고, 무리한 하중보다는 적절한 코어·하체 근력 운동을 병행하세요." },
+            "소화면역계": { title: "🛡 소화·면역계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 장은 인체 면역 세포의 70% 이상이 존재하는 거대한 면역 기관이자 소화 흡수의 중심입니다.\n- [필수 영양 성분]: 프로바이오틱스(유산균), 프리바이오틱스(유산균 먹이), L-글루타민, 아연\n[AI 생활 관리 팁]: 인스턴트 식품을 줄이고 식이섬유가 풍부한 채소와 발효 식품을 꾸준히 섭취하여 장내 유익균 환경을 개선하세요." },
+            "대사해독계": { title: "⚡ 대사·해독계 (간·신장) 케어 가이드", desc: "- [핵심 생리]: 간은 체내 독소 해독, 영양소 대사 및 저장 담당하며, 신장은 혈액 속 노폐물을 걸러 소변으로 배설합니다.\n- [필수 영양 성분]: 밀크시슬(실리마린 - 간 보호), 비타민 B군, 아티초크, 충분한 수분\n[AI 생활 관리 팁]: 과도한 음주와 불필요한 약물 오남용을 피하고, 충분한 수분 섭취로 체내 해독 순환을 원활하게 하세요." },
+            "눈건강": { title: "👁 눈 건강 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 눈은 스마트폰과 PC 화면의 블루라이트 및 자외선으로 인해 산화 스트레스에 쉽게 노출되는 기관입니다.\n- [필수 영양 성분]: 루테인 지아잔틴, 아스타잔틴(눈 피로 개선), 비타민 A\n[AI 생활 관리 팁]: 20-20-20 법칙(20분마다 20피트(약 6m) 떨어진 곳을 20초 동안 바라보기)을 실천하고 인공눈물과 눈 가 마사지를 활용하세요." },
+            "고혈압관리": { title: "🩸 혈압 건강 관리 종합 가이드", desc: "- [핵심 관리]: 혈관 벽에 가해지는 압력이 정상 범위를 유지하도록 관리하는 것이 핵심입니다.\n- [필수 영양 성분]: 칼륨(나트륨 배출), 코엔자임Q10, 마그네슘, 오메가-3\n[AI 생활 관리 팁]: 음식은 싱겁게 드시고(DASH 식단), 체중을 적정 범위로 유지하며 규칙적인 유산소 운동을 하세요." },
+            "당뇨관리": { title: "🍃 혈당 건강 관리 종합 가이드", desc: "- [핵심 관리]: 혈중 포도당 농도를 안정적으로 유지하여 인슐린 저항성을 개선하는 것이 중요합니다.\n- [필수 영양 성분]: 크롬, 바나바잎 추출물(코로솔산), 수용성 식이섬유, 비타민 D\n[AI 생활 관리 팁]: 식후 15분 가벼운 산책으로 혈당 스파이크를 방지하고, 당류와 정제 곡물 섭취를 제한하세요." }
         };
-
         const hospitalDb = {
             "두통": { title: "🧠 추천 진료과: 신경과", desc: "편두통 및 긴장성 두통 정밀 진료" },
             "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "심장 및 혈관 정밀 검진" }
         };
-
-        const dailyQuizPool = [
-            { q: "Q. 빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?", options: ["1. 물 (수분)", "2. 철분 (또는 종합비타민)", "3. 일반 생수"], answer: 1 },
-            { q: "Q. 체온 조절과 노폐물 배출을 위해 하루 권장되는 기본 수분 섭취량은?", options: ["1. 0.5 리터", "2. 1.5 ~ 2 리터", "3. 5 리터 이상"], answer: 1 },
-            { q: "Q. 뼈와 관절 건강에 도움을 주며 햇볕을 통해 우리 몸에서 자연 합성되는 비타민은?", options: ["1. 비타민 A", "2. 비타민 C", "3. 비타민 D"], answer: 2 }
-        ];
     
         window.onload = function() {
             loadSavedContent();
@@ -1378,23 +1376,27 @@
             localStorage.setItem('ahm_points', userPoints);
         }
     
+        // 🧠 1개월(30일) 퀴즈 연동 함수 (오늘 날짜 기준 자동 매칭)
         function loadDailyQuiz() {
             const now = new Date();
             const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
-            const quizIndex = dayOfYear % dailyQuizPool.length;
-            const currentQuiz = dailyQuizPool[quizIndex];
+            const quizIndex = (dayOfYear - 1) % monthlyQuizzes.length;
+            const currentQuiz = monthlyQuizzes[quizIndex];
+            
+            document.getElementById('quizDayBadge').textContent = `Day ${currentQuiz.day} 퀴즈 (30일 분량)`;
             document.getElementById('quizQuestionText').textContent = currentQuiz.q;
+            
             const optionsArea = document.getElementById('quizOptionsArea');
             let html = '';
             currentQuiz.options.forEach((opt, idx) => {
                 const isCorrect = (idx === currentQuiz.answer);
-                html += `<button type="button" onclick="answerQuiz(${isCorrect})" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">${opt}</button>`;
+                html += `<button type="button" onclick="answerQuiz(${isCorrect}, '${currentQuiz.exp.replace(/'/g, "\\'")}')" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">${opt}</button>`;
             });
             optionsArea.innerHTML = html;
             document.getElementById('quizResultMsg').textContent = '';
         }
     
-        function answerQuiz(isCorrect) {
+        function answerQuiz(isCorrect, expText) {
             const msgEl = document.getElementById('quizResultMsg');
             const quizDateKey = 'ahm_quiz_done_' + new Date().toLocaleDateString();
             if(localStorage.getItem(quizDateKey) === 'true' || localStorage.getItem('ahm_quiz_solved_today') === 'true') {
@@ -1407,11 +1409,11 @@
                 localStorage.setItem(quizDateKey, 'true');
                 localStorage.setItem('ahm_quiz_solved_today', 'true');
                 msgEl.style.color = '#16a34a';
-                msgEl.textContent = "🎉 정답입니다! +100 포인트가 적립되었습니다.";
+                msgEl.innerHTML = `🎉 정답입니다! +100 포인트 적립!<br><span style="font-size:11px; font-weight:normal; color:#475569;">${expText}</span>`;
                 showToast("✨ 퀴즈 정답! +100P 적립 완료");
             } else {
                 msgEl.style.color = '#dc2626';
-                msgEl.textContent = "❌ 아쉽네요! 정답이 아닙니다.";
+                msgEl.innerHTML = `❌ 아쉽네요! 정답이 아닙니다.<br><span style="font-size:11px; font-weight:normal; color:#475569;">${expText}</span>`;
             }
         }
     
@@ -1427,9 +1429,9 @@
             const bsNum = parseInt(latestBs) || 105;
             let diagnosisHtml = "";
             if (bsNum >= 110) {
-                diagnosisHtml = "• <b>혈당 수치 주의단계:</b> 혈당 스파이크 완화를 위해 <b>크롬, 바나바잎 추출물, 식이섬유</b> 섭취를 추천합니다.";
+                diagnosisHtml = "<b>혈당 수치 주의단계:</b> 혈당 스파이크 완화를 위해 <b>크롬, 바나바잎 추출물, 식이섬유</b> 섭취를 추천합니다.";
             } else {
-                diagnosisHtml = `• <b>전반적인 대사 상태 우수:</b> 현재 체중(${latestWeight}kg)과 혈당/혈압 수치가 안정적입니다. <b>비타민 B군, 오메가-3</b>를 추천합니다.`;
+                diagnosisHtml = `<b>전반적인 대사 상태 우수:</b> 현재 체중(${latestWeight}kg)과 혈당/혈압 수치가 안정적입니다. <b>비타민 B군, 오메가-3</b>를 추천합니다.`;
             }
             document.getElementById('diagResultText').innerHTML = diagnosisHtml;
             showToast("✨ AI 영양 밸런스 진단 완료!");
@@ -1920,12 +1922,10 @@
             document.getElementById('inputSearchQueryText').value = keyword;
             executeDictSearch(keyword);
         }
-
         function searchSupplementCompatibilityTextInput() {
             const query = document.getElementById('inputSearchQueryText').value.trim();
             executeDictSearch(query);
         }
-
         function executeDictSearch(query) {
             const resultArea = document.getElementById('searchResultArea');
             const resultTitle = document.getElementById('resultTitle');
@@ -1939,7 +1939,7 @@
                 resultDesc.textContent = matched.desc;
             } else {
                 resultTitle.textContent = `🤖 "${query}" 영양 성분 백과`;
-                resultDesc.textContent = `• 검색하신 "${query}" 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
+                resultDesc.textContent = `검색하신 "${query}" 성분은 신체 균형 유지 및 건강 증진에 기여합니다.`;
             }
         }
     
