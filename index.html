@@ -599,7 +599,7 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 건강 핫플 & 정보광장 -->
+                <!-- 건강 핫플 & 정보광장 (4가지 메뉴 완전 복원) -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: var(--primary-color); justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 핫플 & 정보광장</span>
@@ -633,7 +633,7 @@
                     </div>
                 </div>
     
-                <!-- 오늘의 말씀 영역 -->
+                <!-- 오늘의 말씀 및 지난 말씀 보관함 영역 (완전 복원) -->
                 <div class="card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <div style="font-size: 13px; font-weight: 700; color: #7e22ce; display: flex; align-items: center; gap: 5px;">
@@ -1323,7 +1323,7 @@
                 const chkEl = document.getElementById('autoLoginCheck');
                 if(chkEl) chkEl.checked = true;
                 const savedRole = localStorage.getItem('ahm_user_role') || '회원';
-                const savedNick = localStorage.getItem('ahm_user_nick') || (savedRole === '관리자' ? '관리자' : '체험 유저');
+                const savedNick = localStorage.getItem('ahm_user_nick') || (savedRole === '관리자' ? '관리자' : '수현님');
                 enterMainScreen(savedNick, savedRole);
             } else {
                 const mainScreen = document.getElementById('mainScreen');
@@ -1625,7 +1625,6 @@
             const email = emailInput ? emailInput.value.trim() : "";
             const pw = pwInput ? pwInput.value.trim() : "";
             
-            // 이메일이나 비밀번호가 비어있어도 자유롭게 테스트 진입할 수 있도록 유연하게 처리
             let role = "회원";
             let nickname = email ? email.split('@')[0] : "수현님";
             
@@ -1694,7 +1693,6 @@
             const autoChk = document.getElementById('autoLoginCheck');
             if(autoChk) autoChk.checked = false;
             
-            // 모든 열려있는 모달 창 강제 닫기
             const modals = document.querySelectorAll('.custom-modal');
             modals.forEach(m => m.classList.remove('active'));
             
