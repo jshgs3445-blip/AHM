@@ -464,6 +464,7 @@
             <div class="app-header">
                 <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">회원</span></h1>
                 <div class="header-icons">
+                    <i class="fa-solid fa-globe" style="color: #60a5fa;" onclick="openModal('portalSearchModal')" title="포털 검색"></i>
                     <i class="fa-solid fa-coins" style="color: #fbbf24;" onclick="openModal('rewardModal')" title="포인트 보관함"></i>
                     <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
                     <i class="fa-solid fa-circle-question" onclick="openModal('qaModal')" title="Q & A 코너"></i>
@@ -473,6 +474,22 @@
             </div>
     
             <div class="app-content">
+                <!-- [포털 검색 바로가기 배너 버튼 추가] -->
+                <div class="card" style="background: linear-gradient(135deg, #eff6ff, #dbeafe); border-color: #93c5fd; cursor: pointer;" onclick="openModal('portalSearchModal')">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="font-size: 24px; background: #2563eb; color: white; width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fa-solid fa-globe"></i>
+                            </div>
+                            <div>
+                                <h3 style="font-size: 14px; font-weight: 700; color: #1e40af;">포털 검색 및 생활편의 바로가기</h3>
+                                <p style="font-size: 11px; color: #3b82f6; margin-top: 2px;">네이버, 다음, 구글, 쇼핑, 뉴스, 언론사 한눈에 모아보기</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right" style="color: #2563eb;"></i>
+                    </div>
+                </div>
+
                 <!-- [섹션 1] [데일리 리워드] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px;"><i class="fa-solid fa-gift" style="color:#2563eb;"></i> [데일리 리워드]</div>
                 <div class="grid-2">
@@ -663,6 +680,91 @@
         </div>
     
         <!-- 모달 영역들 -->
+        <!-- [신규 추가] 포털 검색 모달 (보여주신 스크린샷 완벽 재현) -->
+        <div id="portalSearchModal" class="custom-modal" onclick="if(event.target === this) closeModal('portalSearchModal')">
+            <div class="modal-content" style="max-width: 380px;">
+                <div class="modal-header">
+                    <h3>🌐 포털 검색 및 바로가기</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('portalSearchModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 14px; max-height: 75vh; overflow-y: auto; padding-right: 2px;">
+                    
+                    <!-- 통합 검색창 입력부 -->
+                    <div style="background: #f1f5f9; padding: 12px; border-radius: 14px; border: 1px solid #cbd5e1;">
+                        <label style="font-size: 11.5px; font-weight: 700; color: #1e293b; margin-bottom: 6px; display: block;">🔍 포털 통합 직접 검색</label>
+                        <div style="display: flex; gap: 6px;">
+                            <input type="text" id="portalSearchInput" placeholder="검색어를 입력하세요 (예: 건강정보)" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;" onkeypress="if(event.key==='Enter') executePortalDirectSearch('naver')">
+                            <button type="button" onclick="executePortalDirectSearch('naver')" style="background: #03c75a; color: white; border: none; padding: 0 14px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer;">네이버</button>
+                            <button type="button" onclick="executePortalDirectSearch('google')" style="background: #2563eb; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer;">구글</button>
+                        </div>
+                    </div>
+
+                    <!-- 1. 포털 영역 -->
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px;">포털</div>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;">
+                            <a href="https://www.naver.com" target="_blank" style="background: #03c75a; color: white; padding: 10px 4px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">네이버</a>
+                            <a href="https://www.daum.net" target="_blank" style="background: #3b82f6; color: white; padding: 10px 4px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">다음</a>
+                            <a href="https://www.bing.com" target="_blank" style="background: #0d9488; color: white; padding: 10px 4px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">Bing</a>
+                            <a href="https://www.google.com" target="_blank" style="background: #16a34a; color: white; padding: 10px 4px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">구글</a>
+                            <a href="https://www.youtube.com" target="_blank" style="background: #dc2626; color: white; padding: 10px 4px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">유튜브</a>
+                        </div>
+                    </div>
+
+                    <!-- 2. 쇼핑몰 영역 -->
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px;">쇼핑몰</div>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;">
+                            <a href="https://shopping.naver.com" target="_blank" style="background: #03c75a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">N쇼핑</a>
+                            <a href="https://www.auction.co.kr" target="_blank" style="background: #dc2626; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">옥션</a>
+                            <a href="https://www.11st.co.kr" target="_blank" style="background: white; color: #334155; border: 1px solid #cbd5e1; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">11번가</a>
+                            <a href="https://www.gmarket.co.kr" target="_blank" style="background: #16a34a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">G마켓</a>
+                            <a href="https://www.interpark.com" target="_blank" style="background: white; color: #334155; border: 1px solid #cbd5e1; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">인터파크</a>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 6px;">
+                            <a href="https://www.wemakeprice.com" target="_blank" style="background: #dc2626; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">위메프</a>
+                            <a href="https://www.enuri.com" target="_blank" style="background: #2563eb; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 9.5px; font-weight: 700;">에누리닷컴</a>
+                            <a href="https://www.yes24.com" target="_blank" style="background: #0d9488; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 9.5px; font-weight: 700;">YES24</a>
+                            <a href="https://www.danawa.com" target="_blank" style="background: #2563eb; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">다나와</a>
+                            <a href="https://www.coupang.com" target="_blank" style="background: #dc2626; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">쿠팡</a>
+                        </div>
+                    </div>
+
+                    <!-- 3. 생활편의 영역 -->
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px;">생활편의</div>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;">
+                            <a href="https://map.naver.com" target="_blank" style="background: #1e3a8a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">지하철</a>
+                            <a href="https://map.naver.com" target="_blank" style="background: #03c75a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10px; font-weight: 700;">네이버지도</a>
+                            <a href="https://map.kakao.com" target="_blank" style="background: #3b82f6; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10px; font-weight: 700;">다음지도</a>
+                            <a href="https://land.naver.com" target="_blank" style="background: #03c75a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 9.5px; font-weight: 700;">네이버부동산</a>
+                            <a href="https://land.daum.net" target="_blank" style="background: #3b82f6; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 9.5px; font-weight: 700;">다음부동산</a>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 6px;">
+                            <a href="https://www.weather.go.kr" target="_blank" style="background: #0284c7; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">날씨</a>
+                            <a href="https://www.dabangapp.com" target="_blank" style="background: #2563eb; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">다방</a>
+                            <a href="https://endic.naver.com" target="_blank" style="background: #03c75a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 9.5px; font-weight: 700;">영어번역</a>
+                            <a href="https://cndic.naver.com" target="_blank" style="background: #03c75a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 9.5px; font-weight: 700;">중국어번역</a>
+                            <a href="https://jpdic.naver.com" target="_blank" style="background: #03c75a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 9.5px; font-weight: 700;">일본어번역</a>
+                        </div>
+                    </div>
+
+                    <!-- 4. 방송언론 영역 -->
+                    <div>
+                        <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px;">방송언론</div>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;">
+                            <a href="https://www.kbs.co.kr" target="_blank" style="background: #0f172a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700;">KBS</a>
+                            <a href="https://www.imbc.com" target="_blank" style="background: #2563eb; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700;">MBC</a>
+                            <a href="https://www.sbs.co.kr" target="_blank" style="background: #0284c7; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700;">SBS</a>
+                            <a href="https://www.jtbc.co.kr" target="_blank" style="background: #475569; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700;">JTBC</a>
+                            <a href="https://www.chosun.com" target="_blank" style="background: #dc2626; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10px; font-weight: 700;">조선일보</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <div id="nutritionDiagnosticModal" class="custom-modal" onclick="if(event.target === this) closeModal('nutritionDiagnosticModal')">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1240,6 +1342,25 @@
         function getRandomAiMessage() {
             const randomIndex = Math.floor(Math.random() * aiEncourageMessages.length);
             return aiEncourageMessages[randomIndex];
+        }
+
+        // [신규 추가] 포털 직접 검색 실행 함수
+        function executePortalDirectSearch(engine) {
+            const query = document.getElementById('portalSearchInput').value.trim();
+            if(!query) {
+                showToast("⚠ 검색어를 입력해주세요.");
+                return;
+            }
+            let url = "";
+            if(engine === 'naver') {
+                url = `https://search.naver.com/search.naver?query=${encodeURIComponent(query)}`;
+            } else if(engine === 'google') {
+                url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            }
+            if(url) {
+                window.open(url, '_blank');
+                showToast(`✨ "${query}" 검색 페이지를 엽니다.`);
+            }
         }
 
         // 🧠 1개월(30일치) 건강 퀴즈 데이터베이스
