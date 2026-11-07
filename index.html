@@ -662,8 +662,8 @@
             </div>
         </div>
     
-        <!-- 모달 영역들 -->
-        <div id="nutritionDiagnosticModal" class="custom-modal">
+        <!-- 모달 영역들 (배경 터치 시 닫기 기능 추가) -->
+        <div id="nutritionDiagnosticModal" class="custom-modal" onclick="if(event.target === this) closeModal('nutritionDiagnosticModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🧬 AI 맞춤 영양 밸런스 진단</h3>
@@ -689,7 +689,7 @@
                 </div>
             </div>
         </div>
-        <div id="badgeModal" class="custom-modal">
+        <div id="badgeModal" class="custom-modal" onclick="if(event.target === this) closeModal('badgeModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🏆 나의 건강 루틴 챌린지 배지</h3>
@@ -704,7 +704,7 @@
                 </div>
             </div>
         </div>
-        <div id="medCalendarModal" class="custom-modal">
+        <div id="medCalendarModal" class="custom-modal" onclick="if(event.target === this) closeModal('medCalendarModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>📅 복용약 요일/알림 캘린더 뷰</h3>
@@ -730,7 +730,7 @@
                 </div>
             </div>
         </div>
-        <div id="signupModal" class="custom-modal">
+        <div id="signupModal" class="custom-modal" onclick="if(event.target === this) closeModal('signupModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>✨ 신규 회원가입</h3>
@@ -744,7 +744,7 @@
                 </div>
             </div>
         </div>
-        <div id="qaModal" class="custom-modal">
+        <div id="qaModal" class="custom-modal" onclick="if(event.target === this) closeModal('qaModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>❓ Q & A (자주 묻는 질문 및 문의)</h3>
@@ -767,7 +767,7 @@
                 </div>
             </div>
         </div>
-        <div id="helpModal" class="custom-modal">
+        <div id="helpModal" class="custom-modal" onclick="if(event.target === this) closeModal('helpModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>📖 앱 소개 및 도움말</h3>
@@ -779,7 +779,7 @@
             </div>
         </div>
     
-        <div id="myPageModal" class="custom-modal">
+        <div id="myPageModal" class="custom-modal" onclick="if(event.target === this) closeModal('myPageModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>👤 마이페이지</h3>
@@ -803,7 +803,7 @@
                 </div>
             </div>
         </div>
-        <div id="findAccountModal" class="custom-modal">
+        <div id="findAccountModal" class="custom-modal" onclick="if(event.target === this) closeModal('findAccountModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🔑 ID / 비밀번호 찾기</h3>
@@ -819,8 +819,8 @@
             </div>
         </div>
         
-        <!-- 🧠 1개월(30일) 건강 퀴즈 모달 창 (전체 퀴즈 데이터 및 풀이 인터페이스 연동) -->
-        <div id="quizModal" class="custom-modal">
+        <!-- 🧠 1개월(30일) 건강 퀴즈 모달 창 -->
+        <div id="quizModal" class="custom-modal" onclick="if(event.target === this) closeModal('quizModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🧠 오늘의 건강 퀴즈 (+100P)</h3>
@@ -837,7 +837,7 @@
             </div>
         </div>
 
-        <div id="rouletteModal" class="custom-modal">
+        <div id="rouletteModal" class="custom-modal" onclick="if(event.target === this) closeModal('rouletteModal')">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎡 행운의 룰렛 돌리기</h3><button type="button" class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button></div>
                 <div style="font-size: 45px; color: #d97706; margin: 15px 0;"><i class="fa-solid fa-dharmachakra fa-spin" style="animation-duration: 4s;"></i></div>
@@ -847,7 +847,7 @@
                 <button type="button" id="rouletteBtn" class="action-btn" style="background: #d97706;" onclick="spinRoulette()">룰렛 돌리기 START!</button>
             </div>
         </div>
-        <div id="rewardModal" class="custom-modal">
+        <div id="rewardModal" class="custom-modal" onclick="if(event.target === this) closeModal('rewardModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>💰 내 건강 포인트 보관함</h3>
@@ -866,7 +866,7 @@
                 </div>
             </div>
         </div>
-        <div id="dashboardModal" class="custom-modal">
+        <div id="dashboardModal" class="custom-modal" onclick="if(event.target === this) closeModal('dashboardModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>📊 종합 건강 대시보드 요약</h3>
@@ -894,7 +894,7 @@
                 </div>
             </div>
         </div>
-        <div id="monthlyReportModal" class="custom-modal">
+        <div id="monthlyReportModal" class="custom-modal" onclick="if(event.target === this) closeModal('monthlyReportModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>📅 최근 30일(1개월) 건강 누적 리포트</h3>
@@ -916,7 +916,7 @@
                 </div>
             </div>
         </div>
-        <div id="adminBibleModal" class="custom-modal">
+        <div id="adminBibleModal" class="custom-modal" onclick="if(event.target === this) closeModal('adminBibleModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>✍ 오늘의 말씀 등록</h3>
@@ -929,7 +929,7 @@
                 </div>
             </div>
         </div>
-        <div id="bibleHistoryModal" class="custom-modal">
+        <div id="bibleHistoryModal" class="custom-modal" onclick="if(event.target === this) closeModal('bibleHistoryModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>📚 지난 말씀 보관함</h3>
@@ -940,7 +940,7 @@
                 </div>
             </div>
         </div>
-        <div id="hospitalGuideModal" class="custom-modal">
+        <div id="hospitalGuideModal" class="custom-modal" onclick="if(event.target === this) closeModal('hospitalGuideModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🏥 병원 길잡이</h3>
@@ -966,7 +966,7 @@
                 </div>
             </div>
         </div>
-        <div id="bodyMapModal" class="custom-modal">
+        <div id="bodyMapModal" class="custom-modal" onclick="if(event.target === this) closeModal('bodyMapModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🧠 인체 기능 맵 (상세 가이드)</h3>
@@ -991,7 +991,7 @@
                 </div>
             </div>
         </div>
-        <div id="exerciseModal" class="custom-modal">
+        <div id="exerciseModal" class="custom-modal" onclick="if(event.target === this) closeModal('exerciseModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>💪 맞춤 운동 처방</h3>
@@ -1012,7 +1012,7 @@
                 </div>
             </div>
         </div>
-        <div id="compatibilityModal" class="custom-modal">
+        <div id="compatibilityModal" class="custom-modal" onclick="if(event.target === this) closeModal('compatibilityModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>📚 AI 영양 가이드 (종합 백과사전)</h3>
@@ -1047,7 +1047,7 @@
             </div>
         </div>
     
-        <div id="addModal" class="custom-modal">
+        <div id="addModal" class="custom-modal" onclick="if(event.target === this) closeModal('addModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>💊 새 복용 약 / 영양제 관리</h3>
@@ -1073,7 +1073,7 @@
                 </div>
             </div>
         </div>
-        <div id="adminPostModal" class="custom-modal">
+        <div id="adminPostModal" class="custom-modal" onclick="if(event.target === this) closeModal('adminPostModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>✍ 관리자 콘텐츠 등록</h3>
@@ -1094,7 +1094,7 @@
                 </div>
             </div>
         </div>
-        <div id="contentViewModal" class="custom-modal">
+        <div id="contentViewModal" class="custom-modal" onclick="if(event.target === this) closeModal('contentViewModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 id="viewModalTitle">상세 내용</h3>
@@ -1105,7 +1105,7 @@
                 </div>
             </div>
         </div>
-        <div id="alarmModal" class="custom-modal">
+        <div id="alarmModal" class="custom-modal" onclick="if(event.target === this) closeModal('alarmModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>🔔 푸시 복용 알림 설정</h3>
@@ -1119,7 +1119,7 @@
                 </div>
             </div>
         </div>
-        <div id="statModal" class="custom-modal">
+        <div id="statModal" class="custom-modal" onclick="if(event.target === this) closeModal('statModal')">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>📊 주간 통계</h3>
@@ -1130,7 +1130,7 @@
                 </div>
             </div>
         </div>
-        <div id="voiceModal" class="custom-modal">
+        <div id="voiceModal" class="custom-modal" onclick="if(event.target === this) closeModal('voiceModal')">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎙 음성 로깅 (스마트 연동)</h3><button type="button" class="close-modal-btn" onclick="closeModal('voiceModal')">&times;</button></div>
                 <div style="font-size: 35px; color: #e11d48; margin: 15px 0;"><i id="micIcon" class="fa-solid fa-microphone-lines"></i></div>
@@ -1140,7 +1140,7 @@
                 <button type="button" class="action-btn" style="background: #e11d48;" onclick="startRealVoiceRecognition()">음성 인식 시작</button>
             </div>
         </div>
-        <div id="waterModal" class="custom-modal">
+        <div id="waterModal" class="custom-modal" onclick="if(event.target === this) closeModal('waterModal')">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>💧 물 섭취량</h3><button type="button" class="close-modal-btn" onclick="closeModal('waterModal')">&times;</button></div>
                 <div style="font-size: 28px; font-weight: 700; color: #0284c7; margin: 15px 0;"><span id="waterAmount">500</span> ml</div>
@@ -1151,7 +1151,7 @@
                 <button type="button" class="action-btn" onclick="saveWaterRecord()">기록 완료</button>
             </div>
         </div>
-        <div id="pedometerModal" class="custom-modal">
+        <div id="pedometerModal" class="custom-modal" onclick="if(event.target === this) closeModal('pedometerModal')">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🚶 만보기 연동</h3><button type="button" class="close-modal-btn" onclick="closeModal('pedometerModal')">&times;</button></div>
                 <div style="font-size: 35px; color: var(--primary-color); margin: 15px 0;"><i class="fa-solid fa-person-walking"></i></div>
@@ -1159,7 +1159,7 @@
                 <p id="stepDescDisplay" style="font-size: 12px; color: #64748b; margin-top: 6px;">목표 10,000보</p>
             </div>
         </div>
-        <div id="expiryModal" class="custom-modal">
+        <div id="expiryModal" class="custom-modal" onclick="if(event.target === this) closeModal('expiryModal')">
             <div class="modal-content">
                 <div class="modal-header"><h3>📦 영양제 유통기한 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('expiryModal')">&times;</button></div>
                 <div style="font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
@@ -1175,7 +1175,7 @@
                 </div>
             </div>
         </div>
-        <div id="bpModal" class="custom-modal">
+        <div id="bpModal" class="custom-modal" onclick="if(event.target === this) closeModal('bpModal')">
             <div class="modal-content">
                 <div class="modal-header"><h3>❤ 혈압·당뇨 기록</h3><button type="button" class="close-modal-btn" onclick="closeModal('bpModal')">&times;</button></div>
                 <div style="font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
@@ -1195,7 +1195,7 @@
                 </div>
             </div>
         </div>
-        <div id="weightModal" class="custom-modal">
+        <div id="weightModal" class="custom-modal" onclick="if(event.target === this) closeModal('weightModal')">
             <div class="modal-content">
                 <div class="modal-header"><h3>⚖ 체중 관리</h3><button type="button" class="close-modal-btn" onclick="closeModal('weightModal')">&times;</button></div>
                 <div style="font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
@@ -1318,14 +1318,11 @@
             updatePointDisplay();
             loadDailyQuiz();
             
-            history.pushState(null, null, location.href);
-            window.onpopstate = function() { history.go(1); };
-            
             const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
             if (autoLoginSaved) {
                 document.getElementById('autoLoginCheck').checked = true;
                 const savedRole = localStorage.getItem('ahm_user_role') || '회원';
-                const savedNick = localStorage.getItem('ahm_user_nick') || (savedRole === '관리자' ? '관리자' : '체험 유저');
+                const savedNick = localStorage.getItem('ahm_user_nick'] || (savedRole === '관리자' ? '관리자' : '체험 유저');
                 enterMainScreen(savedNick, savedRole);
             } else {
                 document.getElementById('mainScreen').classList.remove('active');
@@ -1637,11 +1634,16 @@
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
             document.getElementById('autoLoginCheck').checked = false;
+            
+            // 모든 열려있는 모달 창 강제 닫기
+            const modals = document.querySelectorAll('.custom-modal');
+            modals.forEach(m => m.classList.remove('active'));
+            
             document.getElementById('mainScreen').classList.remove('active');
             document.getElementById('mainScreen').style.display = 'none';
             document.getElementById('loginScreen').classList.add('active');
             document.getElementById('loginScreen').style.display = 'flex';
-            closeModal('myPageModal');
+            
             showToast('로그아웃 되었습니다.');
         }
     
@@ -2111,7 +2113,7 @@
     
         function openModal(id) { 
             const modal = document.getElementById(id);
-            modal.classList.add('active'); 
+            if(modal) modal.classList.add('active'); 
             
             if(id === 'weightModal') {
                 document.getElementById('weightInput').value = latestWeight;
@@ -2160,7 +2162,8 @@
         }
     
         function closeModal(id) { 
-            document.getElementById(id).classList.remove('active'); 
+            const modal = document.getElementById(id);
+            if(modal) modal.classList.remove('active'); 
         }
     </script>
 </body>
