@@ -37,7 +37,7 @@
             --text-color: #2d3748;
         }
     
--         {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -489,7 +489,7 @@
                         <i class="fa-solid fa-chevron-right" style="color: #2563eb;"></i>
                     </div>
                 </div>
-     
+
                 <!-- [섹션 1] [데일리 리워드] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px;"><i class="fa-solid fa-gift" style="color:#2563eb;"></i> [데일리 리워드]</div>
                 <div class="grid-2">
@@ -698,7 +698,7 @@
                             <button type="button" onclick="executePortalDirectSearch('google')" style="background: #2563eb; color: white; border: none; padding: 0 12px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer;">구글</button>
                         </div>
                     </div>
-     
+
                     <!-- 1. 포털 영역 -->
                     <div>
                         <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px;">포털</div>
@@ -710,7 +710,7 @@
                             <a href="https://www.youtube.com" target="_blank" style="background: #dc2626; color: white; padding: 10px 4px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 11px; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;">유튜브</a>
                         </div>
                     </div>
-     
+
                     <!-- 2. 쇼핑몰 영역 -->
                     <div>
                         <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px;">쇼핑몰</div>
@@ -729,7 +729,7 @@
                             <a href="https://www.coupang.com" target="_blank" style="background: #dc2626; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10.5px; font-weight: 700;">쿠팡</a>
                         </div>
                     </div>
-     
+
                     <!-- 3. 생활편의 영역 -->
                     <div>
                         <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px;">생활편의</div>
@@ -748,7 +748,7 @@
                             <a href="https://jpdic.naver.com" target="_blank" style="background: #03c75a; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 9.5px; font-weight: 700;">일본어번역</a>
                         </div>
                     </div>
-     
+
                     <!-- 4. 방송언론 영역 -->
                     <div>
                         <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 8px;">방송언론</div>
@@ -760,11 +760,11 @@
                             <a href="https://www.chosun.com" target="_blank" style="background: #dc2626; color: white; padding: 10px 2px; border-radius: 8px; text-align: center; text-decoration: none; font-size: 10px; font-weight: 700;">조선일보</a>
                         </div>
                     </div>
-     
+
                 </div>
             </div>
         </div>
-     
+
         <div id="nutritionDiagnosticModal" class="custom-modal" onclick="if(event.target === this) closeModal('nutritionDiagnosticModal')">
             <div class="modal-content">
                 <div class="modal-header">
@@ -938,7 +938,7 @@
                 </div>
             </div>
         </div>
-     
+
         <div id="rouletteModal" class="custom-modal" onclick="if(event.target === this) closeModal('rouletteModal')">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>🎡 행운의 룰렛 돌리기</h3><button type="button" class="close-modal-btn" onclick="closeModal('rouletteModal')">&times;</button></div>
@@ -1343,7 +1343,7 @@
             const randomIndex = Math.floor(Math.random() * aiEncourageMessages.length);
             return aiEncourageMessages[randomIndex];
         }
-     
+
         // [신규 추가] 포털 직접 검색 실행 함수
         function executePortalDirectSearch(engine) {
             const query = document.getElementById('portalSearchInput').value.trim();
@@ -1362,7 +1362,7 @@
                 showToast(`✨ "${query}" 검색 페이지를 엽니다.`);
             }
         }
-     
+
         // 🧠 1개월(30일치) 건강 퀴즈 데이터베이스
         const monthlyQuizzes = [
             { day: 1, q: "빈속에 마시면 위장에 자극을 줄 수 있어 식후에 먹는 것이 가장 좋은 영양제는?", options: ["1. 물 (수분)", "2. 철분 (또는 종합비타민)", "3. 일반 생수"], answer: 1, exp: "정답! 철분이나 종합비타민은 공복 복용 시 위장 장애를 유발할 수 있어 식후에 먹는 것이 좋습니다." },
@@ -1396,7 +1396,7 @@
             { day: 29, q: "정기적인 건강검진은 각종 질병을 조기에 발견하고 예방하는 가장 현명한 방법이다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 조기 발견과 사전 예방이 건강을 지키는 가장 확실한 지름길입니다." },
             { day: 30, q: "긍정적인 마음가짐과 자주 웃는 습관은 체내 면역력을 높이는 데 기여한다.", options: ["1. 맞습니다 (O)", "2. 틀립니다 (X)"], answer: 0, exp: "정답! 긍정적인 감정은 엔도르핀을 분비시키고 신체 활력을 북돋아 줍니다." }
         ];
-     
+
         const encyclopediaDb = {
             "탄수화물": { title: "🍞 탄수화물 (Carbohydrate) 종합 가이드", desc: "- [종류 및 분류]: 단순당류(설탕, 과일당), 복합당류(현미, 식이섬유, 통곡물)\n- [주요 신체 기능]: 뇌와 적혈구의 1차 에너지 공급원, 단백질 절약 효과, 장 건강 및 연동운동 촉진(식이섬유)\n- [권장 및 주의]: 가공 정제된 설탕이나 밀가루보다는 식이섬유가 풍부한 복합 탄수화물 위주로 섭취하는 것이 대사 건강에 유리합니다.\n[대표 식품]: 현미, 귀리, 고구마, 통밀빵, 퀴노아" },
             "단백질": { title: "🥩 단백질 (Protein) 종합 가이드", desc: "- [종류 및 분류]: 동물성 단백질(육류, 가금류, 달걀, 생선·필수 아미노산 풍부), 식물성 단백질(두부, 콩류, 견과류)\n- [주요 신체 기능]: 근육·결합조직 구성 및 유지, 면역 항체 및 각종 효소·호르몬 합성, 체내 질서 유지 및 수분 균형\n- [권장 및 주의]: 연령대가 높아질수록 근손실 방지를 위해 매끼 양질의 단백질을 분산하여 섭취하는 것이 좋습니다.\n[대표 식품]: 닭가슴살, 연어, 소고기 우둔살, 두부, 달걀, 렌틸콩" },
@@ -1417,8 +1417,7 @@
             "심혈관계": { title: "❤ 심혈관계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 심장은 온몸에 혈액을 박출하여 산소와 영양소를 공급하는 생명의 엔진입니다.\n- [필수 영양 성분]: 코엔자임Q10(혈압 감소 및 항산화), 오메가-3(중성지질 개선), 마그네슘, 엽산\n[AI 생활 관리 팁]: 저염식 식단을 유지하고, 금연과 함께 주 3회 이상 가벼운 유산소 운동(걷기, 자전거)을 실천하세요." },
             "근골격계": { title: "🦴 관절·뼈 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 뼈는 신체를 지탱하고 장기를 보호하며, 관절은 부드러운 움직임을 가능하게 합니다.\n- [필수 영양 성분]: 칼슘, 비타민 D3, MSM(식이유황), 보스웰리아 추출물, 콜라겐\n[AI 생활 관리 팁]: 햇볕을 받으며 가벼운 산책을 하여 비타민D를 합성하고, 무리한 하중보다는 적절한 코어·하체 근력 운동을 병행하세요." },
             "소화면역계": { title: "🛡 소화·면역계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 장은 인체 면역 세포의 70% 이상이 존재하는 거대한 면역 기관이자 소화 흡수의 중심입니다.\n- [필수 영양 성분]: 프로바이오틱스(유산균), 프리바이오틱스(유산균 먹이), L-글루타민, 아연\n[AI 생활 관리 팁]: 인스턴트 식품을 줄이고 식이섬유가 풍부한 채소와 발효 식품을 꾸준히 섭취하여 장내 유익균 환경을 개선하세요." },
--             "대사해독계": { title: "⚡ 대사·해독계 (간·신장) 케어 가이드", desc: "- [핵심 생리]: 간은 체내 독소 해독, 영양소 대사 및 저장 담당하며, 신장은 혈액 속 노폐물을 걸러 소변으로 배설합니다.\n- [필수 영양 성분]: 밀크시슬(실리마린 
-간 보호), 비타민 B군, 아티초크, 충분한 수분\n[AI 생활 관리 팁]: 과도한 음주와 불필요한 약물 오남용을 피하고, 충분한 수분 섭취로 체내 해독 순환을 원활하게 하세요." },
+            "대사해독계": { title: "⚡ 대사·해독계 (간·신장) 케어 가이드", desc: "- [핵심 생리]: 간은 체내 독소 해독, 영양소 대사 및 저장 담당하며, 신장은 혈액 속 노폐물을 걸러 소변으로 배설합니다.\n- [필수 영양 성분]: 밀크시슬(실리마린 - 간 보호), 비타민 B군, 아티초크, 충분한 수분\n[AI 생활 관리 팁]: 과도한 음주와 불필요한 약물 오남용을 피하고, 충분한 수분 섭취로 체내 해독 순환을 원활하게 하세요." },
             "눈건강": { title: "👁 눈 건강 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 눈은 스마트폰과 PC 화면의 블루라이트 및 자외선으로 인해 산화 스트레스에 쉽게 노출되는 기관입니다.\n- [필수 영양 성분]: 루테인 지아잔틴, 아스타잔틴(눈 피로 개선), 비타민 A\n[AI 생활 관리 팁]: 20-20-20 법칙(20분마다 20피트(약 6m) 떨어진 곳을 20초 동안 바라보기)을 실천하고 인공눈물과 눈 가 마사지를 활용하세요." },
             "고혈압관리": { title: "🩸 혈압 건강 관리 종합 가이드", desc: "- [핵심 관리]: 혈관 벽에 가해지는 압력이 정상 범위를 유지하도록 관리하는 것이 핵심입니다.\n- [필수 영양 성분]: 칼륨(나트륨 배출), 코엔자임Q10, 마그네슘, 오메가-3\n[AI 생활 관리 팁]: 음식은 싱겁게 드시고(DASH 식단), 체중을 적정 범위로 유지하며 규칙적인 유산소 운동을 하세요." },
             "당뇨관리": { title: "🍃 혈당 건강 관리 종합 가이드", desc: "- [핵심 관리]: 혈중 포도당 농도를 안정적으로 유지하여 인슐린 저항성을 개선하는 것이 중요합니다.\n- [필수 영양 성분]: 크롬, 바나바잎 추출물(코로솔산), 수용성 식이섬유, 비타민 D\n[AI 생활 관리 팁]: 식후 15분 가벼운 산책으로 혈당 스파이크를 방지하고, 당류와 정제 곡물 섭취를 제한하세요." }
@@ -1565,7 +1564,7 @@
             document.getElementById('diagResultText').innerHTML = diagnosisHtml;
             showToast("✨ AI 영양 밸런스 진단 완료!");
         }
-     
+
         function renderBadgeSystem() {
             const container = document.getElementById('badgeListContainer');
             if(!container) return;
@@ -1594,7 +1593,7 @@
             });
             container.innerHTML = html;
         }
-     
+
         function spinRoulette() {
             const nowStr = new Date().toLocaleDateString();
             const lastSpinDate = localStorage.getItem('ahm_last_spin_date');
@@ -2250,7 +2249,7 @@
             renderExpiryList();
             showToast("🗑 유통기한 항목이 삭제되었습니다.");
         }
-     
+
         function renderMedCalendar() {
             const year = calCurrentYear;
             const month = calCurrentMonth;
@@ -2277,14 +2276,14 @@
             }
             grid.innerHTML = html;
         }
-     
+
         function changeCalendarMonth(direction) {
             calCurrentMonth += direction;
             if (calCurrentMonth > 11) { calCurrentMonth = 0; calCurrentYear++; }
             else if (calCurrentMonth < 0) { calCurrentMonth = 11; calCurrentYear--; }
             renderMedCalendar();
         }
-     
+
         function selectCalendarDate(dateStr) {
             const infoEl = document.getElementById('calSelectedDateInfo');
             if(infoEl) infoEl.textContent = `선택한 날짜: ${dateStr}`;
@@ -2379,4 +2378,3 @@
     </script>
 </body>
 </html>
- 이 코드로  위 사진의 빠진 언론과 전체 아이콘들의 컬러를 세련된 컬러로 바꿔줘
