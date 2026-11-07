@@ -1094,6 +1094,9 @@
                     <div style="display: flex; flex-wrap: wrap; gap: 6px;">
                         <span class="dict-tag" onclick="quickSelectBody('뇌신경계')">🧠 뇌·신경계</span>
                         <span class="dict-tag" onclick="quickSelectBody('심혈관계')">❤ 심혈관계</span>
+                        <span class="dict-tag" onclick="quickSelectBody('소화기계')">🍽 소화기계</span>
+                        <span class="dict-tag" onclick="quickSelectBody('면역계')">🛡 면역계</span>
+                        <span class="dict-tag" onclick="quickSelectBody('골관절계')">🦴 골관절계</span>
                     </div>
                     <div id="bodyResultArea" style="padding: 14px; border-radius: 12px; background: #eff6ff; border: 1px solid #bfdbfe; display: none; max-height: 240px; overflow-y: auto;">
                         <h4 id="bodyResultTitle" style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--primary-color);"></h4>
@@ -1134,6 +1137,12 @@
                     <div style="display: flex; flex-wrap: wrap; gap: 6px; max-height: 180px; overflow-y: auto;" id="dictTagContainer">
                         <span class="dict-tag" onclick="quickSelectDict('탄수화물')">🍞 탄수화물</span>
                         <span class="dict-tag" onclick="quickSelectDict('단백질')">🥩 단백질</span>
+                        <span class="dict-tag" onclick="quickSelectDict('지방')">🥑 지방</span>
+                        <span class="dict-tag" onclick="quickSelectDict('비타민C')">🍋 비타민C</span>
+                        <span class="dict-tag" onclick="quickSelectDict('오메가3')">🐟 오메가3</span>
+                        <span class="dict-tag" onclick="quickSelectDict('칼슘')">🥛 칼슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('마그네슘')">🥜 마그네슘</span>
+                        <span class="dict-tag" onclick="quickSelectDict('유산균')">🦠 유산균</span>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
                         <input type="text" id="inputSearchQueryText" placeholder="영양소 직접 검색" style="flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none; font-size: 13px;">
@@ -1360,17 +1369,32 @@
             }
         }
 
+        /* 📚 [영양 가이드 백과사전 원문 데이터 전체 복원] */
         const encyclopediaDb = {
-            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate) 종합 가이드", desc: "- [종류 및 분류]: 단순당류, 복합당류\n- [주요 신체 기능]: 뇌와 적혈구의 1차 에너지 공급원\n[대표 식품]: 현미, 귀리, 고구마" },
-            "단백질": { title: "🥩 단백질 (Protein) 종합 가이드", desc: "- [종류 및 분류]: 동물성 단백질, 식물성 단백질\n- [주요 신체 기능]: 근육·결합조직 구성 및 유지\n[대표 식품]: 닭가슴살, 연어, 두부" }
+            "탄수화물": { title: "🍞 탄수화물 (Carbohydrate) 종합 가이드", desc: "- [종류 및 분류]: 단순당류(포도당, 과당), 복합당류(전분, 식이섬유)\n- [주요 신체 기능]: 뇌와 적혈구의 1차 에너지 공급원이며 신체 대사의 기본을 담당합니다.\n- [권장 섭취 비율]: 총 섭취 칼로리의 50~60%\n- [대표 식품]: 현미, 귀리, 고구마, 통밀빵" },
+            "단백질": { title: "🥩 단백질 (Protein) 종합 가이드", desc: "- [종류 및 분류]: 동물성 단백질(육류, 생선, 달걀), 식물성 단백질(콩, 두부, 퀴노아)\n- [주요 신체 기능]: 근육·결합조직 구성 및 유지, 효소 및 호르몬 합성을 담당합니다.\n- [권장 섭취량]: 체중 1kg당 약 0.8~1.2g\n- [대표 식품]: 닭가슴살, 연어, 두부, 그릭요거트" },
+            "지방": { title: "🥑 지방 (Fat) 종합 가이드", desc: "- [종류 및 분류]: 포화지방산, 불포화지방산(오메가-3, 오메가-6)\n- [주요 신체 기능]: 세포막 구성, 지용성 비타민 흡수 촉진 및 체온 유지\n- [대표 식품]: 아보카도, 올리브유, 견과류, 등푸른생선" },
+            "비타민C": { title: "🍋 비타민 C (Vitamin C) 가이드", desc: "- [주요 신체 기능]: 강력한 항산화 작용, 콜라겐 합성 및 면역력 강화\n- [결핍 시 증상]: 피로감, 면역력 저하, 잇몸 부종\n- [대표 식품]: 파프리카, 브로콜리, 키위, 레몬, 오렌지" },
+            "오메가3": { title: "🐟 오메가-3 지방산 가이드", desc: "- [주요 신체 기능]: 혈중 중성지질 개선, 혈행 원활 및 두뇌(뇌세포) 건강 기여\n- [주의사항]: 항혈소판제 복용 시 의사와 상담 필요\n- [대표 식품]: 고등어, 연어, 아마씨유, 호두" },
+            "칼슘": { title: "🥛 칼슘 (Calcium) 가이드", desc: "- [주요 신체 기능]: 뼈와 치아의 형성에 필수, 신경 및 근육 기능 유지\n- [흡수 팁]: 비타민 D와 함께 섭취 시 흡수율이 크게 증가합니다.\n- [대표 식품]: 우유, 치즈, 멸치, 시금치, 두부" },
+            "마그네슘": { title: "🥜 마그네슘 (Magnesium) 가이드", desc: "- [주요 신체 기능]: 신경 흥분 완화 및 근육 경련 방지 ('천연 신경 안정제')\n- [대표 식품]: 아몬드, 바나나, 호박씨, 흑미" },
+            "유산균": { title: "🦠 프로바이오틱스 (유산균) 가이드", desc: "- [주요 신체 기능]: 장내 유익균 증식 및 유해균 억제, 배변 활동 원활\n- [복용 타이밍]: 위산이 적을 때(아침 공복 또는 식전) 섭취하는 것이 좋습니다." }
         };
+
+        /* 🧠 [인체 기능 맵 상세 생리 데이터 전체 복원] */
         const bodyCareDb = {
-            "뇌신경계": { title: "🧠 뇌·신경계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 뇌는 체내 에너지의 20%를 소모하는 기관입니다.\n- [필수 영양 성분]: 오메가-3, 비타민 B군" },
-            "심혈관계": { title: "❤ 심혈관계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 심장은 온몸에 혈액을 박출합니다.\n- [필수 영양 성분]: 코엔자임Q10, 오메가-3" }
+            "뇌신경계": { title: "🧠 뇌·신경계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 뇌는 체내 산소의 20%를 소비하는 고성능 기관으로, 지속적인 포도당과 산소 공급이 필수적입니다.\n- [필수 영양 성분]: 오메가-3(DHA), 비타민 B군, 포스파티딜세린\n- [건강 루틴]: 충분한 수면(7시간 이상), 규칙적인 유산소 운동, 두뇌 자극 활동" },
+            "심혈관계": { title: "❤ 심혈관계 상세 생리 및 케어 가이드", desc: "- [핵심 생리]: 심장과 혈관은 온몸에 영양분과 산소를 전달하고 노폐물을 회수하는 하수구 역할을 합니다.\n- [필수 영양 성분]: 코엔자임Q10, 오메가-3, 엽산, 칼륨\n- [건강 루틴]: 저염식 식단, 금주, 주 3회 이상 유산소 운동" },
+            "소화기계": { title: "🍽 소화기계 및 장 건강 가이드", desc: "- [핵심 생리]: 위와 장은 소화 흡수뿐만 아니라 면역 세포의 70% 이상이 존재하는 면역의 중심지입니다.\n- [필수 영양 성분]: 프로바이오틱스(유산균), 식이섬유, L-글루타민\n- [건강 루틴]: 천천히 오래 씹어 먹기, 가공식품 및 자극적인 음식 줄이기" },
+            "면역계": { title: "🛡 면역계 및 방어 시스템 가이드", desc: "- [핵심 생리]: 외부 병원체로부터 몸을 보호하며, 스트레스와 피로에 민감하게 반응합니다.\n- [필수 영양 성분]: 비타민 C, 비타민 D, 아연\n- [건강 루틴]: 규칙적인 일상, 손 씻기 생활화, 적절한 햇볕 쬐기" },
+            "골관절계": { title: "🦴 골관절계 및 뼈 건강 가이드", desc: "- [핵심 생리]: 신체의 지지대 역할을 하며, 나이가 들면서 밀도 유지가 필수적인 부위입니다.\n- [필수 영양 성분]: 칼슘, 비타민 D, MSM(식이유황), 콘드로이친\n- [건강 루틴]: 체중 부하 운동, 야외 햇볕 산책, 무리한 관절 사용 자제" }
         };
+
         const hospitalDb = {
-            "두통": { title: "🧠 추천 진료과: 신경과", desc: "편두통 및 긴장성 두통 정밀 진료" },
-            "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "심장 및 혈관 정밀 검진" }
+            "두통": { title: "🧠 추천 진료과: 신경과", desc: "편두통, 긴장성 두통 및 만성 두통 정밀 진료 필요" },
+            "가슴통증": { title: "❤ 추천 진료과: 순환기내과", desc: "심장 및 혈관 정밀 검진 (심전도 및 초음파 검사 권장)" },
+            "소화불량": { title: "🍽 추천 진료과: 소화기내과", desc: "위염, 역류성 식도염 및 소화기 정밀 내시경 검진 권장" },
+            "관절통": { title: "🦴 추천 진료과: 정형외과 또는 류마티스내과", desc: "관절염 및 인대 손상 여부 확인 필요" }
         };
     
         window.onload = function() {
