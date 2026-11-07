@@ -662,7 +662,7 @@
             </div>
         </div>
     
-        <!-- 모달 영역들 (배경 터치 시 닫기 기능 추가) -->
+        <!-- 모달 영역들 -->
         <div id="nutritionDiagnosticModal" class="custom-modal" onclick="if(event.target === this) closeModal('nutritionDiagnosticModal')">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1320,15 +1320,16 @@
             
             const autoLoginSaved = localStorage.getItem('ahm_auto_login') === 'true';
             if (autoLoginSaved) {
-                document.getElementById('autoLoginCheck').checked = true;
+                const chkEl = document.getElementById('autoLoginCheck');
+                if(chkEl) chkEl.checked = true;
                 const savedRole = localStorage.getItem('ahm_user_role') || '회원';
-                const savedNick = localStorage.getItem('ahm_user_nick'] || (savedRole === '관리자' ? '관리자' : '체험 유저');
+                const savedNick = localStorage.getItem('ahm_user_nick') || (savedRole === '관리자' ? '관리자' : '체험 유저');
                 enterMainScreen(savedNick, savedRole);
             } else {
-                document.getElementById('mainScreen').classList.remove('active');
-                document.getElementById('mainScreen').style.display = 'none';
-                document.getElementById('loginScreen').classList.add('active');
-                document.getElementById('loginScreen').style.display = 'flex';
+                const mainScreen = document.getElementById('mainScreen');
+                const loginScreen = document.getElementById('loginScreen');
+                if(mainScreen) { mainScreen.classList.remove('active'); mainScreen.style.display = 'none'; }
+                if(loginScreen) { loginScreen.classList.add('active'); loginScreen.style.display = 'flex'; }
             }
         };
     
@@ -1380,17 +1381,22 @@
             const quizIndex = (dayOfYear - 1) % monthlyQuizzes.length;
             const currentQuiz = monthlyQuizzes[quizIndex];
             
-            document.getElementById('quizDayBadge').textContent = `Day ${currentQuiz.day} 퀴즈 (30일 분량)`;
-            document.getElementById('quizQuestionText').textContent = currentQuiz.q;
+            const badgeEl = document.getElementById('quizDayBadge');
+            const qTextEl = document.getElementById('quizQuestionText');
+            if(badgeEl) badgeEl.textContent = `Day ${currentQuiz.day} 퀴즈 (30일 분량)`;
+            if(qTextEl) qTextEl.textContent = currentQuiz.q;
             
             const optionsArea = document.getElementById('quizOptionsArea');
-            let html = '';
-            currentQuiz.options.forEach((opt, idx) => {
-                const isCorrect = (idx === currentQuiz.answer);
-                html += `<button type="button" onclick="answerQuiz(${isCorrect}, '${currentQuiz.exp.replace(/'/g, "\\'")}')" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">${opt}</button>`;
-            });
-            optionsArea.innerHTML = html;
-            document.getElementById('quizResultMsg').textContent = '';
+            if(optionsArea) {
+                let html = '';
+                currentQuiz.options.forEach((opt, idx) => {
+                    const isCorrect = (idx === currentQuiz.answer);
+                    html += `<button type="button" onclick="answerQuiz(${isCorrect}, '${currentQuiz.exp.replace(/'/g, "\\'")}')" style="padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; text-align: left; cursor: pointer; font-weight: 600;">${opt}</button>`;
+                });
+                optionsArea.innerHTML = html;
+            }
+            const resMsg = document.getElementById('quizResultMsg');
+            if(resMsg) resMsg.textContent = '';
         }
     
         function answerQuiz(isCorrect, expText) {
@@ -1405,12 +1411,16 @@
                 updatePointDisplay();
                 localStorage.setItem(quizDateKey, 'true');
                 localStorage.setItem('ahm_quiz_solved_today', 'true');
-                msgEl.style.color = '#16a34a';
-                msgEl.innerHTML = `🎉 정답입니다! +100 포인트 적립!<br><span style="font-size:11px; font-weight:normal; color:#475569;">${expText}</span>`;
+                if(msgEl) {
+                    msgEl.style.color = '#16a34a';
+                    msgEl.innerHTML = `🎉 정답입니다! +100 포인트 적립!<br><span style="font-size:11px; font-weight:normal; color:#475569;">${expText}</span>`;
+                }
                 showToast("✨ 퀴즈 정답! +100P 적립 완료");
             } else {
-                msgEl.style.color = '#dc2626';
-                msgEl.innerHTML = `❌ 아쉽네요! 정답이 아닙니다.<br><span style="font-size:11px; font-weight:normal; color:#475569;">${expText}</span>`;
+                if(msgEl) {
+                    msgEl.style.color = '#dc2626';
+                    msgEl.innerHTML = `❌ 아쉽네요! 정답이 아닙니다.<br><span style="font-size:11px; font-weight:normal; color:#475569;">${expText}</span>`;
+                }
             }
         }
     
@@ -1436,6 +1446,7 @@
 
         function renderBadgeSystem() {
             const container = document.getElementById('badgeListContainer');
+            if(!container) return;
             const waterDone = currentWater >= 1000;
             const stepDone = stepCount >= 3000;
             const quizDone = (localStorage.getItem('ahm_quiz_solved_today') === 'true' || localStorage.getItem('ahm_quiz_done_' + new Date().toLocaleDateString()) === 'true');
@@ -1475,10 +1486,12 @@
             updatePointDisplay();
             localStorage.setItem('ahm_last_spin_date', nowStr);
             const box = document.getElementById('rouletteResultBox');
-            box.style.background = '#dcfce7';
-            box.style.color = '#166534';
-            box.style.borderColor = '#bbf7d0';
-            box.innerHTML = `🎉 축하합니다 당첨! <b>+${randomReward} 포인트</b> 획득!`;
+            if(box) {
+                box.style.background = '#dcfce7';
+                box.style.color = '#166534';
+                box.style.borderColor = '#bbf7d0';
+                box.innerHTML = `🎉 축하합니다 당첨! <b>+${randomReward} 포인트</b> 획득!`;
+            }
             showToast(`🎡 룰렛 당첨! +${randomReward}P 획득`);
         }
     
@@ -1519,57 +1532,79 @@
                 </div>`;
             });
             const count = history.length;
-            document.getElementById('monthlySummaryText').innerHTML = `
-                총 기록일수: ${count}일<br>
-                평균 물 섭취량: ${Math.round(totalWater / count)} ml<br>
-                평균 체중: ${(totalWeight / count).toFixed(1)} kg<br>
-                평균 혈당: ${Math.round(totalBs / count)} mg/dL
-            `;
-            document.getElementById('monthlyHistoryList').innerHTML = html;
+            const sumText = document.getElementById('monthlySummaryText');
+            if(sumText) {
+                sumText.innerHTML = `
+                    총 기록일수: ${count}일<br>
+                    평균 물 섭취량: ${Math.round(totalWater / count)} ml<br>
+                    평균 체중: ${(totalWeight / count).toFixed(1)} kg<br>
+                    평균 혈당: ${Math.round(totalBs / count)} mg/dL
+                `;
+            }
+            const histList = document.getElementById('monthlyHistoryList');
+            if(histList) histList.innerHTML = html;
         }
     
         function updateDashboardValues() {
-            document.getElementById('waterAmount').textContent = currentWater;
-            document.getElementById('dashWaterDisplay').textContent = currentWater;
-            document.getElementById('dashStepDisplay').textContent = stepCount.toLocaleString();
-            document.getElementById('dashWeightDisplay').textContent = latestWeight;
-            document.getElementById('dashBpDisplay').textContent = latestBp;
-            document.getElementById('dashBsDisplay').textContent = latestBs;
+            const wAmt = document.getElementById('waterAmount');
+            const dWater = document.getElementById('dashWaterDisplay');
+            const dStep = document.getElementById('dashStepDisplay');
+            const dWeight = document.getElementById('dashWeightDisplay');
+            const dBp = document.getElementById('dashBpDisplay');
+            const dBs = document.getElementById('dashBsDisplay');
+            
+            if(wAmt) wAmt.textContent = currentWater;
+            if(dWater) dWater.textContent = currentWater;
+            if(dStep) dStep.textContent = stepCount.toLocaleString();
+            if(dWeight) dWeight.textContent = latestWeight;
+            if(dBp) dBp.textContent = latestBp;
+            if(dBs) dBs.textContent = latestBs;
+            
             localStorage.setItem('ahm_water', currentWater);
             saveDailyRecordToMonthly();
         }
     
         function toggleAutoLogin() {
             const chk = document.getElementById('autoLoginCheck');
-            chk.checked = !chk.checked;
-            localStorage.setItem('ahm_auto_login', chk.checked);
+            if(chk) {
+                chk.checked = !chk.checked;
+                localStorage.setItem('ahm_auto_login', chk.checked);
+            }
         }
     
         function initAllCharts() {
-            const weightCtx = document.getElementById('weightChart').getContext('2d');
-            weightChartInstance = new Chart(weightCtx, {
-                type: 'line',
-                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, parseFloat(latestWeight)], borderColor: '#1d4ed8', tension: 0.3 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-            const bpCtx = document.getElementById('bpChart').getContext('2d');
-            bpChartInstance = new Chart(bpCtx, {
-                type: 'line',
-                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈압', data: [125, 122, 120], borderColor: '#e11d48', tension: 0.3 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-            const bsCtx = document.getElementById('bsChart').getContext('2d');
-            bsChartInstance = new Chart(bsCtx, {
-                type: 'line',
-                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈당', data: [115, 110, parseInt(latestBs) || 105], borderColor: '#0284c7', tension: 0.3 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-            const dashCtx = document.getElementById('dashboardTrendChart').getContext('2d');
-            dashChartInstance = new Chart(dashCtx, {
-                type: 'line',
-                data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, parseFloat(latestWeight)], borderColor: '#1d4ed8', tension: 0.3 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
+            const wEl = document.getElementById('weightChart');
+            if(wEl) {
+                weightChartInstance = new Chart(wEl.getContext('2d'), {
+                    type: 'line',
+                    data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, parseFloat(latestWeight)], borderColor: '#1d4ed8', tension: 0.3 }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+            const bEl = document.getElementById('bpChart');
+            if(bEl) {
+                bpChartInstance = new Chart(bEl.getContext('2d'), {
+                    type: 'line',
+                    data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈압', data: [125, 122, 120], borderColor: '#e11d48', tension: 0.3 }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+            const bsEl = document.getElementById('bsChart');
+            if(bsEl) {
+                bsChartInstance = new Chart(bsEl.getContext('2d'), {
+                    type: 'line',
+                    data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '혈당', data: [115, 110, parseInt(latestBs) || 105], borderColor: '#0284c7', tension: 0.3 }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+            const dEl = document.getElementById('dashboardTrendChart');
+            if(dEl) {
+                dashChartInstance = new Chart(dEl.getContext('2d'), {
+                    type: 'line',
+                    data: { labels: ['5일전', '3일전', '오늘'], datasets: [{ label: '체중', data: [66.0, 65.6, parseFloat(latestWeight)], borderColor: '#1d4ed8', tension: 0.3 }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
         }
     
         function executeSignup() {
@@ -1585,39 +1620,61 @@
         }
     
         function executeLogin() { 
-            const email = document.getElementById('loginEmailInput').value.trim();
-            const pw = document.getElementById('loginPwInput').value.trim();
-            if(!email || !pw) { showToast("⚠ 이메일과 비밀번호를 입력해주세요."); return; }
+            const emailInput = document.getElementById('loginEmailInput');
+            const pwInput = document.getElementById('loginPwInput');
+            const email = emailInput ? emailInput.value.trim() : "";
+            const pw = pwInput ? pwInput.value.trim() : "";
+            
+            // 이메일이나 비밀번호가 비어있어도 자유롭게 테스트 진입할 수 있도록 유연하게 처리
             let role = "회원";
-            let nickname = email.split('@')[0];
+            let nickname = email ? email.split('@')[0] : "수현님";
+            
             if (email === "jshgs3445@gmail.com" || email === "관리자" || email === "admin") {
                 role = "관리자";
                 nickname = "관리자";
+            } else if (!email) {
+                nickname = "수현님";
             }
+            
             localStorage.setItem('ahm_user_role', role);
             localStorage.setItem('ahm_user_nick', nickname);
-            const isAuto = document.getElementById('autoLoginCheck').checked;
+            const autoChk = document.getElementById('autoLoginCheck');
+            const isAuto = autoChk ? autoChk.checked : false;
             localStorage.setItem('ahm_auto_login', isAuto);
+            
             enterMainScreen(nickname, role); 
-            showToast(`✨ 환영합니다 수현님! (${role} 모드)`);
+            showToast(`✨ 환영합니다 ${nickname}님! (${role} 모드)`);
         }
     
         function executeLoginGuest() { 
             localStorage.setItem('ahm_user_role', '회원');
-            localStorage.setItem('ahm_user_nick', '체험 유저');
+            localStorage.setItem('ahm_user_nick', '수현님');
             localStorage.setItem('ahm_auto_login', 'false');
-            enterMainScreen("체험 유저", "회원"); 
+            enterMainScreen("수현님", "회원"); 
             showToast("👀 비회원 모드로 접속합니다.");
         }
     
         function enterMainScreen(nickname, roleText) {
-            document.getElementById('loginScreen').classList.remove('active');
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('mainScreen').classList.add('active');
-            document.getElementById('mainScreen').style.display = 'flex';
-            document.getElementById('userRoleBadge').textContent = roleText;
-            document.getElementById('myPageNameInput').value = nickname;
-            document.getElementById('myPageEmailInput').value = document.getElementById('loginEmailInput').value || "jshgs3445@gmail.com";
+            const loginScreen = document.getElementById('loginScreen');
+            const mainScreen = document.getElementById('mainScreen');
+            
+            if(loginScreen) {
+                loginScreen.classList.remove('active');
+                loginScreen.style.display = 'none';
+            }
+            if(mainScreen) {
+                mainScreen.classList.add('active');
+                mainScreen.style.display = 'flex';
+            }
+            
+            const badge = document.getElementById('userRoleBadge');
+            if(badge) badge.textContent = roleText;
+            
+            const myName = document.getElementById('myPageNameInput');
+            const myEmail = document.getElementById('myPageEmailInput');
+            if(myName) myName.value = nickname;
+            if(myEmail) myEmail.value = document.getElementById('loginEmailInput').value || "jshgs3445@gmail.com";
+            
             const adminWrap1 = document.getElementById('adminAddBtnWrap');
             const adminWrap2 = document.getElementById('adminBibleBtnWrap');
             if(roleText === '관리자') {
@@ -1633,16 +1690,25 @@
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
-            document.getElementById('autoLoginCheck').checked = false;
+            
+            const autoChk = document.getElementById('autoLoginCheck');
+            if(autoChk) autoChk.checked = false;
             
             // 모든 열려있는 모달 창 강제 닫기
             const modals = document.querySelectorAll('.custom-modal');
             modals.forEach(m => m.classList.remove('active'));
             
-            document.getElementById('mainScreen').classList.remove('active');
-            document.getElementById('mainScreen').style.display = 'none';
-            document.getElementById('loginScreen').classList.add('active');
-            document.getElementById('loginScreen').style.display = 'flex';
+            const mainScreen = document.getElementById('mainScreen');
+            const loginScreen = document.getElementById('loginScreen');
+            
+            if(mainScreen) {
+                mainScreen.classList.remove('active');
+                mainScreen.style.display = 'none';
+            }
+            if(loginScreen) {
+                loginScreen.classList.add('active');
+                loginScreen.style.display = 'flex';
+            }
             
             showToast('로그아웃 되었습니다.');
         }
@@ -1694,12 +1760,15 @@
         }
     
         function applyBibleToScreen(item) {
-            document.getElementById('displayBibleTitle').textContent = item.title;
-            document.getElementById('displayBibleDesc').textContent = item.desc;
+            const tEl = document.getElementById('displayBibleTitle');
+            const dEl = document.getElementById('displayBibleDesc');
+            if(tEl) tEl.textContent = item.title;
+            if(dEl) dEl.textContent = item.desc;
         }
     
         function renderBibleHistory() {
             const listEl = document.getElementById('bibleHistoryList');
+            if(!listEl) return;
             let history = JSON.parse(localStorage.getItem('ahm_bible_history') || '[]');
             if(history.length === 0) { listEl.innerHTML = `<p style="color: #64748b;">등록된 지난 말씀이 없습니다.</p>`; return; }
             let html = '';
@@ -1746,17 +1815,17 @@
         function startRealVoiceRecognition() {
             const statusEl = document.getElementById('voiceStatus');
             if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-                statusEl.textContent = '음성 인식을 지원하지 않는 브라우저입니다.';
+                if(statusEl) statusEl.textContent = '음성 인식을 지원하지 않는 브라우저입니다.';
                 setTimeout(() => { showToast('✨ 음성 로깅 완료'); closeModal('voiceModal'); }, 1500);
                 return;
             }
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             const recognition = new SpeechRecognition();
             recognition.lang = 'ko-KR';
-            recognition.onstart = () => { statusEl.textContent = '🔴 말씀하세요... 듣고 있습니다.'; };
+            recognition.onstart = () => { if(statusEl) statusEl.textContent = '🔴 말씀하세요... 듣고 있습니다.'; };
             recognition.onresult = (e) => {
                 const text = e.results[0][0].transcript;
-                statusEl.textContent = `인식됨: "${text}"`;
+                if(statusEl) statusEl.textContent = `인식됨: "${text}"`;
                 
                 let successLogged = false;
                 
@@ -2005,6 +2074,7 @@
     
         function renderMedicineList() {
             const container = document.getElementById('medicineListContainer');
+            if(!container) return;
             let list = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             if(list.length === 0) { container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">등록된 약이 없습니다.</p>`; return; }
             let html = '';
@@ -2040,6 +2110,7 @@
     
         function renderExpiryList() {
             const container = document.getElementById('expiryListContainer');
+            if(!container) return;
             let list = JSON.parse(localStorage.getItem('ahm_expiry_list') || '[]');
             if(list.length === 0) { container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">등록된 영양제가 없습니다.</p>`; return; }
             let html = '';
@@ -2063,10 +2134,14 @@
         function renderMedCalendar() {
             const year = calCurrentYear;
             const month = calCurrentMonth;
-            document.getElementById('calMonthTitle').textContent = `${year}년 ${month + 1}월 복용 현황`;
+            const titleEl = document.getElementById('calMonthTitle');
+            if(titleEl) titleEl.textContent = `${year}년 ${month + 1}월 복용 현황`;
+            
             const firstDay = new Date(year, month, 1).getDay();
             const lastDate = new Date(year, month + 1, 0).getDate();
             const grid = document.getElementById('calDaysGrid');
+            if(!grid) return;
+            
             let html = '';
             for (let i = 0; i < firstDay; i++) { html += `<div></div>`; }
             const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
@@ -2091,9 +2166,13 @@
         }
 
         function selectCalendarDate(dateStr) {
-            document.getElementById('calSelectedDateInfo').textContent = `선택한 날짜: ${dateStr}`;
+            const infoEl = document.getElementById('calSelectedDateInfo');
+            if(infoEl) infoEl.textContent = `선택한 날짜: ${dateStr}`;
+            
             const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             const container = document.getElementById('calMedListPreview');
+            if(!container) return;
+            
             if (medList.length === 0) { container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">이 날 등록된 복용약이 없습니다.</p>`; return; }
             let html = '';
             medList.forEach((item) => {
@@ -2107,7 +2186,9 @@
     
         function showToast(msg) {
             const t = document.getElementById('toast');
-            t.textContent = msg; t.classList.add('show');
+            if(!t) return;
+            t.textContent = msg; 
+            t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3500);
         }
     
@@ -2116,26 +2197,36 @@
             if(modal) modal.classList.add('active'); 
             
             if(id === 'weightModal') {
-                document.getElementById('weightInput').value = latestWeight;
+                const wInput = document.getElementById('weightInput');
+                if(wInput) wInput.value = latestWeight;
                 if(weightChartInstance) weightChartInstance.update();
             } else if(id === 'bpModal') {
-                document.getElementById('bpInput').value = latestBp;
-                document.getElementById('bsInput').value = latestBs;
+                const bpIn = document.getElementById('bpInput');
+                const bsIn = document.getElementById('bsInput');
+                if(bpIn) bpIn.value = latestBp;
+                if(bsIn) bsIn.value = latestBs;
                 if(bpChartInstance) bpChartInstance.update();
                 if(bsChartInstance) bsChartInstance.update();
             } else if(id === 'waterModal') {
                 updateDashboardValues();
             } else if(id === 'compatibilityModal') {
-                document.getElementById('inputSearchQueryText').value = '';
-                document.getElementById('searchResultArea').style.display = 'none';
+                const sText = document.getElementById('inputSearchQueryText');
+                const sArea = document.getElementById('searchResultArea');
+                if(sText) sText.value = '';
+                if(sArea) sArea.style.display = 'none';
             } else if(id === 'bodyMapModal') {
-                document.getElementById('bodyResultArea').style.display = 'none';
+                const bArea = document.getElementById('bodyResultArea');
+                if(bArea) bArea.style.display = 'none';
             } else if(id === 'exerciseModal') {
-                document.getElementById('exerciseResultArea').style.display = 'none';
-                document.getElementById('inputUserCondition').value = '';
+                const eArea = document.getElementById('exerciseResultArea');
+                const uCond = document.getElementById('inputUserCondition');
+                if(eArea) eArea.style.display = 'none';
+                if(uCond) uCond.value = '';
             } else if(id === 'hospitalGuideModal') {
-                document.getElementById('hospitalResultArea').style.display = 'none';
-                document.getElementById('inputHospitalSearch').value = '';
+                const hArea = document.getElementById('hospitalResultArea');
+                const hSearch = document.getElementById('inputHospitalSearch');
+                if(hArea) hArea.style.display = 'none';
+                if(hSearch) hSearch.value = '';
             } else if(id === 'pedometerModal') {
                 updateStepDisplay(stepCount);
             } else if(id === 'addModal') {
