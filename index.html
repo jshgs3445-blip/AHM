@@ -628,7 +628,7 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- 건강 핫플 & 정보광장 -->
+                <!-- [복원됨] 건강 핫플 & 정보광장 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: var(--primary-color); justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 핫플 & 정보광장</span>
@@ -662,7 +662,7 @@
                     </div>
                 </div>
     
-                <!-- 오늘의 말씀 영역 -->
+                <!-- [복원됨] 오늘의 말씀 영역 -->
                 <div class="card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <div style="font-size: 13px; font-weight: 700; color: #7e22ce; display: flex; align-items: center; gap: 5px;">
@@ -678,7 +678,7 @@
                     <p style="font-size: 12px; color: #6b21a8; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
     
-                <!-- 건강보험 바로 연결 -->
+                <!-- [복원됨] 건강보험 바로 연결 -->
                 <div class="card" style="background: #f0f9ff; border-color: #bae6fd; padding: 12px; margin-bottom: 0;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
@@ -1517,9 +1517,8 @@
     
         function loadDailyQuiz() {
             const now = new Date();
-            const todayStr = now.toDateString(); // 날짜 문자열 예: "Sun Nov 08 2026"
+            const todayStr = now.toDateString(); 
             
-            // 날짜가 바뀌었으면 오늘자 퀴즈 풀이 상태 자동 초기화
             const lastQuizDate = localStorage.getItem('ahm_quiz_last_date');
             if (lastQuizDate !== todayStr) {
                 localStorage.setItem('ahm_quiz_last_date', todayStr);
