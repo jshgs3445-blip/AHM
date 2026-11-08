@@ -512,6 +512,7 @@
                         <span style="font-size: 10px; color: #64748b; font-weight: normal; margin-top: 2px;">매일 1회 무료</span>
                     </div>
                 </div>
+
                 <!-- [섹션 2] [일상 기록 및 타이머] -->
                 <div class="card" style="margin-top: 4px;">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-calendar-days"></i> 일상 기록 및 타이머</div>
@@ -530,7 +531,27 @@
                         </div>
                     </div>
                 </div>
-                <!-- [섹션 3] [스마트 영양 & 챌린지] -->
+
+                <!-- [섹션 3] [스마트 관리 도구] - 일상 기록 바로 아래로 이동 배치 -->
+                <div class="card" style="margin-top: 6px;">
+                    <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
+                    <div class="grid-3">
+                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('expiryModal')">
+                            <i class="fa-solid fa-clock-rotate-left" style="color: #475569; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">유통기한</span>
+                        </div>
+                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('bpModal')">
+                            <i class="fa-solid fa-heart-pulse" style="color: #e11d48; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">혈압·당뇨</span>
+                        </div>
+                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('weightModal')">
+                            <i class="fa-solid fa-weight-scale" style="color: #16a34a; font-size: 22px; margin-bottom: 6px;"></i>
+                            <span style="color: #1e293b; font-size: 11.5px;">체중 관리</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [섹션 4] [스마트 영양 & 챌린지] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-pills" style="color:#e11d48;"></i> [스마트 영양 & 챌린지]</div>
                 <div class="grid-2">
                     <div class="big-action-card" onclick="openModal('compatibilityModal')">
@@ -554,24 +575,7 @@
                         <span style="font-size: 9.5px; color: #64748b; margin-top: 2px;">루틴 달성 보상 수집</span>
                     </div>
                 </div>
-                <!-- [섹션 4] [스마트 관리 도구] -->
-                <div class="card" style="margin-top: 6px;">
-                    <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
-                    <div class="grid-3">
-                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('expiryModal')">
-                            <i class="fa-solid fa-clock-rotate-left" style="color: #475569; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;">유통기한</span>
-                        </div>
-                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('bpModal')">
-                            <i class="fa-solid fa-heart-pulse" style="color: #e11d48; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;">혈압·당뇨</span>
-                        </div>
-                        <div class="big-action-card" style="min-height: 95px; padding: 12px 6px;" onclick="openModal('weightModal')">
-                            <i class="fa-solid fa-weight-scale" style="color: #16a34a; font-size: 22px; margin-bottom: 6px;"></i>
-                            <span style="color: #1e293b; font-size: 11.5px;">체중 관리</span>
-                        </div>
-                    </div>
-                </div>
+                
                 <!-- [섹션 5] [1:1 건강 솔루션] -->
                 <div style="font-size: 12.5px; font-weight: 700; color: #475569; margin-bottom: 6px; margin-left: 4px; margin-top: 4px;"><i class="fa-solid fa-stethoscope" style="color:#1d4ed8;"></i> [1:1 건강 솔루션]</div>
                 <div class="grid-3-col">
@@ -1513,6 +1517,15 @@
     
         function loadDailyQuiz() {
             const now = new Date();
+            const todayStr = now.toDateString(); // 날짜 문자열 예: "Sun Nov 08 2026"
+            
+            // 날짜가 바뀌었으면 오늘자 퀴즈 풀이 상태 자동 초기화
+            const lastQuizDate = localStorage.getItem('ahm_quiz_last_date');
+            if (lastQuizDate !== todayStr) {
+                localStorage.setItem('ahm_quiz_last_date', todayStr);
+                localStorage.setItem('ahm_quiz_solved_today', 'false');
+            }
+
             const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
             const quizIndex = (dayOfYear - 1) % monthlyQuizzes.length;
             const currentQuiz = monthlyQuizzes[quizIndex];
@@ -1532,21 +1545,29 @@
                 optionsArea.innerHTML = html;
             }
             const resMsg = document.getElementById('quizResultMsg');
-            if(resMsg) resMsg.textContent = '';
+            if(resMsg) {
+                if (localStorage.getItem('ahm_quiz_solved_today') === 'true') {
+                    resMsg.style.color = '#16a34a';
+                    resMsg.textContent = "✔ 오늘은 이미 퀴즈를 풀셨습니다! 내일 다시 참여해 주세요.";
+                } else {
+                    resMsg.textContent = '';
+                }
+            }
         }
     
         function answerQuiz(isCorrect, expText) {
             const msgEl = document.getElementById('quizResultMsg');
-            const quizDateKey = 'ahm_quiz_done_' + new Date().toLocaleDateString();
-            if(localStorage.getItem(quizDateKey) === 'true' || localStorage.getItem('ahm_quiz_solved_today') === 'true') {
+            const todayStr = new Date().toDateString();
+            
+            if(localStorage.getItem('ahm_quiz_solved_today') === 'true') {
                 showToast("⚠ 오늘은 이미 퀴즈를 풀셨습니다! 내일 다시 도전해 주세요.");
                 return;
             }
             if(isCorrect) {
                 userPoints += 100;
                 updatePointDisplay();
-                localStorage.setItem(quizDateKey, 'true');
                 localStorage.setItem('ahm_quiz_solved_today', 'true');
+                localStorage.setItem('ahm_quiz_last_date', todayStr);
                 if(msgEl) {
                     msgEl.style.color = '#16a34a';
                     msgEl.innerHTML = `🎉 정답입니다! +100 포인트 적립!<br><span style="font-size:11px; font-weight:normal; color:#475569;">${expText}</span>`;
@@ -1585,7 +1606,7 @@
             if(!container) return;
             const waterDone = currentWater >= 1000;
             const stepDone = stepCount >= 3000;
-            const quizDone = (localStorage.getItem('ahm_quiz_solved_today') === 'true' || localStorage.getItem('ahm_quiz_done_' + new Date().toLocaleDateString()) === 'true');
+            const quizDone = (localStorage.getItem('ahm_quiz_solved_today') === 'true');
             const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             const medDone = medList.length > 0;
             const badges = [
@@ -1610,7 +1631,7 @@
         }
   
         function spinRoulette() {
-            const nowStr = new Date().toLocaleDateString();
+            const nowStr = new Date().toDateString();
             const lastSpinDate = localStorage.getItem('ahm_last_spin_date');
             if(lastSpinDate === nowStr) {
                 showToast("⚠ 오늘은 이미 룰렛을 돌리셨습니다! 내일 다시 참여해 주세요.");
@@ -2383,6 +2404,8 @@
                 runAiDiagnostic();
             } else if(id === 'badgeModal') {
                 renderBadgeSystem();
+            } else if(id === 'quizModal') {
+                loadDailyQuiz();
             }
         }
     
