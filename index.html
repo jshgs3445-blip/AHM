@@ -440,11 +440,11 @@
                 
                 <div class="login-input-group">
                     <label>이메일 주소 (ID)</label>
-                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력" value="jshgs3445@gmail.com">
+                    <input type="text" id="loginEmailInput" class="login-input" placeholder="이메일 입력" value="">
                 </div>
                 <div class="login-input-group">
                     <label>비밀번호</label>
-                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력" value="••••••••">
+                    <input type="password" id="loginPwInput" class="login-input" placeholder="비밀번호 입력" value="">
                 </div>
                 <div class="auto-login-wrap" onclick="toggleAutoLogin()">
                     <input type="checkbox" id="autoLoginCheck" style="width: 16px; height: 16px; cursor: pointer;">
@@ -531,7 +531,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- [섹션 3] [스마트 관리 도구] - 일상 기록 바로 아래로 이동 배치 -->
+                <!-- [섹션 3] [스마트 관리 도구] -->
                 <div class="card" style="margin-top: 6px;">
                     <div class="card-title" style="color: var(--primary-color);"><i class="fa-solid fa-toolbox"></i> 스마트 관리 도구 (추이 그래프 연동)</div>
                     <div class="grid-3">
@@ -690,7 +690,7 @@
         </div>
     
         <!-- 모달 영역들 -->
-        <!-- 포털 검색 모달 (11번가 블루, 인터파크 바이올렛 반영 및 5개씩 2줄 정렬) -->
+        <!-- 포털 검색 모달 -->
         <div id="portalSearchModal" class="custom-modal" onclick="if(event.target === this) closeModal('portalSearchModal')">
             <div class="modal-content" style="max-width: 380px;">
                 <div class="modal-header">
@@ -921,6 +921,7 @@
                             </label>
                         </div>
                     </div>
+                    <!-- 🔥 [로그아웃 버튼: 세션 삭제 + 아이디/비밀번호 입력창 완벽 초기화] -->
                     <button type="button" style="background: #ef4444; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 2px;" onclick="executeLogout()">로그아웃</button>
                 </div>
             </div>
@@ -1379,7 +1380,7 @@
         function fallbackCopyTextToClipboard(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
-            textArea.style.position = "fixed";  // Avoid scrolling to bottom
+            textArea.style.position = "fixed";
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
@@ -1869,17 +1870,28 @@
             }
         }
     
+        // 🔥 [로그아웃 기능: 세션 삭제 + 자동 로그인 해제 + 로그인 입력창(ID/PW) 완벽 초기화]
         function executeLogout() {
+            // 1. 세션 및 로컬스토리지 로그인 정보 정리
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
             
+            // 2. 자동 로그인 체크박스 해제
             const autoChk = document.getElementById('autoLoginCheck');
             if(autoChk) autoChk.checked = false;
             
+            // 3. 로그인 화면의 아이디(이메일)와 비밀번호 입력창 값을 완전히 비우기
+            const emailInput = document.getElementById('loginEmailInput');
+            const pwInput = document.getElementById('loginPwInput');
+            if(emailInput) emailInput.value = '';
+            if(pwInput) pwInput.value = '';
+            
+            // 4. 열려있는 모든 모달창 닫기
             const modals = document.querySelectorAll('.custom-modal');
             modals.forEach(m => m.classList.remove('active'));
             
+            // 5. 화면 전환 (메인 숨기고 로그인 화면 표시)
             const mainScreen = document.getElementById('mainScreen');
             const loginScreen = document.getElementById('loginScreen');
             
