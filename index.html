@@ -6,7 +6,7 @@
     <title>AHM - AI Health Manager</title>
     
     <!-- 스마트폰 홈 화면 추가 및 내장 PWA 아이콘 설정 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="no">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="AHM">
     <meta name="theme-color" content="#1d4ed8">
@@ -472,6 +472,7 @@
             <div class="app-header">
                 <h1>AI Health 매니저 <span id="userRoleBadge" style="font-size: 11px; font-weight: normal; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 8px;">회원</span></h1>
                 <div class="header-icons">
+                    <i class="fa-solid fa-link" style="color: #fbbf24;" onclick="shareAppUrl()" title="링크 복사하기"></i>
                     <i class="fa-solid fa-globe" style="color: #60a5fa;" onclick="openModal('portalSearchModal')" title="포털 검색"></i>
                     <i class="fa-solid fa-coins" style="color: #fbbf24;" onclick="openModal('rewardModal')" title="포인트 보관함"></i>
                     <i class="fa-solid fa-chart-pie" onclick="openModal('dashboardModal')" title="대시보드 요약"></i>
@@ -628,7 +629,7 @@
                 </div>
                 <div style="height: 12px;"></div>
     
-                <!-- [복원됨] 건강 핫플 & 정보광장 -->
+                <!-- 건강 핫플 & 정보광장 -->
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: var(--primary-color); justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 핫플 & 정보광장</span>
@@ -662,7 +663,7 @@
                     </div>
                 </div>
     
-                <!-- [복원됨] 오늘의 말씀 영역 -->
+                <!-- 오늘의 말씀 영역 -->
                 <div class="card" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff); border-color: #e9d5ff;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
                         <div style="font-size: 13px; font-weight: 700; color: #7e22ce; display: flex; align-items: center; gap: 5px;">
@@ -678,7 +679,7 @@
                     <p style="font-size: 12px; color: #6b21a8; line-height: 1.4;" id="displayBibleDesc">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</p>
                 </div>
     
-                <!-- [복원됨] 건강보험 바로 연결 -->
+                <!-- 건강보험 바로 연결 -->
                 <div class="card" style="background: #f0f9ff; border-color: #bae6fd; padding: 12px; margin-bottom: 0;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div>
@@ -1047,8 +1048,8 @@
                     <button type="button" class="close-modal-btn" onclick="closeModal('adminBibleModal')">&times;</button>
                 </div>
                 <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
-                    <label>구절 제목 (예: 요일 5:14): <input type="text" id="adminBibleTitleInput" value="요일 5:14" style="width:100%; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
-                    <label>말씀 내용: <textarea id="adminBibleDescInput" style="width:100%; height:80px; padding:8px; border-radius:8px; border:1px solid #cbd5e1;">그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라</textarea></label>
+                    <label>구절 제목 (예: 잠 8:5): <input type="text" id="adminBibleTitleInput" value="잠 8:5" style="width:100%; padding:8px; border-radius:8px; border:1px solid #cbd5e1;"></label>
+                    <label>말씀 내용: <textarea id="adminBibleDescInput" style="width:100%; height:80px; padding:8px; border-radius:8px; border:1px solid #cbd5e1;">오 단순한 자들아, 너희는 지혜를 깨달으라. 너희 어리석은 자들아, 너희는 명철한 마음을 가질지다.</textarea></label>
                     <button type="button" class="action-btn" onclick="saveAdminBible()">오늘의 말씀 게시하기</button>
                 </div>
             </div>
@@ -1366,6 +1367,39 @@
             return aiEncourageMessages[randomIndex];
         }
   
+        function shareAppUrl() {
+            const currentUrl = window.location.href;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(currentUrl).then(() => {
+                    showToast("✨ 앱 링크가 클립보드에 복사되었습니다! 카카오톡이나 메시지에 붙여넣기 하세요.");
+                }).catch(err => {
+                    fallbackCopyTextToClipboard(currentUrl);
+                });
+            } else {
+                fallbackCopyTextToClipboard(currentUrl);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";  // Avoid scrolling to bottom
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("✨ 앱 링크가 복사되었습니다!");
+                } else {
+                    showToast("⚠ 링크 복사에 실패했습니다.");
+                }
+            } catch (err) {
+                showToast("⚠ 링크 복사를 지원하지 않는 환경입니다.");
+            }
+            document.body.removeChild(textArea);
+        }
+
         function executePortalDirectSearch(engine) {
             const query = document.getElementById('portalSearchInput').value.trim();
             if(!query) {
@@ -1905,8 +1939,8 @@
     
         function loadSavedBible24h() {
             let activeBible = JSON.parse(localStorage.getItem('ahm_bible_active')) || {
-                title: "오늘의 말씀 (요일 5:14)",
-                desc: "그를 향하여 우리가 가진 바 담대함이 이것이니 그의 뜻대로 무엇을 구하면 들으심이라",
+                title: "오늘의 말씀 (잠 8:5)",
+                desc: "오 단순한 자들아, 너희는 지혜를 깨달으라. 너희 어리석은 자들아, 너희는 명철한 마음을 가질지다.",
                 date: "2026.10.26"
             };
             applyBibleToScreen(activeBible);
