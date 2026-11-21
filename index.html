@@ -617,7 +617,7 @@
                 <div class="grid-2">
                     <div class="card" style="margin-bottom: 0; background: #eff6ff; border-color: #bfdbfe; cursor: pointer; padding: 12px;" onclick="openModal('statModal')">
                         <div class="card-title" style="color: var(--primary-color); margin-bottom: 2px; font-size: 12px;"><i class="fa-solid fa-chart-line"></i> 주간 복용 달성률</div>
-                        <p style="font-size: 14px; font-weight: 700; color: #1e40af;">85% <i class="fa-solid fa-chevron-right" style="font-size: 10px; float: right;"></i></p>
+                        <p style="font-size: 14px; font-weight: 700; color: #1e40af;"><span id="mainWeeklyRateDisplay">0%</span> <i class="fa-solid fa-chevron-right" style="font-size: 10px; float: right;"></i></p>
                     </div>
                     <div class="card" style="margin-bottom: 0; background: #eff6ff; border-color: #bfdbfe; cursor: pointer; padding: 12px;" onclick="openModal('alarmModal')">
                         <div class="card-title" style="color: var(--primary-color); margin-bottom: 2px; font-size: 12px;"><i class="fa-regular fa-clock"></i> 푸시 복용 알림</div>
@@ -846,7 +846,7 @@
                     <div id="calDaysGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center;"></div>
                     <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1;">
                         <b style="font-size: 12px; color: #334155;"><i class="fa-solid fa-circle-info" style="color:var(--primary-color);"></i> 선택일 복용 리스트 및 도트 안내</b>
-                        <p style="font-size: 11.5px; color: #64748b; margin-top: 4px;" id="calSelectedDateInfo">날짜를 터치하면 등록된 복용약 기록과 체크 여부가 표시됩니다.</p>
+                        <p style="font-size: 11.5px; color: #64748b; margin-top: 4px;" id="calSelectedDateInfo">날짜를 터치하면 복용 체크 상태를 관리할 수 있습니다.</p>
                         <div id="calMedListPreview" style="margin-top: 6px; display: flex; flex-direction: column; gap: 4px;"></div>
                     </div>
                 </div>
@@ -921,7 +921,6 @@
                             </label>
                         </div>
                     </div>
-                    <!-- 🔥 [로그아웃 버튼: 세션 삭제 + 아이디/비밀번호 입력창 완벽 초기화] -->
                     <button type="button" style="background: #ef4444; color: white; border: none; padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 2px;" onclick="executeLogout()">로그아웃</button>
                 </div>
             </div>
@@ -999,8 +998,8 @@
                     <div style="background: #eff6ff; padding: 12px; border-radius: 10px; border: 1px solid #bfdbfe;">
                         <b>✨ 오늘의 건강 요약</b>
                         <p style="margin-top: 6px; font-size: 12px; color: #1e40af; line-height: 1.5;">
-                            복용 달성률: 85% 우수<br>
-                            물 섭취량: <span id="dashWaterDisplay">500</span> ml<br>
+                            복용 달성률: <span id="dashWeeklyRateDisplay">0%</span><br>
+                            물 섭취량: <span id="dashWaterDisplay">0</span> ml<br>
                             만보기 걸음: <span id="dashStepDisplay">0</span> 걸음<br>
                             최근 체중: <span id="dashWeightDisplay">65.5</span> kg<br>
                             최근 혈압: <span id="dashBpDisplay">120 / 80</span> mmHg<br>
@@ -1027,7 +1026,7 @@
                     <div style="background: #faf5ff; padding: 12px; border-radius: 10px; border: 1px solid #e9d5ff;">
                         <b style="color: #7e22ce;">✨ 1개월 토탈 누적 요약</b>
                         <p style="margin-top: 6px; font-size: 12px; color: #6b21a8; line-height: 1.5;" id="monthlySummaryText">
-                            총 기록일수: 1일<br>평균 물 섭취량: 500 ml<br>평균 체중: 65.5 kg<br>평균 혈당: 105 mg/dL
+                            총 기록일수: 1일<br>평균 물 섭취량: 0 ml<br>평균 체중: 65.5 kg<br>평균 혈당: 105 mg/dL
                         </p>
                     </div>
                     <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid #cbd5e1; max-height: 180px; overflow-y: auto;">
@@ -1248,8 +1247,9 @@
                     <h3>📊 주간 통계</h3>
                     <button type="button" class="close-modal-btn" onclick="closeModal('statModal')">&times;</button>
                 </div>
-                <div style="font-size: 14px; color: #334155;">
-                    <p>이번 주 복용 달성률은 <b>85%</b>입니다!</p>
+                <div style="font-size: 14px; color: #334155; line-height: 1.6;">
+                    <p>최근 7일 복용 달성률은 <b id="statWeeklyRateDisplay">0%</b>입니다!</p>
+                    <p id="statWeeklyDetail" style="font-size: 12px; color: #64748b; margin-top: 6px;"></p>
                 </div>
             </div>
         </div>
@@ -1266,7 +1266,7 @@
         <div id="waterModal" class="custom-modal" onclick="if(event.target === this) closeModal('waterModal')">
             <div class="modal-content" style="text-align: center;">
                 <div class="modal-header"><h3>💧 물 섭취량</h3><button type="button" class="close-modal-btn" onclick="closeModal('waterModal')">&times;</button></div>
-                <div style="font-size: 28px; font-weight: 700; color: #0284c7; margin: 15px 0;"><span id="waterAmount">500</span> ml</div>
+                <div style="font-size: 28px; font-weight: 700; color: #0284c7; margin: 15px 0;"><span id="waterAmount">0</span> ml</div>
                 <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;">
                     <button type="button" onclick="addWater(250)" style="padding: 8px 14px; border-radius: 8px; border:1px solid #cbd5e1; cursor:pointer;">+ 250ml</button>
                     <button type="button" onclick="addWater(500)" style="padding: 8px 14px; border-radius: 8px; border:1px solid #cbd5e1; cursor:pointer;">+ 500ml</button>
@@ -1335,7 +1335,40 @@
     </div>
     
     <script>
-        let currentWater = parseInt(localStorage.getItem('ahm_water') || '500');
+        // 날짜 유틸리티 함수 (YYYY-MM-DD 및 YYYY.MM.DD)
+        function getTodayIsoKey() {
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function formatDotDate(year, monthIndex, day) {
+            return `${year}.${String(monthIndex + 1).padStart(2, '0')}.${String(day).padStart(2, '0')}`;
+        }
+
+        function dotToIsoKey(dotDateStr) {
+            const parts = dotDateStr.split('.');
+            if (parts.length !== 3) return dotDateStr;
+            return `${parts[0]}-${parts[1]}-${parts[2]}`;
+        }
+
+        // 물 섭취량: 날짜별로 분리 저장 (하루가 지나면 자동 0ml 시작)
+        function loadTodayWater() {
+            const key = 'ahm_water_' + getTodayIsoKey();
+            const saved = localStorage.getItem(key);
+            return saved !== null ? parseInt(saved, 10) : 0;
+        }
+
+        function saveTodayWater(amount) {
+            const key = 'ahm_water_' + getTodayIsoKey();
+            localStorage.setItem(key, String(amount));
+            localStorage.setItem('ahm_water_date', getTodayIsoKey());
+            localStorage.setItem('ahm_water', String(amount));
+        }
+
+        let currentWater = loadTodayWater();
         let stepCount = parseInt(localStorage.getItem('ahm_steps') || '0');
         let userPoints = parseInt(localStorage.getItem('ahm_points') || '300');
         
@@ -1352,6 +1385,11 @@
         
         let calCurrentYear = new Date().getFullYear();
         let calCurrentMonth = new Date().getMonth();
+        let calSelectedDotDate = formatDotDate(
+            new Date().getFullYear(),
+            new Date().getMonth(),
+            new Date().getDate()
+        );
         
         const aiEncourageMessages = [
             "오늘도 건강 습관을 지켜내셨군요! 정말 멋져요.",
@@ -1363,6 +1401,93 @@
         function getRandomAiMessage() {
             const randomIndex = Math.floor(Math.random() * aiEncourageMessages.length);
             return aiEncourageMessages[randomIndex];
+        }
+
+        // 복용 기록 관리 (날짜별 체크된 약 이름/ID 배열 저장)
+        function getMedLogs() {
+            try {
+                return JSON.parse(localStorage.getItem('ahm_med_logs') || '{}');
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveMedLogs(logs) {
+            localStorage.setItem('ahm_med_logs', JSON.stringify(logs));
+        }
+
+        function getAllTrackableMeds() {
+            const customList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            const defaultMeds = [
+                { id: 'rec_morning', name: '아침 비타민', time: '아침 식후' },
+                { id: 'rec_warning', name: '칼슘/철분 분리', time: '간격 확인' },
+                { id: 'rec_evening', name: '저녁 오메가3', time: '저녁 식후' }
+            ];
+            const mappedCustom = customList.map((m, idx) => ({
+                id: 'custom_' + idx + '_' + m.name,
+                name: m.name,
+                time: m.time
+            }));
+            return [...defaultMeds, ...mappedCustom];
+        }
+
+        function calculateWeeklyAdherenceRate() {
+            const logs = getMedLogs();
+            const meds = getAllTrackableMeds();
+            const perDayTotal = Math.max(meds.length, 1);
+
+            let checkedCount = 0;
+            const totalPossible = perDayTotal * 7;
+
+            for (let i = 0; i < 7; i++) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                const isoKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+                const dayChecked = Array.isArray(logs[isoKey]) ? logs[isoKey] : [];
+                checkedCount += Math.min(dayChecked.length, perDayTotal);
+            }
+
+            const rate = totalPossible > 0 ? Math.min(Math.round((checkedCount / totalPossible) * 100), 100) : 0;
+            return { rate, checkedCount, totalPossible };
+        }
+
+        function updateWeeklyRateUI() {
+            const { rate, checkedCount, totalPossible } = calculateWeeklyAdherenceRate();
+            const mainRateEl = document.getElementById('mainWeeklyRateDisplay');
+            const dashRateEl = document.getElementById('dashWeeklyRateDisplay');
+            const statRateEl = document.getElementById('statWeeklyRateDisplay');
+            const statDetailEl = document.getElementById('statWeeklyDetail');
+
+            if (mainRateEl) mainRateEl.textContent = `${rate}%`;
+            if (dashRateEl) dashRateEl.textContent = `${rate}%`;
+            if (statRateEl) statRateEl.textContent = `${rate}%`;
+            if (statDetailEl) {
+                statDetailEl.textContent = `최근 7일간 총 ${totalPossible}회 중 ${checkedCount}회 복용 체크 완료`;
+            }
+        }
+
+        function syncTodayRecommendationButtons() {
+            const logs = getMedLogs();
+            const todayKey = getTodayIsoKey();
+            const todayChecked = Array.isArray(logs[todayKey]) ? logs[todayKey] : [];
+
+            const btnMap = [
+                { btnId: 'btnMorning', label: '아침 비타민', defaultText: '먹었어요' },
+                { btnId: 'btnWarning', label: '칼슘/철분 분리', defaultText: '확인완료' },
+                { btnId: 'btnEvening', label: '저녁 오메가3', defaultText: '먹었어요' }
+            ];
+
+            btnMap.forEach(item => {
+                const btn = document.getElementById(item.btnId);
+                if (!btn) return;
+                if (todayChecked.includes(item.label)) {
+                    btn.classList.add('checked');
+                    btn.textContent = '완료!';
+                } else {
+                    btn.classList.remove('checked');
+                    btn.textContent = item.defaultText;
+                }
+            });
         }
   
         function shareAppUrl() {
@@ -1478,12 +1603,15 @@
         };
     
         window.onload = function() {
+            currentWater = loadTodayWater();
             loadSavedContent();
             loadSavedBible24h();
             initStepCounter();
             renderMedicineList();
             renderExpiryList();
             initAllCharts();
+            syncTodayRecommendationButtons();
+            updateWeeklyRateUI();
             updateDashboardValues();
             saveDailyRecordToMonthly();
             updatePointDisplay();
@@ -1731,6 +1859,7 @@
         }
     
         function updateDashboardValues() {
+            currentWater = loadTodayWater();
             const wAmt = document.getElementById('waterAmount');
             const dWater = document.getElementById('dashWaterDisplay');
             const dStep = document.getElementById('dashStepDisplay');
@@ -1745,7 +1874,7 @@
             if(dBp) dBp.textContent = latestBp;
             if(dBs) dBs.textContent = latestBs;
             
-            localStorage.setItem('ahm_water', currentWater);
+            updateWeeklyRateUI();
             saveDailyRecordToMonthly();
         }
     
@@ -1870,28 +1999,22 @@
             }
         }
     
-        // 🔥 [로그아웃 기능: 세션 삭제 + 자동 로그인 해제 + 로그인 입력창(ID/PW) 완벽 초기화]
         function executeLogout() {
-            // 1. 세션 및 로컬스토리지 로그인 정보 정리
             localStorage.setItem('ahm_auto_login', 'false');
             localStorage.removeItem('ahm_user_role');
             localStorage.removeItem('ahm_user_nick');
             
-            // 2. 자동 로그인 체크박스 해제
             const autoChk = document.getElementById('autoLoginCheck');
             if(autoChk) autoChk.checked = false;
             
-            // 3. 로그인 화면의 아이디(이메일)와 비밀번호 입력창 값을 완전히 비우기
             const emailInput = document.getElementById('loginEmailInput');
             const pwInput = document.getElementById('loginPwInput');
             if(emailInput) emailInput.value = '';
             if(pwInput) pwInput.value = '';
             
-            // 4. 열려있는 모든 모달창 닫기
             const modals = document.querySelectorAll('.custom-modal');
             modals.forEach(m => m.classList.remove('active'));
             
-            // 5. 화면 전환 (메인 숨기고 로그인 화면 표시)
             const mainScreen = document.getElementById('mainScreen');
             const loginScreen = document.getElementById('loginScreen');
             
@@ -2057,7 +2180,8 @@
                     if(nums) {
                         let val = parseInt(nums[0]);
                         if(text.includes('리터') && val < 10) val *= 1000;
-                        currentWater += val;
+                        currentWater = loadTodayWater() + val;
+                        saveTodayWater(currentWater);
                         successLogged = true;
                     }
                 }
@@ -2071,7 +2195,8 @@
                             localStorage.setItem('ahm_latest_weight', latestWeight);
                             successLogged = true;
                         } else if(val >= 200) {
-                            currentWater += val;
+                            currentWater = loadTodayWater() + val;
+                            saveTodayWater(currentWater);
                             successLogged = true;
                         }
                     }
@@ -2171,15 +2296,25 @@
         }
     
         function toggleTakeMed(btnId, name) {
-            const btn = document.getElementById(btnId);
-            if(btn.classList.contains('checked')) {
-                btn.classList.remove('checked');
-                btn.textContent = "먹었어요";
-                showToast(`${name} 취소됨`);
+            const todayKey = getTodayIsoKey();
+            const logs = getMedLogs();
+            const dayChecked = Array.isArray(logs[todayKey]) ? [...logs[todayKey]] : [];
+            const idx = dayChecked.indexOf(name);
+
+            if (idx >= 0) {
+                dayChecked.splice(idx, 1);
+                logs[todayKey] = dayChecked;
+                saveMedLogs(logs);
+                syncTodayRecommendationButtons();
+                updateWeeklyRateUI();
+                showToast(`${name} 오늘 기록 취소됨`);
             } else {
-                btn.classList.add('checked');
-                btn.textContent = "완료!";
-                showToast(`✨ [AI 비서] "${name} 완료!"`);
+                dayChecked.push(name);
+                logs[todayKey] = dayChecked;
+                saveMedLogs(logs);
+                syncTodayRecommendationButtons();
+                updateWeeklyRateUI();
+                showToast(`✨ [AI 비서] "${name} 오늘 복용 완료!"`);
             }
         }
     
@@ -2243,12 +2378,16 @@
         }
     
         function addWater(a) { 
-            currentWater += a; 
+            currentWater = loadTodayWater() + a;
+            saveTodayWater(currentWater);
             updateDashboardValues();
         }
     
         function saveWaterRecord() { 
-            showToast(`💧 물 ${currentWater}ml 기록 완료!`); 
+            currentWater = loadTodayWater();
+            saveTodayWater(currentWater);
+            updateDashboardValues();
+            showToast(`💧 오늘 물 ${currentWater}ml 기록 완료!`); 
             closeModal('waterModal'); 
         }
     
@@ -2263,6 +2402,7 @@
             localStorage.setItem('ahm_med_list', JSON.stringify(list));
             document.getElementById('inputNewMedicineNameText').value = '';
             renderMedicineList();
+            updateWeeklyRateUI();
             showToast(`💊 "${name}" 등록 완료!`);
         }
     
@@ -2286,6 +2426,7 @@
             list.splice(index, 1);
             localStorage.setItem('ahm_med_list', JSON.stringify(list));
             renderMedicineList();
+            updateWeeklyRateUI();
             showToast("🗑 복용약이 삭제되었습니다.");
         }
     
@@ -2335,21 +2476,33 @@
             const lastDate = new Date(year, month + 1, 0).getDate();
             const grid = document.getElementById('calDaysGrid');
             if(!grid) return;
+
+            const logs = getMedLogs();
+            const todayIso = getTodayIsoKey();
             
             let html = '';
             for (let i = 0; i < firstDay; i++) { html += `<div></div>`; }
-            const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
             for (let d = 1; d <= lastDate; d++) {
-                const dateStr = `${year}.${String(month+1).padStart(2,'0')}.${String(d).padStart(2,'0')}`;
-                const hasMeds = medList.length > 0;
-                html += `<div onclick="selectCalendarDate('${dateStr}')" style="padding: 6px 2px; border-radius: 8px; background: white; border: 1px solid #e2e8f0; cursor: pointer; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-                    <span style="font-size: 11.5px; font-weight: 700; color: #1e293b;">${d}</span>
+                const dotDateStr = formatDotDate(year, month, d);
+                const isoKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const dayChecked = Array.isArray(logs[isoKey]) ? logs[isoKey] : [];
+                const hasCheckedLog = dayChecked.length > 0;
+                const isSelected = (calSelectedDotDate === dotDateStr);
+                const isToday = (isoKey === todayIso);
+
+                const borderStyle = isSelected
+                    ? '2px solid #1d4ed8; background: #eff6ff;'
+                    : (isToday ? '1px solid #60a5fa; background: #f8fafc;' : '1px solid #e2e8f0; background: white;');
+
+                html += `<div onclick="selectCalendarDate('${dotDateStr}')" style="padding: 6px 2px; border-radius: 8px; ${borderStyle} cursor: pointer; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                    <span style="font-size: 11.5px; font-weight: 700; color: ${isToday ? '#1d4ed8' : '#1e293b'};">${d}</span>
                     <div style="display: flex; gap: 2px; height: 6px;">
-                        ${hasMeds ? '<span style="width: 5px; height: 5px; background: #2563eb; border-radius: 50%;"></span>' : ''}
+                        ${hasCheckedLog ? '<span style="width: 5px; height: 5px; background: #2563eb; border-radius: 50%;"></span>' : ''}
                     </div>
                 </div>`;
             }
             grid.innerHTML = html;
+            selectCalendarDate(calSelectedDotDate, true);
         }
   
         function changeCalendarMonth(direction) {
@@ -2358,24 +2511,73 @@
             else if (calCurrentMonth < 0) { calCurrentMonth = 11; calCurrentYear--; }
             renderMedCalendar();
         }
+
+        function toggleCalendarMedCheck(dotDateStr, medName) {
+            const isoKey = dotToIsoKey(dotDateStr);
+            const todayIso = getTodayIsoKey();
+            if (isoKey > todayIso) {
+                showToast("⚠ 아직 오지 않은 날짜는 미리 복용 체크할 수 없습니다.");
+                return;
+            }
+
+            const logs = getMedLogs();
+            const dayChecked = Array.isArray(logs[isoKey]) ? [...logs[isoKey]] : [];
+            const idx = dayChecked.indexOf(medName);
+
+            if (idx >= 0) {
+                dayChecked.splice(idx, 1);
+            } else {
+                dayChecked.push(medName);
+            }
+            logs[isoKey] = dayChecked;
+            saveMedLogs(logs);
+
+            syncTodayRecommendationButtons();
+            updateWeeklyRateUI();
+            renderMedCalendar();
+        }
   
-        function selectCalendarDate(dateStr) {
+        function selectCalendarDate(dateStr, skipRedraw = false) {
+            calSelectedDotDate = dateStr;
+            const isoKey = dotToIsoKey(dateStr);
+            const todayIso = getTodayIsoKey();
+            const isFuture = isoKey > todayIso;
+
             const infoEl = document.getElementById('calSelectedDateInfo');
-            if(infoEl) infoEl.textContent = `선택한 날짜: ${dateStr}`;
+            if (infoEl) {
+                if (isFuture) {
+                    infoEl.textContent = `선택한 날짜: ${dateStr} (예정된 날짜 · 아직 복용 기록 없음)`;
+                } else {
+                    infoEl.textContent = `선택한 날짜: ${dateStr} (항목을 눌러 복용 체크/해제)`;
+                }
+            }
             
-            const medList = JSON.parse(localStorage.getItem('ahm_med_list') || '[]');
+            const meds = getAllTrackableMeds();
+            const logs = getMedLogs();
+            const dayChecked = Array.isArray(logs[isoKey]) ? logs[isoKey] : [];
             const container = document.getElementById('calMedListPreview');
             if(!container) return;
             
-            if (medList.length === 0) { container.innerHTML = `<p style="font-size: 11px; color: #94a3b8;">이 날 등록된 복용약이 없습니다.</p>`; return; }
             let html = '';
-            medList.forEach((item) => {
-                html += `<div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 6px 8px; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 11.5px;">
-                    <span><b>✅ ${item.name}</b> (${item.time})</span>
-                    <span style="color: #16a34a; font-weight: 700; font-size: 10px;">복용 완료</span>
+            meds.forEach((item) => {
+                const isChecked = !isFuture && dayChecked.includes(item.name);
+                const statusBadge = isFuture
+                    ? `<span style="color: #94a3b8; font-weight: 600; font-size: 10px;">예정</span>`
+                    : (isChecked
+                        ? `<span style="color: #16a34a; font-weight: 700; font-size: 10px;">복용 완료</span>`
+                        : `<span style="color: #64748b; font-weight: 600; font-size: 10px;">미복용</span>`);
+
+                const safeName = item.name.replace(/'/g, "\\'");
+                html += `<div onclick="toggleCalendarMedCheck('${dateStr}', '${safeName}')" style="display: flex; justify-content: space-between; align-items: center; background: ${isChecked ? '#f0fdf4' : 'white'}; padding: 6px 8px; border-radius: 6px; border: 1px solid ${isChecked ? '#bbf7d0' : '#e2e8f0'}; font-size: 11.5px; cursor: pointer;">
+                    <span><b>${isChecked ? '✅' : '⬜'} ${item.name}</b> (${item.time})</span>
+                    ${statusBadge}
                 </div>`;
             });
             container.innerHTML = html;
+
+            if (!skipRedraw) {
+                renderMedCalendar();
+            }
         }
     
         function showToast(msg) {
@@ -2403,6 +2605,8 @@
                 if(bsChartInstance) bsChartInstance.update();
             } else if(id === 'waterModal') {
                 updateDashboardValues();
+            } else if(id === 'statModal') {
+                updateWeeklyRateUI();
             } else if(id === 'compatibilityModal') {
                 const sText = document.getElementById('inputSearchQueryText');
                 const sArea = document.getElementById('searchResultArea');
@@ -2438,6 +2642,10 @@
             } else if(id === 'bibleHistoryModal') {
                 renderBibleHistory();
             } else if(id === 'medCalendarModal') {
+                const now = new Date();
+                calCurrentYear = now.getFullYear();
+                calCurrentMonth = now.getMonth();
+                calSelectedDotDate = formatDotDate(now.getFullYear(), now.getMonth(), now.getDate());
                 renderMedCalendar();
             } else if(id === 'nutritionDiagnosticModal') {
                 runAiDiagnostic();
