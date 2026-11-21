@@ -630,7 +630,8 @@
                 <div class="card" style="background: linear-gradient(135deg, #eff6ff, #f8fafc); border-color: #bfdbfe;">
                     <div class="card-title" style="color: var(--primary-color); justify-content: space-between; margin-bottom: 10px;">
                         <span><i class="fa-solid fa-newspaper"></i> 건강 핫플 & 정보광장</span>
-                        <span id="adminAddBtnWrap" style="display: inline-block;">
+                        <span id="adminAddBtnWrap" style="display: inline-flex; gap: 4px; align-items: center;">
+                            <button type="button" onclick="openModal('memberStatusModal')" style="background: #0f766e; color: white; border: none; padding: 3px 7px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">👥 회원 현황</button>
                             <button type="button" onclick="openModal('adminPostModal')" style="background: var(--primary-color); color: white; border: none; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer;">+ 콘텐츠 등록</button>
                         </span>
                     </div>
@@ -690,6 +691,28 @@
         </div>
     
         <!-- 모달 영역들 -->
+        <!-- 관리자 전용: 회원 가입 현황 모달 -->
+        <div id="memberStatusModal" class="custom-modal" onclick="if(event.target === this) closeModal('memberStatusModal')">
+            <div class="modal-content" style="max-width: 370px;">
+                <div class="modal-header">
+                    <h3>👥 회원 가입 현황 (관리자)</h3>
+                    <button type="button" class="close-modal-btn" onclick="closeModal('memberStatusModal')">&times;</button>
+                </div>
+                <div style="font-size: 13px; color: #334155; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="background: #f0fdfa; padding: 10px 12px; border-radius: 10px; border: 1px solid #99f6e4; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 700; color: #0f766e; font-size: 12px;">등록된 회원 수</span>
+                        <span style="font-weight: 700; color: #115e59; font-size: 14px;" id="memberTotalCountBadge">0명</span>
+                    </div>
+                    <div id="memberListContainer" style="max-height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                        <p style="font-size: 12px; color: #64748b; text-align: center; padding: 12px 0;">가입된 회원 데이터가 없습니다.</p>
+                    </div>
+                    <p style="font-size: 10.5px; color: #94a3b8; line-height: 1.4;">
+                        ※ 현재 브라우저(localStorage) 기준으로 저장된 회원가입 내역이 표시됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- 포털 검색 모달 -->
         <div id="portalSearchModal" class="custom-modal" onclick="if(event.target === this) closeModal('portalSearchModal')">
             <div class="modal-content" style="max-width: 380px;">
@@ -1335,7 +1358,6 @@
     </div>
     
     <script>
-        // 날짜 유틸리티 함수 (YYYY-MM-DD 및 YYYY.MM.DD)
         function getTodayIsoKey() {
             const now = new Date();
             const y = now.getFullYear();
@@ -1354,7 +1376,6 @@
             return `${parts[0]}-${parts[1]}-${parts[2]}`;
         }
 
-        // 물 섭취량: 날짜별로 분리 저장 (하루가 지나면 자동 0ml 시작)
         function loadTodayWater() {
             const key = 'ahm_water_' + getTodayIsoKey();
             const saved = localStorage.getItem(key);
@@ -1366,6 +1387,67 @@
             localStorage.setItem(key, String(amount));
             localStorage.setItem('ahm_water_date', getTodayIsoKey());
             localStorage.setItem('ahm_water', String(amount));
+        }
+
+        // 회원 가입 현황 관리
+        function getMemberList() {
+            try {
+                return JSON.parse(localStorage.getItem('ahm_member_list') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveMemberList(list) {
+            localStorage.setItem('ahm_member_list', JSON.stringify(list));
+        }
+
+        function addMemberRecord(name, email, type = '일반 회원가입') {
+            const list = getMemberList();
+            const now = new Date();
+            const joinedAt = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            list.unshift({
+                id: Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+                name,
+                email,
+                type,
+                joinedAt
+            });
+            saveMemberList(list);
+        }
+
+        function deleteMemberRecord(memberId) {
+            const list = getMemberList().filter(item => item.id !== memberId);
+            saveMemberList(list);
+            renderMemberStatus();
+            showToast('🗑 회원 기록이 삭제되었습니다.');
+        }
+
+        function renderMemberStatus() {
+            const container = document.getElementById('memberListContainer');
+            const badge = document.getElementById('memberTotalCountBadge');
+            const list = getMemberList();
+
+            if (badge) badge.textContent = `${list.length}명`;
+            if (!container) return;
+
+            if (list.length === 0) {
+                container.innerHTML = `<p style="font-size: 12px; color: #64748b; text-align: center; padding: 14px 0;">아직 가입된 회원이 없습니다.<br>회원가입 모달에서 가입하면 이곳에 표시됩니다.</p>`;
+                return;
+            }
+
+            let html = '';
+            list.forEach(member => {
+                html += `<div style="background: #f8fafc; padding: 10px 12px; border-radius: 10px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                    <div style="min-width: 0;">
+                        <div style="font-size: 12.5px; font-weight: 700; color: #1e293b;">${member.name} <span style="font-size: 10px; font-weight: 600; color: #0f766e; background: #ccfbf1; padding: 1px 6px; border-radius: 6px; margin-left: 4px;">${member.type}</span></div>
+                        <div style="font-size: 11px; color: #475569; margin-top: 2px; word-break: break-all;">${member.email}</div>
+                        <div style="font-size: 10px; color: #94a3b8; margin-top: 2px;">가입일: ${member.joinedAt}</div>
+                    </div>
+                    <button type="button" onclick="deleteMemberRecord('${member.id}')" style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer; flex-shrink: 0;">삭제</button>
+                </div>`;
+            });
+            container.innerHTML = html;
         }
 
         let currentWater = loadTodayWater();
@@ -1403,7 +1485,6 @@
             return aiEncourageMessages[randomIndex];
         }
 
-        // 복용 기록 관리 (날짜별 체크된 약 이름/ID 배열 저장)
         function getMedLogs() {
             try {
                 return JSON.parse(localStorage.getItem('ahm_med_logs') || '{}');
@@ -1926,8 +2007,14 @@
             const email = document.getElementById('signupEmailInput').value.trim();
             const pw = document.getElementById('signupPwInput').value.trim();
             if(!name || !email || !pw) { showToast("⚠ 모든 정보를 입력해주세요."); return; }
+
+            addMemberRecord(name, email, '정식 회원');
             localStorage.setItem('ahm_user_role', '회원');
             localStorage.setItem('ahm_user_nick', name);
+            document.getElementById('signupNameInput').value = '';
+            document.getElementById('signupEmailInput').value = '';
+            document.getElementById('signupPwInput').value = '';
+
             showToast("✨ 회원가입 완료!");
             closeModal('signupModal');
             enterMainScreen(name, "회원");
@@ -1991,7 +2078,7 @@
             const adminWrap1 = document.getElementById('adminAddBtnWrap');
             const adminWrap2 = document.getElementById('adminBibleBtnWrap');
             if(roleText === '관리자') {
-                if(adminWrap1) adminWrap1.style.display = 'inline-block';
+                if(adminWrap1) adminWrap1.style.display = 'inline-flex';
                 if(adminWrap2) adminWrap2.style.display = 'inline-block';
             } else {
                 if(adminWrap1) adminWrap1.style.display = 'none';
@@ -2592,7 +2679,9 @@
             const modal = document.getElementById(id);
             if(modal) modal.classList.add('active'); 
             
-            if(id === 'weightModal') {
+            if(id === 'memberStatusModal') {
+                renderMemberStatus();
+            } else if(id === 'weightModal') {
                 const wInput = document.getElementById('weightInput');
                 if(wInput) wInput.value = latestWeight;
                 if(weightChartInstance) weightChartInstance.update();
